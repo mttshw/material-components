@@ -1,1 +1,0 @@
-{"version":3,"file":"icon-button.d.ts","sourceRoot":"","sources":["../../../../src/components/icon-button/icon-button.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,0BAA0B,CAAC;AAIrD,qBAAa,YAAa,SAAQ,SAAS;IACzC,MAAM,CAAC,kBAAkB,WAAyC;IAElE,OAAO,CAAC,OAAO,CAA0B;;IAOzC,SAAS,CAAC,MAAM,IAAI,IAAI;IAcxB,SAAS,CAAC,OAAO,IAAI,IAAI;CAG1B"}
