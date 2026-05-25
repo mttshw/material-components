@@ -1,0 +1,37 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Typography — materialcomponents.io" %}
+
+{% block content %}
+<h1>Typography</h1>
+<p>Use typography to present your design and content as clearly and efficiently as possible.</p>
+
+<h2>Variants</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:8px">
+  <mc-typography variant="h1">h1. Heading</mc-typography>
+  <mc-typography variant="h2">h2. Heading</mc-typography>
+  <mc-typography variant="h3">h3. Heading</mc-typography>
+  <mc-typography variant="h4">h4. Heading</mc-typography>
+  <mc-typography variant="h5">h5. Heading</mc-typography>
+  <mc-typography variant="h6">h6. Heading</mc-typography>
+  <mc-typography variant="subtitle1">subtitle1. Lorem ipsum dolor sit amet.</mc-typography>
+  <mc-typography variant="subtitle2">subtitle2. Lorem ipsum dolor sit amet.</mc-typography>
+  <mc-typography variant="body1">body1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</mc-typography>
+  <mc-typography variant="body2">body2. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</mc-typography>
+  <mc-typography variant="button">button text</mc-typography>
+  <mc-typography variant="caption">caption text</mc-typography>
+  <mc-typography variant="overline">overline text</mc-typography>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>h1–h6 | subtitle1/2 | body1/2 | button | caption | overline</td><td>body1</td><td>Applies the theme typography styles.</td></tr>
+    <tr><td><code>color</code></td><td>initial | inherit | primary | secondary | textPrimary | textSecondary | error</td><td>initial</td><td>The text color.</td></tr>
+    <tr><td><code>align</code></td><td>inherit | left | center | right | justify</td><td>inherit</td><td>Text alignment.</td></tr>
+    <tr><td><code>gutter-bottom</code></td><td>boolean</td><td>false</td><td>Adds 0.35em bottom margin.</td></tr>
+    <tr><td><code>no-wrap</code></td><td>boolean</td><td>false</td><td>Truncates with ellipsis.</td></tr>
+    <tr><td><code>component</code></td><td>string</td><td>(variant default)</td><td>Override the rendered HTML element.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

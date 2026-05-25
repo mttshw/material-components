@@ -1,0 +1,23 @@
+{
+  "name": "materialcomponents",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "dev": "npm run build:core && node packages/demo/server.js",
+    "build:core": "npm run build --workspace=packages/core",
+    "test": "web-test-runner --coverage",
+    "test:visual": "playwright test tests/visual/",
+    "lint": "eslint packages/ --ext .ts",
+    "format": "prettier --write packages/",
+    "new": "tsx scripts/generate-component.ts"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.13.0",
+    "@typescript-eslint/parser": "^7.13.0",
+    "esbuild": "^0.21.5",
+    "eslint": "^8.57.0",
+    "prettier": "^3.3.2",
+    "tsx": "^4.15.7",
+    "typescript": "^5.5.2"
+  }
+}

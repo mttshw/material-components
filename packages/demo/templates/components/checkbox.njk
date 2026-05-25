@@ -1,0 +1,76 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Checkbox — materialcomponents.io" %}
+
+{% block content %}
+<h1>Checkbox</h1>
+<p>Checkboxes allow the user to select one or more items from a set.</p>
+
+<h2>Basic</h2>
+<section class="demo-section">
+  <mc-checkbox></mc-checkbox>
+  <mc-checkbox checked></mc-checkbox>
+  <mc-checkbox indeterminate></mc-checkbox>
+</section>
+<code-sample>
+&lt;mc-checkbox&gt;&lt;/mc-checkbox&gt;
+&lt;mc-checkbox checked&gt;&lt;/mc-checkbox&gt;
+&lt;mc-checkbox indeterminate&gt;&lt;/mc-checkbox&gt;
+</code-sample>
+
+<h2>Colors</h2>
+<section class="demo-section">
+  <mc-checkbox checked color="primary"></mc-checkbox>
+  <mc-checkbox checked color="secondary"></mc-checkbox>
+  <mc-checkbox checked color="error"></mc-checkbox>
+  <mc-checkbox checked color="warning"></mc-checkbox>
+  <mc-checkbox checked color="info"></mc-checkbox>
+  <mc-checkbox checked color="success"></mc-checkbox>
+</section>
+
+<h2>Disabled</h2>
+<section class="demo-section">
+  <mc-checkbox disabled></mc-checkbox>
+  <mc-checkbox checked disabled></mc-checkbox>
+  <mc-checkbox indeterminate disabled></mc-checkbox>
+</section>
+
+<h2>With Label</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:8px">
+  <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+    <mc-checkbox id="cb1"></mc-checkbox>
+    <mc-typography variant="body1">Accept terms and conditions</mc-typography>
+  </label>
+  <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+    <mc-checkbox id="cb2" checked></mc-checkbox>
+    <mc-typography variant="body1">Subscribe to newsletter</mc-typography>
+  </label>
+</section>
+<code-sample>
+&lt;label style="display:flex;align-items:center;gap:4px"&gt;
+  &lt;mc-checkbox&gt;&lt;/mc-checkbox&gt;
+  Accept terms and conditions
+&lt;/label&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>checked</code></td><td>boolean</td><td>false</td><td>Whether the checkbox is checked.</td></tr>
+    <tr><td><code>indeterminate</code></td><td>boolean</td><td>false</td><td>Indeterminate state (overrides checked visually).</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables the checkbox.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary | error | warning | info | success</td><td>primary</td><td>The color palette to use.</td></tr>
+    <tr><td><code>value</code></td><td>string</td><td>on</td><td>The value submitted with the form.</td></tr>
+    <tr><td><code>name</code></td><td>string</td><td>—</td><td>Form field name.</td></tr>
+    <tr><td><code>required</code></td><td>boolean</td><td>false</td><td>Required for form validation.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>change</code></td><td>Fired when the checked state changes.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

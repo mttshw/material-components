@@ -1,0 +1,75 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Badge — materialcomponents.io" %}
+
+{% block content %}
+<h1>Badge</h1>
+<p>Badge generates a small badge to the top-right of its child element.</p>
+
+<h2>Basic Badge</h2>
+<section class="demo-section" style="gap:32px">
+  <mc-badge badge-content="4">
+    <mc-icon-button aria-label="mail">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+    </mc-icon-button>
+  </mc-badge>
+  <mc-badge badge-content="100" max="99">
+    <mc-icon-button aria-label="notifications">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+    </mc-icon-button>
+  </mc-badge>
+</section>
+<code-sample>
+&lt;mc-badge badge-content="4"&gt;
+  &lt;mc-icon-button&gt;...&lt;/mc-icon-button&gt;
+&lt;/mc-badge&gt;
+</code-sample>
+
+<h2>Color</h2>
+<section class="demo-section" style="gap:32px">
+  <mc-badge badge-content="4" color="error">
+    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
+  </mc-badge>
+  <mc-badge badge-content="4" color="primary">
+    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
+  </mc-badge>
+  <mc-badge badge-content="4" color="secondary">
+    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
+  </mc-badge>
+  <mc-badge badge-content="4" color="success">
+    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
+  </mc-badge>
+</section>
+
+<h2>Dot Variant</h2>
+<section class="demo-section" style="gap:32px">
+  <mc-badge variant="dot" color="error">
+    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
+  </mc-badge>
+</section>
+<code-sample>
+&lt;mc-badge variant="dot" color="error"&gt;...&lt;/mc-badge&gt;
+</code-sample>
+
+<h2>Invisible</h2>
+<section class="demo-section" style="gap:32px">
+  <mc-badge badge-content="4">
+    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
+  </mc-badge>
+  <mc-badge badge-content="4" invisible>
+    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
+  </mc-badge>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>badge-content</code></td><td>string | number</td><td>—</td><td>Badge label.</td></tr>
+    <tr><td><code>color</code></td><td>error | primary | secondary | success | warning | info</td><td>error</td><td>Badge color.</td></tr>
+    <tr><td><code>variant</code></td><td>standard | dot</td><td>standard</td><td>Dot shows no content.</td></tr>
+    <tr><td><code>max</code></td><td>number</td><td>99</td><td>Max value before showing <code>n+</code>.</td></tr>
+    <tr><td><code>invisible</code></td><td>boolean</td><td>false</td><td>Hides the badge.</td></tr>
+    <tr><td><code>overlap</code></td><td>circular | rectangular</td><td>circular</td><td>Wrapping shape of child.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
