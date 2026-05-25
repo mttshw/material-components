@@ -1,0 +1,85 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Chip — materialcomponents.io" %}
+
+{% block content %}
+<h1>Chip</h1>
+<p>Chips are compact elements that represent an input, attribute, or action.</p>
+
+<h2>Filled Chips</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <mc-chip>Default</mc-chip>
+  <mc-chip color="primary">Primary</mc-chip>
+  <mc-chip color="secondary">Secondary</mc-chip>
+  <mc-chip color="error">Error</mc-chip>
+  <mc-chip color="success">Success</mc-chip>
+  <mc-chip color="warning">Warning</mc-chip>
+  <mc-chip color="info">Info</mc-chip>
+</section>
+<code-sample>
+&lt;mc-chip&gt;Default&lt;/mc-chip&gt;
+&lt;mc-chip color="primary"&gt;Primary&lt;/mc-chip&gt;
+</code-sample>
+
+<h2>Outlined Chips</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <mc-chip variant="outlined">Default</mc-chip>
+  <mc-chip variant="outlined" color="primary">Primary</mc-chip>
+  <mc-chip variant="outlined" color="secondary">Secondary</mc-chip>
+  <mc-chip variant="outlined" color="error">Error</mc-chip>
+</section>
+<code-sample>
+&lt;mc-chip variant="outlined" color="primary"&gt;Primary&lt;/mc-chip&gt;
+</code-sample>
+
+<h2>Clickable</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <mc-chip clickable>Clickable</mc-chip>
+  <mc-chip clickable color="primary">Primary</mc-chip>
+  <mc-chip clickable variant="outlined" color="primary">Outlined</mc-chip>
+</section>
+
+<h2>Deletable</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <mc-chip deletable>Deletable</mc-chip>
+  <mc-chip deletable color="primary">Primary</mc-chip>
+  <mc-chip deletable clickable color="secondary">Clickable + Deletable</mc-chip>
+</section>
+<code-sample>
+&lt;mc-chip deletable&gt;Deletable&lt;/mc-chip&gt;
+</code-sample>
+
+<h2>Sizes</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px;align-items:center">
+  <mc-chip size="small">Small</mc-chip>
+  <mc-chip>Medium (default)</mc-chip>
+  <mc-chip size="small" color="primary" deletable>Small deletable</mc-chip>
+</section>
+
+<h2>Disabled</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <mc-chip disabled>Disabled</mc-chip>
+  <mc-chip disabled color="primary">Disabled primary</mc-chip>
+  <mc-chip disabled variant="outlined">Disabled outlined</mc-chip>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>filled | outlined</td><td>filled</td><td>Visual style.</td></tr>
+    <tr><td><code>color</code></td><td>default | primary | secondary | error | success | warning | info</td><td>default</td><td>Chip color.</td></tr>
+    <tr><td><code>size</code></td><td>small | medium</td><td>medium</td><td>Chip size.</td></tr>
+    <tr><td><code>clickable</code></td><td>boolean</td><td>false</td><td>Makes the chip clickable with ripple.</td></tr>
+    <tr><td><code>deletable</code></td><td>boolean</td><td>false</td><td>Shows a delete icon button.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables the chip.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>mc-delete</code></td><td>Fired when the delete icon is clicked.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Tooltip — materialcomponents.io" %}
+
+{% block content %}
+<h1>Tooltip</h1>
+<p>Tooltips display informative text when users hover over, focus on, or tap an element.</p>
+
+<h2>Basic Tooltip</h2>
+<section class="demo-section" style="gap:24px;padding:40px 16px">
+  <mc-tooltip title="Delete">
+    <mc-icon-button aria-label="delete">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+    </mc-icon-button>
+  </mc-tooltip>
+  <mc-tooltip title="Add to favourites">
+    <mc-icon-button aria-label="favourite">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </mc-icon-button>
+  </mc-tooltip>
+</section>
+<code-sample>
+&lt;mc-tooltip title="Delete"&gt;
+  &lt;mc-icon-button&gt;...&lt;/mc-icon-button&gt;
+&lt;/mc-tooltip&gt;
+</code-sample>
+
+<h2>Placement</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px;padding:40px 16px">
+  <mc-tooltip title="Top" placement="top"><mc-button variant="outlined" size="small">Top</mc-button></mc-tooltip>
+  <mc-tooltip title="Bottom" placement="bottom"><mc-button variant="outlined" size="small">Bottom</mc-button></mc-tooltip>
+  <mc-tooltip title="Left" placement="left"><mc-button variant="outlined" size="small">Left</mc-button></mc-tooltip>
+  <mc-tooltip title="Right" placement="right"><mc-button variant="outlined" size="small">Right</mc-button></mc-tooltip>
+  <mc-tooltip title="Top Start" placement="top-start"><mc-button variant="outlined" size="small">Top Start</mc-button></mc-tooltip>
+  <mc-tooltip title="Top End" placement="top-end"><mc-button variant="outlined" size="small">Top End</mc-button></mc-tooltip>
+  <mc-tooltip title="Bottom Start" placement="bottom-start"><mc-button variant="outlined" size="small">Bottom Start</mc-button></mc-tooltip>
+  <mc-tooltip title="Bottom End" placement="bottom-end"><mc-button variant="outlined" size="small">Bottom End</mc-button></mc-tooltip>
+</section>
+<code-sample>
+&lt;mc-tooltip title="Top" placement="top"&gt;
+  &lt;mc-button&gt;Top&lt;/mc-button&gt;
+&lt;/mc-tooltip&gt;
+</code-sample>
+
+<h2>With Arrow</h2>
+<section class="demo-section" style="gap:16px;padding:40px 16px">
+  <mc-tooltip title="Arrow tooltip" placement="top" arrow>
+    <mc-button variant="contained">Top Arrow</mc-button>
+  </mc-tooltip>
+  <mc-tooltip title="Arrow tooltip" placement="bottom" arrow>
+    <mc-button variant="contained">Bottom Arrow</mc-button>
+  </mc-tooltip>
+  <mc-tooltip title="Arrow tooltip" placement="right" arrow>
+    <mc-button variant="contained">Right Arrow</mc-button>
+  </mc-tooltip>
+</section>
+<code-sample>
+&lt;mc-tooltip title="Info" placement="top" arrow&gt;
+  &lt;mc-button&gt;Hover me&lt;/mc-button&gt;
+&lt;/mc-tooltip&gt;
+</code-sample>
+
+<h2>Tooltip on text</h2>
+<section class="demo-section" style="padding:16px">
+  <mc-typography variant="body1">
+    Did you know?
+    <mc-tooltip title="Tooltip on inline text" placement="top">
+      <span style="text-decoration:underline dotted;cursor:help">Hover this text</span>
+    </mc-tooltip>
+    to see a tooltip.
+  </mc-typography>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>title</code></td><td>string</td><td>—</td><td>Tooltip text content.</td></tr>
+    <tr><td><code>placement</code></td><td>top | bottom | left | right | top-start | top-end | bottom-start | bottom-end | left-start | left-end | right-start | right-end</td><td>bottom</td><td>Preferred tooltip position.</td></tr>
+    <tr><td><code>arrow</code></td><td>boolean</td><td>false</td><td>Shows a directional arrow.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

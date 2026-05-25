@@ -1,0 +1,91 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Radio — materialcomponents.io" %}
+
+{% block content %}
+<h1>Radio</h1>
+<p>Radio buttons allow the user to select one option from a set.</p>
+
+<h2>RadioGroup</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:4px">
+  <mc-radio-group value="female">
+    <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+      <mc-radio value="female"></mc-radio>
+      <mc-typography variant="body1">Female</mc-typography>
+    </label>
+    <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+      <mc-radio value="male"></mc-radio>
+      <mc-typography variant="body1">Male</mc-typography>
+    </label>
+    <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+      <mc-radio value="other"></mc-radio>
+      <mc-typography variant="body1">Other</mc-typography>
+    </label>
+  </mc-radio-group>
+</section>
+<code-sample>
+&lt;mc-radio-group value="female"&gt;
+  &lt;label style="display:flex;align-items:center;gap:4px"&gt;
+    &lt;mc-radio value="female"&gt;&lt;/mc-radio&gt; Female
+  &lt;/label&gt;
+  &lt;label style="display:flex;align-items:center;gap:4px"&gt;
+    &lt;mc-radio value="male"&gt;&lt;/mc-radio&gt; Male
+  &lt;/label&gt;
+&lt;/mc-radio-group&gt;
+</code-sample>
+
+<h2>Row Layout</h2>
+<section class="demo-section">
+  <mc-radio-group value="a" row>
+    <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+      <mc-radio value="a"></mc-radio>
+      <mc-typography variant="body1">Option A</mc-typography>
+    </label>
+    <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+      <mc-radio value="b"></mc-radio>
+      <mc-typography variant="body1">Option B</mc-typography>
+    </label>
+    <label style="display:flex;align-items:center;gap:4px;cursor:pointer">
+      <mc-radio value="c"></mc-radio>
+      <mc-typography variant="body1">Option C</mc-typography>
+    </label>
+  </mc-radio-group>
+</section>
+
+<h2>Colors</h2>
+<section class="demo-section">
+  <mc-radio checked color="primary"></mc-radio>
+  <mc-radio checked color="secondary"></mc-radio>
+  <mc-radio checked color="error"></mc-radio>
+  <mc-radio checked color="warning"></mc-radio>
+  <mc-radio checked color="info"></mc-radio>
+  <mc-radio checked color="success"></mc-radio>
+</section>
+
+<h2>Disabled</h2>
+<section class="demo-section">
+  <mc-radio disabled></mc-radio>
+  <mc-radio checked disabled></mc-radio>
+</section>
+
+<h2>API: mc-radio</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>checked</code></td><td>boolean</td><td>false</td><td>Whether this radio is selected.</td></tr>
+    <tr><td><code>value</code></td><td>string</td><td>""</td><td>The value submitted with the form.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables the radio.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary | error | warning | info | success</td><td>primary</td><td>The color palette to use.</td></tr>
+    <tr><td><code>name</code></td><td>string</td><td>—</td><td>Form field name.</td></tr>
+  </tbody>
+</table>
+
+<h2>API: mc-radio-group</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>value</code></td><td>string</td><td>—</td><td>The currently selected value.</td></tr>
+    <tr><td><code>name</code></td><td>string</td><td>—</td><td>Propagated to child radios.</td></tr>
+    <tr><td><code>row</code></td><td>boolean</td><td>false</td><td>Arranges radios in a row.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

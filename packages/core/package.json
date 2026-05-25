@@ -1,0 +1,59 @@
+{
+  "name": "@materialcomponents/core",
+  "version": "0.1.0",
+  "description": "Material UI components as vanilla Web Components",
+  "license": "MIT",
+  "type": "module",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    },
+    "./button":       { "import": "./dist/esm/components/button/index.js",       "types": "./dist/types/components/button/index.d.ts" },
+    "./icon-button":  { "import": "./dist/esm/components/icon-button/index.js",  "types": "./dist/types/components/icon-button/index.d.ts" },
+    "./typography":   { "import": "./dist/esm/components/typography/index.js",   "types": "./dist/types/components/typography/index.d.ts" },
+    "./paper":        { "import": "./dist/esm/components/paper/index.js",        "types": "./dist/types/components/paper/index.d.ts" },
+    "./divider":      { "import": "./dist/esm/components/divider/index.js",      "types": "./dist/types/components/divider/index.d.ts" },
+    "./icon":         { "import": "./dist/esm/components/icon/index.js",         "types": "./dist/types/components/icon/index.d.ts" },
+    "./box":          { "import": "./dist/esm/components/box/index.js",          "types": "./dist/types/components/box/index.d.ts" },
+    "./container":    { "import": "./dist/esm/components/container/index.js",    "types": "./dist/types/components/container/index.d.ts" },
+    "./stack":        { "import": "./dist/esm/components/stack/index.js",        "types": "./dist/types/components/stack/index.d.ts" },
+    "./grid":         { "import": "./dist/esm/components/grid/index.js",         "types": "./dist/types/components/grid/index.d.ts" },
+    "./css-baseline": { "import": "./dist/esm/components/css-baseline/index.js", "types": "./dist/types/components/css-baseline/index.d.ts" },
+    "./checkbox":    { "import": "./dist/esm/components/checkbox/index.js",    "types": "./dist/types/components/checkbox/index.d.ts" },
+    "./radio":       { "import": "./dist/esm/components/radio/index.js",       "types": "./dist/types/components/radio/index.d.ts" },
+    "./switch":      { "import": "./dist/esm/components/switch/index.js",      "types": "./dist/types/components/switch/index.d.ts" },
+    "./text-field":  { "import": "./dist/esm/components/text-field/index.js",  "types": "./dist/types/components/text-field/index.d.ts" },
+    "./select":      { "import": "./dist/esm/components/select/index.js",      "types": "./dist/types/components/select/index.d.ts" },
+    "./avatar":      { "import": "./dist/esm/components/avatar/index.js",      "types": "./dist/types/components/avatar/index.d.ts" },
+    "./badge":       { "import": "./dist/esm/components/badge/index.js",       "types": "./dist/types/components/badge/index.d.ts" },
+    "./chip":        { "import": "./dist/esm/components/chip/index.js",        "types": "./dist/types/components/chip/index.d.ts" },
+    "./list":        { "import": "./dist/esm/components/list/index.js",        "types": "./dist/types/components/list/index.d.ts" },
+    "./table":       { "import": "./dist/esm/components/table/index.js",       "types": "./dist/types/components/table/index.d.ts" },
+    "./tooltip":     { "import": "./dist/esm/components/tooltip/index.js",     "types": "./dist/types/components/tooltip/index.d.ts" }
+  },
+  "files": ["dist/"],
+  "sideEffects": false,
+  "peerDependencies": {
+    "@mui/material": ">=5.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@mui/material": { "optional": true }
+  },
+  "scripts": {
+    "build": "tsx ../../scripts/build.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "material-ui",
+    "web-components",
+    "custom-elements",
+    "material-design",
+    "ui-components",
+    "vanilla-js"
+  ]
+}

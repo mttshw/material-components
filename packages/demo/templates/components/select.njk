@@ -1,0 +1,132 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Select — materialcomponents.io" %}
+
+{% block content %}
+<h1>Select</h1>
+<p>Select components are used for collecting user provided information from a list of options.</p>
+
+<h2>Variants</h2>
+<section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
+  <mc-select variant="outlined" label="Age" style="min-width:120px">
+    <option value="10">Ten</option>
+    <option value="20">Twenty</option>
+    <option value="30">Thirty</option>
+  </mc-select>
+  <mc-select variant="filled" label="Age" style="min-width:120px">
+    <option value="10">Ten</option>
+    <option value="20">Twenty</option>
+    <option value="30">Thirty</option>
+  </mc-select>
+  <mc-select variant="standard" label="Age" style="min-width:120px">
+    <option value="10">Ten</option>
+    <option value="20">Twenty</option>
+    <option value="30">Thirty</option>
+  </mc-select>
+</section>
+<code-sample>
+&lt;mc-select variant="outlined" label="Age"&gt;
+  &lt;option value="10"&gt;Ten&lt;/option&gt;
+  &lt;option value="20"&gt;Twenty&lt;/option&gt;
+  &lt;option value="30"&gt;Thirty&lt;/option&gt;
+&lt;/mc-select&gt;
+</code-sample>
+
+<h2>With Default Value</h2>
+<section class="demo-section" style="align-items:flex-start;gap:16px">
+  <mc-select variant="outlined" label="Country" style="min-width:160px">
+    <option value="us" selected>United States</option>
+    <option value="ca">Canada</option>
+    <option value="gb">United Kingdom</option>
+    <option value="au">Australia</option>
+  </mc-select>
+</section>
+
+<h2>With Option Groups</h2>
+<section class="demo-section" style="align-items:flex-start;gap:16px">
+  <mc-select variant="outlined" label="Category" style="min-width:160px">
+    <optgroup label="Fruits">
+      <option value="apple">Apple</option>
+      <option value="banana">Banana</option>
+      <option value="cherry">Cherry</option>
+    </optgroup>
+    <optgroup label="Vegetables">
+      <option value="carrot">Carrot</option>
+      <option value="pea">Pea</option>
+    </optgroup>
+  </mc-select>
+</section>
+<code-sample>
+&lt;mc-select label="Category"&gt;
+  &lt;optgroup label="Fruits"&gt;
+    &lt;option value="apple"&gt;Apple&lt;/option&gt;
+    &lt;option value="banana"&gt;Banana&lt;/option&gt;
+  &lt;/optgroup&gt;
+&lt;/mc-select&gt;
+</code-sample>
+
+<h2>Helper Text &amp; Error</h2>
+<section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
+  <mc-select variant="outlined" label="Role" helper-text="Select your role" style="min-width:160px">
+    <option value="admin">Admin</option>
+    <option value="editor">Editor</option>
+    <option value="viewer">Viewer</option>
+  </mc-select>
+  <mc-select variant="outlined" label="Status" error helper-text="Selection required" style="min-width:160px">
+    <option value="active">Active</option>
+    <option value="inactive">Inactive</option>
+  </mc-select>
+</section>
+
+<h2>Disabled</h2>
+<section class="demo-section" style="align-items:flex-start;gap:16px">
+  <mc-select variant="outlined" label="Disabled" disabled style="min-width:120px">
+    <option value="1">Option 1</option>
+    <option value="2">Option 2</option>
+  </mc-select>
+</section>
+
+<h2>Color</h2>
+<section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
+  <mc-select variant="outlined" label="Primary" style="min-width:120px">
+    <option value="1">One</option>
+    <option value="2">Two</option>
+  </mc-select>
+  <mc-select variant="outlined" label="Secondary" color="secondary" style="min-width:120px">
+    <option value="1">One</option>
+    <option value="2">Two</option>
+  </mc-select>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>outlined | filled | standard</td><td>outlined</td><td>The visual style variant.</td></tr>
+    <tr><td><code>label</code></td><td>string</td><td>—</td><td>The floating label text.</td></tr>
+    <tr><td><code>value</code></td><td>string</td><td>—</td><td>The selected value.</td></tr>
+    <tr><td><code>helper-text</code></td><td>string</td><td>—</td><td>Helper or error text below the field.</td></tr>
+    <tr><td><code>error</code></td><td>boolean</td><td>false</td><td>Puts the field in error state.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables the select.</td></tr>
+    <tr><td><code>required</code></td><td>boolean</td><td>false</td><td>Required for form validation.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary</td><td>primary</td><td>The active/focus color.</td></tr>
+    <tr><td><code>name</code></td><td>string</td><td>—</td><td>Form field name.</td></tr>
+    <tr><td><code>multiple</code></td><td>boolean</td><td>false</td><td>Allow multiple selections.</td></tr>
+  </tbody>
+</table>
+
+<h2>Slots</h2>
+<table class="api-table">
+  <thead><tr><th>Slot</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>(default)</td><td><code>&lt;option&gt;</code> and <code>&lt;optgroup&gt;</code> elements.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>change</code></td><td>Fired when the selected value changes.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
