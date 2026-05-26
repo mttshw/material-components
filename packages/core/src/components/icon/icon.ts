@@ -7,10 +7,10 @@ export class MEIcon extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [sheet];
-    this.setAttribute('aria-hidden', 'true');
   }
 
   protected render(): void {
+    this.setAttribute('aria-hidden', 'true');
     this.shadow.innerHTML = `<slot></slot>`;
   }
 }

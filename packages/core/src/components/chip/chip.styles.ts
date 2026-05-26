@@ -93,6 +93,7 @@ sheet.replaceSync(`
   :host([size="small"][variant="outlined"]) .me-chip { padding: 0 7px; }
 
   /* ── ICONS ── */
+  [hidden] { display: none !important; }
   .me-chip__icon-start,
   .me-chip__icon-end {
     display: inherit;

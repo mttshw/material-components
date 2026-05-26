@@ -1024,9 +1024,9 @@ var MEDivider = class extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [divider_styles_default];
-    this.setAttribute("role", "separator");
   }
   render() {
+    this.setAttribute("role", "separator");
     const isVertical = this.getAttribute("orientation") === "vertical";
     this.setAttribute("aria-orientation", isVertical ? "vertical" : "horizontal");
     this.shadow.innerHTML = "";
@@ -1085,9 +1085,9 @@ var MEIcon = class extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [icon_styles_default];
-    this.setAttribute("aria-hidden", "true");
   }
   render() {
+    this.setAttribute("aria-hidden", "true");
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
@@ -3011,6 +3011,7 @@ sheet19.replaceSync(`
   :host([size="small"][variant="outlined"]) .me-chip { padding: 0 7px; }
 
   /* \u2500\u2500 ICONS \u2500\u2500 */
+  [hidden] { display: none !important; }
   .me-chip__icon-start,
   .me-chip__icon-end {
     display: inherit;
@@ -3181,24 +3182,21 @@ customElements.define("me-list-item", MEListItem);
 var sheet22 = new CSSStyleSheet();
 sheet22.replaceSync(`
   :host {
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    padding: calc(8px - (4px * var(--me-list-dense, 0))) 16px;
+    display: block;
     width: 100%;
     position: relative;
-    text-align: left;
+    overflow: hidden;
     cursor: pointer;
     outline: 0;
     border: 0;
     background: transparent;
     text-decoration: none;
     color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
-    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
-    font-size: 1rem;
+    box-sizing: border-box;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   :host(:hover) {
-    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.08));
   }
   :host([selected]) {
     background-color: var(--me-palette-action-selected, rgba(0,0,0,0.08));
@@ -3214,11 +3212,29 @@ sheet22.replaceSync(`
   :host([divider]) {
     border-bottom: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
-  :host([alignItems="flex-start"]) { align-items: flex-start; }
-  :host([disableGutters]) { padding-left: 0; padding-right: 0; }
 
-  .me-list-item-button {
-    display: contents;
+  .root {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: calc(8px - (4px * var(--me-list-dense, 0))) 16px;
+    width: 100%;
+    text-align: left;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 1rem;
+  }
+  :host([alignItems="flex-start"]) .root { align-items: flex-start; }
+  :host([disableGutters]) .root { padding-left: 0; padding-right: 0; }
+
+  slot[name="start"] {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  slot:not([name]) {
+    display: flex;
+    flex: 1;
+    min-width: 0;
   }
 `);
 var rippleSheet3 = new CSSStyleSheet();
@@ -3243,13 +3259,12 @@ var MEListItemButton = class extends MEElement {
   constructor() {
     super({ mode: "open", delegatesFocus: true });
     this.shadow.adoptedStyleSheets = [list_item_button_styles_default, rippleSheet3];
-    this.setAttribute("role", "button");
-    this.setAttribute("tabindex", "0");
   }
   render() {
+    this.setAttribute("role", "button");
     if (this.hasAttribute("disabled")) this.setAttribute("tabindex", "-1");
     else this.setAttribute("tabindex", "0");
-    this.shadow.innerHTML = `<slot></slot>`;
+    this.shadow.innerHTML = `<div class="root"><slot name="start"></slot><slot></slot></div>`;
     this._ripple.attach(this);
   }
   addEventListeners() {
@@ -3341,6 +3356,7 @@ var MEListItemIcon = class extends MEElement {
     this.shadow.adoptedStyleSheets = [list_item_icon_styles_default];
   }
   render() {
+    this.setAttribute("slot", "start");
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
@@ -3583,12 +3599,10 @@ var METooltip = class extends MEElement {
     this.shadow.adoptedStyleSheets = [tooltip_styles_default];
   }
   render() {
+    const title = this.getAttribute("title") ?? "";
     this.shadow.innerHTML = `
       <span class="me-tooltip__trigger"><slot></slot></span>
-      <div class="me-tooltip__bubble" role="tooltip">
-        ${this.getAttribute("title") ?? ""}
-        <span class="me-tooltip__arrow"></span>
-      </div>
+      <div class="me-tooltip__bubble" role="tooltip">${title}<span class="me-tooltip__arrow"></span></div>
     `;
     this._bubble = this.shadow.querySelector(".me-tooltip__bubble");
   }

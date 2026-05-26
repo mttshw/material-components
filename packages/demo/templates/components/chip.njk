@@ -39,13 +39,20 @@
 </section>
 
 <h2>Deletable</h2>
-<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+<p style="font-size:0.875rem;color:var(--demo-text-secondary);margin:0 0 12px">Click the ✕ icon to remove a chip. The chip fires a <code>me-delete</code> event — your code removes it.</p>
+<section class="demo-section" id="deletable-chips" style="flex-wrap:wrap;gap:8px">
   <me-chip deletable>Deletable</me-chip>
   <me-chip deletable color="primary">Primary</me-chip>
   <me-chip deletable clickable color="secondary">Clickable + Deletable</me-chip>
 </section>
 <code-sample>
 &lt;me-chip deletable&gt;Deletable&lt;/me-chip&gt;
+
+&lt;script&gt;
+  document.querySelectorAll('me-chip[deletable]').forEach(chip =&gt; {
+    chip.addEventListener('me-delete', () =&gt; chip.remove());
+  });
+&lt;/script&gt;
 </code-sample>
 
 <h2>Sizes</h2>
@@ -82,4 +89,12 @@
     <tr><td><code>me-delete</code></td><td>Fired when the delete icon is clicked.</td></tr>
   </tbody>
 </table>
+{% block scripts %}
+<script>
+  document.querySelectorAll('me-chip[deletable]').forEach(chip => {
+    chip.addEventListener('me-delete', () => chip.remove());
+  });
+</script>
+{% endblock %}
+
 {% endblock %}

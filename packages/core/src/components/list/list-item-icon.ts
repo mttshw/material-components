@@ -8,6 +8,7 @@ export class MEListItemIcon extends MEElement {
   }
 
   protected render(): void {
+    this.setAttribute('slot', 'start');
     this.shadow.innerHTML = `<slot></slot>`;
   }
 }

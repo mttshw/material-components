@@ -1,24 +1,21 @@
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(`
   :host {
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    padding: calc(8px - (4px * var(--me-list-dense, 0))) 16px;
+    display: block;
     width: 100%;
     position: relative;
-    text-align: left;
+    overflow: hidden;
     cursor: pointer;
     outline: 0;
     border: 0;
     background: transparent;
     text-decoration: none;
     color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
-    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
-    font-size: 1rem;
+    box-sizing: border-box;
+    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
   }
   :host(:hover) {
-    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.08));
   }
   :host([selected]) {
     background-color: var(--me-palette-action-selected, rgba(0,0,0,0.08));
@@ -34,11 +31,29 @@ sheet.replaceSync(`
   :host([divider]) {
     border-bottom: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
-  :host([alignItems="flex-start"]) { align-items: flex-start; }
-  :host([disableGutters]) { padding-left: 0; padding-right: 0; }
 
-  .me-list-item-button {
-    display: contents;
+  .root {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: calc(8px - (4px * var(--me-list-dense, 0))) 16px;
+    width: 100%;
+    text-align: left;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 1rem;
+  }
+  :host([alignItems="flex-start"]) .root { align-items: flex-start; }
+  :host([disableGutters]) .root { padding-left: 0; padding-right: 0; }
+
+  slot[name="start"] {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+  }
+  slot:not([name]) {
+    display: flex;
+    flex: 1;
+    min-width: 0;
   }
 `);
 

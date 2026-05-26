@@ -10,15 +10,14 @@ export class MEListItemButton extends MEElement {
   constructor() {
     super({ mode: 'open', delegatesFocus: true });
     this.shadow.adoptedStyleSheets = [sheet, rippleSheet];
-    this.setAttribute('role', 'button');
-    this.setAttribute('tabindex', '0');
   }
 
   protected render(): void {
+    this.setAttribute('role', 'button');
     if (this.hasAttribute('disabled')) this.setAttribute('tabindex', '-1');
     else this.setAttribute('tabindex', '0');
 
-    this.shadow.innerHTML = `<slot></slot>`;
+    this.shadow.innerHTML = `<div class="root"><slot name="start"></slot><slot></slot></div>`;
     this._ripple.attach(this as unknown as HTMLElement);
   }
 

@@ -49,6 +49,20 @@ body {
   letter-spacing: 0.0075em;
 }
 
+.me-topbar__alpha-badge {
+  margin-left: 10px;
+  padding: 2px 8px;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1976d2;
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 4px;
+  line-height: 1.6;
+  align-self: center;
+}
+
 .me-topbar__spacer { flex: 1; }
 
 .me-topbar__icon-btn {

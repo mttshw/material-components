@@ -20,12 +20,10 @@ export class METooltip extends MEElement {
   }
 
   protected render(): void {
+    const title = this.getAttribute('title') ?? '';
     this.shadow.innerHTML = `
       <span class="me-tooltip__trigger"><slot></slot></span>
-      <div class="me-tooltip__bubble" role="tooltip">
-        ${this.getAttribute('title') ?? ''}
-        <span class="me-tooltip__arrow"></span>
-      </div>
+      <div class="me-tooltip__bubble" role="tooltip">${title}<span class="me-tooltip__arrow"></span></div>
     `;
     this._bubble = this.shadow.querySelector('.me-tooltip__bubble');
   }
