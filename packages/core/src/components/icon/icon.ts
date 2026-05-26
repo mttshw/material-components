@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './icon.styles.js';
 
-export class MCIcon extends MCElement {
+export class MEIcon extends MEElement {
   static observedAttributes = ['color', 'font-size'];
 
   constructor() {

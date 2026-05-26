@@ -1,2 +1,2 @@
-export { MCBadge } from './badge.js';
+export { MEBadge } from './badge.js';
 //# sourceMappingURL=index.d.ts.map

@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './text-field.styles.js';
 
-export class MCTextField extends MCElement {
+export class METextField extends MEElement {
   static formAssociated = true;
   static observedAttributes = [
     'variant', 'label', 'placeholder', 'value', 'type', 'disabled', 'readonly',
@@ -23,7 +23,7 @@ export class MCTextField extends MCElement {
   get value(): string { return this._value; }
   set value(v: string) {
     this._value = v;
-    const input = this.shadow.querySelector<HTMLInputElement | HTMLTextAreaElement>('.mc-text-field__input');
+    const input = this.shadow.querySelector<HTMLInputElement | HTMLTextAreaElement>('.me-text-field__input');
     if (input) input.value = v;
     this._internals.setFormValue(v);
     this._updateFloating();
@@ -52,11 +52,11 @@ export class MCTextField extends MCElement {
     // the shadow DOM is built. _updateNotchWidth must run after innerHTML (below).
     // Always float when a start-adornment is present — resting label overlaps the adornment.
     const isFloating = this._focused || this._value.length > 0 || placeholder.length > 0 || startAdornment.length > 0;
-    this.classList.toggle('mc-text-field--floating', isFloating);
-    this.classList.toggle('mc-text-field--focused', this._focused);
+    this.classList.toggle('me-text-field--floating', isFloating);
+    this.classList.toggle('me-text-field--focused', this._focused);
 
     const inputAttrs = [
-      `class="mc-text-field__input"`,
+      `class="me-text-field__input"`,
       multiline ? '' : `type="${type}"`,
       `value="${this._value.replace(/"/g, '&quot;')}"`,
       placeholder ? `placeholder="${placeholder}"` : '',
@@ -81,24 +81,24 @@ export class MCTextField extends MCElement {
     // For outlined: three border divs whose gap (missing top border on the notch div)
     // is sized precisely by JS — label.offsetWidth * 0.75 + 10px.
     const notch = variant === 'outlined' ? `
-      <div class="mc-notched-outline" aria-hidden="true">
-        <div class="mc-notched-outline__leading"></div>
-        <div class="mc-notched-outline__notch"></div>
-        <div class="mc-notched-outline__trailing"></div>
+      <div class="me-notched-outline" aria-hidden="true">
+        <div class="me-notched-outline__leading"></div>
+        <div class="me-notched-outline__notch"></div>
+        <div class="me-notched-outline__trailing"></div>
       </div>` : '';
 
-    // The label is rendered OUTSIDE .mc-text-field so it is positioned relative to
+    // The label is rendered OUTSIDE .me-text-field so it is positioned relative to
     // :host — not to the input wrapper. This prevents border-bottom (standard) or the
     // filled background from ever intersecting the label text.
     this.shadow.innerHTML = `
-      ${hasLabel ? `<label class="mc-text-field__label">${label}</label>` : ''}
-      <div class="mc-text-field">
+      ${hasLabel ? `<label class="me-text-field__label">${label}</label>` : ''}
+      <div class="me-text-field">
         ${notch}
-        ${startAdornment ? `<div class="mc-text-field__adornment-start">${startAdornment}</div>` : ''}
+        ${startAdornment ? `<div class="me-text-field__adornment-start">${startAdornment}</div>` : ''}
         ${inputEl}
-        ${endAdornment ? `<div class="mc-text-field__adornment-end">${endAdornment}</div>` : ''}
+        ${endAdornment ? `<div class="me-text-field__adornment-end">${endAdornment}</div>` : ''}
       </div>
-      ${helperText ? `<p class="mc-text-field__helper">${helperText}</p>` : ''}
+      ${helperText ? `<p class="me-text-field__helper">${helperText}</p>` : ''}
     `;
 
     // Notch measurement must happen after innerHTML — the div must exist in the DOM.
@@ -107,7 +107,7 @@ export class MCTextField extends MCElement {
   }
 
   private _bindInput(): void {
-    const input = this.shadow.querySelector<HTMLInputElement | HTMLTextAreaElement>('.mc-text-field__input');
+    const input = this.shadow.querySelector<HTMLInputElement | HTMLTextAreaElement>('.me-text-field__input');
     if (!input) return;
 
     input.addEventListener('focus', () => {
@@ -139,8 +139,8 @@ export class MCTextField extends MCElement {
     const placeholder = this.getAttribute('placeholder') ?? '';
     const startAdornment = this.getAttribute('start-adornment') ?? '';
     const isFloating = this._focused || this._value.length > 0 || placeholder.length > 0 || startAdornment.length > 0;
-    this.classList.toggle('mc-text-field--floating', isFloating);
-    this.classList.toggle('mc-text-field--focused', this._focused);
+    this.classList.toggle('me-text-field--floating', isFloating);
+    this.classList.toggle('me-text-field--focused', this._focused);
     this._updateNotchWidth(isFloating);
   }
 
@@ -150,9 +150,9 @@ export class MCTextField extends MCElement {
   // the label starts at x=14px, leaving a natural 5px left buffer; we add 5px right buffer.
   private _updateNotchWidth(isFloating: boolean): void {
     if ((this.getAttribute('variant') ?? 'outlined') !== 'outlined') return;
-    const notch = this.shadow.querySelector<HTMLElement>('.mc-notched-outline__notch');
+    const notch = this.shadow.querySelector<HTMLElement>('.me-notched-outline__notch');
     if (!notch) return;
-    const label = this.shadow.querySelector<HTMLElement>('.mc-text-field__label');
+    const label = this.shadow.querySelector<HTMLElement>('.me-text-field__label');
     if (isFloating && label && label.offsetWidth > 0) {
       notch.style.width = `${label.offsetWidth * 0.75 + 10}px`;
     } else {
@@ -178,4 +178,4 @@ export class MCTextField extends MCElement {
   }
 }
 
-customElements.define('mc-text-field', MCTextField);
+customElements.define('me-text-field', METextField);

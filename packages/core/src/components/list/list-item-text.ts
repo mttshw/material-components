@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './list-item-text.styles.js';
 
-export class MCListItemText extends MCElement {
+export class MEListItemText extends MEElement {
   static observedAttributes = ['primary', 'secondary', 'inset'];
 
   constructor() {
@@ -14,12 +14,12 @@ export class MCListItemText extends MCElement {
     const secondary = this.getAttribute('secondary') ?? '';
 
     this.shadow.innerHTML = `
-      <span class="mc-list-item-text__primary">
+      <span class="me-list-item-text__primary">
         ${primary ? primary : '<slot name="primary"><slot></slot></slot>'}
       </span>
-      ${secondary ? `<span class="mc-list-item-text__secondary">${secondary}</span>` : '<slot name="secondary"></slot>'}
+      ${secondary ? `<span class="me-list-item-text__secondary">${secondary}</span>` : '<slot name="secondary"></slot>'}
     `;
   }
 }
 
-customElements.define('mc-list-item-text', MCListItemText);
+customElements.define('me-list-item-text', MEListItemText);

@@ -14,7 +14,7 @@ export interface TypographyStyle {
   textTransform?: string;
 }
 
-export interface MCTheme {
+export interface METheme {
   palette: {
     mode: 'light' | 'dark';
     primary: PaletteColor;
@@ -96,4 +96,4 @@ export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
 
-export type MCThemeInput = DeepPartial<MCTheme>;
+export type METhemeInput = DeepPartial<METheme>;

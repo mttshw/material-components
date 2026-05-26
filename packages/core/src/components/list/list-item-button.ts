@@ -1,8 +1,8 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import { RippleController } from '../../utils/ripple.js';
 import sheet, { rippleSheet } from './list-item-button.styles.js';
 
-export class MCListItemButton extends MCElement {
+export class MEListItemButton extends MEElement {
   static observedAttributes = ['selected', 'disabled', 'divider', 'alignItems', 'disableGutters'];
 
   private _ripple = new RippleController();
@@ -32,4 +32,4 @@ export class MCListItemButton extends MCElement {
   }
 }
 
-customElements.define('mc-list-item-button', MCListItemButton);
+customElements.define('me-list-item-button', MEListItemButton);

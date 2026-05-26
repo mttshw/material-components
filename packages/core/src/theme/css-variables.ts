@@ -1,4 +1,4 @@
-import type { MCTheme } from './types.js';
+import type { METheme } from './types.js';
 
 type ThemeValue = string | number | boolean | ThemeObject | ThemeArray;
 type ThemeObject = { [key: string]: ThemeValue };
@@ -8,7 +8,7 @@ function isPlainObject(val: unknown): val is ThemeObject {
   return val !== null && typeof val === 'object' && !Array.isArray(val);
 }
 
-export function themeToVars(theme: MCTheme): Record<string, string> {
+export function themeToVars(theme: METheme): Record<string, string> {
   const vars: Record<string, string> = {};
 
   function flatten(obj: ThemeObject, prefix: string): void {
@@ -23,26 +23,26 @@ export function themeToVars(theme: MCTheme): Record<string, string> {
 
       if (Array.isArray(val)) {
         (val as ThemeValue[]).forEach((item, idx) => {
-          vars[`--mc-${path}-${idx}`] = String(item);
+          vars[`--me-${path}-${idx}`] = String(item);
         });
       } else if (isPlainObject(val)) {
         flatten(val as ThemeObject, path);
       } else {
-        vars[`--mc-${path}`] = String(val);
+        vars[`--me-${path}`] = String(val);
       }
     }
   }
 
   // Flatten everything except spacing (handled specially)
-  const { spacing, ...rest } = theme as MCTheme & { spacing: MCTheme['spacing'] };
+  const { spacing, ...rest } = theme as METheme & { spacing: METheme['spacing'] };
   flatten(rest as unknown as ThemeObject, '');
 
-  // spacing → --mc-spacing as a px value
+  // spacing → --me-spacing as a px value
   if (typeof spacing === 'number') {
-    vars['--mc-spacing'] = `${spacing}px`;
+    vars['--me-spacing'] = `${spacing}px`;
   } else if (typeof spacing === 'function') {
     const base = (spacing as (f: number) => string)(1);
-    vars['--mc-spacing'] = typeof base === 'string' ? base : `${base}px`;
+    vars['--me-spacing'] = typeof base === 'string' ? base : `${base}px`;
   }
 
   return vars;

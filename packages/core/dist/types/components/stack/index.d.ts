@@ -1,3 +1,3 @@
-import { MCStack } from './stack.js';
-export { MCStack };
+import { MEStack } from './stack.js';
+export { MEStack };
 //# sourceMappingURL=index.d.ts.map

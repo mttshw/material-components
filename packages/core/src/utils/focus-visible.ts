@@ -4,7 +4,7 @@
 export function addFocusVisibleStyles(sheet: CSSStyleSheet, selector: string): void {
   sheet.insertRule(`
     ${selector}:focus-visible {
-      outline: 2px solid var(--mc-palette-primary-main, #1976d2);
+      outline: 2px solid var(--me-palette-primary-main, #1976d2);
       outline-offset: 2px;
     }
   `);

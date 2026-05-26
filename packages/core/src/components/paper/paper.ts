@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './paper.styles.js';
 
-export class MCPaper extends MCElement {
+export class MEPaper extends MEElement {
   static observedAttributes = ['elevation', 'variant', 'square'];
 
   constructor() {
@@ -15,11 +15,11 @@ export class MCPaper extends MCElement {
 
     // Set elevation as inline box-shadow; CSS overrides this for outlined variant
     if (variant !== 'outlined') {
-      this.style.boxShadow = `var(--mc-shadows-${elevation})`;
+      this.style.boxShadow = `var(--me-shadows-${elevation})`;
     } else {
       this.style.removeProperty('box-shadow');
     }
 
-    this.shadow.innerHTML = `<div class="mc-paper"><slot></slot></div>`;
+    this.shadow.innerHTML = `<div class="me-paper"><slot></slot></div>`;
   }
 }

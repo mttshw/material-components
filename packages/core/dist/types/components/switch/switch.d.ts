@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCSwitch extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class MESwitch extends MEElement {
     static formAssociated: boolean;
     static observedAttributes: string[];
     private _internals;

@@ -1,9 +1,9 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(`:host { display: table-header-group; }`);
 
-export class MCTableHead extends MCElement {
+export class METableHead extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [sheet];
@@ -11,4 +11,4 @@ export class MCTableHead extends MCElement {
   protected render(): void { this.shadow.innerHTML = `<slot></slot>`; }
 }
 
-customElements.define('mc-table-head', MCTableHead);
+customElements.define('me-table-head', METableHead);

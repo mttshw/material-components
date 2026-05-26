@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCTooltip extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class METooltip extends MEElement {
     static observedAttributes: string[];
     private _bubble;
     private _showTimeout;

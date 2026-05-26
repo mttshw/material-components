@@ -1,8 +1,8 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import { RippleController, rippleSheet } from '../../utils/ripple.js';
 import sheet from './radio.styles.js';
 
-export class MCRadio extends MCElement {
+export class MERadio extends MEElement {
   static formAssociated = true;
   static observedAttributes = ['checked', 'disabled', 'value', 'color', 'required', 'name'];
 
@@ -33,15 +33,15 @@ export class MCRadio extends MCElement {
     this.setAttribute('tabindex', disabled ? '-1' : '0');
 
     this.shadow.innerHTML = `
-      <div class="mc-radio">
+      <div class="me-radio">
         <input
-          class="mc-radio__input"
+          class="me-radio__input"
           type="radio"
           tabindex="-1"
           ${checked ? 'checked' : ''}
           ${disabled ? 'disabled' : ''}
         />
-        <span class="mc-radio__icon">
+        <span class="me-radio__icon">
           ${checked ? ICON_CHECKED : ICON_UNCHECKED}
         </span>
       </div>
@@ -49,7 +49,7 @@ export class MCRadio extends MCElement {
 
     this._ripple.detach();
     if (!disabled) {
-      const dot = this.shadow.querySelector<HTMLElement>('.mc-radio')!;
+      const dot = this.shadow.querySelector<HTMLElement>('.me-radio')!;
       this._ripple.attach(dot, { centered: true });
     }
   }
@@ -78,15 +78,15 @@ export class MCRadio extends MCElement {
   };
 
   _select(): void {
-    this.dispatchEvent(new CustomEvent('mc-radio-select', { bubbles: true, detail: { value: this.value } }));
+    this.dispatchEvent(new CustomEvent('me-radio-select', { bubbles: true, detail: { value: this.value } }));
     this.checked = true;
     this.dispatchEvent(new Event('change', { bubbles: true }));
   }
 
   private _moveFocus(dir: 1 | -1): void {
-    const group = this.closest('mc-radio-group');
+    const group = this.closest('me-radio-group');
     if (!group) return;
-    const radios = Array.from(group.querySelectorAll<MCRadio>('mc-radio:not([disabled])'));
+    const radios = Array.from(group.querySelectorAll<MERadio>('me-radio:not([disabled])'));
     const idx = radios.indexOf(this);
     const next = radios[(idx + dir + radios.length) % radios.length];
     if (next) { next.focus(); next._select(); }
@@ -96,4 +96,4 @@ export class MCRadio extends MCElement {
 const ICON_UNCHECKED = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`;
 const ICON_CHECKED = `<svg viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`;
 
-customElements.define('mc-radio', MCRadio);
+customElements.define('me-radio', MERadio);

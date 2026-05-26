@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCBox extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class MEBox extends MEElement {
     static observedAttributes: string[];
     constructor();
     protected render(): void;

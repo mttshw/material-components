@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './table-row.styles.js';
 
-export class MCTableRow extends MCElement {
+export class METableRow extends MEElement {
   static observedAttributes = ['selected', 'hover'];
 
   constructor() {
@@ -14,4 +14,4 @@ export class MCTableRow extends MCElement {
   }
 }
 
-customElements.define('mc-table-row', MCTableRow);
+customElements.define('me-table-row', METableRow);

@@ -9,6 +9,6 @@ sheet.replaceSync(`
   }
   :host([disablePadding]) { padding: 0; }
   /* Dense flag propagates to children via CSS custom property inheritance */
-  :host([dense]) { --mc-list-dense: 1; }
+  :host([dense]) { --me-list-dense: 1; }
 `);
 export default sheet;

@@ -1,1 +1,1 @@
-export { MCAvatar } from './avatar.js';
+export { MEAvatar } from './avatar.js';

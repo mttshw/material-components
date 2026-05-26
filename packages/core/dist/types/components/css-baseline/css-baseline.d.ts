@@ -1,4 +1,4 @@
-export declare class MCCssBaseline extends HTMLElement {
+export declare class MECssBaseline extends HTMLElement {
     private static _injected;
     connectedCallback(): void;
     disconnectedCallback(): void;

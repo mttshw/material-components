@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCTableHead extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class METableHead extends MEElement {
     constructor();
     protected render(): void;
 }

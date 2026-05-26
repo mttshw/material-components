@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCTable extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class METable extends MEElement {
     static observedAttributes: string[];
     constructor();
     protected render(): void;

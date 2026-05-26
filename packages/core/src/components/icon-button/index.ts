@@ -1,7 +1,7 @@
-import { MCIconButton } from './icon-button.js';
+import { MEIconButton } from './icon-button.js';
 
-if (!customElements.get('mc-icon-button')) {
-  customElements.define('mc-icon-button', MCIconButton);
+if (!customElements.get('me-icon-button')) {
+  customElements.define('me-icon-button', MEIconButton);
 }
 
-export { MCIconButton };
+export { MEIconButton };

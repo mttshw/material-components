@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './badge.styles.js';
 
-export class MCBadge extends MCElement {
+export class MEBadge extends MEElement {
   static observedAttributes = ['badge-content', 'color', 'variant', 'max', 'invisible', 'overlap'];
 
   constructor() {
@@ -21,10 +21,10 @@ export class MCBadge extends MCElement {
       if (!isNaN(num) && content !== '') label = num > max ? `${max}+` : String(num);
     }
 
-    const badge = invisible ? '' : `<span class="mc-badge" aria-label="${label}">${variant === 'dot' ? '' : label}</span>`;
+    const badge = invisible ? '' : `<span class="me-badge" aria-label="${label}">${variant === 'dot' ? '' : label}</span>`;
 
     this.shadow.innerHTML = `<slot></slot>${badge}`;
   }
 }
 
-customElements.define('mc-badge', MCBadge);
+customElements.define('me-badge', MEBadge);

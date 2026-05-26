@@ -1,13 +1,13 @@
 export const rippleSheet = new CSSStyleSheet();
 rippleSheet.replaceSync(`
-  @keyframes mc-ripple { to { transform: scale(1); opacity: 0; } }
+  @keyframes me-ripple { to { transform: scale(1); opacity: 0; } }
 
-  .mc-ripple-wave {
+  .me-ripple-wave {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
     transform: scale(0);
-    animation: mc-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: me-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
     background-color: currentColor;
     opacity: 0.3;
   }
@@ -44,7 +44,7 @@ export class RippleController {
     const y = this._centered ? (rect.height - size) / 2 : e.clientY - rect.top - size / 2;
 
     const wave = document.createElement('span');
-    wave.className = 'mc-ripple-wave';
+    wave.className = 'me-ripple-wave';
     wave.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
     wave.addEventListener('animationend', () => wave.remove());
     target.appendChild(wave);

@@ -1,5 +1,5 @@
-export { MCTable } from './table.js';
-export { MCTableHead } from './table-head.js';
-export { MCTableBody } from './table-body.js';
-export { MCTableRow } from './table-row.js';
-export { MCTableCell } from './table-cell.js';
+export { METable } from './table.js';
+export { METableHead } from './table-head.js';
+export { METableBody } from './table-body.js';
+export { METableRow } from './table-row.js';
+export { METableCell } from './table-cell.js';

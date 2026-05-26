@@ -1,1 +1,1 @@
-export { MCSwitch } from './switch.js';
+export { MESwitch } from './switch.js';

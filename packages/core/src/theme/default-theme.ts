@@ -1,6 +1,6 @@
-import type { MCTheme } from './types.js';
+import type { METheme } from './types.js';
 
-export const defaultTheme: MCTheme = {
+export const defaultTheme: METheme = {
   palette: {
     mode: 'light',
     primary: {

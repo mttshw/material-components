@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './table-cell.styles.js';
 
-export class MCTableCell extends MCElement {
+export class METableCell extends MEElement {
   static observedAttributes = ['variant', 'align', 'padding'];
 
   constructor() {
@@ -14,4 +14,4 @@ export class MCTableCell extends MCElement {
   }
 }
 
-customElements.define('mc-table-cell', MCTableCell);
+customElements.define('me-table-cell', METableCell);

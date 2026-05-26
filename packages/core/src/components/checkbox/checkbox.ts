@@ -1,8 +1,8 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import { RippleController, rippleSheet } from '../../utils/ripple.js';
 import sheet from './checkbox.styles.js';
 
-export class MCCheckbox extends MCElement {
+export class MECheckbox extends MEElement {
   static formAssociated = true;
   static observedAttributes = ['checked', 'indeterminate', 'disabled', 'value', 'color', 'required', 'name'];
 
@@ -38,16 +38,16 @@ export class MCCheckbox extends MCElement {
     this.setAttribute('tabindex', disabled ? '-1' : '0');
 
     this.shadow.innerHTML = `
-      <div class="mc-checkbox">
+      <div class="me-checkbox">
         <input
-          class="mc-checkbox__input"
+          class="me-checkbox__input"
           type="checkbox"
           tabindex="-1"
           ${checked ? 'checked' : ''}
           ${indeterminate ? 'data-indeterminate' : ''}
           ${disabled ? 'disabled' : ''}
         />
-        <span class="mc-checkbox__icon">
+        <span class="me-checkbox__icon">
           ${indeterminate ? ICON_INDETERMINATE : checked ? ICON_CHECKED : ICON_UNCHECKED}
         </span>
       </div>
@@ -58,7 +58,7 @@ export class MCCheckbox extends MCElement {
 
     this._ripple.detach();
     if (!disabled) {
-      const box = this.shadow.querySelector<HTMLElement>('.mc-checkbox')!;
+      const box = this.shadow.querySelector<HTMLElement>('.me-checkbox')!;
       this._ripple.attach(box, { centered: true });
     }
   }
@@ -99,4 +99,4 @@ const ICON_UNCHECKED = `<svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c
 const ICON_CHECKED = `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`;
 const ICON_INDETERMINATE = `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>`;
 
-customElements.define('mc-checkbox', MCCheckbox);
+customElements.define('me-checkbox', MECheckbox);

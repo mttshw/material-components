@@ -1,5 +1,5 @@
 {% extends "_layout.njk" %}
-{% set pageTitle = "Badge — materialcomponents.io" %}
+{% set pageTitle = "Badge — materialelements.io" %}
 
 {% block content %}
 <h1>Badge</h1>
@@ -7,57 +7,57 @@
 
 <h2>Basic Badge</h2>
 <section class="demo-section" style="gap:32px">
-  <mc-badge badge-content="4">
-    <mc-icon-button aria-label="mail">
+  <me-badge badge-content="4">
+    <me-icon-button aria-label="mail">
       <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-    </mc-icon-button>
-  </mc-badge>
-  <mc-badge badge-content="100" max="99">
-    <mc-icon-button aria-label="notifications">
+    </me-icon-button>
+  </me-badge>
+  <me-badge badge-content="100" max="99">
+    <me-icon-button aria-label="notifications">
       <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
-    </mc-icon-button>
-  </mc-badge>
+    </me-icon-button>
+  </me-badge>
 </section>
 <code-sample>
-&lt;mc-badge badge-content="4"&gt;
-  &lt;mc-icon-button&gt;...&lt;/mc-icon-button&gt;
-&lt;/mc-badge&gt;
+&lt;me-badge badge-content="4"&gt;
+  &lt;me-icon-button&gt;...&lt;/me-icon-button&gt;
+&lt;/me-badge&gt;
 </code-sample>
 
 <h2>Color</h2>
 <section class="demo-section" style="gap:32px">
-  <mc-badge badge-content="4" color="error">
-    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
-  </mc-badge>
-  <mc-badge badge-content="4" color="primary">
-    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
-  </mc-badge>
-  <mc-badge badge-content="4" color="secondary">
-    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
-  </mc-badge>
-  <mc-badge badge-content="4" color="success">
-    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
-  </mc-badge>
+  <me-badge badge-content="4" color="error">
+    <me-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></me-icon-button>
+  </me-badge>
+  <me-badge badge-content="4" color="primary">
+    <me-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></me-icon-button>
+  </me-badge>
+  <me-badge badge-content="4" color="secondary">
+    <me-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></me-icon-button>
+  </me-badge>
+  <me-badge badge-content="4" color="success">
+    <me-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></me-icon-button>
+  </me-badge>
 </section>
 
 <h2>Dot Variant</h2>
 <section class="demo-section" style="gap:32px">
-  <mc-badge variant="dot" color="error">
-    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
-  </mc-badge>
+  <me-badge variant="dot" color="error">
+    <me-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></me-icon-button>
+  </me-badge>
 </section>
 <code-sample>
-&lt;mc-badge variant="dot" color="error"&gt;...&lt;/mc-badge&gt;
+&lt;me-badge variant="dot" color="error"&gt;...&lt;/me-badge&gt;
 </code-sample>
 
 <h2>Invisible</h2>
 <section class="demo-section" style="gap:32px">
-  <mc-badge badge-content="4">
-    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
-  </mc-badge>
-  <mc-badge badge-content="4" invisible>
-    <mc-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></mc-icon-button>
-  </mc-badge>
+  <me-badge badge-content="4">
+    <me-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></me-icon-button>
+  </me-badge>
+  <me-badge badge-content="4" invisible>
+    <me-icon-button aria-label="mail"><svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></me-icon-button>
+  </me-badge>
 </section>
 
 <h2>API</h2>

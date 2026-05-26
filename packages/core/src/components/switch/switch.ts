@@ -1,8 +1,8 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import { RippleController, rippleSheet } from '../../utils/ripple.js';
 import sheet from './switch.styles.js';
 
-export class MCSwitch extends MCElement {
+export class MESwitch extends MEElement {
   static formAssociated = true;
   static observedAttributes = ['checked', 'disabled', 'value', 'color', 'required', 'name'];
 
@@ -32,12 +32,12 @@ export class MCSwitch extends MCElement {
     this.setAttribute('tabindex', disabled ? '-1' : '0');
 
     this.shadow.innerHTML = `
-      <div class="mc-switch">
-        <input class="mc-switch__input" type="checkbox" tabindex="-1" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''}/>
-        <div class="mc-switch__track">
-          <div class="mc-switch__thumb-wrapper">
-            <div class="mc-switch__ripple"></div>
-            <div class="mc-switch__thumb"></div>
+      <div class="me-switch">
+        <input class="me-switch__input" type="checkbox" tabindex="-1" ${checked ? 'checked' : ''} ${disabled ? 'disabled' : ''}/>
+        <div class="me-switch__track">
+          <div class="me-switch__thumb-wrapper">
+            <div class="me-switch__ripple"></div>
+            <div class="me-switch__thumb"></div>
           </div>
         </div>
       </div>
@@ -45,7 +45,7 @@ export class MCSwitch extends MCElement {
 
     this._ripple.detach();
     if (!disabled) {
-      const rippleEl = this.shadow.querySelector<HTMLElement>('.mc-switch__ripple')!;
+      const rippleEl = this.shadow.querySelector<HTMLElement>('.me-switch__ripple')!;
       this._ripple.attach(rippleEl, { centered: true });
     }
   }
@@ -77,4 +77,4 @@ export class MCSwitch extends MCElement {
   };
 }
 
-customElements.define('mc-switch', MCSwitch);
+customElements.define('me-switch', MESwitch);

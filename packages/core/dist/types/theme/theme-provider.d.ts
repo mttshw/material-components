@@ -1,9 +1,9 @@
-import type { MCTheme, MCThemeInput } from './types.js';
-export declare class MCThemeProvider extends HTMLElement {
+import type { METheme, METhemeInput } from './types.js';
+export declare class METhemeProvider extends HTMLElement {
     private _theme;
     connectedCallback(): void;
-    get theme(): MCTheme;
-    set theme(value: MCThemeInput);
+    get theme(): METheme;
+    set theme(value: METhemeInput);
     private _applyTheme;
 }
 //# sourceMappingURL=theme-provider.d.ts.map

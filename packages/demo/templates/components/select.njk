@@ -1,5 +1,5 @@
 {% extends "_layout.njk" %}
-{% set pageTitle = "Select — materialcomponents.io" %}
+{% set pageTitle = "Select — materialelements.io" %}
 
 {% block content %}
 <h1>Select</h1>
@@ -7,43 +7,43 @@
 
 <h2>Variants</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-select variant="outlined" label="Age" style="min-width:120px">
+  <me-select variant="outlined" label="Age" style="min-width:120px">
     <option value="10">Ten</option>
     <option value="20">Twenty</option>
     <option value="30">Thirty</option>
-  </mc-select>
-  <mc-select variant="filled" label="Age" style="min-width:120px">
+  </me-select>
+  <me-select variant="filled" label="Age" style="min-width:120px">
     <option value="10">Ten</option>
     <option value="20">Twenty</option>
     <option value="30">Thirty</option>
-  </mc-select>
-  <mc-select variant="standard" label="Age" style="min-width:120px">
+  </me-select>
+  <me-select variant="standard" label="Age" style="min-width:120px">
     <option value="10">Ten</option>
     <option value="20">Twenty</option>
     <option value="30">Thirty</option>
-  </mc-select>
+  </me-select>
 </section>
 <code-sample>
-&lt;mc-select variant="outlined" label="Age"&gt;
+&lt;me-select variant="outlined" label="Age"&gt;
   &lt;option value="10"&gt;Ten&lt;/option&gt;
   &lt;option value="20"&gt;Twenty&lt;/option&gt;
   &lt;option value="30"&gt;Thirty&lt;/option&gt;
-&lt;/mc-select&gt;
+&lt;/me-select&gt;
 </code-sample>
 
 <h2>With Default Value</h2>
 <section class="demo-section" style="align-items:flex-start;gap:16px">
-  <mc-select variant="outlined" label="Country" style="min-width:160px">
+  <me-select variant="outlined" label="Country" style="min-width:160px">
     <option value="us" selected>United States</option>
     <option value="ca">Canada</option>
     <option value="gb">United Kingdom</option>
     <option value="au">Australia</option>
-  </mc-select>
+  </me-select>
 </section>
 
 <h2>With Option Groups</h2>
 <section class="demo-section" style="align-items:flex-start;gap:16px">
-  <mc-select variant="outlined" label="Category" style="min-width:160px">
+  <me-select variant="outlined" label="Category" style="min-width:160px">
     <optgroup label="Fruits">
       <option value="apple">Apple</option>
       <option value="banana">Banana</option>
@@ -53,48 +53,48 @@
       <option value="carrot">Carrot</option>
       <option value="pea">Pea</option>
     </optgroup>
-  </mc-select>
+  </me-select>
 </section>
 <code-sample>
-&lt;mc-select label="Category"&gt;
+&lt;me-select label="Category"&gt;
   &lt;optgroup label="Fruits"&gt;
     &lt;option value="apple"&gt;Apple&lt;/option&gt;
     &lt;option value="banana"&gt;Banana&lt;/option&gt;
   &lt;/optgroup&gt;
-&lt;/mc-select&gt;
+&lt;/me-select&gt;
 </code-sample>
 
 <h2>Helper Text &amp; Error</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-select variant="outlined" label="Role" helper-text="Select your role" style="min-width:160px">
+  <me-select variant="outlined" label="Role" helper-text="Select your role" style="min-width:160px">
     <option value="admin">Admin</option>
     <option value="editor">Editor</option>
     <option value="viewer">Viewer</option>
-  </mc-select>
-  <mc-select variant="outlined" label="Status" error helper-text="Selection required" style="min-width:160px">
+  </me-select>
+  <me-select variant="outlined" label="Status" error helper-text="Selection required" style="min-width:160px">
     <option value="active">Active</option>
     <option value="inactive">Inactive</option>
-  </mc-select>
+  </me-select>
 </section>
 
 <h2>Disabled</h2>
 <section class="demo-section" style="align-items:flex-start;gap:16px">
-  <mc-select variant="outlined" label="Disabled" disabled style="min-width:120px">
+  <me-select variant="outlined" label="Disabled" disabled style="min-width:120px">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
-  </mc-select>
+  </me-select>
 </section>
 
 <h2>Color</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-select variant="outlined" label="Primary" style="min-width:120px">
+  <me-select variant="outlined" label="Primary" style="min-width:120px">
     <option value="1">One</option>
     <option value="2">Two</option>
-  </mc-select>
-  <mc-select variant="outlined" label="Secondary" color="secondary" style="min-width:120px">
+  </me-select>
+  <me-select variant="outlined" label="Secondary" color="secondary" style="min-width:120px">
     <option value="1">One</option>
     <option value="2">Two</option>
-  </mc-select>
+  </me-select>
 </section>
 
 <h2>API</h2>

@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCTextField extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class METextField extends MEElement {
     static formAssociated: boolean;
     static observedAttributes: string[];
     private _internals;

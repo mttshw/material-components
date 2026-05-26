@@ -1,5 +1,5 @@
 {% extends "_layout.njk" %}
-{% set pageTitle = "Chip — materialcomponents.io" %}
+{% set pageTitle = "Chip — materialelements.io" %}
 
 {% block content %}
 <h1>Chip</h1>
@@ -7,59 +7,59 @@
 
 <h2>Filled Chips</h2>
 <section class="demo-section" style="flex-wrap:wrap;gap:8px">
-  <mc-chip>Default</mc-chip>
-  <mc-chip color="primary">Primary</mc-chip>
-  <mc-chip color="secondary">Secondary</mc-chip>
-  <mc-chip color="error">Error</mc-chip>
-  <mc-chip color="success">Success</mc-chip>
-  <mc-chip color="warning">Warning</mc-chip>
-  <mc-chip color="info">Info</mc-chip>
+  <me-chip>Default</me-chip>
+  <me-chip color="primary">Primary</me-chip>
+  <me-chip color="secondary">Secondary</me-chip>
+  <me-chip color="error">Error</me-chip>
+  <me-chip color="success">Success</me-chip>
+  <me-chip color="warning">Warning</me-chip>
+  <me-chip color="info">Info</me-chip>
 </section>
 <code-sample>
-&lt;mc-chip&gt;Default&lt;/mc-chip&gt;
-&lt;mc-chip color="primary"&gt;Primary&lt;/mc-chip&gt;
+&lt;me-chip&gt;Default&lt;/me-chip&gt;
+&lt;me-chip color="primary"&gt;Primary&lt;/me-chip&gt;
 </code-sample>
 
 <h2>Outlined Chips</h2>
 <section class="demo-section" style="flex-wrap:wrap;gap:8px">
-  <mc-chip variant="outlined">Default</mc-chip>
-  <mc-chip variant="outlined" color="primary">Primary</mc-chip>
-  <mc-chip variant="outlined" color="secondary">Secondary</mc-chip>
-  <mc-chip variant="outlined" color="error">Error</mc-chip>
+  <me-chip variant="outlined">Default</me-chip>
+  <me-chip variant="outlined" color="primary">Primary</me-chip>
+  <me-chip variant="outlined" color="secondary">Secondary</me-chip>
+  <me-chip variant="outlined" color="error">Error</me-chip>
 </section>
 <code-sample>
-&lt;mc-chip variant="outlined" color="primary"&gt;Primary&lt;/mc-chip&gt;
+&lt;me-chip variant="outlined" color="primary"&gt;Primary&lt;/me-chip&gt;
 </code-sample>
 
 <h2>Clickable</h2>
 <section class="demo-section" style="flex-wrap:wrap;gap:8px">
-  <mc-chip clickable>Clickable</mc-chip>
-  <mc-chip clickable color="primary">Primary</mc-chip>
-  <mc-chip clickable variant="outlined" color="primary">Outlined</mc-chip>
+  <me-chip clickable>Clickable</me-chip>
+  <me-chip clickable color="primary">Primary</me-chip>
+  <me-chip clickable variant="outlined" color="primary">Outlined</me-chip>
 </section>
 
 <h2>Deletable</h2>
 <section class="demo-section" style="flex-wrap:wrap;gap:8px">
-  <mc-chip deletable>Deletable</mc-chip>
-  <mc-chip deletable color="primary">Primary</mc-chip>
-  <mc-chip deletable clickable color="secondary">Clickable + Deletable</mc-chip>
+  <me-chip deletable>Deletable</me-chip>
+  <me-chip deletable color="primary">Primary</me-chip>
+  <me-chip deletable clickable color="secondary">Clickable + Deletable</me-chip>
 </section>
 <code-sample>
-&lt;mc-chip deletable&gt;Deletable&lt;/mc-chip&gt;
+&lt;me-chip deletable&gt;Deletable&lt;/me-chip&gt;
 </code-sample>
 
 <h2>Sizes</h2>
 <section class="demo-section" style="flex-wrap:wrap;gap:8px;align-items:center">
-  <mc-chip size="small">Small</mc-chip>
-  <mc-chip>Medium (default)</mc-chip>
-  <mc-chip size="small" color="primary" deletable>Small deletable</mc-chip>
+  <me-chip size="small">Small</me-chip>
+  <me-chip>Medium (default)</me-chip>
+  <me-chip size="small" color="primary" deletable>Small deletable</me-chip>
 </section>
 
 <h2>Disabled</h2>
 <section class="demo-section" style="flex-wrap:wrap;gap:8px">
-  <mc-chip disabled>Disabled</mc-chip>
-  <mc-chip disabled color="primary">Disabled primary</mc-chip>
-  <mc-chip disabled variant="outlined">Disabled outlined</mc-chip>
+  <me-chip disabled>Disabled</me-chip>
+  <me-chip disabled color="primary">Disabled primary</me-chip>
+  <me-chip disabled variant="outlined">Disabled outlined</me-chip>
 </section>
 
 <h2>API</h2>
@@ -79,7 +79,7 @@
 <table class="api-table">
   <thead><tr><th>Event</th><th>Description</th></tr></thead>
   <tbody>
-    <tr><td><code>mc-delete</code></td><td>Fired when the delete icon is clicked.</td></tr>
+    <tr><td><code>me-delete</code></td><td>Fired when the delete icon is clicked.</td></tr>
   </tbody>
 </table>
 {% endblock %}

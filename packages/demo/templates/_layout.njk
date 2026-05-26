@@ -3,31 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}{{ pageTitle if pageTitle else "materialcomponents.io" }}{% endblock %}</title>
+  <title>{% block title %}{{ pageTitle if pageTitle else "materialelements.io" }}{% endblock %}</title>
   <link rel="stylesheet" href="/shared/styles.css">
-  <script src="/dist/materialcomponents.min.js"></script>
+  <script src="/dist/materialelements.min.js"></script>
 </head>
 <body>
-  <mc-css-baseline></mc-css-baseline>
-  <mc-theme-provider id="app-theme">
+  <me-css-baseline></me-css-baseline>
+  <me-theme-provider id="app-theme">
 
-    <header class="mc-topbar">
-      <a href="/" class="mc-topbar__brand">materialcomponents.io</a>
-      <div class="mc-topbar__spacer"></div>
-      <button id="theme-toggle" class="mc-topbar__icon-btn" title="Toggle dark mode">
+    <header class="me-topbar">
+      <a href="/" class="me-topbar__brand">materialelements.io</a>
+      <div class="me-topbar__spacer"></div>
+      <button id="theme-toggle" class="me-topbar__icon-btn" title="Toggle dark mode">
         &#9681;
       </button>
     </header>
 
-    <nav class="mc-sidebar" aria-label="Component navigation">
+    <nav class="me-sidebar" aria-label="Component navigation">
       <ul>
         {% for item in nav %}
           {% if item.section %}
-            <li class="mc-sidebar__section">{{ item.label }}</li>
+            <li class="me-sidebar__section">{{ item.label }}</li>
           {% else %}
             <li>
               <a href="{{ item.href }}"
-                 class="mc-sidebar__link{% if currentPath == item.href %} mc-sidebar__link--active{% endif %}">
+                 class="me-sidebar__link{% if currentPath == item.href %} me-sidebar__link--active{% endif %}">
                 {{ item.label }}
               </a>
             </li>
@@ -36,11 +36,11 @@
       </ul>
     </nav>
 
-    <main class="mc-main">
+    <main class="me-main">
       {% block content %}{% endblock %}
     </main>
 
-  </mc-theme-provider>
+  </me-theme-provider>
 
   <script src="/shared/code-sample.js"></script>
   <script src="/shared/theme-switcher.js"></script>

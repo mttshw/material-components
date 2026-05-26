@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCRadioGroup extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class MERadioGroup extends MEElement {
     static observedAttributes: string[];
     constructor();
     get value(): string;

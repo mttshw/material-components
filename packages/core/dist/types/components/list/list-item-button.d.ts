@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCListItemButton extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class MEListItemButton extends MEElement {
     static observedAttributes: string[];
     private _ripple;
     constructor();

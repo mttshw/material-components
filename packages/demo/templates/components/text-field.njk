@@ -1,5 +1,5 @@
 {% extends "_layout.njk" %}
-{% set pageTitle = "TextField — materialcomponents.io" %}
+{% set pageTitle = "TextField — materialelements.io" %}
 
 {% block content %}
 <h1>TextField</h1>
@@ -7,74 +7,74 @@
 
 <h2>Variants</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Outlined"></mc-text-field>
-  <mc-text-field variant="filled" label="Filled"></mc-text-field>
-  <mc-text-field variant="standard" label="Standard"></mc-text-field>
+  <me-text-field variant="outlined" label="Outlined"></me-text-field>
+  <me-text-field variant="filled" label="Filled"></me-text-field>
+  <me-text-field variant="standard" label="Standard"></me-text-field>
 </section>
 <code-sample>
-&lt;mc-text-field variant="outlined" label="Outlined"&gt;&lt;/mc-text-field&gt;
-&lt;mc-text-field variant="filled" label="Filled"&gt;&lt;/mc-text-field&gt;
-&lt;mc-text-field variant="standard" label="Standard"&gt;&lt;/mc-text-field&gt;
+&lt;me-text-field variant="outlined" label="Outlined"&gt;&lt;/me-text-field&gt;
+&lt;me-text-field variant="filled" label="Filled"&gt;&lt;/me-text-field&gt;
+&lt;me-text-field variant="standard" label="Standard"&gt;&lt;/me-text-field&gt;
 </code-sample>
 
 <h2>With Placeholder</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Search" placeholder="Enter search term..."></mc-text-field>
+  <me-text-field variant="outlined" label="Search" placeholder="Enter search term..."></me-text-field>
 </section>
 
 <h2>Types</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Email" type="email"></mc-text-field>
-  <mc-text-field variant="outlined" label="Password" type="password"></mc-text-field>
-  <mc-text-field variant="outlined" label="Number" type="number" min="0" max="100"></mc-text-field>
+  <me-text-field variant="outlined" label="Email" type="email"></me-text-field>
+  <me-text-field variant="outlined" label="Password" type="password"></me-text-field>
+  <me-text-field variant="outlined" label="Number" type="number" min="0" max="100"></me-text-field>
 </section>
 
 <h2>Helper Text &amp; Error</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Username" helper-text="Choose a unique username"></mc-text-field>
-  <mc-text-field variant="outlined" label="Email" value="notanemail" error helper-text="Please enter a valid email address"></mc-text-field>
+  <me-text-field variant="outlined" label="Username" helper-text="Choose a unique username"></me-text-field>
+  <me-text-field variant="outlined" label="Email" value="notanemail" error helper-text="Please enter a valid email address"></me-text-field>
 </section>
 <code-sample>
-&lt;mc-text-field label="Email" helper-text="Enter your email"&gt;&lt;/mc-text-field&gt;
-&lt;mc-text-field label="Email" error helper-text="Invalid email address"&gt;&lt;/mc-text-field&gt;
+&lt;me-text-field label="Email" helper-text="Enter your email"&gt;&lt;/me-text-field&gt;
+&lt;me-text-field label="Email" error helper-text="Invalid email address"&gt;&lt;/me-text-field&gt;
 </code-sample>
 
 <h2>Multiline</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Message" multiline rows="4" style="width:300px"></mc-text-field>
-  <mc-text-field variant="filled" label="Notes" multiline rows="3" style="width:300px"></mc-text-field>
+  <me-text-field variant="outlined" label="Message" multiline rows="4" style="width:300px"></me-text-field>
+  <me-text-field variant="filled" label="Notes" multiline rows="3" style="width:300px"></me-text-field>
 </section>
 <code-sample>
-&lt;mc-text-field label="Message" multiline rows="4"&gt;&lt;/mc-text-field&gt;
+&lt;me-text-field label="Message" multiline rows="4"&gt;&lt;/me-text-field&gt;
 </code-sample>
 
 <h2>Sizes</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Small" size="small"></mc-text-field>
-  <mc-text-field variant="outlined" label="Medium (default)"></mc-text-field>
-  <mc-text-field variant="filled" label="Small filled" size="small"></mc-text-field>
+  <me-text-field variant="outlined" label="Small" size="small"></me-text-field>
+  <me-text-field variant="outlined" label="Medium (default)"></me-text-field>
+  <me-text-field variant="filled" label="Small filled" size="small"></me-text-field>
 </section>
 
 <h2>Disabled &amp; Readonly</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Disabled" value="Can't edit this" disabled></mc-text-field>
-  <mc-text-field variant="outlined" label="Read Only" value="Read only value" readonly></mc-text-field>
+  <me-text-field variant="outlined" label="Disabled" value="Can't edit this" disabled></me-text-field>
+  <me-text-field variant="outlined" label="Read Only" value="Read only value" readonly></me-text-field>
 </section>
 
 <h2>Adornments</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Amount" start-adornment="$" type="number"></mc-text-field>
-  <mc-text-field variant="outlined" label="Weight" end-adornment="kg" type="number"></mc-text-field>
+  <me-text-field variant="outlined" label="Amount" start-adornment="$" type="number"></me-text-field>
+  <me-text-field variant="outlined" label="Weight" end-adornment="kg" type="number"></me-text-field>
 </section>
 <code-sample>
-&lt;mc-text-field label="Amount" start-adornment="$"&gt;&lt;/mc-text-field&gt;
-&lt;mc-text-field label="Weight" end-adornment="kg"&gt;&lt;/mc-text-field&gt;
+&lt;me-text-field label="Amount" start-adornment="$"&gt;&lt;/me-text-field&gt;
+&lt;me-text-field label="Weight" end-adornment="kg"&gt;&lt;/me-text-field&gt;
 </code-sample>
 
 <h2>Color</h2>
 <section class="demo-section" style="align-items:flex-start;flex-wrap:wrap;gap:16px">
-  <mc-text-field variant="outlined" label="Primary" color="primary"></mc-text-field>
-  <mc-text-field variant="outlined" label="Secondary" color="secondary"></mc-text-field>
+  <me-text-field variant="outlined" label="Primary" color="primary"></me-text-field>
+  <me-text-field variant="outlined" label="Secondary" color="secondary"></me-text-field>
 </section>
 
 <h2>API</h2>

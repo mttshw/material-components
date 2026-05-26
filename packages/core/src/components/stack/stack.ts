@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './stack.styles.js';
 
-export class MCStack extends MCElement {
+export class MEStack extends MEElement {
   static observedAttributes = ['direction', 'spacing', 'align', 'justify', 'flex-wrap'];
 
   constructor() {
@@ -14,7 +14,7 @@ export class MCStack extends MCElement {
     if (spacing !== null) {
       const gap = isNaN(Number(spacing))
         ? spacing
-        : `calc(var(--mc-spacing, 8px) * ${spacing})`;
+        : `calc(var(--me-spacing, 8px) * ${spacing})`;
       this.style.setProperty('gap', gap);
     } else {
       this.style.removeProperty('gap');

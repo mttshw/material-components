@@ -1,3 +1,3 @@
-import { MCIcon } from './icon.js';
-export { MCIcon };
+import { MEIcon } from './icon.js';
+export { MEIcon };
 //# sourceMappingURL=index.d.ts.map

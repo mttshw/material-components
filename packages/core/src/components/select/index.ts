@@ -1,1 +1,1 @@
-export { MCSelect } from './select.js';
+export { MESelect } from './select.js';

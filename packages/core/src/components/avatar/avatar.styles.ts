@@ -9,22 +9,28 @@ sheet.replaceSync(`
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    background-color: var(--mc-palette-grey-400, #bdbdbd);
-    color: var(--mc-palette-background-default, #fff);
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    background-color: var(--me-palette-grey-400, #bdbdbd);
+    color: var(--me-palette-background-default, #fff);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
     font-size: 1.25rem;
     line-height: 1;
     user-select: none;
     position: relative;
   }
-  :host([variant="rounded"]) { border-radius: var(--mc-shape-borderRadius, 4px); }
+  :host([variant="rounded"]) { border-radius: var(--me-shape-borderRadius, 4px); }
   :host([variant="square"])  { border-radius: 0; }
 
-  .mc-avatar__img {
+  .me-avatar__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     text-indent: -9999px;
+  }
+
+  /* Shift letters down to compensate for cap-height sitting above the em-square center */
+  .me-avatar__letter {
+    display: block;
+    padding-top: calc((1em - 1cap) / 2);
   }
 `);
 export default sheet;

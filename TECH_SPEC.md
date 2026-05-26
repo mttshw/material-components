@@ -1,8 +1,8 @@
-# materialcomponents.io — Technical Specification
+# materialelements.io — Technical Specification
 
 ## Project Overview
 
-**materialcomponents.io** is an open-source vanilla JavaScript Web Components library that replicates the Material UI (MUI) component set. It produces visually identical output to MUI, consumes MUI-compatible theme objects, and has **zero runtime dependencies** (the only accepted dependency is `@mui/material` as a peer dependency for theme type definitions).
+**materialelements.io** is an open-source vanilla JavaScript Web Components library that replicates the Material UI (MUI) component set. It produces visually identical output to MUI, consumes MUI-compatible theme objects, and has **zero runtime dependencies** (the only accepted dependency is `@mui/material` as a peer dependency for theme type definitions).
 
 The project ships as two packages from a monorepo, plus a documentation/demo site.
 
@@ -11,12 +11,12 @@ The project ships as two packages from a monorepo, plus a documentation/demo sit
 ## 1. Repository Structure
 
 ```
-materialcomponents/
+materialelements/
 ├── packages/
-│   ├── core/                          # The component library (npm: @materialcomponents/core)
+│   ├── core/                          # The component library (npm: @materialelements/core)
 │   │   ├── src/
 │   │   │   ├── theme/
-│   │   │   │   ├── theme-provider.ts  # <mc-theme-provider> element + theme engine
+│   │   │   │   ├── theme-provider.ts  # <me-theme-provider> element + theme engine
 │   │   │   │   ├── default-theme.ts   # MUI default theme values (hardcoded, no MUI import)
 │   │   │   │   ├── css-variables.ts   # Theme → CSS custom property mapping
 │   │   │   │   └── types.ts           # TypeScript interfaces mirroring MUI's Theme shape
@@ -39,7 +39,7 @@ materialcomponents/
 │   │   ├── tsconfig.json
 │   │   └── README.md
 │   │
-│   └── demo/                          # Demo site (materialcomponents.io)
+│   └── demo/                          # Demo site (materialelements.io)
 │       ├── public/                    # Static assets (favicon, images)
 │       ├── templates/
 │       │   ├── _layout.njk            # Base Nunjucks layout (topbar + sidebar shell)
@@ -74,7 +74,7 @@ Use **npm workspaces** (no yarn, no pnpm). The root `package.json` declares:
 
 ```json
 {
-  "name": "materialcomponents",
+  "name": "materialelements",
   "private": true,
   "workspaces": ["packages/*"]
 }
@@ -91,7 +91,7 @@ This is the most critical piece. The library must accept a standard MUI theme ob
 The library accepts the same `ThemeOptions` shape that `createTheme()` from `@mui/material/styles` produces. The relevant top-level keys are:
 
 ```typescript
-interface MCTheme {
+interface METheme {
   palette: {
     mode: 'light' | 'dark';
     primary:    PaletteColor; // { main, light, dark, contrastText }
@@ -148,14 +148,14 @@ interface MCTheme {
 }
 ```
 
-### 2.2 `<mc-theme-provider>`
+### 2.2 `<me-theme-provider>`
 
 A custom element that accepts a theme and propagates CSS custom properties to all descendants.
 
 ```html
-<mc-theme-provider id="app-theme">
-  <mc-button variant="contained">Hello</mc-button>
-</mc-theme-provider>
+<me-theme-provider id="app-theme">
+  <me-button variant="contained">Hello</me-button>
+</me-theme-provider>
 
 <script>
   import { createTheme } from '@mui/material/styles';
@@ -175,30 +175,30 @@ A custom element that accepts a theme and propagates CSS custom properties to al
 2. Deep-merges it with the hardcoded default theme (matching MUI's defaults exactly).
 3. Flattens the merged theme into CSS custom properties using a deterministic naming convention.
 4. Applies those properties as inline `style` on itself.
-5. All child `mc-*` components reference these CSS variables — no JavaScript theme lookups at render time.
+5. All child `me-*` components reference these CSS variables — no JavaScript theme lookups at render time.
 
 ### 2.3 CSS Variable Naming Convention
 
-All variables are prefixed with `--mc-`. The flattening follows the object path with hyphens:
+All variables are prefixed with `--me-`. The flattening follows the object path with hyphens:
 
 ```
-palette.primary.main        → --mc-palette-primary-main
-palette.text.secondary      → --mc-palette-text-secondary
-typography.fontFamily        → --mc-typography-fontFamily
-typography.h1.fontSize       → --mc-typography-h1-fontSize
-typography.h1.fontWeight     → --mc-typography-h1-fontWeight
-shape.borderRadius           → --mc-shape-borderRadius
-shadows[4]                   → --mc-shadows-4
-spacing                      → --mc-spacing  (base value in px)
-transitions.easing.easeInOut → --mc-transitions-easing-easeInOut
-transitions.duration.short   → --mc-transitions-duration-short
-zIndex.modal                 → --mc-zIndex-modal
-breakpoints.values.sm        → --mc-breakpoints-values-sm
+palette.primary.main        → --me-palette-primary-main
+palette.text.secondary      → --me-palette-text-secondary
+typography.fontFamily        → --me-typography-fontFamily
+typography.h1.fontSize       → --me-typography-h1-fontSize
+typography.h1.fontWeight     → --me-typography-h1-fontWeight
+shape.borderRadius           → --me-shape-borderRadius
+shadows[4]                   → --me-shadows-4
+spacing                      → --me-spacing  (base value in px)
+transitions.easing.easeInOut → --me-transitions-easing-easeInOut
+transitions.duration.short   → --me-transitions-duration-short
+zIndex.modal                 → --me-zIndex-modal
+breakpoints.values.sm        → --me-breakpoints-values-sm
 ```
 
 ### 2.4 No MUI Runtime Import
 
-The `@materialcomponents/core` package must **never** import MUI at runtime. MUI's `createTheme` is only used by the consumer to build the theme object. The library's TypeScript types for the theme shape are independently defined (mirroring MUI's interfaces). The `peerDependencies` entry for `@mui/material` is optional and only there so that consumers who already use MUI get type compatibility for free.
+The `@materialelements/core` package must **never** import MUI at runtime. MUI's `createTheme` is only used by the consumer to build the theme object. The library's TypeScript types for the theme shape are independently defined (mirroring MUI's interfaces). The `peerDependencies` entry for `@mui/material` is optional and only there so that consumers who already use MUI get type compatibility for free.
 
 ```json
 // packages/core/package.json
@@ -214,12 +214,12 @@ The `@materialcomponents/core` package must **never** import MUI at runtime. MUI
 
 ### 2.5 Theme Without MUI
 
-Users who don't want MUI at all can pass a plain object conforming to `MCTheme`:
+Users who don't want MUI at all can pass a plain object conforming to `METheme`:
 
 ```javascript
-import { applyTheme } from '@materialcomponents/core';
+import { applyTheme } from '@materialelements/core';
 
-const provider = document.querySelector('mc-theme-provider');
+const provider = document.querySelector('me-theme-provider');
 provider.theme = {
   palette: {
     mode: 'light',
@@ -236,10 +236,10 @@ provider.theme = {
 
 ### 3.1 Base Class
 
-All components extend a shared `MCElement` base class:
+All components extend a shared `MEElement` base class:
 
 ```typescript
-export abstract class MCElement extends HTMLElement {
+export abstract class MEElement extends HTMLElement {
   // Shadow DOM with adopted stylesheets
   protected shadow: ShadowRoot;
 
@@ -272,12 +272,12 @@ export abstract class MCElement extends HTMLElement {
 
   // Helper: resolve a CSS variable with fallback
   protected cssVar(name: string, fallback?: string): string {
-    return `var(--mc-${name}${fallback ? ', ' + fallback : ''})`;
+    return `var(--me-${name}${fallback ? ', ' + fallback : ''})`;
   }
 
   // Helper: compute spacing
   protected spacing(factor: number = 1): string {
-    return `calc(var(--mc-spacing, 8px) * ${factor})`;
+    return `calc(var(--me-spacing, 8px) * ${factor})`;
   }
 }
 ```
@@ -295,26 +295,26 @@ sheet.replaceSync(`
     /* all values reference CSS variables from the theme provider */
   }
 
-  .mc-button {
-    font-family: var(--mc-typography-button-fontFamily, var(--mc-typography-fontFamily));
-    font-size: var(--mc-typography-button-fontSize, 0.875rem);
-    font-weight: var(--mc-typography-button-fontWeight, 500);
-    letter-spacing: var(--mc-typography-button-letterSpacing, 0.02857em);
-    text-transform: var(--mc-typography-button-textTransform, uppercase);
-    border-radius: calc(var(--mc-shape-borderRadius, 4) * 1px);
-    transition: background-color var(--mc-transitions-duration-short, 250ms)
-                var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4, 0, 0.2, 1));
+  .me-button {
+    font-family: var(--me-typography-button-fontFamily, var(--me-typography-fontFamily));
+    font-size: var(--me-typography-button-fontSize, 0.875rem);
+    font-weight: var(--me-typography-button-fontWeight, 500);
+    letter-spacing: var(--me-typography-button-letterSpacing, 0.02857em);
+    text-transform: var(--me-typography-button-textTransform, uppercase);
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    transition: background-color var(--me-transitions-duration-short, 250ms)
+                var(--me-transitions-easing-easeInOut, cubic-bezier(0.4, 0, 0.2, 1));
   }
 
   /* variant: contained */
-  :host([variant="contained"]) .mc-button {
-    background-color: var(--mc-palette-primary-main);
-    color: var(--mc-palette-primary-contrastText);
-    box-shadow: var(--mc-shadows-2);
+  :host([variant="contained"]) .me-button {
+    background-color: var(--me-palette-primary-main);
+    color: var(--me-palette-primary-contrastText);
+    box-shadow: var(--me-shadows-2);
   }
 
-  :host([variant="contained"]:hover) .mc-button {
-    box-shadow: var(--mc-shadows-4);
+  :host([variant="contained"]:hover) .me-button {
+    box-shadow: var(--me-shadows-4);
   }
 
   /* ... outlined, text variants ... */
@@ -345,27 +345,27 @@ The ripple is triggered on `pointerdown`, creates a `<span>` with CSS animation 
 
 ### 3.4 Registration
 
-Each component self-registers with a `mc-` prefix:
+Each component self-registers with a `me-` prefix:
 
 ```typescript
 // button/index.ts
-import { MCButton } from './button';
+import { MEButton } from './button';
 
-if (!customElements.get('mc-button')) {
-  customElements.define('mc-button', MCButton);
+if (!customElements.get('me-button')) {
+  customElements.define('me-button', MEButton);
 }
 
-export { MCButton };
+export { MEButton };
 ```
 
 The main entry point re-exports everything, so a consumer can do:
 
 ```javascript
 // Registers ALL components
-import '@materialcomponents/core';
+import '@materialelements/core';
 
 // Or cherry-pick
-import '@materialcomponents/core/button';
+import '@materialelements/core/button';
 ```
 
 ---
@@ -380,98 +380,98 @@ These form the minimum viable release.
 
 | Component | Element Name | Key Attributes / Variants |
 |-----------|-------------|---------------------------|
-| Button | `<mc-button>` | `variant` (text, contained, outlined), `color`, `size` (small, medium, large), `disabled`, `href`, `start-icon`, `end-icon` |
-| IconButton | `<mc-icon-button>` | `color`, `size`, `disabled`, `edge` |
-| TextField | `<mc-text-field>` | `variant` (filled, outlined, standard), `label`, `placeholder`, `helper-text`, `error`, `disabled`, `type`, `multiline`, `rows` |
-| Select | `<mc-select>` | `variant`, `label`, `value`, `multiple`, `disabled` |
-| Checkbox | `<mc-checkbox>` | `checked`, `indeterminate`, `disabled`, `color` |
-| Radio | `<mc-radio>` | `checked`, `disabled`, `color`, `name`, `value` |
-| RadioGroup | `<mc-radio-group>` | `value`, `name` |
-| Switch | `<mc-switch>` | `checked`, `disabled`, `color` |
-| Typography | `<mc-typography>` | `variant` (h1–h6, subtitle1/2, body1/2, caption, overline, button), `color`, `align`, `gutterBottom`, `noWrap` |
-| Paper | `<mc-paper>` | `elevation` (0–24), `variant` (elevation, outlined), `square` |
-| Card | `<mc-card>` | `variant` (elevation, outlined) |
-| CardContent | `<mc-card-content>` | — |
-| CardActions | `<mc-card-actions>` | `disableSpacing` |
-| CardHeader | `<mc-card-header>` | `title`, `subheader` (uses slots for avatar/action) |
-| CardMedia | `<mc-card-media>` | `image`, `alt`, `height` |
-| AppBar | `<mc-app-bar>` | `position` (fixed, absolute, sticky, static, relative), `color` |
-| Toolbar | `<mc-toolbar>` | `variant` (regular, dense) |
-| Drawer | `<mc-drawer>` | `open`, `anchor` (left, right, top, bottom), `variant` (temporary, persistent, permanent) |
-| List | `<mc-list>` | `dense`, `disablePadding` |
-| ListItem | `<mc-list-item>` | `disablePadding`, `disableGutters` |
-| ListItemButton | `<mc-list-item-button>` | `selected`, `disabled` |
-| ListItemText | `<mc-list-item-text>` | `primary`, `secondary` |
-| ListItemIcon | `<mc-list-item-icon>` | — |
-| Divider | `<mc-divider>` | `variant` (fullWidth, inset, middle), `orientation` |
-| Grid | `<mc-grid>` | `container`, `item`, `spacing`, `xs`, `sm`, `md`, `lg`, `xl`, `direction`, `justify`, `align` |
-| Container | `<mc-container>` | `maxWidth` (xs, sm, md, lg, xl, false), `fixed` |
-| Stack | `<mc-stack>` | `direction`, `spacing`, `align`, `justify` |
-| Box | `<mc-box>` | General-purpose layout wrapper. Supports `sx`-like style shorthand attributes. |
-| Dialog | `<mc-dialog>` | `open`, `fullWidth`, `maxWidth`, `fullScreen` |
-| DialogTitle | `<mc-dialog-title>` | — |
-| DialogContent | `<mc-dialog-content>` | `dividers` |
-| DialogActions | `<mc-dialog-actions>` | — |
-| Snackbar | `<mc-snackbar>` | `open`, `auto-hide-duration`, `anchor-origin` |
-| Alert | `<mc-alert>` | `severity` (error, warning, info, success), `variant` (standard, filled, outlined) |
-| CircularProgress | `<mc-circular-progress>` | `variant` (determinate, indeterminate), `value`, `size`, `color` |
-| LinearProgress | `<mc-linear-progress>` | `variant` (determinate, indeterminate, buffer, query), `value`, `valueBuffer`, `color` |
-| Chip | `<mc-chip>` | `variant` (filled, outlined), `color`, `size`, `deletable`, `clickable`, `disabled` |
-| Avatar | `<mc-avatar>` | `src`, `alt`, `variant` (circular, rounded, square) |
-| Badge | `<mc-badge>` | `badgeContent`, `color`, `variant` (standard, dot), `max`, `invisible`, `overlap` |
-| Tooltip | `<mc-tooltip>` | `title`, `placement` (top, bottom, left, right + variations), `arrow` |
-| Icon | `<mc-icon>` | `color`, `fontSize` (small, medium, large, inherit) — renders slotted SVG or icon font glyph |
-| CssBaseline | `<mc-css-baseline>` | Injects global reset styles (box-sizing, margin, typography defaults) |
+| Button | `<me-button>` | `variant` (text, contained, outlined), `color`, `size` (small, medium, large), `disabled`, `href`, `start-icon`, `end-icon` |
+| IconButton | `<me-icon-button>` | `color`, `size`, `disabled`, `edge` |
+| TextField | `<me-text-field>` | `variant` (filled, outlined, standard), `label`, `placeholder`, `helper-text`, `error`, `disabled`, `type`, `multiline`, `rows` |
+| Select | `<me-select>` | `variant`, `label`, `value`, `multiple`, `disabled` |
+| Checkbox | `<me-checkbox>` | `checked`, `indeterminate`, `disabled`, `color` |
+| Radio | `<me-radio>` | `checked`, `disabled`, `color`, `name`, `value` |
+| RadioGroup | `<me-radio-group>` | `value`, `name` |
+| Switch | `<me-switch>` | `checked`, `disabled`, `color` |
+| Typography | `<me-typography>` | `variant` (h1–h6, subtitle1/2, body1/2, caption, overline, button), `color`, `align`, `gutterBottom`, `noWrap` |
+| Paper | `<me-paper>` | `elevation` (0–24), `variant` (elevation, outlined), `square` |
+| Card | `<me-card>` | `variant` (elevation, outlined) |
+| CardContent | `<me-card-content>` | — |
+| CardActions | `<me-card-actions>` | `disableSpacing` |
+| CardHeader | `<me-card-header>` | `title`, `subheader` (uses slots for avatar/action) |
+| CardMedia | `<me-card-media>` | `image`, `alt`, `height` |
+| AppBar | `<me-app-bar>` | `position` (fixed, absolute, sticky, static, relative), `color` |
+| Toolbar | `<me-toolbar>` | `variant` (regular, dense) |
+| Drawer | `<me-drawer>` | `open`, `anchor` (left, right, top, bottom), `variant` (temporary, persistent, permanent) |
+| List | `<me-list>` | `dense`, `disablePadding` |
+| ListItem | `<me-list-item>` | `disablePadding`, `disableGutters` |
+| ListItemButton | `<me-list-item-button>` | `selected`, `disabled` |
+| ListItemText | `<me-list-item-text>` | `primary`, `secondary` |
+| ListItemIcon | `<me-list-item-icon>` | — |
+| Divider | `<me-divider>` | `variant` (fullWidth, inset, middle), `orientation` |
+| Grid | `<me-grid>` | `container`, `item`, `spacing`, `xs`, `sm`, `md`, `lg`, `xl`, `direction`, `justify`, `align` |
+| Container | `<me-container>` | `maxWidth` (xs, sm, md, lg, xl, false), `fixed` |
+| Stack | `<me-stack>` | `direction`, `spacing`, `align`, `justify` |
+| Box | `<me-box>` | General-purpose layout wrapper. Supports `sx`-like style shorthand attributes. |
+| Dialog | `<me-dialog>` | `open`, `fullWidth`, `maxWidth`, `fullScreen` |
+| DialogTitle | `<me-dialog-title>` | — |
+| DialogContent | `<me-dialog-content>` | `dividers` |
+| DialogActions | `<me-dialog-actions>` | — |
+| Snackbar | `<me-snackbar>` | `open`, `auto-hide-duration`, `anchor-origin` |
+| Alert | `<me-alert>` | `severity` (error, warning, info, success), `variant` (standard, filled, outlined) |
+| CircularProgress | `<me-circular-progress>` | `variant` (determinate, indeterminate), `value`, `size`, `color` |
+| LinearProgress | `<me-linear-progress>` | `variant` (determinate, indeterminate, buffer, query), `value`, `valueBuffer`, `color` |
+| Chip | `<me-chip>` | `variant` (filled, outlined), `color`, `size`, `deletable`, `clickable`, `disabled` |
+| Avatar | `<me-avatar>` | `src`, `alt`, `variant` (circular, rounded, square) |
+| Badge | `<me-badge>` | `badgeContent`, `color`, `variant` (standard, dot), `max`, `invisible`, `overlap` |
+| Tooltip | `<me-tooltip>` | `title`, `placement` (top, bottom, left, right + variations), `arrow` |
+| Icon | `<me-icon>` | `color`, `fontSize` (small, medium, large, inherit) — renders slotted SVG or icon font glyph |
+| CssBaseline | `<me-css-baseline>` | Injects global reset styles (box-sizing, margin, typography defaults) |
 
 ### Tier 2 — Extended
 
 | Component | Element Name |
 |-----------|-------------|
-| Accordion | `<mc-accordion>` |
-| AccordionSummary | `<mc-accordion-summary>` |
-| AccordionDetails | `<mc-accordion-details>` |
-| Tabs | `<mc-tabs>` |
-| Tab | `<mc-tab>` |
-| Menu | `<mc-menu>` |
-| MenuItem | `<mc-menu-item>` |
-| Autocomplete | `<mc-autocomplete>` |
-| BottomNavigation | `<mc-bottom-navigation>` |
-| BottomNavigationAction | `<mc-bottom-nav-action>` |
-| Breadcrumbs | `<mc-breadcrumbs>` |
-| Fab | `<mc-fab>` |
-| Pagination | `<mc-pagination>` |
-| Rating | `<mc-rating>` |
-| Skeleton | `<mc-skeleton>` |
-| Slider | `<mc-slider>` |
-| SpeedDial | `<mc-speed-dial>` |
-| Stepper | `<mc-stepper>` |
-| Table | `<mc-table>` |
-| TableHead | `<mc-table-head>` |
-| TableBody | `<mc-table-body>` |
-| TableRow | `<mc-table-row>` |
-| TableCell | `<mc-table-cell>` |
-| ToggleButton | `<mc-toggle-button>` |
-| ToggleButtonGroup | `<mc-toggle-button-group>` |
-| ImageList | `<mc-image-list>` |
-| ImageListItem | `<mc-image-list-item>` |
+| Accordion | `<me-accordion>` |
+| AccordionSummary | `<me-accordion-summary>` |
+| AccordionDetails | `<me-accordion-details>` |
+| Tabs | `<me-tabs>` |
+| Tab | `<me-tab>` |
+| Menu | `<me-menu>` |
+| MenuItem | `<me-menu-item>` |
+| Autocomplete | `<me-autocomplete>` |
+| BottomNavigation | `<me-bottom-navigation>` |
+| BottomNavigationAction | `<me-bottom-nav-action>` |
+| Breadcrumbs | `<me-breadcrumbs>` |
+| Fab | `<me-fab>` |
+| Pagination | `<me-pagination>` |
+| Rating | `<me-rating>` |
+| Skeleton | `<me-skeleton>` |
+| Slider | `<me-slider>` |
+| SpeedDial | `<me-speed-dial>` |
+| Stepper | `<me-stepper>` |
+| Table | `<me-table>` |
+| TableHead | `<me-table-head>` |
+| TableBody | `<me-table-body>` |
+| TableRow | `<me-table-row>` |
+| TableCell | `<me-table-cell>` |
+| ToggleButton | `<me-toggle-button>` |
+| ToggleButtonGroup | `<me-toggle-button-group>` |
+| ImageList | `<me-image-list>` |
+| ImageListItem | `<me-image-list-item>` |
 
 ### Tier 3 — Utilities & Advanced
 
 | Component | Element Name |
 |-----------|-------------|
-| Backdrop | `<mc-backdrop>` |
-| Modal | `<mc-modal>` |
-| Popover | `<mc-popover>` |
-| Popper | `<mc-popper>` |
-| Portal | `<mc-portal>` |
-| ClickAwayListener | `<mc-click-away-listener>` |
-| Collapse (transition) | `<mc-collapse>` |
-| Fade (transition) | `<mc-fade>` |
-| Grow (transition) | `<mc-grow>` |
-| Slide (transition) | `<mc-slide>` |
-| Zoom (transition) | `<mc-zoom>` |
-| TransferList | `<mc-transfer-list>` |
-| ButtonGroup | `<mc-button-group>` |
+| Backdrop | `<me-backdrop>` |
+| Modal | `<me-modal>` |
+| Popover | `<me-popover>` |
+| Popper | `<me-popper>` |
+| Portal | `<me-portal>` |
+| ClickAwayListener | `<me-click-away-listener>` |
+| Collapse (transition) | `<me-collapse>` |
+| Fade (transition) | `<me-fade>` |
+| Grow (transition) | `<me-grow>` |
+| Slide (transition) | `<me-slide>` |
+| Zoom (transition) | `<me-zoom>` |
+| TransferList | `<me-transfer-list>` |
+| ButtonGroup | `<me-button-group>` |
 
 ---
 
@@ -481,26 +481,26 @@ Web Components use `<slot>` instead of React `children`/`props`. Follow this pat
 
 ```html
 <!-- Default slot = children -->
-<mc-button>
-  <mc-icon slot="start-icon">★</mc-icon>
+<me-button>
+  <me-icon slot="start-icon">★</me-icon>
   Click me
-</mc-button>
+</me-button>
 
 <!-- Named slots for structured content -->
-<mc-card>
-  <mc-card-header>
-    <mc-avatar slot="avatar" src="..."></mc-avatar>
+<me-card>
+  <me-card-header>
+    <me-avatar slot="avatar" src="..."></me-avatar>
     <span slot="title">Card Title</span>
     <span slot="subheader">Subtitle</span>
-    <mc-icon-button slot="action">⋮</mc-icon-button>
-  </mc-card-header>
-  <mc-card-content>
+    <me-icon-button slot="action">⋮</me-icon-button>
+  </me-card-header>
+  <me-card-content>
     Content here
-  </mc-card-content>
-  <mc-card-actions>
-    <mc-button>Action</mc-button>
-  </mc-card-actions>
-</mc-card>
+  </me-card-content>
+  <me-card-actions>
+    <me-button>Action</me-button>
+  </me-card-actions>
+</me-card>
 ```
 
 ### Slot Naming Convention
@@ -517,27 +517,27 @@ Web Components use `<slot>` instead of React `children`/`props`. Follow this pat
 
 ## 6. Events
 
-Components dispatch standard `CustomEvent`s with a `mc-` prefix:
+Components dispatch standard `CustomEvent`s with a `me-` prefix:
 
 ```typescript
 // Button doesn't need a custom event — use native 'click'
 
 // TextField
-this.dispatchEvent(new CustomEvent('mc-change', {
+this.dispatchEvent(new CustomEvent('me-change', {
   detail: { value: this.value },
   bubbles: true,
   composed: true  // CRITICAL: crosses shadow DOM boundaries
 }));
 
 // Dialog
-this.dispatchEvent(new CustomEvent('mc-close', {
+this.dispatchEvent(new CustomEvent('me-close', {
   detail: { reason: 'backdropClick' | 'escapeKeyDown' },
   bubbles: true,
   composed: true
 }));
 
 // Snackbar
-this.dispatchEvent(new CustomEvent('mc-close', {
+this.dispatchEvent(new CustomEvent('me-close', {
   detail: { reason: 'timeout' | 'clickaway' },
   bubbles: true,
   composed: true
@@ -547,9 +547,9 @@ this.dispatchEvent(new CustomEvent('mc-close', {
 **Rules:**
 - All custom events must have `bubbles: true` and `composed: true`.
 - Native events (click, focus, blur, input) pass through naturally — don't re-wrap them.
-- Use `mc-change` instead of `change` for value changes to avoid collisions.
-- Use `mc-close` for dismissible components (dialog, snackbar, drawer, menu).
-- Use `mc-open` for openable components.
+- Use `me-change` instead of `change` for value changes to avoid collisions.
+- Use `me-close` for dismissible components (dialog, snackbar, drawer, menu).
+- Use `me-open` for openable components.
 
 ---
 
@@ -562,14 +562,14 @@ Every component must meet **WCAG 2.1 AA**. Non-negotiable requirements:
 - Keyboard navigation: all interactive components must be operable via keyboard (Tab, Enter, Space, Arrow keys, Escape as appropriate).
 - Focus management: dialogs trap focus, menus handle arrow-key navigation, drawers return focus on close.
 - Color contrast: the default theme already meets AA — custom themes are the user's responsibility, but document the requirement.
-- Use `ElementInternals` where supported for form-associated custom elements (`<mc-text-field>`, `<mc-checkbox>`, `<mc-radio>`, `<mc-switch>`, `<mc-select>`).
+- Use `ElementInternals` where supported for form-associated custom elements (`<me-text-field>`, `<me-checkbox>`, `<me-radio>`, `<me-switch>`, `<me-select>`).
 
 ### Form Association
 
 Form-participating components must implement the `formAssociated` static flag:
 
 ```typescript
-export class MCTextField extends MCElement {
+export class METextField extends MEElement {
   static formAssociated = true;
   private internals: ElementInternals;
 
@@ -606,7 +606,7 @@ Output targets:
 |--------|------|---------|
 | ESM | `dist/esm/index.js` | Modern bundlers, `<script type="module">` |
 | CJS | `dist/cjs/index.cjs` | Legacy Node / require() |
-| IIFE | `dist/materialcomponents.min.js` | CDN / `<script>` tag, exposes `window.MC` |
+| IIFE | `dist/materialelements.min.js` | CDN / `<script>` tag, exposes `window.MC` |
 | Types | `dist/types/index.d.ts` | TypeScript declarations |
 
 Individual component entry points for tree-shaking:
@@ -621,7 +621,7 @@ dist/esm/components/text-field/index.js
 
 ```json
 {
-  "name": "@materialcomponents/core",
+  "name": "@materialelements/core",
   "version": "0.1.0",
   "description": "Material UI components as vanilla Web Components",
   "license": "MIT",
@@ -660,15 +660,15 @@ dist/esm/components/text-field/index.js
 The IIFE build allows zero-build usage:
 
 ```html
-<script src="https://unpkg.com/@materialcomponents/core/dist/materialcomponents.min.js"></script>
+<script src="https://unpkg.com/@materialelements/core/dist/materialelements.min.js"></script>
 
-<mc-theme-provider>
-  <mc-button variant="contained">Hello World</mc-button>
-</mc-theme-provider>
+<me-theme-provider>
+  <me-button variant="contained">Hello World</me-button>
+</me-theme-provider>
 
 <script>
   // Default theme is applied automatically. Override:
-  document.querySelector('mc-theme-provider').theme = {
+  document.querySelector('me-theme-provider').theme = {
     palette: { primary: { main: '#e91e63' } }
   };
 </script>
@@ -676,13 +676,13 @@ The IIFE build allows zero-build usage:
 
 ---
 
-## 9. Demo Site (materialcomponents.io)
+## 9. Demo Site (materialelements.io)
 
 ### 9.1 Tech Stack
 
 - **Nunjucks templates** — one `.njk` file per page. A `_layout.njk` base template provides the topbar and sidebar; all pages `{% extends "_layout.njk" %}` and fill `{% block content %}`. No HTML duplication across pages.
 - A **Node.js HTTP server** (`server.js`) that renders Nunjucks templates server-side for HTML routes and serves static assets (`/shared/`, `/public/`, `/dist/`) directly.
-- The demo site itself is built with the `mc-*` components (dogfooding). The core library's IIFE build is loaded via a `<script>` tag in the layout template.
+- The demo site itself is built with the `me-*` components (dogfooding). The core library's IIFE build is loaded via a `<script>` tag in the layout template.
 - A `code-sample.js` helper provides copy-to-clipboard and optional syntax highlighting (via a CDN-loaded highlight.js — the only external resource allowed on the demo site).
 - **Deployment**: run `npm run build:demo` to pre-render all templates to static HTML (one `node scripts/render-demo.ts` pass). The output in `packages/demo/dist/` can be served from any static host (Vercel, Netlify, GitHub Pages). No runtime server needed in production.
 
@@ -701,22 +701,22 @@ Each page is a Nunjucks template that extends the shared layout:
 
 ```html
 {% extends "_layout.njk" %}
-{% set title = "Button — materialcomponents.io" %}
+{% set title = "Button — materialelements.io" %}
 {% set currentPath = "/components/button.html" %}
 
 {% block content %}
 <h1>Button</h1>
 
-<!-- Live demos using actual mc-* elements -->
+<!-- Live demos using actual me-* elements -->
 <section class="demo-section">
-  <mc-button variant="contained">Contained</mc-button>
-  <mc-button variant="outlined">Outlined</mc-button>
-  <mc-button>Text</mc-button>
+  <me-button variant="contained">Contained</me-button>
+  <me-button variant="outlined">Outlined</me-button>
+  <me-button>Text</me-button>
 </section>
 
 <!-- Code snippet with copy button -->
 <code-sample>
-  &lt;mc-button variant="contained"&gt;Contained&lt;/mc-button&gt;
+  &lt;me-button variant="contained"&gt;Contained&lt;/me-button&gt;
 </code-sample>
 
 <!-- Props table, events table, slots table — plain HTML tables -->
@@ -726,13 +726,13 @@ Each page is a Nunjucks template that extends the shared layout:
 ### 9.3 Each Component Page Contains
 
 1. **Title + description** — what the component does.
-2. **Live demos** — interactive examples showing each variant/prop. The demos ARE the actual `mc-*` components running live.
+2. **Live demos** — interactive examples showing each variant/prop. The demos ARE the actual `me-*` components running live.
 3. **Code snippets** — the HTML to reproduce each demo, with a copy button.
 4. **Props/Attributes table** — name, type, default, description.
 5. **Events table** — event name, detail shape, description.
 6. **Slots table** — slot name, description.
-7. **CSS variables** — which `--mc-*` variables this component consumes.
-8. **MUI comparison** — side-by-side: MUI JSX vs materialcomponents.io HTML.
+7. **CSS variables** — which `--me-*` variables this component consumes.
+8. **MUI comparison** — side-by-side: MUI JSX vs materialelements.io HTML.
 
 ### 9.4 Theme Editor
 
@@ -752,33 +752,33 @@ Use **Web Test Runner** with `@open-wc/testing` for real-browser component tests
 
 ```typescript
 import { fixture, html, expect } from '@open-wc/testing';
-import '@materialcomponents/core/button';
+import '@materialelements/core/button';
 
-describe('mc-button', () => {
+describe('me-button', () => {
   it('renders with default variant', async () => {
-    const el = await fixture(html`<mc-button>Click</mc-button>`);
+    const el = await fixture(html`<me-button>Click</me-button>`);
     expect(el.getAttribute('variant')).to.equal(null); // defaults to 'text'
-    expect(el.shadowRoot.querySelector('.mc-button')).to.exist;
+    expect(el.shadowRoot.querySelector('.me-button')).to.exist;
   });
 
   it('applies contained styles', async () => {
-    const el = await fixture(html`<mc-button variant="contained">Click</mc-button>`);
-    const btn = el.shadowRoot.querySelector('.mc-button');
+    const el = await fixture(html`<me-button variant="contained">Click</me-button>`);
+    const btn = el.shadowRoot.querySelector('.me-button');
     const bg = getComputedStyle(btn).backgroundColor;
     expect(bg).to.not.equal('transparent');
   });
 
   it('dispatches click event', async () => {
-    const el = await fixture(html`<mc-button>Click</mc-button>`);
+    const el = await fixture(html`<me-button>Click</me-button>`);
     let clicked = false;
     el.addEventListener('click', () => { clicked = true; });
-    el.shadowRoot.querySelector('.mc-button').click();
+    el.shadowRoot.querySelector('.me-button').click();
     expect(clicked).to.be.true;
   });
 
   it('is disabled', async () => {
-    const el = await fixture(html`<mc-button disabled>Click</mc-button>`);
-    const btn = el.shadowRoot.querySelector('.mc-button');
+    const el = await fixture(html`<me-button disabled>Click</me-button>`);
+    const btn = el.shadowRoot.querySelector('.me-button');
     expect(btn.hasAttribute('aria-disabled')).to.be.true;
   });
 });
@@ -790,7 +790,7 @@ Use **Playwright** to screenshot every component in every variant and diff again
 
 ```
 tests/visual/
-├── button.spec.ts       # Renders mc-button and MUI Button side-by-side
+├── button.spec.ts       # Renders me-button and MUI Button side-by-side
 ├── text-field.spec.ts
 └── ...
 ```
@@ -832,7 +832,7 @@ Required platform features (all natively available in target browsers):
 - **Language**: TypeScript, strict mode, no `any`.
 - **Formatting**: Prettier with default config.
 - **Linting**: ESLint with `@typescript-eslint/recommended`.
-- **Naming**: Component classes are `MC` + PascalCase (e.g., `MCButton`, `MCTextField`). Element names are `mc-` + kebab-case.
+- **Naming**: Component classes are `MC` + PascalCase (e.g., `MEButton`, `METextField`). Element names are `me-` + kebab-case.
 - **File naming**: kebab-case (e.g., `text-field.ts`, `text-field.styles.ts`).
 - **No external runtime dependencies**: Zero. Not Lit, not Stencil, not FAST, not Polymer. Vanilla `HTMLElement` subclasses only.
 - **CSS-in-JS**: No. Styles live in `CSSStyleSheet` objects constructed from template literals in `.styles.ts` files. All dynamic values come from CSS custom properties.
@@ -845,8 +845,8 @@ Required platform features (all natively available in target browsers):
 ### Getting Started
 
 ```bash
-git clone https://github.com/materialcomponents/materialcomponents.git
-cd materialcomponents
+git clone https://github.com/materialelements/materialelements.git
+cd materialelements
 npm install
 npm run dev          # Builds core library, starts static demo server
 ```
@@ -882,7 +882,7 @@ packages/core/src/components/slider/
 └── index.ts
 ```
 
-With boilerplate extending `MCElement`, a skeleton stylesheet, and a test file.
+With boilerplate extending `MEElement`, a skeleton stylesheet, and a test file.
 
 ---
 
@@ -890,7 +890,7 @@ With boilerplate extending `MCElement`, a skeleton stylesheet, and a test file.
 
 | Milestone | Scope | Target |
 |-----------|-------|--------|
-| **M0 — Foundation** | Repo setup, build pipeline, theme system, `<mc-theme-provider>`, `MCElement` base class, CSS variable engine, CssBaseline | — |
+| **M0 — Foundation** | Repo setup, build pipeline, theme system, `<me-theme-provider>`, `MEElement` base class, CSS variable engine, CssBaseline | — |
 | **M1 — Primitives** | Typography, Button, IconButton, Paper, Box, Container, Grid, Stack, Divider, Icon | — |
 | **M2 — Forms** | TextField, Select, Checkbox, Radio, RadioGroup, Switch + form association | — |
 | **M3 — Data Display** | Avatar, Badge, Chip, List, ListItem*, Table*, Tooltip | — |

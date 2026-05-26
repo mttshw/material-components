@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './list-item-icon.styles.js';
 
-export class MCListItemIcon extends MCElement {
+export class MEListItemIcon extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [sheet];
@@ -12,4 +12,4 @@ export class MCListItemIcon extends MCElement {
   }
 }
 
-customElements.define('mc-list-item-icon', MCListItemIcon);
+customElements.define('me-list-item-icon', MEListItemIcon);

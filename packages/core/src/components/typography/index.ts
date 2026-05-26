@@ -1,7 +1,7 @@
-import { MCTypography } from './typography.js';
+import { METypography } from './typography.js';
 
-if (!customElements.get('mc-typography')) {
-  customElements.define('mc-typography', MCTypography);
+if (!customElements.get('me-typography')) {
+  customElements.define('me-typography', METypography);
 }
 
-export { MCTypography };
+export { METypography };

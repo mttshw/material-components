@@ -1,4 +1,4 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 
 // Attribute → CSS property map for sx-like shorthand
 const PROP_MAP: Record<string, string> = {
@@ -43,7 +43,7 @@ const PROP_MAP: Record<string, string> = {
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(`:host { display: block; box-sizing: border-box; }`);
 
-export class MCBox extends MCElement {
+export class MEBox extends MEElement {
   static observedAttributes = Object.keys(PROP_MAP);
 
   constructor() {

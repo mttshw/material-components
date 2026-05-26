@@ -1,7 +1,7 @@
-import { MCButton } from './button.js';
+import { MEButton } from './button.js';
 
-if (!customElements.get('mc-button')) {
-  customElements.define('mc-button', MCButton);
+if (!customElements.get('me-button')) {
+  customElements.define('me-button', MEButton);
 }
 
-export { MCButton };
+export { MEButton };

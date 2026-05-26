@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './container.styles.js';
 
-export class MCContainer extends MCElement {
+export class MEContainer extends MEElement {
   static observedAttributes = ['max-width', 'fixed'];
 
   constructor() {
@@ -10,6 +10,6 @@ export class MCContainer extends MCElement {
   }
 
   protected render(): void {
-    this.shadow.innerHTML = `<div class="mc-container"><slot></slot></div>`;
+    this.shadow.innerHTML = `<div class="me-container"><slot></slot></div>`;
   }
 }

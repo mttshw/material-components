@@ -1,2 +1,2 @@
-export { MCTooltip } from './tooltip.js';
+export { METooltip } from './tooltip.js';
 //# sourceMappingURL=index.d.ts.map

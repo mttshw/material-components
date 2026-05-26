@@ -8,6 +8,14 @@
   --demo-text-secondary: rgba(0, 0, 0, 0.6);
 }
 
+[data-theme="dark"] {
+  --demo-bg: #121212;
+  --demo-surface: #1e1e1e;
+  --demo-border: rgba(255, 255, 255, 0.12);
+  --demo-text: rgba(255, 255, 255, 0.87);
+  --demo-text-secondary: rgba(255, 255, 255, 0.6);
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -18,7 +26,7 @@ body {
 }
 
 /* ── Topbar ── */
-.mc-topbar {
+.me-topbar {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: var(--demo-topbar-height);
@@ -33,7 +41,7 @@ body {
   z-index: 1100;
 }
 
-.mc-topbar__brand {
+.me-topbar__brand {
   color: #fff;
   text-decoration: none;
   font-size: 1.25rem;
@@ -41,9 +49,9 @@ body {
   letter-spacing: 0.0075em;
 }
 
-.mc-topbar__spacer { flex: 1; }
+.me-topbar__spacer { flex: 1; }
 
-.mc-topbar__icon-btn {
+.me-topbar__icon-btn {
   background: none;
   border: none;
   color: #fff;
@@ -55,13 +63,13 @@ body {
   opacity: 0.8;
   transition: opacity 150ms, background-color 150ms;
 }
-.mc-topbar__icon-btn:hover {
+.me-topbar__icon-btn:hover {
   opacity: 1;
   background: rgba(255,255,255,0.12);
 }
 
 /* ── Sidebar ── */
-.mc-sidebar {
+.me-sidebar {
   position: fixed;
   top: var(--demo-topbar-height);
   left: 0;
@@ -73,13 +81,13 @@ body {
   padding: 8px 0 24px;
 }
 
-.mc-sidebar ul {
+.me-sidebar ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.mc-sidebar__section {
+.me-sidebar__section {
   padding: 16px 24px 4px;
   font-size: 0.6875rem;
   font-weight: 700;
@@ -88,7 +96,7 @@ body {
   color: var(--demo-text-secondary);
 }
 
-.mc-sidebar__link {
+.me-sidebar__link {
   display: block;
   padding: 7px 24px;
   font-size: 0.875rem;
@@ -99,18 +107,18 @@ body {
   transition: background-color 150ms;
 }
 
-.mc-sidebar__link:hover {
+.me-sidebar__link:hover {
   background: rgba(0, 0, 0, 0.04);
 }
 
-.mc-sidebar__link--active {
+.me-sidebar__link--active {
   background: rgba(25, 118, 210, 0.12);
   color: #1976d2;
   font-weight: 500;
 }
 
 /* ── Main content ── */
-.mc-main {
+.me-main {
   margin-left: var(--demo-sidebar-width);
   padding-top: calc(var(--demo-topbar-height) + 40px);
   padding-inline: 40px;
@@ -125,7 +133,7 @@ h1 {
   margin: 0 0 12px;
 }
 
-.mc-subtitle {
+.me-subtitle {
   font-size: 1.125rem;
   color: var(--demo-text-secondary);
   margin: 0 0 32px;

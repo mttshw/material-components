@@ -1,7 +1,7 @@
-import { MCBox } from './box.js';
+import { MEBox } from './box.js';
 
-if (!customElements.get('mc-box')) {
-  customElements.define('mc-box', MCBox);
+if (!customElements.get('me-box')) {
+  customElements.define('me-box', MEBox);
 }
 
-export { MCBox };
+export { MEBox };

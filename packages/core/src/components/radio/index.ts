@@ -1,2 +1,2 @@
-export { MCRadio } from './radio.js';
-export { MCRadioGroup } from './radio-group.js';
+export { MERadio } from './radio.js';
+export { MERadioGroup } from './radio-group.js';

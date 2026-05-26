@@ -1,3 +1,3 @@
-import { MCGrid } from './grid.js';
-export { MCGrid };
+import { MEGrid } from './grid.js';
+export { MEGrid };
 //# sourceMappingURL=index.d.ts.map

@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './table.styles.js';
 
-export class MCTable extends MCElement {
+export class METable extends MEElement {
   static observedAttributes = ['size', 'stickyHeader'];
 
   constructor() {
@@ -14,4 +14,4 @@ export class MCTable extends MCElement {
   }
 }
 
-customElements.define('mc-table', MCTable);
+customElements.define('me-table', METable);

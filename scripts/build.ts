@@ -22,7 +22,7 @@ const sharedOptions: esbuild.BuildOptions = {
 };
 
 async function build(): Promise<void> {
-  console.log('Building @materialcomponents/core...');
+  console.log('Building @materialelements/core...');
 
   // ESM
   await esbuild.build({
@@ -44,9 +44,9 @@ async function build(): Promise<void> {
   await esbuild.build({
     ...sharedOptions,
     format: 'iife',
-    globalName: 'MC',
+    globalName: 'ME',
     minify: true,
-    outfile: path.join(distDir, 'materialcomponents.min.js'),
+    outfile: path.join(distDir, 'materialelements.min.js'),
   });
   console.log('  ✓ IIFE (minified)');
 

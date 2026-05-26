@@ -1,95 +1,95 @@
 {% extends "_layout.njk" %}
-{% set pageTitle = "materialcomponents.io — Material UI Web Components" %}
+{% set pageTitle = "materialelements.io — Material UI Web Components" %}
 
 {% block content %}
-<mc-typography variant="h4" gutter-bottom>materialcomponents.io</mc-typography>
-<mc-typography variant="subtitle1" color="textSecondary">
+<me-typography variant="h4" gutter-bottom>materialelements.io</me-typography>
+<me-typography variant="subtitle1" color="textSecondary">
   Zero-dependency Material UI Web Components. Visually identical to MUI.
   Accepts standard MUI theme objects. No React required.
-</mc-typography>
+</me-typography>
 
 <h2>Buttons</h2>
 <section class="demo-section">
-  <mc-button variant="contained">Contained</mc-button>
-  <mc-button variant="outlined">Outlined</mc-button>
-  <mc-button>Text</mc-button>
-  <mc-button variant="contained" color="secondary">Secondary</mc-button>
-  <mc-button variant="contained" disabled>Disabled</mc-button>
+  <me-button variant="contained">Contained</me-button>
+  <me-button variant="outlined">Outlined</me-button>
+  <me-button>Text</me-button>
+  <me-button variant="contained" color="secondary">Secondary</me-button>
+  <me-button variant="contained" disabled>Disabled</me-button>
 </section>
 
 <h2>Typography</h2>
 <section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:4px">
-  <mc-typography variant="h5">Heading 5</mc-typography>
-  <mc-typography variant="body1">Body 1 — the standard paragraph style.</mc-typography>
-  <mc-typography variant="body2" color="textSecondary">Body 2 — secondary text style.</mc-typography>
-  <mc-typography variant="caption">Caption text</mc-typography>
+  <me-typography variant="h5">Heading 5</me-typography>
+  <me-typography variant="body1">Body 1 — the standard paragraph style.</me-typography>
+  <me-typography variant="body2" color="textSecondary">Body 2 — secondary text style.</me-typography>
+  <me-typography variant="caption">Caption text</me-typography>
 </section>
 
 <h2>Paper &amp; Elevation</h2>
 <section class="demo-section">
-  <mc-paper elevation="0" style="padding:16px;width:80px;text-align:center">0</mc-paper>
-  <mc-paper elevation="1" style="padding:16px;width:80px;text-align:center">1</mc-paper>
-  <mc-paper elevation="4" style="padding:16px;width:80px;text-align:center">4</mc-paper>
-  <mc-paper elevation="8" style="padding:16px;width:80px;text-align:center">8</mc-paper>
-  <mc-paper elevation="16" style="padding:16px;width:80px;text-align:center">16</mc-paper>
-  <mc-paper variant="outlined" style="padding:16px;width:80px;text-align:center">outlined</mc-paper>
+  <me-paper elevation="0" style="padding:16px;width:80px;text-align:center">0</me-paper>
+  <me-paper elevation="1" style="padding:16px;width:80px;text-align:center">1</me-paper>
+  <me-paper elevation="4" style="padding:16px;width:80px;text-align:center">4</me-paper>
+  <me-paper elevation="8" style="padding:16px;width:80px;text-align:center">8</me-paper>
+  <me-paper elevation="16" style="padding:16px;width:80px;text-align:center">16</me-paper>
+  <me-paper variant="outlined" style="padding:16px;width:80px;text-align:center">outlined</me-paper>
 </section>
 
 <h2>Stack &amp; Divider</h2>
 <section class="demo-section" style="flex-direction:column;align-items:stretch">
-  <mc-stack direction="row" spacing="2">
-    <mc-button variant="outlined" size="small">One</mc-button>
-    <mc-button variant="outlined" size="small">Two</mc-button>
-    <mc-button variant="outlined" size="small">Three</mc-button>
-  </mc-stack>
-  <mc-divider style="margin:16px 0"></mc-divider>
-  <mc-stack direction="row" spacing="2">
-    <mc-button variant="contained" size="small">A</mc-button>
-    <mc-button variant="contained" color="secondary" size="small">B</mc-button>
-    <mc-button variant="contained" color="success" size="small">C</mc-button>
-  </mc-stack>
+  <me-stack direction="row" spacing="2">
+    <me-button variant="outlined" size="small">One</me-button>
+    <me-button variant="outlined" size="small">Two</me-button>
+    <me-button variant="outlined" size="small">Three</me-button>
+  </me-stack>
+  <me-divider style="margin:16px 0"></me-divider>
+  <me-stack direction="row" spacing="2">
+    <me-button variant="contained" size="small">A</me-button>
+    <me-button variant="contained" color="secondary" size="small">B</me-button>
+    <me-button variant="contained" color="success" size="small">C</me-button>
+  </me-stack>
 </section>
 
 <h2>Grid</h2>
 <section class="demo-section" style="display:block;padding:0">
-  <mc-grid container spacing="2" style="padding:16px">
-    <mc-grid item xs="12" sm="6" md="4">
-      <mc-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=6 md=4</mc-paper>
-    </mc-grid>
-    <mc-grid item xs="12" sm="6" md="4">
-      <mc-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=6 md=4</mc-paper>
-    </mc-grid>
-    <mc-grid item xs="12" sm="12" md="4">
-      <mc-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=12 md=4</mc-paper>
-    </mc-grid>
-  </mc-grid>
+  <me-grid container spacing="2" style="padding:16px">
+    <me-grid item xs="12" sm="6" md="4">
+      <me-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=6 md=4</me-paper>
+    </me-grid>
+    <me-grid item xs="12" sm="6" md="4">
+      <me-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=6 md=4</me-paper>
+    </me-grid>
+    <me-grid item xs="12" sm="12" md="4">
+      <me-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=12 md=4</me-paper>
+    </me-grid>
+  </me-grid>
 </section>
 
 <h2>Form Controls</h2>
 <section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:16px">
-  <mc-stack direction="row" spacing="2" style="align-items:center">
-    <mc-checkbox checked></mc-checkbox>
-    <mc-typography variant="body1">Checkbox</mc-typography>
-    <mc-switch checked></mc-switch>
-    <mc-typography variant="body1">Switch</mc-typography>
-    <mc-radio checked></mc-radio>
-    <mc-typography variant="body1">Radio</mc-typography>
-  </mc-stack>
-  <mc-text-field variant="outlined" label="Text Field"></mc-text-field>
-  <mc-select variant="outlined" label="Select" style="min-width:160px">
+  <me-stack direction="row" spacing="2" style="align-items:center">
+    <me-checkbox checked></me-checkbox>
+    <me-typography variant="body1">Checkbox</me-typography>
+    <me-switch checked></me-switch>
+    <me-typography variant="body1">Switch</me-typography>
+    <me-radio checked></me-radio>
+    <me-typography variant="body1">Radio</me-typography>
+  </me-stack>
+  <me-text-field variant="outlined" label="Text Field"></me-text-field>
+  <me-select variant="outlined" label="Select" style="min-width:160px">
     <option value="1">Option 1</option>
     <option value="2">Option 2</option>
     <option value="3">Option 3</option>
-  </mc-select>
+  </me-select>
 </section>
 
 <h2>Quick Start</h2>
 <code-sample>
-&lt;script src="https://unpkg.com/@materialcomponents/core/dist/materialcomponents.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/@materialelements/core/dist/materialelements.min.js"&gt;&lt;/script&gt;
 
-&lt;mc-theme-provider&gt;
-  &lt;mc-css-baseline&gt;&lt;/mc-css-baseline&gt;
-  &lt;mc-button variant="contained"&gt;Hello World&lt;/mc-button&gt;
-&lt;/mc-theme-provider&gt;
+&lt;me-theme-provider&gt;
+  &lt;me-css-baseline&gt;&lt;/me-css-baseline&gt;
+  &lt;me-button variant="contained"&gt;Hello World&lt;/me-button&gt;
+&lt;/me-theme-provider&gt;
 </code-sample>
 {% endblock %}

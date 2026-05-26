@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './list.styles.js';
 
-export class MCList extends MCElement {
+export class MEList extends MEElement {
   static observedAttributes = ['dense', 'disablePadding'];
 
   constructor() {
@@ -14,4 +14,4 @@ export class MCList extends MCElement {
   }
 }
 
-customElements.define('mc-list', MCList);
+customElements.define('me-list', MEList);

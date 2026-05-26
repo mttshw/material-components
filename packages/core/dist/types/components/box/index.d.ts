@@ -1,3 +1,3 @@
-import { MCBox } from './box.js';
-export { MCBox };
+import { MEBox } from './box.js';
+export { MEBox };
 //# sourceMappingURL=index.d.ts.map

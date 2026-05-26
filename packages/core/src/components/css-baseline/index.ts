@@ -1,7 +1,7 @@
-import { MCCssBaseline } from './css-baseline.js';
+import { MECssBaseline } from './css-baseline.js';
 
-if (!customElements.get('mc-css-baseline')) {
-  customElements.define('mc-css-baseline', MCCssBaseline);
+if (!customElements.get('me-css-baseline')) {
+  customElements.define('me-css-baseline', MECssBaseline);
 }
 
-export { MCCssBaseline };
+export { MECssBaseline };

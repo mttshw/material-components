@@ -1,5 +1,5 @@
-import { MCElement } from '../../base/mc-element.js';
-export declare class MCRadio extends MCElement {
+import { MEElement } from '../../base/me-element.js';
+export declare class MERadio extends MEElement {
     static formAssociated: boolean;
     static observedAttributes: string[];
     private _internals;

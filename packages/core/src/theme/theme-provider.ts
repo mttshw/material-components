@@ -1,6 +1,6 @@
 import { defaultTheme } from './default-theme.js';
 import { themeToVars, varsToStyle } from './css-variables.js';
-import type { MCTheme, MCThemeInput } from './types.js';
+import type { METheme, METhemeInput } from './types.js';
 
 function deepMerge<T extends object>(target: T, source: Partial<T>): T {
   const result = { ...target } as T;
@@ -24,28 +24,39 @@ function deepMerge<T extends object>(target: T, source: Partial<T>): T {
   return result;
 }
 
-export class MCThemeProvider extends HTMLElement {
-  private _theme: MCTheme = defaultTheme;
+export class METhemeProvider extends HTMLElement {
+  private _theme: METheme = defaultTheme;
 
   connectedCallback(): void {
     this._applyTheme(this._theme);
   }
 
-  get theme(): MCTheme {
+  get theme(): METheme {
     return this._theme;
   }
 
-  set theme(value: MCThemeInput) {
-    this._theme = deepMerge(defaultTheme, value as Partial<MCTheme>);
+  set theme(value: METhemeInput) {
+    this._theme = deepMerge(defaultTheme, value as Partial<METheme>);
     this._applyTheme(this._theme);
   }
 
-  private _applyTheme(theme: MCTheme): void {
+  private _applyTheme(theme: METheme): void {
     const vars = themeToVars(theme);
+    // Apply to self for scoped component inheritance
     this.setAttribute('style', varsToStyle(vars));
+    // Also hoist onto :root so page-level styles (body background/color via
+    // css-baseline, demo layout) can inherit the vars — body is an ancestor of
+    // this element so its CSS variables don't cascade up without this hoist.
+    const root = document.documentElement;
+    for (const key of Array.from(root.style)) {
+      if (key.startsWith('--me-')) root.style.removeProperty(key);
+    }
+    for (const [k, v] of Object.entries(vars)) {
+      root.style.setProperty(k, v);
+    }
   }
 }
 
-if (!customElements.get('mc-theme-provider')) {
-  customElements.define('mc-theme-provider', MCThemeProvider);
+if (!customElements.get('me-theme-provider')) {
+  customElements.define('me-theme-provider', METhemeProvider);
 }

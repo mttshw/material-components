@@ -12,17 +12,17 @@ sheet.replaceSync(`
 
   body {
     margin: 0;
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
-    font-weight: var(--mc-typography-fontWeightRegular, 400);
-    font-size: var(--mc-typography-fontSize, 14px);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    font-size: var(--me-typography-fontSize, 14px);
     line-height: 1.5;
     letter-spacing: 0.00938em;
-    background-color: var(--mc-palette-background-default, #fff);
+    background-color: var(--me-palette-background-default, #fff);
   }
 
   strong, b {
-    font-weight: var(--mc-typography-fontWeightBold, 700);
+    font-weight: var(--me-typography-fontWeightBold, 700);
   }
 
   body > :where(h1, h2, h3, h4, h5, h6) {

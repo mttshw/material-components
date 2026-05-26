@@ -1,8 +1,8 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import { RippleController } from '../../utils/ripple.js';
 import sheet, { rippleSheet } from './button.styles.js';
 
-export class MCButton extends MCElement {
+export class MEButton extends MEElement {
   static observedAttributes = ['variant', 'color', 'size', 'disabled', 'href', 'target'];
 
   private _ripple = new RippleController();
@@ -21,10 +21,10 @@ export class MCButton extends MCElement {
       : `type="button"${disabled ? ' disabled' : ''}`;
 
     this.shadow.innerHTML = `
-      <${tag} class="mc-button" ${attrs} ${href && disabled ? 'aria-disabled="true"' : ''}>
-        <span class="mc-button__start-icon" hidden><slot name="start-icon"></slot></span>
-        <span class="mc-button__label"><slot></slot></span>
-        <span class="mc-button__end-icon" hidden><slot name="end-icon"></slot></span>
+      <${tag} class="me-button" ${attrs} ${href && disabled ? 'aria-disabled="true"' : ''}>
+        <span class="me-button__start-icon" hidden><slot name="start-icon"></slot></span>
+        <span class="me-button__label"><slot></slot></span>
+        <span class="me-button__end-icon" hidden><slot name="end-icon"></slot></span>
       </${tag}>
     `;
 
@@ -32,7 +32,7 @@ export class MCButton extends MCElement {
 
     this._ripple.detach();
     if (!disabled) {
-      const btn = this.shadow.querySelector<HTMLElement>('.mc-button');
+      const btn = this.shadow.querySelector<HTMLElement>('.me-button');
       if (btn) this._ripple.attach(btn);
     }
   }

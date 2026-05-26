@@ -26,7 +26,7 @@ sheet.replaceSync(`
   :host([fixed][max-width="lg"])  { width: 1200px; }
   :host([fixed][max-width="xl"])  { width: 1536px; }
 
-  .mc-container { width: 100%; }
+  .me-container { width: 100%; }
 `);
 
 export default sheet;

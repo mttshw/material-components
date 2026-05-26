@@ -1,3 +1,3 @@
-import { MCPaper } from './paper.js';
-export { MCPaper };
+import { MEPaper } from './paper.js';
+export { MEPaper };
 //# sourceMappingURL=index.d.ts.map

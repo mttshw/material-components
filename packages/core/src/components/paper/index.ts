@@ -1,7 +1,7 @@
-import { MCPaper } from './paper.js';
+import { MEPaper } from './paper.js';
 
-if (!customElements.get('mc-paper')) {
-  customElements.define('mc-paper', MCPaper);
+if (!customElements.get('me-paper')) {
+  customElements.define('me-paper', MEPaper);
 }
 
-export { MCPaper };
+export { MEPaper };

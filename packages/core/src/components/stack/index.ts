@@ -1,7 +1,7 @@
-import { MCStack } from './stack.js';
+import { MEStack } from './stack.js';
 
-if (!customElements.get('mc-stack')) {
-  customElements.define('mc-stack', MCStack);
+if (!customElements.get('me-stack')) {
+  customElements.define('me-stack', MEStack);
 }
 
-export { MCStack };
+export { MEStack };

@@ -1,7 +1,7 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './divider.styles.js';
 
-export class MCDivider extends MCElement {
+export class MEDivider extends MEElement {
   static observedAttributes = ['variant', 'orientation', 'light'];
 
   constructor() {

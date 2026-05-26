@@ -21,11 +21,11 @@ sheet.replaceSync(`
   :host([font-size="large"])   { font-size: 2.1875rem; }
 
   /* Colors */
-  :host([color="primary"])   { color: var(--mc-palette-primary-main); }
-  :host([color="secondary"]) { color: var(--mc-palette-secondary-main); }
-  :host([color="action"])    { color: var(--mc-palette-action-active, rgba(0,0,0,0.54)); }
-  :host([color="error"])     { color: var(--mc-palette-error-main); }
-  :host([color="disabled"])  { color: var(--mc-palette-action-disabled, rgba(0,0,0,0.26)); }
+  :host([color="primary"])   { color: var(--me-palette-primary-main); }
+  :host([color="secondary"]) { color: var(--me-palette-secondary-main); }
+  :host([color="action"])    { color: var(--me-palette-action-active, rgba(0,0,0,0.54)); }
+  :host([color="error"])     { color: var(--me-palette-error-main); }
+  :host([color="disabled"])  { color: var(--me-palette-action-disabled, rgba(0,0,0,0.26)); }
   :host([color="inherit"])   { color: inherit; }
 
   /* SVG children fill with currentColor */

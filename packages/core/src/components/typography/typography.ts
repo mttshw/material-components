@@ -1,4 +1,4 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './typography.styles.js';
 
 const VARIANT_TAG: Record<string, string> = {
@@ -8,7 +8,7 @@ const VARIANT_TAG: Record<string, string> = {
   button: 'span', caption: 'span', overline: 'span',
 };
 
-export class MCTypography extends MCElement {
+export class METypography extends MEElement {
   static observedAttributes = ['variant', 'color', 'align', 'gutter-bottom', 'no-wrap', 'component'];
 
   constructor() {
@@ -24,11 +24,11 @@ export class MCTypography extends MCElement {
     const noWrap = this.hasAttribute('no-wrap');
     const tag = this.getAttribute('component') ?? VARIANT_TAG[variant] ?? 'p';
 
-    const cls = ['mc-typography', `mc-typography--${variant}`];
-    if (color && color !== 'initial') cls.push(`mc-typography--color-${color}`);
-    if (align && align !== 'inherit') cls.push(`mc-typography--align-${align}`);
-    if (gutterBottom) cls.push('mc-typography--gutter-bottom');
-    if (noWrap) cls.push('mc-typography--no-wrap');
+    const cls = ['me-typography', `me-typography--${variant}`];
+    if (color && color !== 'initial') cls.push(`me-typography--color-${color}`);
+    if (align && align !== 'inherit') cls.push(`me-typography--align-${align}`);
+    if (gutterBottom) cls.push('me-typography--gutter-bottom');
+    if (noWrap) cls.push('me-typography--no-wrap');
 
     this.shadow.innerHTML = `<${tag} class="${cls.join(' ')}"><slot></slot></${tag}>`;
   }

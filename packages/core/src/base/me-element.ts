@@ -1,4 +1,4 @@
-export abstract class MCElement extends HTMLElement {
+export abstract class MEElement extends HTMLElement {
   protected shadow: ShadowRoot;
 
   constructor(init: ShadowRootInit = { mode: 'open' }) {
@@ -32,10 +32,10 @@ export abstract class MCElement extends HTMLElement {
   ): void {}
 
   protected cssVar(name: string, fallback?: string): string {
-    return `var(--mc-${name}${fallback ? ', ' + fallback : ''})`;
+    return `var(--me-${name}${fallback ? ', ' + fallback : ''})`;
   }
 
   protected spacing(factor: number = 1): string {
-    return `calc(var(--mc-spacing, 8px) * ${factor})`;
+    return `calc(var(--me-spacing, 8px) * ${factor})`;
   }
 }

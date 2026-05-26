@@ -205,22 +205,22 @@ function themeToVars(theme) {
       }
       if (Array.isArray(val)) {
         val.forEach((item, idx) => {
-          vars[`--mc-${path}-${idx}`] = String(item);
+          vars[`--me-${path}-${idx}`] = String(item);
         });
       } else if (isPlainObject(val)) {
         flatten(val, path);
       } else {
-        vars[`--mc-${path}`] = String(val);
+        vars[`--me-${path}`] = String(val);
       }
     }
   }
   const { spacing, ...rest } = theme;
   flatten(rest, "");
   if (typeof spacing === "number") {
-    vars["--mc-spacing"] = `${spacing}px`;
+    vars["--me-spacing"] = `${spacing}px`;
   } else if (typeof spacing === "function") {
     const base = spacing(1);
-    vars["--mc-spacing"] = typeof base === "string" ? base : `${base}px`;
+    vars["--me-spacing"] = typeof base === "string" ? base : `${base}px`;
   }
   return vars;
 }
@@ -242,7 +242,7 @@ function deepMerge(target, source) {
   }
   return result;
 }
-var MCThemeProvider = class extends HTMLElement {
+var METhemeProvider = class extends HTMLElement {
   _theme = defaultTheme;
   connectedCallback() {
     this._applyTheme(this._theme);
@@ -257,14 +257,21 @@ var MCThemeProvider = class extends HTMLElement {
   _applyTheme(theme) {
     const vars = themeToVars(theme);
     this.setAttribute("style", varsToStyle(vars));
+    const root = document.documentElement;
+    for (const key of Array.from(root.style)) {
+      if (key.startsWith("--me-")) root.style.removeProperty(key);
+    }
+    for (const [k, v] of Object.entries(vars)) {
+      root.style.setProperty(k, v);
+    }
   }
 };
-if (!customElements.get("mc-theme-provider")) {
-  customElements.define("mc-theme-provider", MCThemeProvider);
+if (!customElements.get("me-theme-provider")) {
+  customElements.define("me-theme-provider", METhemeProvider);
 }
 
-// src/base/mc-element.ts
-var MCElement = class extends HTMLElement {
+// src/base/me-element.ts
+var MEElement = class extends HTMLElement {
   shadow;
   constructor(init = { mode: "open" }) {
     super();
@@ -290,10 +297,10 @@ var MCElement = class extends HTMLElement {
   onAttributeChanged(_name, _oldVal, _newVal) {
   }
   cssVar(name, fallback) {
-    return `var(--mc-${name}${fallback ? ", " + fallback : ""})`;
+    return `var(--me-${name}${fallback ? ", " + fallback : ""})`;
   }
   spacing(factor = 1) {
-    return `calc(var(--mc-spacing, 8px) * ${factor})`;
+    return `calc(var(--me-spacing, 8px) * ${factor})`;
   }
 };
 
@@ -312,17 +319,17 @@ sheet.replaceSync(`
 
   body {
     margin: 0;
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
-    font-weight: var(--mc-typography-fontWeightRegular, 400);
-    font-size: var(--mc-typography-fontSize, 14px);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    font-size: var(--me-typography-fontSize, 14px);
     line-height: 1.5;
     letter-spacing: 0.00938em;
-    background-color: var(--mc-palette-background-default, #fff);
+    background-color: var(--me-palette-background-default, #fff);
   }
 
   strong, b {
-    font-weight: var(--mc-typography-fontWeightBold, 700);
+    font-weight: var(--me-typography-fontWeightBold, 700);
   }
 
   body > :where(h1, h2, h3, h4, h5, h6) {
@@ -338,22 +345,22 @@ sheet.replaceSync(`
 var css_baseline_styles_default = sheet;
 
 // src/components/css-baseline/css-baseline.ts
-var MCCssBaseline = class _MCCssBaseline extends HTMLElement {
+var MECssBaseline = class _MECssBaseline extends HTMLElement {
   static _injected = false;
   connectedCallback() {
-    if (_MCCssBaseline._injected) return;
-    _MCCssBaseline._injected = true;
+    if (_MECssBaseline._injected) return;
+    _MECssBaseline._injected = true;
     document.adoptedStyleSheets = [...document.adoptedStyleSheets, css_baseline_styles_default];
   }
   disconnectedCallback() {
-    _MCCssBaseline._injected = false;
+    _MECssBaseline._injected = false;
     document.adoptedStyleSheets = document.adoptedStyleSheets.filter((s) => s !== css_baseline_styles_default);
   }
 };
 
 // src/components/css-baseline/index.ts
-if (!customElements.get("mc-css-baseline")) {
-  customElements.define("mc-css-baseline", MCCssBaseline);
+if (!customElements.get("me-css-baseline")) {
+  customElements.define("me-css-baseline", MECssBaseline);
 }
 
 // src/components/typography/typography.styles.ts
@@ -364,115 +371,115 @@ sheet2.replaceSync(`
   :host([variant="overline"]),
   :host([variant="button"]) { display: inline; }
 
-  .mc-typography { margin: 0; }
+  .me-typography { margin: 0; }
 
   /* Variants */
-  .mc-typography--h1 {
-    font-family: var(--mc-typography-h1-fontFamily, var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
-    font-weight: var(--mc-typography-h1-fontWeight, 300);
-    font-size: var(--mc-typography-h1-fontSize, 6rem);
-    line-height: var(--mc-typography-h1-lineHeight, 1.167);
-    letter-spacing: var(--mc-typography-h1-letterSpacing, -0.01562em);
+  .me-typography--h1 {
+    font-family: var(--me-typography-h1-fontFamily, var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
+    font-weight: var(--me-typography-h1-fontWeight, 300);
+    font-size: var(--me-typography-h1-fontSize, 6rem);
+    line-height: var(--me-typography-h1-lineHeight, 1.167);
+    letter-spacing: var(--me-typography-h1-letterSpacing, -0.01562em);
   }
-  .mc-typography--h2 {
-    font-family: var(--mc-typography-h2-fontFamily, var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
-    font-weight: var(--mc-typography-h2-fontWeight, 300);
-    font-size: var(--mc-typography-h2-fontSize, 3.75rem);
-    line-height: var(--mc-typography-h2-lineHeight, 1.2);
-    letter-spacing: var(--mc-typography-h2-letterSpacing, -0.00833em);
+  .me-typography--h2 {
+    font-family: var(--me-typography-h2-fontFamily, var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
+    font-weight: var(--me-typography-h2-fontWeight, 300);
+    font-size: var(--me-typography-h2-fontSize, 3.75rem);
+    line-height: var(--me-typography-h2-lineHeight, 1.2);
+    letter-spacing: var(--me-typography-h2-letterSpacing, -0.00833em);
   }
-  .mc-typography--h3 {
-    font-family: var(--mc-typography-h3-fontFamily, var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
-    font-weight: var(--mc-typography-h3-fontWeight, 400);
-    font-size: var(--mc-typography-h3-fontSize, 3rem);
-    line-height: var(--mc-typography-h3-lineHeight, 1.167);
-    letter-spacing: var(--mc-typography-h3-letterSpacing, 0em);
+  .me-typography--h3 {
+    font-family: var(--me-typography-h3-fontFamily, var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
+    font-weight: var(--me-typography-h3-fontWeight, 400);
+    font-size: var(--me-typography-h3-fontSize, 3rem);
+    line-height: var(--me-typography-h3-lineHeight, 1.167);
+    letter-spacing: var(--me-typography-h3-letterSpacing, 0em);
   }
-  .mc-typography--h4 {
-    font-family: var(--mc-typography-h4-fontFamily, var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
-    font-weight: var(--mc-typography-h4-fontWeight, 400);
-    font-size: var(--mc-typography-h4-fontSize, 2.125rem);
-    line-height: var(--mc-typography-h4-lineHeight, 1.235);
-    letter-spacing: var(--mc-typography-h4-letterSpacing, 0.00735em);
+  .me-typography--h4 {
+    font-family: var(--me-typography-h4-fontFamily, var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
+    font-weight: var(--me-typography-h4-fontWeight, 400);
+    font-size: var(--me-typography-h4-fontSize, 2.125rem);
+    line-height: var(--me-typography-h4-lineHeight, 1.235);
+    letter-spacing: var(--me-typography-h4-letterSpacing, 0.00735em);
   }
-  .mc-typography--h5 {
-    font-family: var(--mc-typography-h5-fontFamily, var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
-    font-weight: var(--mc-typography-h5-fontWeight, 400);
-    font-size: var(--mc-typography-h5-fontSize, 1.5rem);
-    line-height: var(--mc-typography-h5-lineHeight, 1.334);
-    letter-spacing: var(--mc-typography-h5-letterSpacing, 0em);
+  .me-typography--h5 {
+    font-family: var(--me-typography-h5-fontFamily, var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
+    font-weight: var(--me-typography-h5-fontWeight, 400);
+    font-size: var(--me-typography-h5-fontSize, 1.5rem);
+    line-height: var(--me-typography-h5-lineHeight, 1.334);
+    letter-spacing: var(--me-typography-h5-letterSpacing, 0em);
   }
-  .mc-typography--h6 {
-    font-family: var(--mc-typography-h6-fontFamily, var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
-    font-weight: var(--mc-typography-h6-fontWeight, 500);
-    font-size: var(--mc-typography-h6-fontSize, 1.25rem);
-    line-height: var(--mc-typography-h6-lineHeight, 1.6);
-    letter-spacing: var(--mc-typography-h6-letterSpacing, 0.0075em);
+  .me-typography--h6 {
+    font-family: var(--me-typography-h6-fontFamily, var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif));
+    font-weight: var(--me-typography-h6-fontWeight, 500);
+    font-size: var(--me-typography-h6-fontSize, 1.25rem);
+    line-height: var(--me-typography-h6-lineHeight, 1.6);
+    letter-spacing: var(--me-typography-h6-letterSpacing, 0.0075em);
   }
-  .mc-typography--subtitle1 {
-    font-weight: var(--mc-typography-subtitle1-fontWeight, 400);
-    font-size: var(--mc-typography-subtitle1-fontSize, 1rem);
-    line-height: var(--mc-typography-subtitle1-lineHeight, 1.75);
-    letter-spacing: var(--mc-typography-subtitle1-letterSpacing, 0.00938em);
+  .me-typography--subtitle1 {
+    font-weight: var(--me-typography-subtitle1-fontWeight, 400);
+    font-size: var(--me-typography-subtitle1-fontSize, 1rem);
+    line-height: var(--me-typography-subtitle1-lineHeight, 1.75);
+    letter-spacing: var(--me-typography-subtitle1-letterSpacing, 0.00938em);
   }
-  .mc-typography--subtitle2 {
-    font-weight: var(--mc-typography-subtitle2-fontWeight, 500);
-    font-size: var(--mc-typography-subtitle2-fontSize, 0.875rem);
-    line-height: var(--mc-typography-subtitle2-lineHeight, 1.57);
-    letter-spacing: var(--mc-typography-subtitle2-letterSpacing, 0.00714em);
+  .me-typography--subtitle2 {
+    font-weight: var(--me-typography-subtitle2-fontWeight, 500);
+    font-size: var(--me-typography-subtitle2-fontSize, 0.875rem);
+    line-height: var(--me-typography-subtitle2-lineHeight, 1.57);
+    letter-spacing: var(--me-typography-subtitle2-letterSpacing, 0.00714em);
   }
-  .mc-typography--body1 {
-    font-weight: var(--mc-typography-body1-fontWeight, 400);
-    font-size: var(--mc-typography-body1-fontSize, 1rem);
-    line-height: var(--mc-typography-body1-lineHeight, 1.5);
-    letter-spacing: var(--mc-typography-body1-letterSpacing, 0.00938em);
+  .me-typography--body1 {
+    font-weight: var(--me-typography-body1-fontWeight, 400);
+    font-size: var(--me-typography-body1-fontSize, 1rem);
+    line-height: var(--me-typography-body1-lineHeight, 1.5);
+    letter-spacing: var(--me-typography-body1-letterSpacing, 0.00938em);
   }
-  .mc-typography--body2 {
-    font-weight: var(--mc-typography-body2-fontWeight, 400);
-    font-size: var(--mc-typography-body2-fontSize, 0.875rem);
-    line-height: var(--mc-typography-body2-lineHeight, 1.43);
-    letter-spacing: var(--mc-typography-body2-letterSpacing, 0.01071em);
+  .me-typography--body2 {
+    font-weight: var(--me-typography-body2-fontWeight, 400);
+    font-size: var(--me-typography-body2-fontSize, 0.875rem);
+    line-height: var(--me-typography-body2-lineHeight, 1.43);
+    letter-spacing: var(--me-typography-body2-letterSpacing, 0.01071em);
   }
-  .mc-typography--button {
-    font-weight: var(--mc-typography-button-fontWeight, 500);
-    font-size: var(--mc-typography-button-fontSize, 0.875rem);
-    line-height: var(--mc-typography-button-lineHeight, 1.75);
-    letter-spacing: var(--mc-typography-button-letterSpacing, 0.02857em);
-    text-transform: var(--mc-typography-button-textTransform, uppercase);
+  .me-typography--button {
+    font-weight: var(--me-typography-button-fontWeight, 500);
+    font-size: var(--me-typography-button-fontSize, 0.875rem);
+    line-height: var(--me-typography-button-lineHeight, 1.75);
+    letter-spacing: var(--me-typography-button-letterSpacing, 0.02857em);
+    text-transform: var(--me-typography-button-textTransform, uppercase);
   }
-  .mc-typography--caption {
-    font-weight: var(--mc-typography-caption-fontWeight, 400);
-    font-size: var(--mc-typography-caption-fontSize, 0.75rem);
-    line-height: var(--mc-typography-caption-lineHeight, 1.66);
-    letter-spacing: var(--mc-typography-caption-letterSpacing, 0.03333em);
+  .me-typography--caption {
+    font-weight: var(--me-typography-caption-fontWeight, 400);
+    font-size: var(--me-typography-caption-fontSize, 0.75rem);
+    line-height: var(--me-typography-caption-lineHeight, 1.66);
+    letter-spacing: var(--me-typography-caption-letterSpacing, 0.03333em);
   }
-  .mc-typography--overline {
-    font-weight: var(--mc-typography-overline-fontWeight, 400);
-    font-size: var(--mc-typography-overline-fontSize, 0.75rem);
-    line-height: var(--mc-typography-overline-lineHeight, 2.66);
-    letter-spacing: var(--mc-typography-overline-letterSpacing, 0.08333em);
-    text-transform: var(--mc-typography-overline-textTransform, uppercase);
+  .me-typography--overline {
+    font-weight: var(--me-typography-overline-fontWeight, 400);
+    font-size: var(--me-typography-overline-fontSize, 0.75rem);
+    line-height: var(--me-typography-overline-lineHeight, 2.66);
+    letter-spacing: var(--me-typography-overline-letterSpacing, 0.08333em);
+    text-transform: var(--me-typography-overline-textTransform, uppercase);
   }
 
   /* Colors */
-  .mc-typography--color-primary    { color: var(--mc-palette-primary-main); }
-  .mc-typography--color-secondary  { color: var(--mc-palette-secondary-main); }
-  .mc-typography--color-error      { color: var(--mc-palette-error-main); }
-  .mc-typography--color-textPrimary { color: var(--mc-palette-text-primary); }
-  .mc-typography--color-textSecondary { color: var(--mc-palette-text-secondary); }
-  .mc-typography--color-inherit    { color: inherit; }
+  .me-typography--color-primary    { color: var(--me-palette-primary-main); }
+  .me-typography--color-secondary  { color: var(--me-palette-secondary-main); }
+  .me-typography--color-error      { color: var(--me-palette-error-main); }
+  .me-typography--color-textPrimary { color: var(--me-palette-text-primary); }
+  .me-typography--color-textSecondary { color: var(--me-palette-text-secondary); }
+  .me-typography--color-inherit    { color: inherit; }
 
   /* Modifiers */
-  .mc-typography--gutter-bottom { margin-bottom: 0.35em; }
-  .mc-typography--no-wrap {
+  .me-typography--gutter-bottom { margin-bottom: 0.35em; }
+  .me-typography--no-wrap {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .mc-typography--align-left    { text-align: left; }
-  .mc-typography--align-center  { text-align: center; }
-  .mc-typography--align-right   { text-align: right; }
-  .mc-typography--align-justify { text-align: justify; }
+  .me-typography--align-left    { text-align: left; }
+  .me-typography--align-center  { text-align: center; }
+  .me-typography--align-right   { text-align: right; }
+  .me-typography--align-justify { text-align: justify; }
 `);
 var typography_styles_default = sheet2;
 
@@ -492,7 +499,7 @@ var VARIANT_TAG = {
   caption: "span",
   overline: "span"
 };
-var MCTypography = class extends MCElement {
+var METypography = class extends MEElement {
   static observedAttributes = ["variant", "color", "align", "gutter-bottom", "no-wrap", "component"];
   constructor() {
     super();
@@ -505,31 +512,31 @@ var MCTypography = class extends MCElement {
     const gutterBottom = this.hasAttribute("gutter-bottom");
     const noWrap = this.hasAttribute("no-wrap");
     const tag = this.getAttribute("component") ?? VARIANT_TAG[variant] ?? "p";
-    const cls = ["mc-typography", `mc-typography--${variant}`];
-    if (color && color !== "initial") cls.push(`mc-typography--color-${color}`);
-    if (align && align !== "inherit") cls.push(`mc-typography--align-${align}`);
-    if (gutterBottom) cls.push("mc-typography--gutter-bottom");
-    if (noWrap) cls.push("mc-typography--no-wrap");
+    const cls = ["me-typography", `me-typography--${variant}`];
+    if (color && color !== "initial") cls.push(`me-typography--color-${color}`);
+    if (align && align !== "inherit") cls.push(`me-typography--align-${align}`);
+    if (gutterBottom) cls.push("me-typography--gutter-bottom");
+    if (noWrap) cls.push("me-typography--no-wrap");
     this.shadow.innerHTML = `<${tag} class="${cls.join(" ")}"><slot></slot></${tag}>`;
   }
 };
 
 // src/components/typography/index.ts
-if (!customElements.get("mc-typography")) {
-  customElements.define("mc-typography", MCTypography);
+if (!customElements.get("me-typography")) {
+  customElements.define("me-typography", METypography);
 }
 
 // src/utils/ripple.ts
 var rippleSheet = new CSSStyleSheet();
 rippleSheet.replaceSync(`
-  @keyframes mc-ripple { to { transform: scale(1); opacity: 0; } }
+  @keyframes me-ripple { to { transform: scale(1); opacity: 0; } }
 
-  .mc-ripple-wave {
+  .me-ripple-wave {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
     transform: scale(0);
-    animation: mc-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: me-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
     background-color: currentColor;
     opacity: 0.3;
   }
@@ -560,7 +567,7 @@ var RippleController = class {
     const x = this._centered ? (rect.width - size) / 2 : e.clientX - rect.left - size / 2;
     const y = this._centered ? (rect.height - size) / 2 : e.clientY - rect.top - size / 2;
     const wave = document.createElement("span");
-    wave.className = "mc-ripple-wave";
+    wave.className = "me-ripple-wave";
     wave.style.cssText = `width:${size}px;height:${size}px;left:${x}px;top:${y}px`;
     wave.addEventListener("animationend", () => wave.remove());
     target.appendChild(wave);
@@ -575,44 +582,44 @@ sheet3.replaceSync(`
     display: inline-flex;
     vertical-align: middle;
     outline: none;
-    --_main:     var(--mc-palette-primary-main);
-    --_dark:     var(--mc-palette-primary-dark);
-    --_contrast: var(--mc-palette-primary-contrastText);
+    --_main:     var(--me-palette-primary-main);
+    --_dark:     var(--me-palette-primary-dark);
+    --_contrast: var(--me-palette-primary-contrastText);
     --_hover-bg: rgba(25,118,210,0.04);
     --_border:   rgba(25,118,210,0.5);
   }
   :host([color="secondary"]) {
-    --_main:     var(--mc-palette-secondary-main);
-    --_dark:     var(--mc-palette-secondary-dark);
-    --_contrast: var(--mc-palette-secondary-contrastText);
+    --_main:     var(--me-palette-secondary-main);
+    --_dark:     var(--me-palette-secondary-dark);
+    --_contrast: var(--me-palette-secondary-contrastText);
     --_hover-bg: rgba(156,39,176,0.04);
     --_border:   rgba(156,39,176,0.5);
   }
   :host([color="error"]) {
-    --_main:     var(--mc-palette-error-main);
-    --_dark:     var(--mc-palette-error-dark);
-    --_contrast: var(--mc-palette-error-contrastText);
+    --_main:     var(--me-palette-error-main);
+    --_dark:     var(--me-palette-error-dark);
+    --_contrast: var(--me-palette-error-contrastText);
     --_hover-bg: rgba(211,47,47,0.04);
     --_border:   rgba(211,47,47,0.5);
   }
   :host([color="warning"]) {
-    --_main:     var(--mc-palette-warning-main);
-    --_dark:     var(--mc-palette-warning-dark);
-    --_contrast: var(--mc-palette-warning-contrastText);
+    --_main:     var(--me-palette-warning-main);
+    --_dark:     var(--me-palette-warning-dark);
+    --_contrast: var(--me-palette-warning-contrastText);
     --_hover-bg: rgba(237,108,2,0.04);
     --_border:   rgba(237,108,2,0.5);
   }
   :host([color="info"]) {
-    --_main:     var(--mc-palette-info-main);
-    --_dark:     var(--mc-palette-info-dark);
-    --_contrast: var(--mc-palette-info-contrastText);
+    --_main:     var(--me-palette-info-main);
+    --_dark:     var(--me-palette-info-dark);
+    --_contrast: var(--me-palette-info-contrastText);
     --_hover-bg: rgba(2,136,209,0.04);
     --_border:   rgba(2,136,209,0.5);
   }
   :host([color="success"]) {
-    --_main:     var(--mc-palette-success-main);
-    --_dark:     var(--mc-palette-success-dark);
-    --_contrast: var(--mc-palette-success-contrastText);
+    --_main:     var(--me-palette-success-main);
+    --_dark:     var(--me-palette-success-dark);
+    --_contrast: var(--me-palette-success-contrastText);
     --_hover-bg: rgba(46,125,50,0.04);
     --_border:   rgba(46,125,50,0.5);
   }
@@ -625,7 +632,7 @@ sheet3.replaceSync(`
   }
 
   /* \u2500\u2500 Base button \u2500\u2500 */
-  .mc-button {
+  .me-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -640,101 +647,101 @@ sheet3.replaceSync(`
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     vertical-align: middle;
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
-    font-size: var(--mc-typography-button-fontSize, 0.875rem);
-    font-weight: var(--mc-typography-button-fontWeight, 500);
-    letter-spacing: var(--mc-typography-button-letterSpacing, 0.02857em);
-    text-transform: var(--mc-typography-button-textTransform, uppercase);
-    line-height: var(--mc-typography-button-lineHeight, 1.75);
-    border-radius: calc(var(--mc-shape-borderRadius, 4) * 1px);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: var(--me-typography-button-fontSize, 0.875rem);
+    font-weight: var(--me-typography-button-fontWeight, 500);
+    letter-spacing: var(--me-typography-button-letterSpacing, 0.02857em);
+    text-transform: var(--me-typography-button-textTransform, uppercase);
+    line-height: var(--me-typography-button-lineHeight, 1.75);
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
     padding: 6px 16px;
     min-width: 64px;
     transition:
-      background-color var(--mc-transitions-duration-short, 250ms) var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1)),
-      box-shadow       var(--mc-transitions-duration-short, 250ms) var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1)),
-      border-color     var(--mc-transitions-duration-short, 250ms) var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1)),
-      color            var(--mc-transitions-duration-short, 250ms) var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1));
+      background-color var(--me-transitions-duration-short, 250ms) var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1)),
+      box-shadow       var(--me-transitions-duration-short, 250ms) var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1)),
+      border-color     var(--me-transitions-duration-short, 250ms) var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1)),
+      color            var(--me-transitions-duration-short, 250ms) var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1));
   }
 
   /* \u2500\u2500 Sizes \u2500\u2500 */
-  :host([size="small"])  .mc-button { padding: 4px 10px;  font-size: 0.8125rem; }
-  :host([size="large"])  .mc-button { padding: 8px 22px;  font-size: 0.9375rem; }
+  :host([size="small"])  .me-button { padding: 4px 10px;  font-size: 0.8125rem; }
+  :host([size="large"])  .me-button { padding: 8px 22px;  font-size: 0.9375rem; }
 
   /* \u2500\u2500 Text variant (default) \u2500\u2500 */
-  :host(:not([variant])) .mc-button,
-  :host([variant="text"]) .mc-button {
+  :host(:not([variant])) .me-button,
+  :host([variant="text"]) .me-button {
     background-color: transparent;
     color: var(--_main);
   }
-  :host(:not([variant])) .mc-button:hover,
-  :host([variant="text"]) .mc-button:hover {
+  :host(:not([variant])) .me-button:hover,
+  :host([variant="text"]) .me-button:hover {
     background-color: var(--_hover-bg);
   }
 
   /* \u2500\u2500 Contained variant \u2500\u2500 */
-  :host([variant="contained"]) .mc-button {
+  :host([variant="contained"]) .me-button {
     background-color: var(--_main);
     color: var(--_contrast);
-    box-shadow: var(--mc-shadows-2);
+    box-shadow: var(--me-shadows-2);
   }
-  :host([variant="contained"]) .mc-button:hover {
+  :host([variant="contained"]) .me-button:hover {
     background-color: var(--_dark);
-    box-shadow: var(--mc-shadows-4);
+    box-shadow: var(--me-shadows-4);
   }
-  :host([variant="contained"]) .mc-button:active {
-    box-shadow: var(--mc-shadows-8);
+  :host([variant="contained"]) .me-button:active {
+    box-shadow: var(--me-shadows-8);
   }
 
   /* \u2500\u2500 Outlined variant \u2500\u2500 */
-  :host([variant="outlined"]) .mc-button {
+  :host([variant="outlined"]) .me-button {
     background-color: transparent;
     color: var(--_main);
     border: 1px solid var(--_border);
     padding: 5px 15px;
   }
-  :host([variant="outlined"][size="small"])  .mc-button { padding: 3px 9px; }
-  :host([variant="outlined"][size="large"])  .mc-button { padding: 7px 21px; }
-  :host([variant="outlined"]) .mc-button:hover {
+  :host([variant="outlined"][size="small"])  .me-button { padding: 3px 9px; }
+  :host([variant="outlined"][size="large"])  .me-button { padding: 7px 21px; }
+  :host([variant="outlined"]) .me-button:hover {
     background-color: var(--_hover-bg);
     border-color: var(--_main);
   }
 
   /* \u2500\u2500 Disabled \u2500\u2500 */
-  :host([disabled]) .mc-button {
-    color: var(--mc-palette-action-disabled, rgba(0,0,0,0.26));
+  :host([disabled]) .me-button {
+    color: var(--me-palette-action-disabled, rgba(0,0,0,0.26));
     cursor: default;
     pointer-events: none;
   }
-  :host([variant="contained"][disabled]) .mc-button {
-    background-color: var(--mc-palette-action-disabledBackground, rgba(0,0,0,0.12));
+  :host([variant="contained"][disabled]) .me-button {
+    background-color: var(--me-palette-action-disabledBackground, rgba(0,0,0,0.12));
     box-shadow: none;
   }
-  :host([variant="outlined"][disabled]) .mc-button {
-    border-color: var(--mc-palette-action-disabledBackground, rgba(0,0,0,0.12));
+  :host([variant="outlined"][disabled]) .me-button {
+    border-color: var(--me-palette-action-disabledBackground, rgba(0,0,0,0.12));
   }
 
   /* \u2500\u2500 Focus visible \u2500\u2500 */
-  .mc-button:focus-visible {
+  .me-button:focus-visible {
     outline: 2px solid var(--_main);
     outline-offset: 2px;
   }
 
   /* \u2500\u2500 Icon slots \u2500\u2500 */
-  .mc-button__start-icon,
-  .mc-button__end-icon {
+  .me-button__start-icon,
+  .me-button__end-icon {
     display: inherit;
     align-items: inherit;
   }
-  .mc-button__start-icon { margin-right: 8px; margin-left: -4px; }
-  .mc-button__end-icon   { margin-left: 8px;  margin-right: -4px; }
-  :host([size="small"]) .mc-button__start-icon { margin-left: -2px; margin-right: 6px; }
-  :host([size="small"]) .mc-button__end-icon   { margin-right: -2px; margin-left: 6px; }
+  .me-button__start-icon { margin-right: 8px; margin-left: -4px; }
+  .me-button__end-icon   { margin-left: 8px;  margin-right: -4px; }
+  :host([size="small"]) .me-button__start-icon { margin-left: -2px; margin-right: 6px; }
+  :host([size="small"]) .me-button__end-icon   { margin-right: -2px; margin-left: 6px; }
   [hidden] { display: none !important; }
 `);
 var button_styles_default = sheet3;
 
 // src/components/button/button.ts
-var MCButton = class extends MCElement {
+var MEButton = class extends MEElement {
   static observedAttributes = ["variant", "color", "size", "disabled", "href", "target"];
   _ripple = new RippleController();
   constructor() {
@@ -747,16 +754,16 @@ var MCButton = class extends MCElement {
     const tag = href ? "a" : "button";
     const attrs = href ? `href="${href}"${this.getAttribute("target") ? ` target="${this.getAttribute("target")}"` : ""}` : `type="button"${disabled ? " disabled" : ""}`;
     this.shadow.innerHTML = `
-      <${tag} class="mc-button" ${attrs} ${href && disabled ? 'aria-disabled="true"' : ""}>
-        <span class="mc-button__start-icon" hidden><slot name="start-icon"></slot></span>
-        <span class="mc-button__label"><slot></slot></span>
-        <span class="mc-button__end-icon" hidden><slot name="end-icon"></slot></span>
+      <${tag} class="me-button" ${attrs} ${href && disabled ? 'aria-disabled="true"' : ""}>
+        <span class="me-button__start-icon" hidden><slot name="start-icon"></slot></span>
+        <span class="me-button__label"><slot></slot></span>
+        <span class="me-button__end-icon" hidden><slot name="end-icon"></slot></span>
       </${tag}>
     `;
     this._syncIconSlots();
     this._ripple.detach();
     if (!disabled) {
-      const btn = this.shadow.querySelector(".mc-button");
+      const btn = this.shadow.querySelector(".me-button");
       if (btn) this._ripple.attach(btn);
     }
   }
@@ -778,8 +785,8 @@ var MCButton = class extends MCElement {
 };
 
 // src/components/button/index.ts
-if (!customElements.get("mc-button")) {
-  customElements.define("mc-button", MCButton);
+if (!customElements.get("me-button")) {
+  customElements.define("me-button", MEButton);
 }
 
 // src/components/icon-button/icon-button.styles.ts
@@ -789,18 +796,18 @@ sheet4.replaceSync(`
     display: inline-flex;
     vertical-align: middle;
     outline: none;
-    --_main:     var(--mc-palette-action-active, rgba(0,0,0,0.54));
-    --_hover-bg: var(--mc-palette-action-hover, rgba(0,0,0,0.04));
+    --_main:     var(--me-palette-action-active, rgba(0,0,0,0.54));
+    --_hover-bg: var(--me-palette-action-hover, rgba(0,0,0,0.04));
   }
-  :host([color="primary"])   { --_main: var(--mc-palette-primary-main);   --_hover-bg: rgba(25,118,210,0.04); }
-  :host([color="secondary"]) { --_main: var(--mc-palette-secondary-main); --_hover-bg: rgba(156,39,176,0.04); }
-  :host([color="error"])     { --_main: var(--mc-palette-error-main);     --_hover-bg: rgba(211,47,47,0.04); }
-  :host([color="warning"])   { --_main: var(--mc-palette-warning-main);   --_hover-bg: rgba(237,108,2,0.04); }
-  :host([color="info"])      { --_main: var(--mc-palette-info-main);      --_hover-bg: rgba(2,136,209,0.04); }
-  :host([color="success"])   { --_main: var(--mc-palette-success-main);   --_hover-bg: rgba(46,125,50,0.04); }
+  :host([color="primary"])   { --_main: var(--me-palette-primary-main);   --_hover-bg: rgba(25,118,210,0.04); }
+  :host([color="secondary"]) { --_main: var(--me-palette-secondary-main); --_hover-bg: rgba(156,39,176,0.04); }
+  :host([color="error"])     { --_main: var(--me-palette-error-main);     --_hover-bg: rgba(211,47,47,0.04); }
+  :host([color="warning"])   { --_main: var(--me-palette-warning-main);   --_hover-bg: rgba(237,108,2,0.04); }
+  :host([color="info"])      { --_main: var(--me-palette-info-main);      --_hover-bg: rgba(2,136,209,0.04); }
+  :host([color="success"])   { --_main: var(--me-palette-success-main);   --_hover-bg: rgba(46,125,50,0.04); }
   :host([color="inherit"])   { --_main: inherit; }
 
-  .mc-icon-button {
+  .me-icon-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -815,19 +822,19 @@ sheet4.replaceSync(`
     background-color: transparent;
     color: var(--_main);
     -webkit-tap-highlight-color: transparent;
-    transition: background-color var(--mc-transitions-duration-shorter, 200ms) var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1));
+    transition: background-color var(--me-transitions-duration-shorter, 200ms) var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1));
   }
-  .mc-icon-button:hover { background-color: var(--_hover-bg); }
-  :host([size="small"])  .mc-icon-button { padding: 5px; font-size: 1.125rem; }
-  :host([size="large"])  .mc-icon-button { padding: 12px; font-size: 1.75rem; }
+  .me-icon-button:hover { background-color: var(--_hover-bg); }
+  :host([size="small"])  .me-icon-button { padding: 5px; font-size: 1.125rem; }
+  :host([size="large"])  .me-icon-button { padding: 12px; font-size: 1.75rem; }
   :host([edge="start"])  { margin-left: -12px; }
   :host([edge="end"])    { margin-right: -12px; }
-  :host([disabled]) .mc-icon-button {
-    color: var(--mc-palette-action-disabled, rgba(0,0,0,0.26));
+  :host([disabled]) .me-icon-button {
+    color: var(--me-palette-action-disabled, rgba(0,0,0,0.26));
     cursor: default;
     pointer-events: none;
   }
-  .mc-icon-button:focus-visible {
+  .me-icon-button:focus-visible {
     outline: 2px solid var(--_main);
     outline-offset: 2px;
   }
@@ -835,7 +842,7 @@ sheet4.replaceSync(`
 var icon_button_styles_default = sheet4;
 
 // src/components/icon-button/icon-button.ts
-var MCIconButton = class extends MCElement {
+var MEIconButton = class extends MEElement {
   static observedAttributes = ["color", "size", "disabled", "edge"];
   _ripple = new RippleController();
   constructor() {
@@ -845,13 +852,13 @@ var MCIconButton = class extends MCElement {
   render() {
     const disabled = this.hasAttribute("disabled");
     this.shadow.innerHTML = `
-      <button class="mc-icon-button" type="button" ${disabled ? "disabled" : ""} aria-label="${this.getAttribute("aria-label") ?? ""}">
+      <button class="me-icon-button" type="button" ${disabled ? "disabled" : ""} aria-label="${this.getAttribute("aria-label") ?? ""}">
         <slot></slot>
       </button>
     `;
     this._ripple.detach();
     if (!disabled) {
-      const btn = this.shadow.querySelector(".mc-icon-button");
+      const btn = this.shadow.querySelector(".me-icon-button");
       if (btn) this._ripple.attach(btn);
     }
   }
@@ -861,8 +868,8 @@ var MCIconButton = class extends MCElement {
 };
 
 // src/components/icon-button/index.ts
-if (!customElements.get("mc-icon-button")) {
-  customElements.define("mc-icon-button", MCIconButton);
+if (!customElements.get("me-icon-button")) {
+  customElements.define("me-icon-button", MEIconButton);
 }
 
 // src/components/paper/paper.styles.ts
@@ -870,26 +877,26 @@ var sheet5 = new CSSStyleSheet();
 sheet5.replaceSync(`
   :host {
     display: block;
-    background-color: var(--mc-palette-background-paper, #fff);
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
-    border-radius: calc(var(--mc-shape-borderRadius, 4) * 1px);
-    transition: box-shadow var(--mc-transitions-duration-standard, 300ms) var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1));
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    transition: box-shadow var(--me-transitions-duration-standard, 300ms) var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1));
   }
   :host([square]) { border-radius: 0; }
 
-  .mc-paper { width: 100%; height: 100%; }
+  .me-paper { width: 100%; height: 100%; }
 
   /* elevation variant \u2014 box-shadow set via inline style on host */
   :host([variant="outlined"]),
   :host([variant="outlined"][elevation]) {
     box-shadow: none !important;
-    border: 1px solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
 `);
 var paper_styles_default = sheet5;
 
 // src/components/paper/paper.ts
-var MCPaper = class extends MCElement {
+var MEPaper = class extends MEElement {
   static observedAttributes = ["elevation", "variant", "square"];
   constructor() {
     super();
@@ -899,17 +906,17 @@ var MCPaper = class extends MCElement {
     const variant = this.getAttribute("variant") ?? "elevation";
     const elevation = Math.max(0, Math.min(24, parseInt(this.getAttribute("elevation") ?? "1")));
     if (variant !== "outlined") {
-      this.style.boxShadow = `var(--mc-shadows-${elevation})`;
+      this.style.boxShadow = `var(--me-shadows-${elevation})`;
     } else {
       this.style.removeProperty("box-shadow");
     }
-    this.shadow.innerHTML = `<div class="mc-paper"><slot></slot></div>`;
+    this.shadow.innerHTML = `<div class="me-paper"><slot></slot></div>`;
   }
 };
 
 // src/components/paper/index.ts
-if (!customElements.get("mc-paper")) {
-  customElements.define("mc-paper", MCPaper);
+if (!customElements.get("me-paper")) {
+  customElements.define("me-paper", MEPaper);
 }
 
 // src/components/divider/divider.styles.ts
@@ -920,13 +927,13 @@ sheet6.replaceSync(`
     border: none;
     margin: 0;
     flex-shrink: 0;
-    border-top: thin solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-top: thin solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
 
   /* Vertical */
   :host([orientation="vertical"]) {
     border-top: none;
-    border-left: thin solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-left: thin solid var(--me-palette-divider, rgba(0,0,0,0.12));
     height: auto;
     align-self: stretch;
   }
@@ -946,7 +953,7 @@ sheet6.replaceSync(`
 var divider_styles_default = sheet6;
 
 // src/components/divider/divider.ts
-var MCDivider = class extends MCElement {
+var MEDivider = class extends MEElement {
   static observedAttributes = ["variant", "orientation", "light"];
   constructor() {
     super();
@@ -961,8 +968,8 @@ var MCDivider = class extends MCElement {
 };
 
 // src/components/divider/index.ts
-if (!customElements.get("mc-divider")) {
-  customElements.define("mc-divider", MCDivider);
+if (!customElements.get("me-divider")) {
+  customElements.define("me-divider", MEDivider);
 }
 
 // src/components/icon/icon.styles.ts
@@ -989,11 +996,11 @@ sheet7.replaceSync(`
   :host([font-size="large"])   { font-size: 2.1875rem; }
 
   /* Colors */
-  :host([color="primary"])   { color: var(--mc-palette-primary-main); }
-  :host([color="secondary"]) { color: var(--mc-palette-secondary-main); }
-  :host([color="action"])    { color: var(--mc-palette-action-active, rgba(0,0,0,0.54)); }
-  :host([color="error"])     { color: var(--mc-palette-error-main); }
-  :host([color="disabled"])  { color: var(--mc-palette-action-disabled, rgba(0,0,0,0.26)); }
+  :host([color="primary"])   { color: var(--me-palette-primary-main); }
+  :host([color="secondary"]) { color: var(--me-palette-secondary-main); }
+  :host([color="action"])    { color: var(--me-palette-action-active, rgba(0,0,0,0.54)); }
+  :host([color="error"])     { color: var(--me-palette-error-main); }
+  :host([color="disabled"])  { color: var(--me-palette-action-disabled, rgba(0,0,0,0.26)); }
   :host([color="inherit"])   { color: inherit; }
 
   /* SVG children fill with currentColor */
@@ -1007,7 +1014,7 @@ sheet7.replaceSync(`
 var icon_styles_default = sheet7;
 
 // src/components/icon/icon.ts
-var MCIcon = class extends MCElement {
+var MEIcon = class extends MEElement {
   static observedAttributes = ["color", "font-size"];
   constructor() {
     super();
@@ -1020,8 +1027,8 @@ var MCIcon = class extends MCElement {
 };
 
 // src/components/icon/index.ts
-if (!customElements.get("mc-icon")) {
-  customElements.define("mc-icon", MCIcon);
+if (!customElements.get("me-icon")) {
+  customElements.define("me-icon", MEIcon);
 }
 
 // src/components/box/box.ts
@@ -1076,7 +1083,7 @@ var PROP_MAP = {
 };
 var sheet8 = new CSSStyleSheet();
 sheet8.replaceSync(`:host { display: block; box-sizing: border-box; }`);
-var MCBox = class extends MCElement {
+var MEBox = class extends MEElement {
   static observedAttributes = Object.keys(PROP_MAP);
   constructor() {
     super();
@@ -1094,8 +1101,8 @@ var MCBox = class extends MCElement {
 };
 
 // src/components/box/index.ts
-if (!customElements.get("mc-box")) {
-  customElements.define("mc-box", MCBox);
+if (!customElements.get("me-box")) {
+  customElements.define("me-box", MEBox);
 }
 
 // src/components/container/container.styles.ts
@@ -1127,25 +1134,25 @@ sheet9.replaceSync(`
   :host([fixed][max-width="lg"])  { width: 1200px; }
   :host([fixed][max-width="xl"])  { width: 1536px; }
 
-  .mc-container { width: 100%; }
+  .me-container { width: 100%; }
 `);
 var container_styles_default = sheet9;
 
 // src/components/container/container.ts
-var MCContainer = class extends MCElement {
+var MEContainer = class extends MEElement {
   static observedAttributes = ["max-width", "fixed"];
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [container_styles_default];
   }
   render() {
-    this.shadow.innerHTML = `<div class="mc-container"><slot></slot></div>`;
+    this.shadow.innerHTML = `<div class="me-container"><slot></slot></div>`;
   }
 };
 
 // src/components/container/index.ts
-if (!customElements.get("mc-container")) {
-  customElements.define("mc-container", MCContainer);
+if (!customElements.get("me-container")) {
+  customElements.define("me-container", MEContainer);
 }
 
 // src/components/stack/stack.styles.ts
@@ -1182,7 +1189,7 @@ sheet10.replaceSync(`
 var stack_styles_default = sheet10;
 
 // src/components/stack/stack.ts
-var MCStack = class extends MCElement {
+var MEStack = class extends MEElement {
   static observedAttributes = ["direction", "spacing", "align", "justify", "flex-wrap"];
   constructor() {
     super();
@@ -1191,7 +1198,7 @@ var MCStack = class extends MCElement {
   render() {
     const spacing = this.getAttribute("spacing");
     if (spacing !== null) {
-      const gap = isNaN(Number(spacing)) ? spacing : `calc(var(--mc-spacing, 8px) * ${spacing})`;
+      const gap = isNaN(Number(spacing)) ? spacing : `calc(var(--me-spacing, 8px) * ${spacing})`;
       this.style.setProperty("gap", gap);
     } else {
       this.style.removeProperty("gap");
@@ -1201,8 +1208,8 @@ var MCStack = class extends MCElement {
 };
 
 // src/components/stack/index.ts
-if (!customElements.get("mc-stack")) {
-  customElements.define("mc-stack", MCStack);
+if (!customElements.get("me-stack")) {
+  customElements.define("me-stack", MEStack);
 }
 
 // src/components/grid/grid.ts
@@ -1221,7 +1228,7 @@ function colWidth(val) {
   const pct = `${parseFloat((n / 12 * 100).toFixed(6))}%`;
   return `flex:0 0 ${pct};max-width:${pct}`;
 }
-var MCGrid = class extends MCElement {
+var MEGrid = class extends MEElement {
   static observedAttributes = [
     "container",
     "item",
@@ -1248,7 +1255,7 @@ var MCGrid = class extends MCElement {
       const direction = this.getAttribute("direction") ?? "row";
       const justify = this.getAttribute("justify") ?? "flex-start";
       const align = this.getAttribute("align") ?? "stretch";
-      const gap = isNaN(Number(spacing)) ? spacing : `calc(var(--mc-spacing,8px)*${spacing})`;
+      const gap = isNaN(Number(spacing)) ? spacing : `calc(var(--me-spacing,8px)*${spacing})`;
       css += `:host{display:flex;flex-wrap:wrap;flex-direction:${direction};justify-content:${justify};align-items:${align};gap:${gap};width:100%;}`;
     }
     if (isItem) {
@@ -1264,8 +1271,8 @@ var MCGrid = class extends MCElement {
 };
 
 // src/components/grid/index.ts
-if (!customElements.get("mc-grid")) {
-  customElements.define("mc-grid", MCGrid);
+if (!customElements.get("me-grid")) {
+  customElements.define("me-grid", MEGrid);
 }
 
 // src/components/checkbox/checkbox.styles.ts
@@ -1280,18 +1287,18 @@ sheet11.replaceSync(`
     outline: none;
     cursor: pointer;
     user-select: none;
-    --_color: var(--mc-palette-primary-main, #1976d2);
-    --_color-checked: var(--mc-palette-primary-main, #1976d2);
+    --_color: var(--me-palette-primary-main, #1976d2);
+    --_color-checked: var(--me-palette-primary-main, #1976d2);
   }
-  :host([color="secondary"]) { --_color: var(--mc-palette-secondary-main, #9c27b0); --_color-checked: var(--mc-palette-secondary-main, #9c27b0); }
-  :host([color="error"])     { --_color: var(--mc-palette-error-main, #d32f2f);     --_color-checked: var(--mc-palette-error-main, #d32f2f); }
-  :host([color="warning"])   { --_color: var(--mc-palette-warning-main, #ed6c02);   --_color-checked: var(--mc-palette-warning-main, #ed6c02); }
-  :host([color="info"])      { --_color: var(--mc-palette-info-main, #0288d1);      --_color-checked: var(--mc-palette-info-main, #0288d1); }
-  :host([color="success"])   { --_color: var(--mc-palette-success-main, #2e7d32);   --_color-checked: var(--mc-palette-success-main, #2e7d32); }
+  :host([color="secondary"]) { --_color: var(--me-palette-secondary-main, #9c27b0); --_color-checked: var(--me-palette-secondary-main, #9c27b0); }
+  :host([color="error"])     { --_color: var(--me-palette-error-main, #d32f2f);     --_color-checked: var(--me-palette-error-main, #d32f2f); }
+  :host([color="warning"])   { --_color: var(--me-palette-warning-main, #ed6c02);   --_color-checked: var(--me-palette-warning-main, #ed6c02); }
+  :host([color="info"])      { --_color: var(--me-palette-info-main, #0288d1);      --_color-checked: var(--me-palette-info-main, #0288d1); }
+  :host([color="success"])   { --_color: var(--me-palette-success-main, #2e7d32);   --_color-checked: var(--me-palette-success-main, #2e7d32); }
 
   :host([disabled]) { cursor: default; opacity: 0.38; pointer-events: none; }
 
-  .mc-checkbox {
+  .me-checkbox {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -1302,7 +1309,7 @@ sheet11.replaceSync(`
     overflow: hidden;
   }
 
-  .mc-checkbox__input {
+  .me-checkbox__input {
     position: absolute;
     opacity: 0;
     width: 100%;
@@ -1313,41 +1320,41 @@ sheet11.replaceSync(`
     z-index: 1;
   }
 
-  .mc-checkbox__icon {
+  .me-checkbox__icon {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 18px;
     height: 18px;
     pointer-events: none;
-    color: var(--mc-palette-text-secondary, rgba(0,0,0,0.6));
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
     transition: color 150ms cubic-bezier(0.4,0,0.2,1);
   }
 
-  :host([checked]) .mc-checkbox__icon,
-  :host([indeterminate]) .mc-checkbox__icon {
+  :host([checked]) .me-checkbox__icon,
+  :host([indeterminate]) .me-checkbox__icon {
     color: var(--_color-checked);
   }
 
-  .mc-checkbox__icon svg {
+  .me-checkbox__icon svg {
     fill: currentColor;
     width: 18px;
     height: 18px;
   }
 
-  .mc-checkbox:hover { background-color: rgba(0,0,0,0.04); }
-  :host([checked]) .mc-checkbox:hover,
-  :host([indeterminate]) .mc-checkbox:hover { background-color: color-mix(in srgb, var(--_color) 8%, transparent); }
+  .me-checkbox:hover { background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04)); }
+  :host([checked]) .me-checkbox:hover,
+  :host([indeterminate]) .me-checkbox:hover { background-color: color-mix(in srgb, var(--_color) 8%, transparent); }
 
-  .mc-checkbox { outline: none; }
-  :host(:focus-visible) .mc-checkbox {
+  .me-checkbox { outline: none; }
+  :host(:focus-visible) .me-checkbox {
     background-color: color-mix(in srgb, var(--_color) 12%, transparent);
   }
 `);
 var checkbox_styles_default = sheet11;
 
 // src/components/checkbox/checkbox.ts
-var MCCheckbox = class extends MCElement {
+var MECheckbox = class extends MEElement {
   static formAssociated = true;
   static observedAttributes = ["checked", "indeterminate", "disabled", "value", "color", "required", "name"];
   _internals;
@@ -1385,16 +1392,16 @@ var MCCheckbox = class extends MCElement {
     this.setAttribute("aria-checked", indeterminate ? "mixed" : String(checked));
     this.setAttribute("tabindex", disabled ? "-1" : "0");
     this.shadow.innerHTML = `
-      <div class="mc-checkbox">
+      <div class="me-checkbox">
         <input
-          class="mc-checkbox__input"
+          class="me-checkbox__input"
           type="checkbox"
           tabindex="-1"
           ${checked ? "checked" : ""}
           ${indeterminate ? "data-indeterminate" : ""}
           ${disabled ? "disabled" : ""}
         />
-        <span class="mc-checkbox__icon">
+        <span class="me-checkbox__icon">
           ${indeterminate ? ICON_INDETERMINATE : checked ? ICON_CHECKED : ICON_UNCHECKED}
         </span>
       </div>
@@ -1403,7 +1410,7 @@ var MCCheckbox = class extends MCElement {
     if (indeterminate) input.indeterminate = true;
     this._ripple.detach();
     if (!disabled) {
-      const box = this.shadow.querySelector(".mc-checkbox");
+      const box = this.shadow.querySelector(".me-checkbox");
       this._ripple.attach(box, { centered: true });
     }
   }
@@ -1440,7 +1447,7 @@ var MCCheckbox = class extends MCElement {
 var ICON_UNCHECKED = `<svg viewBox="0 0 24 24"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/></svg>`;
 var ICON_CHECKED = `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.11.89 2 2 2h14c1.11 0 2-.89 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>`;
 var ICON_INDETERMINATE = `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2z"/></svg>`;
-customElements.define("mc-checkbox", MCCheckbox);
+customElements.define("me-checkbox", MECheckbox);
 
 // src/components/radio/radio.styles.ts
 var sheet12 = new CSSStyleSheet();
@@ -1454,17 +1461,17 @@ sheet12.replaceSync(`
     outline: none;
     cursor: pointer;
     user-select: none;
-    --_color: var(--mc-palette-primary-main, #1976d2);
+    --_color: var(--me-palette-primary-main, #1976d2);
   }
-  :host([color="secondary"]) { --_color: var(--mc-palette-secondary-main, #9c27b0); }
-  :host([color="error"])     { --_color: var(--mc-palette-error-main, #d32f2f); }
-  :host([color="warning"])   { --_color: var(--mc-palette-warning-main, #ed6c02); }
-  :host([color="info"])      { --_color: var(--mc-palette-info-main, #0288d1); }
-  :host([color="success"])   { --_color: var(--mc-palette-success-main, #2e7d32); }
+  :host([color="secondary"]) { --_color: var(--me-palette-secondary-main, #9c27b0); }
+  :host([color="error"])     { --_color: var(--me-palette-error-main, #d32f2f); }
+  :host([color="warning"])   { --_color: var(--me-palette-warning-main, #ed6c02); }
+  :host([color="info"])      { --_color: var(--me-palette-info-main, #0288d1); }
+  :host([color="success"])   { --_color: var(--me-palette-success-main, #2e7d32); }
 
   :host([disabled]) { cursor: default; opacity: 0.38; pointer-events: none; }
 
-  .mc-radio {
+  .me-radio {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -1475,7 +1482,7 @@ sheet12.replaceSync(`
     overflow: hidden;
   }
 
-  .mc-radio__input {
+  .me-radio__input {
     position: absolute;
     opacity: 0;
     width: 100%;
@@ -1486,32 +1493,32 @@ sheet12.replaceSync(`
     z-index: 1;
   }
 
-  .mc-radio__icon {
+  .me-radio__icon {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 20px;
     height: 20px;
     pointer-events: none;
-    color: var(--mc-palette-text-secondary, rgba(0,0,0,0.6));
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
     transition: color 150ms cubic-bezier(0.4,0,0.2,1);
   }
 
-  :host([checked]) .mc-radio__icon { color: var(--_color); }
+  :host([checked]) .me-radio__icon { color: var(--_color); }
 
-  .mc-radio__icon svg { fill: currentColor; width: 20px; height: 20px; }
+  .me-radio__icon svg { fill: currentColor; width: 20px; height: 20px; }
 
-  .mc-radio:hover { background-color: rgba(0,0,0,0.04); }
-  :host([checked]) .mc-radio:hover { background-color: color-mix(in srgb, var(--_color) 8%, transparent); }
+  .me-radio:hover { background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04)); }
+  :host([checked]) .me-radio:hover { background-color: color-mix(in srgb, var(--_color) 8%, transparent); }
 
-  :host(:focus-visible) .mc-radio {
+  :host(:focus-visible) .me-radio {
     background-color: color-mix(in srgb, var(--_color) 12%, transparent);
   }
 `);
 var radio_styles_default = sheet12;
 
 // src/components/radio/radio.ts
-var MCRadio = class extends MCElement {
+var MERadio = class extends MEElement {
   static formAssociated = true;
   static observedAttributes = ["checked", "disabled", "value", "color", "required", "name"];
   _internals;
@@ -1544,22 +1551,22 @@ var MCRadio = class extends MCElement {
     this.setAttribute("aria-checked", String(checked));
     this.setAttribute("tabindex", disabled ? "-1" : "0");
     this.shadow.innerHTML = `
-      <div class="mc-radio">
+      <div class="me-radio">
         <input
-          class="mc-radio__input"
+          class="me-radio__input"
           type="radio"
           tabindex="-1"
           ${checked ? "checked" : ""}
           ${disabled ? "disabled" : ""}
         />
-        <span class="mc-radio__icon">
+        <span class="me-radio__icon">
           ${checked ? ICON_CHECKED2 : ICON_UNCHECKED2}
         </span>
       </div>
     `;
     this._ripple.detach();
     if (!disabled) {
-      const dot = this.shadow.querySelector(".mc-radio");
+      const dot = this.shadow.querySelector(".me-radio");
       this._ripple.attach(dot, { centered: true });
     }
   }
@@ -1592,14 +1599,14 @@ var MCRadio = class extends MCElement {
     }
   };
   _select() {
-    this.dispatchEvent(new CustomEvent("mc-radio-select", { bubbles: true, detail: { value: this.value } }));
+    this.dispatchEvent(new CustomEvent("me-radio-select", { bubbles: true, detail: { value: this.value } }));
     this.checked = true;
     this.dispatchEvent(new Event("change", { bubbles: true }));
   }
   _moveFocus(dir) {
-    const group = this.closest("mc-radio-group");
+    const group = this.closest("me-radio-group");
     if (!group) return;
-    const radios = Array.from(group.querySelectorAll("mc-radio:not([disabled])"));
+    const radios = Array.from(group.querySelectorAll("me-radio:not([disabled])"));
     const idx = radios.indexOf(this);
     const next = radios[(idx + dir + radios.length) % radios.length];
     if (next) {
@@ -1610,7 +1617,7 @@ var MCRadio = class extends MCElement {
 };
 var ICON_UNCHECKED2 = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`;
 var ICON_CHECKED2 = `<svg viewBox="0 0 24 24"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zm0-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`;
-customElements.define("mc-radio", MCRadio);
+customElements.define("me-radio", MERadio);
 
 // src/components/radio/radio-group.ts
 var sheet13 = new CSSStyleSheet();
@@ -1622,7 +1629,7 @@ sheet13.replaceSync(`
   }
   :host([row]) { flex-direction: row; flex-wrap: wrap; }
 `);
-var MCRadioGroup = class extends MCElement {
+var MERadioGroup = class extends MEElement {
   static observedAttributes = ["value", "name", "row"];
   constructor() {
     super({ mode: "open" });
@@ -1639,15 +1646,15 @@ var MCRadioGroup = class extends MCElement {
     this._syncRadios();
   }
   addEventListeners() {
-    this.addEventListener("mc-radio-select", this._handleSelect);
+    this.addEventListener("me-radio-select", this._handleSelect);
   }
   cleanup() {
-    this.removeEventListener("mc-radio-select", this._handleSelect);
+    this.removeEventListener("me-radio-select", this._handleSelect);
   }
   _handleSelect = (e) => {
     const target = e.target;
     const selected = target.value;
-    const radios = this.querySelectorAll("mc-radio");
+    const radios = this.querySelectorAll("me-radio");
     radios.forEach((r) => {
       r.checked = r.value === selected;
     });
@@ -1657,7 +1664,7 @@ var MCRadioGroup = class extends MCElement {
   _syncRadios() {
     const name = this.getAttribute("name");
     const value = this.getAttribute("value");
-    const radios = this.querySelectorAll("mc-radio");
+    const radios = this.querySelectorAll("me-radio");
     radios.forEach((r) => {
       if (name && !r.getAttribute("name")) r.setAttribute("name", name);
       if (value !== null) r.checked = r.value === value;
@@ -1667,7 +1674,7 @@ var MCRadioGroup = class extends MCElement {
     if (name === "value") this._syncRadios();
   }
 };
-customElements.define("mc-radio-group", MCRadioGroup);
+customElements.define("me-radio-group", MERadioGroup);
 
 // src/components/switch/switch.styles.ts
 var sheet14 = new CSSStyleSheet();
@@ -1681,17 +1688,17 @@ sheet14.replaceSync(`
     outline: none;
     cursor: pointer;
     user-select: none;
-    --_color: var(--mc-palette-primary-main, #1976d2);
+    --_color: var(--me-palette-primary-main, #1976d2);
   }
-  :host([color="secondary"]) { --_color: var(--mc-palette-secondary-main, #9c27b0); }
-  :host([color="error"])     { --_color: var(--mc-palette-error-main, #d32f2f); }
-  :host([color="warning"])   { --_color: var(--mc-palette-warning-main, #ed6c02); }
-  :host([color="info"])      { --_color: var(--mc-palette-info-main, #0288d1); }
-  :host([color="success"])   { --_color: var(--mc-palette-success-main, #2e7d32); }
+  :host([color="secondary"]) { --_color: var(--me-palette-secondary-main, #9c27b0); }
+  :host([color="error"])     { --_color: var(--me-palette-error-main, #d32f2f); }
+  :host([color="warning"])   { --_color: var(--me-palette-warning-main, #ed6c02); }
+  :host([color="info"])      { --_color: var(--me-palette-info-main, #0288d1); }
+  :host([color="success"])   { --_color: var(--me-palette-success-main, #2e7d32); }
 
   :host([disabled]) { cursor: default; opacity: 0.38; pointer-events: none; }
 
-  .mc-switch {
+  .me-switch {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -1701,7 +1708,7 @@ sheet14.replaceSync(`
     box-sizing: border-box;
   }
 
-  .mc-switch__input {
+  .me-switch__input {
     position: absolute;
     opacity: 0;
     width: 100%;
@@ -1712,20 +1719,20 @@ sheet14.replaceSync(`
     z-index: 1;
   }
 
-  .mc-switch__track {
+  .me-switch__track {
     width: 34px;
     height: 14px;
     border-radius: 7px;
-    background-color: rgba(0,0,0,0.38);
+    background-color: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 44%, transparent);
     transition: background-color 150ms cubic-bezier(0.4,0,0.2,1);
     position: relative;
   }
 
-  :host([checked]) .mc-switch__track {
+  :host([checked]) .me-switch__track {
     background-color: color-mix(in srgb, var(--_color) 50%, transparent);
   }
 
-  .mc-switch__thumb-wrapper {
+  .me-switch__thumb-wrapper {
     position: absolute;
     top: 50%;
     left: 0;
@@ -1733,11 +1740,11 @@ sheet14.replaceSync(`
     transition: left 150ms cubic-bezier(0.4,0,0.2,1);
   }
 
-  :host([checked]) .mc-switch__thumb-wrapper {
+  :host([checked]) .me-switch__thumb-wrapper {
     left: 14px;
   }
 
-  .mc-switch__thumb {
+  .me-switch__thumb {
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -1750,11 +1757,11 @@ sheet14.replaceSync(`
     transition: background-color 150ms cubic-bezier(0.4,0,0.2,1);
   }
 
-  :host([checked]) .mc-switch__thumb {
+  :host([checked]) .me-switch__thumb {
     background-color: var(--_color);
   }
 
-  .mc-switch__ripple {
+  .me-switch__ripple {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -1765,22 +1772,22 @@ sheet14.replaceSync(`
     overflow: hidden;
   }
 
-  .mc-switch__thumb-wrapper:hover .mc-switch__ripple {
-    background-color: rgba(0,0,0,0.04);
+  .me-switch__thumb-wrapper:hover .me-switch__ripple {
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
   }
 
-  :host([checked]) .mc-switch__thumb-wrapper:hover .mc-switch__ripple {
+  :host([checked]) .me-switch__thumb-wrapper:hover .me-switch__ripple {
     background-color: color-mix(in srgb, var(--_color) 8%, transparent);
   }
 
-  :host(:focus-visible) .mc-switch__ripple {
+  :host(:focus-visible) .me-switch__ripple {
     background-color: color-mix(in srgb, var(--_color) 12%, transparent);
   }
 `);
 var switch_styles_default = sheet14;
 
 // src/components/switch/switch.ts
-var MCSwitch = class extends MCElement {
+var MESwitch = class extends MEElement {
   static formAssociated = true;
   static observedAttributes = ["checked", "disabled", "value", "color", "required", "name"];
   _internals;
@@ -1810,19 +1817,19 @@ var MCSwitch = class extends MCElement {
     this.setAttribute("aria-checked", String(checked));
     this.setAttribute("tabindex", disabled ? "-1" : "0");
     this.shadow.innerHTML = `
-      <div class="mc-switch">
-        <input class="mc-switch__input" type="checkbox" tabindex="-1" ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}/>
-        <div class="mc-switch__track">
-          <div class="mc-switch__thumb-wrapper">
-            <div class="mc-switch__ripple"></div>
-            <div class="mc-switch__thumb"></div>
+      <div class="me-switch">
+        <input class="me-switch__input" type="checkbox" tabindex="-1" ${checked ? "checked" : ""} ${disabled ? "disabled" : ""}/>
+        <div class="me-switch__track">
+          <div class="me-switch__thumb-wrapper">
+            <div class="me-switch__ripple"></div>
+            <div class="me-switch__thumb"></div>
           </div>
         </div>
       </div>
     `;
     this._ripple.detach();
     if (!disabled) {
-      const rippleEl = this.shadow.querySelector(".mc-switch__ripple");
+      const rippleEl = this.shadow.querySelector(".me-switch__ripple");
       this._ripple.attach(rippleEl, { centered: true });
     }
   }
@@ -1849,7 +1856,7 @@ var MCSwitch = class extends MCElement {
     }
   };
 };
-customElements.define("mc-switch", MCSwitch);
+customElements.define("me-switch", MESwitch);
 
 // src/components/text-field/text-field.styles.ts
 var sheet15 = new CSSStyleSheet();
@@ -1864,21 +1871,21 @@ sheet15.replaceSync(`
     margin: 0;
     border: 0;
     vertical-align: top;
-    --_primary: var(--mc-palette-primary-main, #1976d2);
-    --_error: var(--mc-palette-error-main, #d32f2f);
-    --_text: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
-    --_secondary-text: var(--mc-palette-text-secondary, rgba(0,0,0,0.6));
-    --_border: rgba(0,0,0,0.23);
-    --_bg: rgba(0,0,0,0.06);
+    --_primary: var(--me-palette-primary-main, #1976d2);
+    --_error: var(--me-palette-error-main, #d32f2f);
+    --_text: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    --_secondary-text: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    --_border: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 27%, transparent);
+    --_bg: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 7%, transparent);
     --_active-color: var(--_primary);
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
   }
-  :host([color="secondary"]) { --_active-color: var(--mc-palette-secondary-main, #9c27b0); }
+  :host([color="secondary"]) { --_active-color: var(--me-palette-secondary-main, #9c27b0); }
   :host([error])             { --_active-color: var(--_error); }
   :host([disabled])          { opacity: 0.38; pointer-events: none; }
 
   /* \u2500\u2500 INPUT WRAPPER \u2500\u2500 */
-  .mc-text-field {
+  .me-text-field {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -1888,19 +1895,19 @@ sheet15.replaceSync(`
   }
 
   /* \u2500\u2500 FILLED \u2500\u2500 */
-  :host([variant="filled"]) .mc-text-field {
+  :host([variant="filled"]) .me-text-field {
     background-color: var(--_bg);
     border-radius: 4px 4px 0 0;
   }
-  :host([variant="filled"]) .mc-text-field::before {
+  :host([variant="filled"]) .me-text-field::before {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
     height: 1px;
-    background-color: rgba(0,0,0,0.42);
+    background-color: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 48%, transparent);
     pointer-events: none;
   }
-  :host([variant="filled"]) .mc-text-field::after {
+  :host([variant="filled"]) .me-text-field::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0; right: 0;
@@ -1909,21 +1916,21 @@ sheet15.replaceSync(`
     transform: scaleX(0);
     transition: transform 200ms cubic-bezier(0,0,0.2,1);
   }
-  :host(.mc-text-field--focused[variant="filled"]) .mc-text-field::after { transform: scaleX(1); }
+  :host(.me-text-field--focused[variant="filled"]) .me-text-field::after { transform: scaleX(1); }
 
   /* \u2500\u2500 OUTLINED \u2500\u2500
      Three-div notch: leading | notch | trailing.
      The notch div's width is set by JS (label.offsetWidth * 0.75 + 10px) so the
      gap in the top border is always exactly as wide as the floating label. */
-  .mc-notched-outline {
+  .me-notched-outline {
     display: none;
     position: absolute;
     top: -5px; right: 0; bottom: 0; left: 0;
     pointer-events: none;
   }
-  :host([variant="outlined"]) .mc-notched-outline { display: flex; }
+  :host([variant="outlined"]) .me-notched-outline { display: flex; }
 
-  .mc-notched-outline__leading {
+  .me-notched-outline__leading {
     width: 9px;
     border: 1px solid var(--_border);
     border-right: none;
@@ -1931,14 +1938,14 @@ sheet15.replaceSync(`
     transition: border-color 200ms, border-width 0ms;
     flex-shrink: 0;
   }
-  .mc-notched-outline__notch {
+  .me-notched-outline__notch {
     border: 1px solid var(--_border);
     border-left: none;
     border-right: none;
     transition: border-color 200ms, border-top-color 0ms, border-width 0ms;
     flex-shrink: 0;
   }
-  .mc-notched-outline__trailing {
+  .me-notched-outline__trailing {
     flex: 1;
     border: 1px solid var(--_border);
     border-left: none;
@@ -1947,41 +1954,41 @@ sheet15.replaceSync(`
   }
 
   /* Open notch: remove the top border segment over the label */
-  :host(.mc-text-field--floating[variant="outlined"]) .mc-notched-outline__notch {
+  :host(.me-text-field--floating[variant="outlined"]) .me-notched-outline__notch {
     border-top-color: transparent;
   }
 
   /* Focus */
-  :host(.mc-text-field--focused[variant="outlined"]) .mc-notched-outline__leading,
-  :host(.mc-text-field--focused[variant="outlined"]) .mc-notched-outline__notch,
-  :host(.mc-text-field--focused[variant="outlined"]) .mc-notched-outline__trailing {
+  :host(.me-text-field--focused[variant="outlined"]) .me-notched-outline__leading,
+  :host(.me-text-field--focused[variant="outlined"]) .me-notched-outline__notch,
+  :host(.me-text-field--focused[variant="outlined"]) .me-notched-outline__trailing {
     border-color: var(--_active-color);
     border-width: 2px;
   }
-  :host(.mc-text-field--focused.mc-text-field--floating[variant="outlined"]) .mc-notched-outline__notch {
+  :host(.me-text-field--focused.me-text-field--floating[variant="outlined"]) .me-notched-outline__notch {
     border-top-color: transparent;
   }
 
   /* Error */
-  :host([error][variant="outlined"]) .mc-notched-outline__leading,
-  :host([error][variant="outlined"]) .mc-notched-outline__notch,
-  :host([error][variant="outlined"]) .mc-notched-outline__trailing {
+  :host([error][variant="outlined"]) .me-notched-outline__leading,
+  :host([error][variant="outlined"]) .me-notched-outline__notch,
+  :host([error][variant="outlined"]) .me-notched-outline__trailing {
     border-color: var(--_error);
   }
-  :host([error].mc-text-field--floating[variant="outlined"]) .mc-notched-outline__notch {
+  :host([error].me-text-field--floating[variant="outlined"]) .me-notched-outline__notch {
     border-top-color: transparent;
   }
 
   /* \u2500\u2500 STANDARD \u2500\u2500 */
   /* margin-top pushes the wrapper below the label's resting position, so the
      border-bottom cannot intersect the label text. */
-  :host([variant="standard"]) .mc-text-field,
-  :host(:not([variant])) .mc-text-field {
+  :host([variant="standard"]) .me-text-field,
+  :host(:not([variant])) .me-text-field {
     margin-top: 16px;
-    border-bottom: 1px solid rgba(0,0,0,0.42);
+    border-bottom: 1px solid color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 48%, transparent);
   }
-  :host([variant="standard"]) .mc-text-field::after,
-  :host(:not([variant])) .mc-text-field::after {
+  :host([variant="standard"]) .me-text-field::after,
+  :host(:not([variant])) .me-text-field::after {
     content: '';
     position: absolute;
     bottom: -1px; left: 0; right: 0;
@@ -1990,14 +1997,14 @@ sheet15.replaceSync(`
     transform: scaleX(0);
     transition: transform 200ms cubic-bezier(0,0,0.2,1);
   }
-  :host(.mc-text-field--focused[variant="standard"]) .mc-text-field::after,
-  :host(.mc-text-field--focused:not([variant])) .mc-text-field::after { transform: scaleX(1); }
+  :host(.me-text-field--focused[variant="standard"]) .me-text-field::after,
+  :host(.me-text-field--focused:not([variant])) .me-text-field::after { transform: scaleX(1); }
 
   /* \u2500\u2500 LABEL \u2500\u2500
      Positioned relative to :host (which is position:relative).
-     The label is a sibling of .mc-text-field, not inside it, so
+     The label is a sibling of .me-text-field, not inside it, so
      border-bottom / background never intersect it. */
-  .mc-text-field__label {
+  .me-text-field__label {
     position: absolute;
     left: 0;
     top: 0;
@@ -2016,13 +2023,13 @@ sheet15.replaceSync(`
   }
 
   /* Filled */
-  :host([variant="filled"]) .mc-text-field__label {
+  :host([variant="filled"]) .me-text-field__label {
     transform: translate(12px, 20px) scale(1);
   }
-  :host(.mc-text-field--floating[variant="filled"]) .mc-text-field__label {
+  :host(.me-text-field--floating[variant="filled"]) .me-text-field__label {
     transform: translate(12px, 7px) scale(0.75);
   }
-  :host(.mc-text-field--focused[variant="filled"]) .mc-text-field__label {
+  :host(.me-text-field--focused[variant="filled"]) .me-text-field__label {
     color: var(--_active-color);
   }
 
@@ -2030,39 +2037,39 @@ sheet15.replaceSync(`
      Floating: text must be centered on the border (y=\u22125px, center=\u22124.5px).
      With scale(0.75), leading above text = 3.5*0.75 = 2.625px, text height = 12px.
      Required Y: \u22124.5 \u2212 2.625 \u2212 6 = \u221213.125 \u2248 \u221213px. */
-  :host([variant="outlined"]) .mc-text-field__label {
+  :host([variant="outlined"]) .me-text-field__label {
     transform: translate(14px, 16px) scale(1);
   }
-  :host([size="small"][variant="outlined"]) .mc-text-field__label {
+  :host([size="small"][variant="outlined"]) .me-text-field__label {
     transform: translate(14px, 9px) scale(1);
   }
-  :host(.mc-text-field--floating[variant="outlined"]) .mc-text-field__label {
+  :host(.me-text-field--floating[variant="outlined"]) .me-text-field__label {
     transform: translate(14px, -13px) scale(0.75);
   }
-  :host(.mc-text-field--focused[variant="outlined"]) .mc-text-field__label {
+  :host(.me-text-field--focused[variant="outlined"]) .me-text-field__label {
     color: var(--_active-color);
   }
 
-  /* Standard \u2014 .mc-text-field has margin-top:16px, so input text is at y=20px.
+  /* Standard \u2014 .me-text-field has margin-top:16px, so input text is at y=20px.
      Resting label at translate(0,20px) overlaps input text (acts as placeholder).
      Floating label at translate(0,-1.5px) sits at the top of :host. */
-  :host([variant="standard"]) .mc-text-field__label,
-  :host(:not([variant])) .mc-text-field__label {
+  :host([variant="standard"]) .me-text-field__label,
+  :host(:not([variant])) .me-text-field__label {
     transform: translate(0, 20px) scale(1);
   }
-  :host(.mc-text-field--floating[variant="standard"]) .mc-text-field__label,
-  :host(.mc-text-field--floating:not([variant])) .mc-text-field__label {
+  :host(.me-text-field--floating[variant="standard"]) .me-text-field__label,
+  :host(.me-text-field--floating:not([variant])) .me-text-field__label {
     transform: translate(0, -1.5px) scale(0.75);
   }
-  :host(.mc-text-field--focused[variant="standard"]) .mc-text-field__label,
-  :host(.mc-text-field--focused:not([variant])) .mc-text-field__label {
+  :host(.me-text-field--focused[variant="standard"]) .me-text-field__label,
+  :host(.me-text-field--focused:not([variant])) .me-text-field__label {
     color: var(--_active-color);
   }
 
-  :host([error]) .mc-text-field__label { color: var(--_error); }
+  :host([error]) .me-text-field__label { color: var(--_error); }
 
   /* \u2500\u2500 INPUT \u2500\u2500 */
-  .mc-text-field__input {
+  .me-text-field__input {
     box-sizing: border-box;
     width: 100%;
     border: none;
@@ -2076,28 +2083,28 @@ sheet15.replaceSync(`
     margin: 0;
     min-width: 0;
   }
-  :host([variant="filled"]) .mc-text-field__input          { padding: 25px 12px 8px; }
-  :host([variant="outlined"]) .mc-text-field__input        { padding: 16.5px 14px; }
-  :host([variant="standard"]) .mc-text-field__input,
-  :host(:not([variant])) .mc-text-field__input             { padding: 4px 0 5px; }
+  :host([variant="filled"]) .me-text-field__input          { padding: 25px 12px 8px; }
+  :host([variant="outlined"]) .me-text-field__input        { padding: 16.5px 14px; }
+  :host([variant="standard"]) .me-text-field__input,
+  :host(:not([variant])) .me-text-field__input             { padding: 4px 0 5px; }
 
   /* Small size */
-  :host([size="small"][variant="filled"]) .mc-text-field__input   { padding: 17px 12px 4px; }
+  :host([size="small"][variant="filled"]) .me-text-field__input   { padding: 17px 12px 4px; }
   /* Small filled box is 44px tall (17+23+4); center = 22px. Without this rule the label
      inherits translate(12px,20px) from the base filled rule, centering it at y=31.5px \u2014
      nearly 10px too low. translate(12px,10px) puts the center at y=21.5px \u2248 22px. */
-  :host([size="small"][variant="filled"]) .mc-text-field__label {
+  :host([size="small"][variant="filled"]) .me-text-field__label {
     transform: translate(12px, 10px) scale(1);
   }
-  :host(.mc-text-field--floating[size="small"][variant="filled"]) .mc-text-field__label {
+  :host(.me-text-field--floating[size="small"][variant="filled"]) .me-text-field__label {
     transform: translate(12px, 4px) scale(0.75);
   }
-  :host([size="small"][variant="outlined"]) .mc-text-field__input { padding: 8.5px 14px; }
-  :host([size="small"][variant="standard"]) .mc-text-field__input,
-  :host([size="small"]:not([variant])) .mc-text-field__input      { padding: 2px 0 3px; }
+  :host([size="small"][variant="outlined"]) .me-text-field__input { padding: 8.5px 14px; }
+  :host([size="small"][variant="standard"]) .me-text-field__input,
+  :host([size="small"]:not([variant])) .me-text-field__input      { padding: 2px 0 3px; }
 
   /* \u2500\u2500 HELPER TEXT \u2500\u2500 */
-  .mc-text-field__helper {
+  .me-text-field__helper {
     font-family: inherit;
     font-size: 0.75rem;
     line-height: 1.66;
@@ -2105,26 +2112,26 @@ sheet15.replaceSync(`
     margin: 3px 0 0;
     min-height: 1.25em;
   }
-  :host([error]) .mc-text-field__helper { color: var(--_error); }
+  :host([error]) .me-text-field__helper { color: var(--_error); }
 
   /* \u2500\u2500 ADORNMENTS \u2500\u2500 */
-  .mc-text-field__adornment-start,
-  .mc-text-field__adornment-end {
+  .me-text-field__adornment-start,
+  .me-text-field__adornment-end {
     display: flex;
     align-items: center;
     color: var(--_secondary-text);
     white-space: nowrap;
     flex-shrink: 0;
   }
-  .mc-text-field__adornment-start { padding-left: 14px; margin-right: 4px; }
-  .mc-text-field__adornment-end   { padding-right: 14px; margin-left: 4px; }
-  :host([variant="filled"]) .mc-text-field__adornment-start { padding-left: 12px; padding-top: 16px; }
-  :host([variant="filled"]) .mc-text-field__adornment-end   { padding-right: 12px; padding-top: 16px; }
+  .me-text-field__adornment-start { padding-left: 14px; margin-right: 4px; }
+  .me-text-field__adornment-end   { padding-right: 14px; margin-left: 4px; }
+  :host([variant="filled"]) .me-text-field__adornment-start { padding-left: 12px; padding-top: 16px; }
+  :host([variant="filled"]) .me-text-field__adornment-end   { padding-right: 12px; padding-top: 16px; }
 `);
 var text_field_styles_default = sheet15;
 
 // src/components/text-field/text-field.ts
-var MCTextField = class extends MCElement {
+var METextField = class extends MEElement {
   static formAssociated = true;
   static observedAttributes = [
     "variant",
@@ -2166,7 +2173,7 @@ var MCTextField = class extends MCElement {
   }
   set value(v) {
     this._value = v;
-    const input = this.shadow.querySelector(".mc-text-field__input");
+    const input = this.shadow.querySelector(".me-text-field__input");
     if (input) input.value = v;
     this._internals.setFormValue(v);
     this._updateFloating();
@@ -2191,10 +2198,10 @@ var MCTextField = class extends MCElement {
     const name = this.getAttribute("name") ?? "";
     const hasLabel = label.length > 0;
     const isFloating = this._focused || this._value.length > 0 || placeholder.length > 0 || startAdornment.length > 0;
-    this.classList.toggle("mc-text-field--floating", isFloating);
-    this.classList.toggle("mc-text-field--focused", this._focused);
+    this.classList.toggle("me-text-field--floating", isFloating);
+    this.classList.toggle("me-text-field--focused", this._focused);
     const inputAttrs = [
-      `class="mc-text-field__input"`,
+      `class="me-text-field__input"`,
       multiline ? "" : `type="${type}"`,
       `value="${this._value.replace(/"/g, "&quot;")}"`,
       placeholder ? `placeholder="${placeholder}"` : "",
@@ -2213,26 +2220,26 @@ var MCTextField = class extends MCElement {
     ].filter(Boolean).join(" ");
     const inputEl = multiline ? `<textarea ${inputAttrs} rows="${rows}"></textarea>` : `<input ${inputAttrs}/>`;
     const notch = variant === "outlined" ? `
-      <div class="mc-notched-outline" aria-hidden="true">
-        <div class="mc-notched-outline__leading"></div>
-        <div class="mc-notched-outline__notch"></div>
-        <div class="mc-notched-outline__trailing"></div>
+      <div class="me-notched-outline" aria-hidden="true">
+        <div class="me-notched-outline__leading"></div>
+        <div class="me-notched-outline__notch"></div>
+        <div class="me-notched-outline__trailing"></div>
       </div>` : "";
     this.shadow.innerHTML = `
-      ${hasLabel ? `<label class="mc-text-field__label">${label}</label>` : ""}
-      <div class="mc-text-field">
+      ${hasLabel ? `<label class="me-text-field__label">${label}</label>` : ""}
+      <div class="me-text-field">
         ${notch}
-        ${startAdornment ? `<div class="mc-text-field__adornment-start">${startAdornment}</div>` : ""}
+        ${startAdornment ? `<div class="me-text-field__adornment-start">${startAdornment}</div>` : ""}
         ${inputEl}
-        ${endAdornment ? `<div class="mc-text-field__adornment-end">${endAdornment}</div>` : ""}
+        ${endAdornment ? `<div class="me-text-field__adornment-end">${endAdornment}</div>` : ""}
       </div>
-      ${helperText ? `<p class="mc-text-field__helper">${helperText}</p>` : ""}
+      ${helperText ? `<p class="me-text-field__helper">${helperText}</p>` : ""}
     `;
     this._updateNotchWidth(isFloating);
     this._bindInput();
   }
   _bindInput() {
-    const input = this.shadow.querySelector(".mc-text-field__input");
+    const input = this.shadow.querySelector(".me-text-field__input");
     if (!input) return;
     input.addEventListener("focus", () => {
       this._focused = true;
@@ -2259,8 +2266,8 @@ var MCTextField = class extends MCElement {
     const placeholder = this.getAttribute("placeholder") ?? "";
     const startAdornment = this.getAttribute("start-adornment") ?? "";
     const isFloating = this._focused || this._value.length > 0 || placeholder.length > 0 || startAdornment.length > 0;
-    this.classList.toggle("mc-text-field--floating", isFloating);
-    this.classList.toggle("mc-text-field--focused", this._focused);
+    this.classList.toggle("me-text-field--floating", isFloating);
+    this.classList.toggle("me-text-field--focused", this._focused);
     this._updateNotchWidth(isFloating);
   }
   // Sets the outlined notch div width to exactly match the floating label's visual width.
@@ -2269,9 +2276,9 @@ var MCTextField = class extends MCElement {
   // the label starts at x=14px, leaving a natural 5px left buffer; we add 5px right buffer.
   _updateNotchWidth(isFloating) {
     if ((this.getAttribute("variant") ?? "outlined") !== "outlined") return;
-    const notch = this.shadow.querySelector(".mc-notched-outline__notch");
+    const notch = this.shadow.querySelector(".me-notched-outline__notch");
     if (!notch) return;
-    const label = this.shadow.querySelector(".mc-text-field__label");
+    const label = this.shadow.querySelector(".me-text-field__label");
     if (isFloating && label && label.offsetWidth > 0) {
       notch.style.width = `${label.offsetWidth * 0.75 + 10}px`;
     } else {
@@ -2293,7 +2300,7 @@ var MCTextField = class extends MCElement {
     this.render();
   }
 };
-customElements.define("mc-text-field", MCTextField);
+customElements.define("me-text-field", METextField);
 
 // src/components/select/select.styles.ts
 var sheet16 = new CSSStyleSheet();
@@ -2305,28 +2312,31 @@ sheet16.replaceSync(`
     box-sizing: border-box;
     min-width: 0;
     vertical-align: top;
-    --_primary: var(--mc-palette-primary-main, #1976d2);
-    --_error: var(--mc-palette-error-main, #d32f2f);
-    --_text: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
-    --_secondary-text: var(--mc-palette-text-secondary, rgba(0,0,0,0.6));
-    --_border: rgba(0,0,0,0.23);
-    --_bg: rgba(0,0,0,0.06);
+    --_primary: var(--me-palette-primary-main, #1976d2);
+    --_error: var(--me-palette-error-main, #d32f2f);
+    --_text: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    --_secondary-text: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    --_border: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 27%, transparent);
+    --_bg: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 7%, transparent);
     --_active-color: var(--_primary);
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
   }
-  :host([color="secondary"]) { --_active-color: var(--mc-palette-secondary-main, #9c27b0); }
-  :host([error]) { --_active-color: var(--_error); }
-  :host([disabled]) { opacity: 0.38; pointer-events: none; }
+  :host([color="secondary"]) { --_active-color: var(--me-palette-secondary-main, #9c27b0); }
+  :host([error])             { --_active-color: var(--_error); }
+  :host([disabled])          { opacity: 0.38; pointer-events: none; }
 
-  .mc-select {
+  /* \u2500\u2500 SELECT WRAPPER \u2500\u2500 */
+  .me-select {
     position: relative;
     display: inline-flex;
     align-items: center;
     box-sizing: border-box;
     width: 100%;
+    cursor: pointer;
   }
 
-  .mc-select__native {
+  /* \u2500\u2500 NATIVE SELECT \u2500\u2500 */
+  .me-select__native {
     box-sizing: border-box;
     width: 100%;
     border: none;
@@ -2342,107 +2352,127 @@ sheet16.replaceSync(`
     padding-right: 32px;
   }
 
-  .mc-select__arrow {
+  /* \u2500\u2500 ARROW \u2500\u2500 */
+  .me-select__arrow {
     position: absolute;
-    right: 0;
     pointer-events: none;
     color: var(--_secondary-text);
     display: flex;
     align-items: center;
   }
-  :host([variant="filled"]) .mc-select__arrow,
-  :host([variant="outlined"]) .mc-select__arrow { right: 14px; }
-  :host(:not([variant])) .mc-select__arrow,
-  :host([variant="standard"]) .mc-select__arrow { right: 0; }
+  :host([variant="filled"]) .me-select__arrow,
+  :host([variant="outlined"]) .me-select__arrow { right: 14px; }
+  :host([variant="standard"]) .me-select__arrow,
+  :host(:not([variant])) .me-select__arrow { right: 0; }
+  .me-select__arrow svg { fill: currentColor; width: 24px; height: 24px; }
 
-  .mc-select__arrow svg { fill: currentColor; width: 24px; height: 24px; }
-
-  /* Filled */
-  :host([variant="filled"]) .mc-select {
+  /* \u2500\u2500 FILLED \u2500\u2500 */
+  :host([variant="filled"]) .me-select {
     background-color: var(--_bg);
     border-radius: 4px 4px 0 0;
   }
-  :host([variant="filled"]) .mc-select::before {
+  :host([variant="filled"]) .me-select::before {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     height: 1px;
-    background-color: rgba(0,0,0,0.42);
+    background-color: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 48%, transparent);
     pointer-events: none;
   }
-  :host([variant="filled"]) .mc-select--focused::after {
+  :host([variant="filled"]) .me-select::after {
     content: '';
     position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    bottom: 0; left: 0; right: 0;
     height: 2px;
     background-color: var(--_active-color);
+    transform: scaleX(0);
+    transition: transform 200ms cubic-bezier(0,0,0.2,1);
   }
-  :host([variant="filled"]) .mc-select__native { padding: 25px 32px 8px 12px; }
+  :host(.me-select--focused[variant="filled"]) .me-select::after { transform: scaleX(1); }
+  :host([variant="filled"]) .me-select__native { padding: 25px 32px 8px 12px; }
 
-  /* Outlined */
-  :host([variant="outlined"]) .mc-select {
-    border-radius: 4px;
+  /* \u2500\u2500 OUTLINED \u2500\u2500 */
+  :host([variant="outlined"]) .me-select { border-radius: 4px; }
+
+  .me-notched-outline {
+    display: none;
+    position: absolute;
+    top: -5px; right: 0; bottom: 0; left: 0;
+    pointer-events: none;
   }
-  .mc-notched-outline { display: none; position: absolute; inset: 0; pointer-events: none; }
-  :host([variant="outlined"]) .mc-notched-outline { display: flex; }
-  .mc-notched-outline__leading {
-    width: 12px;
+  :host([variant="outlined"]) .me-notched-outline { display: flex; }
+
+  .me-notched-outline__leading {
+    width: 9px;
     border: 1px solid var(--_border);
     border-right: none;
     border-radius: 4px 0 0 4px;
-    transition: border-color 200ms;
+    transition: border-color 200ms, border-width 0ms;
+    flex-shrink: 0;
   }
-  .mc-notched-outline__notch {
-    flex: 0 0 auto;
+  .me-notched-outline__notch {
     border: 1px solid var(--_border);
     border-left: none;
     border-right: none;
-    transition: border-color 200ms;
-    padding: 0 4px;
+    transition: border-color 200ms, border-top-color 0ms, border-width 0ms;
+    flex-shrink: 0;
   }
-  .mc-notched-outline__trailing {
+  .me-notched-outline__trailing {
     flex: 1;
     border: 1px solid var(--_border);
     border-left: none;
     border-radius: 0 4px 4px 0;
-    transition: border-color 200ms;
+    transition: border-color 200ms, border-width 0ms;
   }
-  .mc-notched-outline__notch--open { border-top-color: transparent; }
-  :host([variant="outlined"]) .mc-select--focused .mc-notched-outline__leading,
-  :host([variant="outlined"]) .mc-select--focused .mc-notched-outline__notch,
-  :host([variant="outlined"]) .mc-select--focused .mc-notched-outline__trailing {
+
+  :host(.me-select--floating[variant="outlined"]) .me-notched-outline__notch {
+    border-top-color: transparent;
+  }
+  :host(.me-select--focused[variant="outlined"]) .me-notched-outline__leading,
+  :host(.me-select--focused[variant="outlined"]) .me-notched-outline__notch,
+  :host(.me-select--focused[variant="outlined"]) .me-notched-outline__trailing {
     border-color: var(--_active-color);
     border-width: 2px;
   }
-  :host([variant="outlined"]) .mc-select--focused .mc-notched-outline__notch--open {
+  :host(.me-select--focused.me-select--floating[variant="outlined"]) .me-notched-outline__notch {
     border-top-color: transparent;
   }
-  :host([variant="outlined"]) .mc-select__native { padding: 16.5px 32px 16.5px 14px; }
-
-  /* Standard */
-  :host([variant="standard"]) .mc-select,
-  :host(:not([variant])) .mc-select {
-    border-bottom: 1px solid rgba(0,0,0,0.42);
+  :host([error][variant="outlined"]) .me-notched-outline__leading,
+  :host([error][variant="outlined"]) .me-notched-outline__notch,
+  :host([error][variant="outlined"]) .me-notched-outline__trailing {
+    border-color: var(--_error);
   }
-  :host([variant="standard"]) .mc-select--focused::after,
-  :host(:not([variant])) .mc-select--focused::after {
+  :host([error].me-select--floating[variant="outlined"]) .me-notched-outline__notch {
+    border-top-color: transparent;
+  }
+
+  :host([variant="outlined"]) .me-select__native { padding: 16.5px 32px 16.5px 14px; }
+
+  /* \u2500\u2500 STANDARD \u2500\u2500 */
+  :host([variant="standard"]) .me-select,
+  :host(:not([variant])) .me-select {
+    margin-top: 16px;
+    border-bottom: 1px solid color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 48%, transparent);
+  }
+  :host([variant="standard"]) .me-select::after,
+  :host(:not([variant])) .me-select::after {
     content: '';
     position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
+    bottom: -1px; left: 0; right: 0;
     height: 2px;
     background-color: var(--_active-color);
+    transform: scaleX(0);
+    transition: transform 200ms cubic-bezier(0,0,0.2,1);
   }
-  :host([variant="standard"]) .mc-select__native,
-  :host(:not([variant])) .mc-select__native { padding: 4px 24px 5px 0; }
+  :host(.me-select--focused[variant="standard"]) .me-select::after,
+  :host(.me-select--focused:not([variant])) .me-select::after { transform: scaleX(1); }
+  :host([variant="standard"]) .me-select__native,
+  :host(:not([variant])) .me-select__native { padding: 4px 24px 5px 0; }
 
-  /* Label */
-  .mc-select__label {
+  /* \u2500\u2500 LABEL \u2500\u2500
+     Positioned relative to :host (position:relative).
+     Lives outside .me-select so the border/background never intersect it. */
+  .me-select__label {
     position: absolute;
     left: 0;
     top: 0;
@@ -2452,41 +2482,61 @@ sheet16.replaceSync(`
     line-height: 1.4375em;
     pointer-events: none;
     transform-origin: top left;
-    transition: color 200ms, transform 200ms;
+    transition: color 200ms cubic-bezier(0,0,0.2,1), transform 200ms cubic-bezier(0,0,0.2,1);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: calc(100% - 24px);
     z-index: 1;
   }
-  :host([variant="filled"]) .mc-select__label { transform: translate(12px, 20px) scale(1); }
-  :host([variant="filled"]) .mc-select--floating .mc-select__label { transform: translate(12px, 7px) scale(0.75); }
-  :host([variant="outlined"]) .mc-select__label { transform: translate(14px, -50%) translateY(50%) translateY(16px) scale(1); }
-  :host([variant="outlined"]) .mc-select--floating .mc-select__label { transform: translate(14px, -50%) scale(0.75); }
-  :host([variant="standard"]) .mc-select__label,
-  :host(:not([variant])) .mc-select__label { transform: translate(0, 20px) scale(1); }
-  :host([variant="standard"]) .mc-select--floating .mc-select__label,
-  :host(:not([variant])) .mc-select--floating .mc-select__label { transform: translate(0, -1.5px) scale(0.75); }
-  .mc-select--focused .mc-select__label { color: var(--_active-color); }
-  :host([error]) .mc-select__label { color: var(--_error); }
 
-  /* Helper */
-  .mc-select__helper {
+  /* Filled */
+  :host([variant="filled"]) .me-select__label {
+    transform: translate(12px, 20px) scale(1);
+  }
+  :host(.me-select--floating[variant="filled"]) .me-select__label {
+    transform: translate(12px, 7px) scale(0.75);
+  }
+  :host(.me-select--focused[variant="filled"]) .me-select__label { color: var(--_active-color); }
+
+  /* Outlined */
+  :host([variant="outlined"]) .me-select__label {
+    transform: translate(14px, 16px) scale(1);
+  }
+  :host(.me-select--floating[variant="outlined"]) .me-select__label {
+    transform: translate(14px, -13px) scale(0.75);
+  }
+  :host(.me-select--focused[variant="outlined"]) .me-select__label { color: var(--_active-color); }
+
+  /* Standard */
+  :host([variant="standard"]) .me-select__label,
+  :host(:not([variant])) .me-select__label {
+    transform: translate(0, 20px) scale(1);
+  }
+  :host(.me-select--floating[variant="standard"]) .me-select__label,
+  :host(.me-select--floating:not([variant])) .me-select__label {
+    transform: translate(0, -1.5px) scale(0.75);
+  }
+  :host(.me-select--focused[variant="standard"]) .me-select__label,
+  :host(.me-select--focused:not([variant])) .me-select__label { color: var(--_active-color); }
+
+  :host([error]) .me-select__label { color: var(--_error); }
+
+  /* \u2500\u2500 HELPER \u2500\u2500 */
+  .me-select__helper {
     font-family: inherit;
     font-size: 0.75rem;
     line-height: 1.66;
     color: var(--_secondary-text);
-    margin: 3px 14px 0;
+    margin: 3px 0 0;
     min-height: 1.25em;
   }
-  :host([error]) .mc-select__helper { color: var(--_error); }
-
-  /* Hidden slot for option sync */
-  .mc-select__slot { display: none; }
+  :host([error]) .me-select__helper { color: var(--_error); }
 `);
 var select_styles_default = sheet16;
 
 // src/components/select/select.ts
-var MCSelect = class extends MCElement {
+var MESelect = class extends MEElement {
   static formAssociated = true;
   static observedAttributes = [
     "variant",
@@ -2504,20 +2554,31 @@ var MCSelect = class extends MCElement {
   _internals;
   _focused = false;
   _value = "";
+  _observer = null;
   constructor() {
     super({ mode: "open", delegatesFocus: true });
     this._internals = this.attachInternals();
     this.shadow.adoptedStyleSheets = [select_styles_default];
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    requestAnimationFrame(() => this._syncOptions());
+    this._observer = new MutationObserver(() => this._syncOptions());
+    this._observer.observe(this, { childList: true, subtree: true });
+  }
+  disconnectedCallback() {
+    this._observer?.disconnect();
+    this._observer = null;
+    super.disconnectedCallback();
   }
   get value() {
     return this._value;
   }
   set value(v) {
     this._value = v;
-    const select = this.shadow.querySelector(".mc-select__native");
+    const select = this.shadow.querySelector(".me-select__native");
     if (select) select.value = v;
     this._internals.setFormValue(v);
-    this._updateFloating();
   }
   get disabled() {
     return this.hasAttribute("disabled");
@@ -2530,57 +2591,53 @@ var MCSelect = class extends MCElement {
     const helperText = this.getAttribute("helper-text") ?? "";
     const name = this.getAttribute("name") ?? "";
     const multiple = this.hasAttribute("multiple");
-    const isFloating = true;
     const hasLabel = label.length > 0;
-    const wrapperClass = [
-      "mc-select",
-      this._focused ? "mc-select--focused" : "",
-      "mc-select--floating"
-    ].filter(Boolean).join(" ");
+    this.classList.add("me-select--floating");
+    this.classList.toggle("me-select--focused", this._focused);
     const notch = variant === "outlined" ? `
-      <div class="mc-notched-outline" aria-hidden="true">
-        <div class="mc-notched-outline__leading"></div>
-        <div class="mc-notched-outline__notch ${hasLabel ? "mc-notched-outline__notch--open" : ""}">
-          ${hasLabel ? `<legend class="mc-notched-outline__legend"><span>${label}</span></legend>` : ""}
-        </div>
-        <div class="mc-notched-outline__trailing"></div>
+      <div class="me-notched-outline" aria-hidden="true">
+        <div class="me-notched-outline__leading"></div>
+        <div class="me-notched-outline__notch"></div>
+        <div class="me-notched-outline__trailing"></div>
       </div>` : "";
     this.shadow.innerHTML = `
-      <div class="${wrapperClass}">
+      ${hasLabel ? `<label class="me-select__label">${label}</label>` : ""}
+      <div class="me-select">
         ${notch}
-        ${hasLabel ? `<label class="mc-select__label">${label}</label>` : ""}
         <select
-          class="mc-select__native"
+          class="me-select__native"
           ${disabled ? "disabled" : ""}
           ${required ? "required" : ""}
           ${name ? `name="${name}"` : ""}
           ${multiple ? "multiple" : ""}
         ></select>
-        <span class="mc-select__arrow" aria-hidden="true">
+        <span class="me-select__arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/></svg>
         </span>
       </div>
-      <div class="mc-select__slot"><slot></slot></div>
-      ${helperText ? `<p class="mc-select__helper">${helperText}</p>` : ""}
+      ${helperText ? `<p class="me-select__helper">${helperText}</p>` : ""}
     `;
+    this._updateNotchWidth();
     this._syncOptions();
     this._bindSelect();
   }
+  _updateNotchWidth() {
+    if ((this.getAttribute("variant") ?? "outlined") !== "outlined") return;
+    const notch = this.shadow.querySelector(".me-notched-outline__notch");
+    if (!notch) return;
+    const label = this.shadow.querySelector(".me-select__label");
+    if (label && label.offsetWidth > 0) {
+      notch.style.width = `${label.offsetWidth * 0.75 + 10}px`;
+    } else {
+      notch.style.width = "";
+    }
+  }
   addEventListeners() {
-    this.addEventListener("slotchange", this._onSlotChange);
   }
-  cleanup() {
-    this.removeEventListener("slotchange", this._onSlotChange);
-  }
-  _onSlotChange = () => {
-    this._syncOptions();
-  };
   _syncOptions() {
-    const native = this.shadow.querySelector(".mc-select__native");
+    const native = this.shadow.querySelector(".me-select__native");
     if (!native) return;
-    const slotEl = this.shadow.querySelector("slot");
-    const assigned = slotEl ? slotEl.assignedElements({ flatten: true }) : [];
-    const lightOptions = assigned.length > 0 ? assigned : Array.from(this.querySelectorAll("option, optgroup"));
+    const lightOptions = Array.from(this.querySelectorAll(":scope > option, :scope > optgroup"));
     native.innerHTML = "";
     for (const el of lightOptions) {
       if (el.tagName === "OPTION") {
@@ -2607,38 +2664,28 @@ var MCSelect = class extends MCElement {
     if (this._value) native.value = this._value;
     this._value = native.value;
     this._internals.setFormValue(this._value);
-    this._updateFloating();
   }
   _bindSelect() {
-    const native = this.shadow.querySelector(".mc-select__native");
+    const native = this.shadow.querySelector(".me-select__native");
     if (!native) return;
     native.addEventListener("focus", () => {
       this._focused = true;
-      const wrapper = this.shadow.querySelector(".mc-select");
-      wrapper?.classList.add("mc-select--focused");
-      const label = this.shadow.querySelector(".mc-select__label");
-      if (label) label.style.color = "";
+      this.classList.add("me-select--focused");
     });
     native.addEventListener("blur", () => {
       this._focused = false;
-      const wrapper = this.shadow.querySelector(".mc-select");
-      wrapper?.classList.remove("mc-select--focused");
+      this.classList.remove("me-select--focused");
     });
     native.addEventListener("change", () => {
       this._value = native.value;
       this._internals.setFormValue(this._value);
-      this._updateFloating();
       this.dispatchEvent(new Event("change", { bubbles: true }));
     });
-  }
-  _updateFloating() {
-    const notch = this.shadow.querySelector(".mc-notched-outline__notch");
-    if (notch) notch.classList.add("mc-notched-outline__notch--open");
   }
   onAttributeChanged(name, _oldVal, newVal) {
     if (name === "value") {
       this._value = newVal ?? "";
-      const native = this.shadow.querySelector(".mc-select__native");
+      const native = this.shadow.querySelector(".me-select__native");
       if (native) {
         native.value = this._value;
       }
@@ -2651,7 +2698,7 @@ var MCSelect = class extends MCElement {
     this.render();
   }
 };
-customElements.define("mc-select", MCSelect);
+customElements.define("me-select", MESelect);
 
 // src/components/avatar/avatar.styles.ts
 var sheet17 = new CSSStyleSheet();
@@ -2665,28 +2712,34 @@ sheet17.replaceSync(`
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
-    background-color: var(--mc-palette-grey-400, #bdbdbd);
-    color: var(--mc-palette-background-default, #fff);
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    background-color: var(--me-palette-grey-400, #bdbdbd);
+    color: var(--me-palette-background-default, #fff);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
     font-size: 1.25rem;
     line-height: 1;
     user-select: none;
     position: relative;
   }
-  :host([variant="rounded"]) { border-radius: var(--mc-shape-borderRadius, 4px); }
+  :host([variant="rounded"]) { border-radius: var(--me-shape-borderRadius, 4px); }
   :host([variant="square"])  { border-radius: 0; }
 
-  .mc-avatar__img {
+  .me-avatar__img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     text-indent: -9999px;
   }
+
+  /* Shift letters down to compensate for cap-height sitting above the em-square center */
+  .me-avatar__letter {
+    display: block;
+    padding-top: calc((1em - 1cap) / 2);
+  }
 `);
 var avatar_styles_default = sheet17;
 
 // src/components/avatar/avatar.ts
-var MCAvatar = class extends MCElement {
+var MEAvatar = class extends MEElement {
   static observedAttributes = ["src", "alt", "variant"];
   constructor() {
     super();
@@ -2695,10 +2748,10 @@ var MCAvatar = class extends MCElement {
   render() {
     const src = this.getAttribute("src") ?? "";
     const alt = this.getAttribute("alt") ?? "";
-    this.shadow.innerHTML = src ? `<img class="mc-avatar__img" src="${src}" alt="${alt}">` : `<slot></slot>`;
+    this.shadow.innerHTML = src ? `<img class="me-avatar__img" src="${src}" alt="${alt}">` : `<span class="me-avatar__letter"><slot></slot></span>`;
   }
 };
-customElements.define("mc-avatar", MCAvatar);
+customElements.define("me-avatar", MEAvatar);
 
 // src/components/badge/badge.styles.ts
 var sheet18 = new CSSStyleSheet();
@@ -2708,37 +2761,37 @@ sheet18.replaceSync(`
     position: relative;
     vertical-align: middle;
     flex-shrink: 0;
-    --_color: var(--mc-palette-error-main, #d32f2f);
-    --_contrast: var(--mc-palette-error-contrastText, #fff);
+    --_color: var(--me-palette-error-main, #d32f2f);
+    --_contrast: var(--me-palette-error-contrastText, #fff);
   }
   :host([color="primary"]) {
-    --_color: var(--mc-palette-primary-main, #1976d2);
-    --_contrast: var(--mc-palette-primary-contrastText, #fff);
+    --_color: var(--me-palette-primary-main, #1976d2);
+    --_contrast: var(--me-palette-primary-contrastText, #fff);
   }
   :host([color="secondary"]) {
-    --_color: var(--mc-palette-secondary-main, #9c27b0);
-    --_contrast: var(--mc-palette-secondary-contrastText, #fff);
+    --_color: var(--me-palette-secondary-main, #9c27b0);
+    --_contrast: var(--me-palette-secondary-contrastText, #fff);
   }
   :host([color="success"]) {
-    --_color: var(--mc-palette-success-main, #2e7d32);
-    --_contrast: var(--mc-palette-success-contrastText, #fff);
+    --_color: var(--me-palette-success-main, #2e7d32);
+    --_contrast: var(--me-palette-success-contrastText, #fff);
   }
   :host([color="warning"]) {
-    --_color: var(--mc-palette-warning-main, #ed6c02);
-    --_contrast: var(--mc-palette-warning-contrastText, #fff);
+    --_color: var(--me-palette-warning-main, #ed6c02);
+    --_contrast: var(--me-palette-warning-contrastText, #fff);
   }
   :host([color="info"]) {
-    --_color: var(--mc-palette-info-main, #0288d1);
-    --_contrast: var(--mc-palette-info-contrastText, #fff);
+    --_color: var(--me-palette-info-main, #0288d1);
+    --_contrast: var(--me-palette-info-contrastText, #fff);
   }
 
-  .mc-badge {
+  .me-badge {
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 0;
-    right: 0;
+    top: 14%;
+    right: 14%;
     transform: translate(50%, -50%);
     transform-origin: 100% 0%;
     min-width: 20px;
@@ -2747,9 +2800,9 @@ sheet18.replaceSync(`
     border-radius: 10px;
     background-color: var(--_color);
     color: var(--_contrast);
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
     font-size: 0.75rem;
-    font-weight: var(--mc-typography-fontWeightMedium, 500);
+    font-weight: var(--me-typography-fontWeightMedium, 500);
     line-height: 1;
     white-space: nowrap;
     box-sizing: border-box;
@@ -2757,7 +2810,7 @@ sheet18.replaceSync(`
   }
 
   /* dot variant */
-  :host([variant="dot"]) .mc-badge {
+  :host([variant="dot"]) .me-badge {
     min-width: 8px;
     width: 8px;
     height: 8px;
@@ -2765,15 +2818,16 @@ sheet18.replaceSync(`
     border-radius: 50%;
   }
 
-  /* overlap="rectangular" shifts anchor from corner to edge-center */
-  :host([overlap="rectangular"]) .mc-badge {
-    transform: translate(50%, -50%);
+  /* overlap="rectangular" pins the anchor to the corner (e.g. wrapping a chip or button) */
+  :host([overlap="rectangular"]) .me-badge {
+    top: 0;
+    right: 0;
   }
 `);
 var badge_styles_default = sheet18;
 
 // src/components/badge/badge.ts
-var MCBadge = class extends MCElement {
+var MEBadge = class extends MEElement {
   static observedAttributes = ["badge-content", "color", "variant", "max", "invisible", "overlap"];
   constructor() {
     super();
@@ -2789,11 +2843,11 @@ var MCBadge = class extends MCElement {
       const num = Number(content);
       if (!isNaN(num) && content !== "") label = num > max ? `${max}+` : String(num);
     }
-    const badge = invisible ? "" : `<span class="mc-badge" aria-label="${label}">${variant === "dot" ? "" : label}</span>`;
+    const badge = invisible ? "" : `<span class="me-badge" aria-label="${label}">${variant === "dot" ? "" : label}</span>`;
     this.shadow.innerHTML = `<slot></slot>${badge}`;
   }
 };
-customElements.define("mc-badge", MCBadge);
+customElements.define("me-badge", MEBadge);
 
 // src/components/chip/chip.styles.ts
 var sheet19 = new CSSStyleSheet();
@@ -2805,81 +2859,81 @@ sheet19.replaceSync(`
     height: 32px;
     border-radius: 16px;
     box-sizing: border-box;
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
     font-size: 0.8125rem;
-    font-weight: var(--mc-typography-fontWeightRegular, 400);
+    font-weight: var(--me-typography-fontWeightRegular, 400);
     cursor: default;
     outline: 0;
     vertical-align: middle;
     text-decoration: none;
-    --_color: var(--mc-palette-primary-main, #1976d2);
+    --_color: var(--me-palette-primary-main, #1976d2);
     --_color-light: rgba(25, 118, 210, 0.12);
   }
   :host([color="secondary"]) {
-    --_color: var(--mc-palette-secondary-main, #9c27b0);
+    --_color: var(--me-palette-secondary-main, #9c27b0);
     --_color-light: rgba(156, 39, 176, 0.12);
   }
   :host([color="error"]) {
-    --_color: var(--mc-palette-error-main, #d32f2f);
+    --_color: var(--me-palette-error-main, #d32f2f);
     --_color-light: rgba(211, 47, 47, 0.12);
   }
   :host([color="success"]) {
-    --_color: var(--mc-palette-success-main, #2e7d32);
+    --_color: var(--me-palette-success-main, #2e7d32);
     --_color-light: rgba(46, 125, 50, 0.12);
   }
   :host([color="warning"]) {
-    --_color: var(--mc-palette-warning-main, #ed6c02);
+    --_color: var(--me-palette-warning-main, #ed6c02);
     --_color-light: rgba(237, 108, 2, 0.12);
   }
   :host([color="info"]) {
-    --_color: var(--mc-palette-info-main, #0288d1);
+    --_color: var(--me-palette-info-main, #0288d1);
     --_color-light: rgba(2, 136, 209, 0.12);
   }
   :host([size="small"]) { height: 24px; font-size: 0.75rem; }
 
   /* \u2500\u2500 FILLED \u2500\u2500 */
-  .mc-chip {
+  .me-chip {
     display: inline-flex;
     align-items: center;
     overflow: hidden;
     position: relative;
     gap: 4px;
   }
-  :host(:not([variant="outlined"])) .mc-chip {
-    background-color: var(--mc-palette-action-selected, rgba(0,0,0,0.08));
+  :host(:not([variant="outlined"])) .me-chip {
+    background-color: var(--me-palette-action-selected, rgba(0,0,0,0.08));
     padding: 0 12px;
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
     border-radius: inherit;
     width: 100%;
     height: 100%;
   }
-  :host([clickable]:not([variant="outlined"])) .mc-chip:hover {
-    background-color: rgba(0,0,0,0.12);
+  :host([clickable]:not([variant="outlined"])) .me-chip:hover {
+    background-color: var(--me-palette-action-focus, rgba(0,0,0,0.12));
   }
-  :host([color]:not([color="default"]):not([variant="outlined"])) .mc-chip {
+  :host([color]:not([color="default"]):not([variant="outlined"])) .me-chip {
     background-color: var(--_color);
     color: #fff;
   }
-  :host([color]:not([color="default"])[clickable]:not([variant="outlined"])) .mc-chip:hover {
+  :host([color]:not([color="default"])[clickable]:not([variant="outlined"])) .me-chip:hover {
     filter: brightness(0.9);
   }
 
   /* \u2500\u2500 OUTLINED \u2500\u2500 */
-  :host([variant="outlined"]) .mc-chip {
+  :host([variant="outlined"]) .me-chip {
     background-color: transparent;
-    border: 1px solid var(--mc-palette-action-disabled, rgba(0,0,0,0.26));
+    border: 1px solid var(--me-palette-action-disabled, rgba(0,0,0,0.26));
     padding: 0 11px;
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
     border-radius: inherit;
     width: 100%;
     height: 100%;
     box-sizing: border-box;
   }
-  :host([color]:not([color="default"])[variant="outlined"]) .mc-chip {
+  :host([color]:not([color="default"])[variant="outlined"]) .me-chip {
     border-color: var(--_color);
     color: var(--_color);
   }
-  :host([clickable][variant="outlined"]) .mc-chip:hover {
+  :host([clickable][variant="outlined"]) .me-chip:hover {
     background-color: var(--_color-light);
   }
 
@@ -2887,22 +2941,22 @@ sheet19.replaceSync(`
   :host([disabled]) { opacity: 0.38; pointer-events: none; }
 
   /* \u2500\u2500 SIZE SMALL inner padding \u2500\u2500 */
-  :host([size="small"]:not([variant="outlined"])) .mc-chip { padding: 0 8px; }
-  :host([size="small"][variant="outlined"]) .mc-chip { padding: 0 7px; }
+  :host([size="small"]:not([variant="outlined"])) .me-chip { padding: 0 8px; }
+  :host([size="small"][variant="outlined"]) .me-chip { padding: 0 7px; }
 
   /* \u2500\u2500 ICONS \u2500\u2500 */
-  .mc-chip__icon-start,
-  .mc-chip__icon-end {
+  .me-chip__icon-start,
+  .me-chip__icon-end {
     display: inherit;
     font-size: 18px;
     width: 18px;
     height: 18px;
   }
-  :host([size="small"]) .mc-chip__icon-start,
-  :host([size="small"]) .mc-chip__icon-end { font-size: 16px; width: 16px; height: 16px; }
+  :host([size="small"]) .me-chip__icon-start,
+  :host([size="small"]) .me-chip__icon-end { font-size: 16px; width: 16px; height: 16px; }
 
   /* \u2500\u2500 DELETE BUTTON \u2500\u2500 */
-  .mc-chip__delete {
+  .me-chip__delete {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2917,19 +2971,19 @@ sheet19.replaceSync(`
     border-radius: 50%;
     flex-shrink: 0;
   }
-  .mc-chip__delete:hover { opacity: 1; background-color: rgba(0,0,0,0.12); }
-  .mc-chip__delete svg { width: 14px; height: 14px; fill: currentColor; display: block; }
-  :host([size="small"]) .mc-chip__delete { width: 16px; height: 16px; }
+  .me-chip__delete:hover { opacity: 1; background-color: var(--me-palette-action-focus, rgba(0,0,0,0.12)); }
+  .me-chip__delete svg { width: 14px; height: 14px; fill: currentColor; display: block; }
+  :host([size="small"]) .me-chip__delete { width: 16px; height: 16px; }
 `);
 var rippleSheet2 = new CSSStyleSheet();
 rippleSheet2.replaceSync(`
-  @keyframes mc-ripple { to { transform: scale(1); opacity: 0; } }
-  .mc-ripple-wave {
+  @keyframes me-ripple { to { transform: scale(1); opacity: 0; } }
+  .me-ripple-wave {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
     transform: scale(0);
-    animation: mc-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: me-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
     background-color: currentColor;
     opacity: 0.3;
   }
@@ -2938,7 +2992,7 @@ var chip_styles_default = sheet19;
 
 // src/components/chip/chip.ts
 var DELETE_ICON = `<svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/></svg>`;
-var MCChip = class extends MCElement {
+var MEChip = class extends MEElement {
   static observedAttributes = ["variant", "color", "size", "label", "deletable", "clickable", "disabled"];
   _ripple = new RippleController();
   constructor() {
@@ -2948,33 +3002,33 @@ var MCChip = class extends MCElement {
   render() {
     const deletable = this.hasAttribute("deletable");
     const clickable = this.hasAttribute("clickable");
-    const deleteBtn = deletable ? `<button class="mc-chip__delete" aria-label="delete" tabindex="-1" type="button">${DELETE_ICON}</button>` : "";
+    const deleteBtn = deletable ? `<button class="me-chip__delete" aria-label="delete" tabindex="-1" type="button">${DELETE_ICON}</button>` : "";
     if (clickable) {
       this.setAttribute("role", "button");
       this.setAttribute("tabindex", "0");
     }
     this.shadow.innerHTML = `
-      <div class="mc-chip">
-        <span class="mc-chip__icon-start" hidden><slot name="icon"></slot></span>
-        <span class="mc-chip__label"><slot></slot></span>
+      <div class="me-chip">
+        <span class="me-chip__icon-start" hidden><slot name="icon"></slot></span>
+        <span class="me-chip__label"><slot></slot></span>
         ${deleteBtn}
       </div>
     `;
     const iconSlot = this.shadow.querySelector('slot[name="icon"]');
     if (iconSlot) {
-      const iconWrap = this.shadow.querySelector(".mc-chip__icon-start");
+      const iconWrap = this.shadow.querySelector(".me-chip__icon-start");
       iconSlot.addEventListener("slotchange", () => {
         iconWrap.hidden = iconSlot.assignedNodes().length === 0;
       });
     }
     if (clickable) {
-      const inner = this.shadow.querySelector(".mc-chip");
+      const inner = this.shadow.querySelector(".me-chip");
       this._ripple.attach(inner);
     }
     if (deletable) {
-      this.shadow.querySelector(".mc-chip__delete")?.addEventListener("click", (e) => {
+      this.shadow.querySelector(".me-chip__delete")?.addEventListener("click", (e) => {
         e.stopPropagation();
-        this.dispatchEvent(new CustomEvent("mc-delete", { bubbles: true, composed: true }));
+        this.dispatchEvent(new CustomEvent("me-delete", { bubbles: true, composed: true }));
       });
     }
   }
@@ -2986,13 +3040,13 @@ var MCChip = class extends MCElement {
         this.click();
       } else if (e.key === "Delete" || e.key === "Backspace") {
         if (this.hasAttribute("deletable")) {
-          this.dispatchEvent(new CustomEvent("mc-delete", { bubbles: true, composed: true }));
+          this.dispatchEvent(new CustomEvent("me-delete", { bubbles: true, composed: true }));
         }
       }
     });
   }
 };
-customElements.define("mc-chip", MCChip);
+customElements.define("me-chip", MEChip);
 
 // src/components/list/list.styles.ts
 var sheet20 = new CSSStyleSheet();
@@ -3006,12 +3060,12 @@ sheet20.replaceSync(`
   }
   :host([disablePadding]) { padding: 0; }
   /* Dense flag propagates to children via CSS custom property inheritance */
-  :host([dense]) { --mc-list-dense: 1; }
+  :host([dense]) { --me-list-dense: 1; }
 `);
 var list_styles_default = sheet20;
 
 // src/components/list/list.ts
-var MCList = class extends MCElement {
+var MEList = class extends MEElement {
   static observedAttributes = ["dense", "disablePadding"];
   constructor() {
     super();
@@ -3021,7 +3075,7 @@ var MCList = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-list", MCList);
+customElements.define("me-list", MEList);
 
 // src/components/list/list-item.styles.ts
 var sheet21 = new CSSStyleSheet();
@@ -3030,7 +3084,7 @@ sheet21.replaceSync(`
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: calc(8px - (4px * var(--mc-list-dense, 0))) 16px;
+    padding: calc(8px - (4px * var(--me-list-dense, 0))) 16px;
     width: 100%;
     position: relative;
     text-align: left;
@@ -3039,13 +3093,13 @@ sheet21.replaceSync(`
   :host([disablePadding])  { padding: 0; }
   :host([alignItems="flex-start"]) { align-items: flex-start; }
   :host([divider]) {
-    border-bottom: 1px solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-bottom: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
 `);
 var list_item_styles_default = sheet21;
 
 // src/components/list/list-item.ts
-var MCListItem = class extends MCElement {
+var MEListItem = class extends MEElement {
   static observedAttributes = ["disablePadding", "disableGutters", "divider", "alignItems"];
   constructor() {
     super();
@@ -3055,7 +3109,7 @@ var MCListItem = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-list-item", MCListItem);
+customElements.define("me-list-item", MEListItem);
 
 // src/components/list/list-item-button.styles.ts
 var sheet22 = new CSSStyleSheet();
@@ -3064,7 +3118,7 @@ sheet22.replaceSync(`
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: calc(8px - (4px * var(--mc-list-dense, 0))) 16px;
+    padding: calc(8px - (4px * var(--me-list-dense, 0))) 16px;
     width: 100%;
     position: relative;
     text-align: left;
@@ -3073,16 +3127,16 @@ sheet22.replaceSync(`
     border: 0;
     background: transparent;
     text-decoration: none;
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
     font-size: 1rem;
   }
   :host(:hover) {
-    background-color: var(--mc-palette-action-hover, rgba(0,0,0,0.04));
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
   }
   :host([selected]) {
-    background-color: var(--mc-palette-action-selected, rgba(0,0,0,0.08));
-    color: var(--mc-palette-primary-main, #1976d2);
+    background-color: var(--me-palette-action-selected, rgba(0,0,0,0.08));
+    color: var(--me-palette-primary-main, #1976d2);
   }
   :host([selected]:hover) {
     background-color: rgba(25, 118, 210, 0.12);
@@ -3092,24 +3146,24 @@ sheet22.replaceSync(`
     pointer-events: none;
   }
   :host([divider]) {
-    border-bottom: 1px solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-bottom: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
   :host([alignItems="flex-start"]) { align-items: flex-start; }
   :host([disableGutters]) { padding-left: 0; padding-right: 0; }
 
-  .mc-list-item-button {
+  .me-list-item-button {
     display: contents;
   }
 `);
 var rippleSheet3 = new CSSStyleSheet();
 rippleSheet3.replaceSync(`
-  @keyframes mc-ripple { to { transform: scale(1); opacity: 0; } }
-  .mc-ripple-wave {
+  @keyframes me-ripple { to { transform: scale(1); opacity: 0; } }
+  .me-ripple-wave {
     position: absolute;
     border-radius: 50%;
     pointer-events: none;
     transform: scale(0);
-    animation: mc-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: me-ripple 550ms cubic-bezier(0.4, 0, 0.2, 1) forwards;
     background-color: currentColor;
     opacity: 0.2;
   }
@@ -3117,7 +3171,7 @@ rippleSheet3.replaceSync(`
 var list_item_button_styles_default = sheet22;
 
 // src/components/list/list-item-button.ts
-var MCListItemButton = class extends MCElement {
+var MEListItemButton = class extends MEElement {
   static observedAttributes = ["selected", "disabled", "divider", "alignItems", "disableGutters"];
   _ripple = new RippleController();
   constructor() {
@@ -3141,7 +3195,7 @@ var MCListItemButton = class extends MCElement {
     });
   }
 };
-customElements.define("mc-list-item-button", MCListItemButton);
+customElements.define("me-list-item-button", MEListItemButton);
 
 // src/components/list/list-item-text.styles.ts
 var sheet23 = new CSSStyleSheet();
@@ -3152,37 +3206,37 @@ sheet23.replaceSync(`
     flex: 1;
     min-width: 0;
     margin: 4px 0;
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
   }
   :host([inset]) { padding-left: 56px; }
 
-  .mc-list-item-text__primary {
+  .me-list-item-text__primary {
     font-size: 1rem;
     line-height: 1.5;
-    font-weight: var(--mc-typography-fontWeightRegular, 400);
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .mc-list-item-text__secondary {
+  .me-list-item-text__secondary {
     font-size: 0.875rem;
     line-height: 1.43;
-    font-weight: var(--mc-typography-fontWeightRegular, 400);
-    color: var(--mc-palette-text-secondary, rgba(0,0,0,0.6));
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   /* Dense */
-  :host-context(mc-list[dense]) .mc-list-item-text__primary { font-size: 0.875rem; }
+  :host-context(me-list[dense]) .me-list-item-text__primary { font-size: 0.875rem; }
 `);
 var list_item_text_styles_default = sheet23;
 
 // src/components/list/list-item-text.ts
-var MCListItemText = class extends MCElement {
+var MEListItemText = class extends MEElement {
   static observedAttributes = ["primary", "secondary", "inset"];
   constructor() {
     super();
@@ -3192,14 +3246,14 @@ var MCListItemText = class extends MCElement {
     const primary = this.getAttribute("primary") ?? "";
     const secondary = this.getAttribute("secondary") ?? "";
     this.shadow.innerHTML = `
-      <span class="mc-list-item-text__primary">
+      <span class="me-list-item-text__primary">
         ${primary ? primary : '<slot name="primary"><slot></slot></slot>'}
       </span>
-      ${secondary ? `<span class="mc-list-item-text__secondary">${secondary}</span>` : '<slot name="secondary"></slot>'}
+      ${secondary ? `<span class="me-list-item-text__secondary">${secondary}</span>` : '<slot name="secondary"></slot>'}
     `;
   }
 };
-customElements.define("mc-list-item-text", MCListItemText);
+customElements.define("me-list-item-text", MEListItemText);
 
 // src/components/list/list-item-icon.styles.ts
 var sheet24 = new CSSStyleSheet();
@@ -3208,14 +3262,14 @@ sheet24.replaceSync(`
     display: inline-flex;
     min-width: 56px;
     flex-shrink: 0;
-    color: var(--mc-palette-text-secondary, rgba(0,0,0,0.6));
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
   }
   :host([alignItems="flex-start"]) { margin-top: 8px; }
 `);
 var list_item_icon_styles_default = sheet24;
 
 // src/components/list/list-item-icon.ts
-var MCListItemIcon = class extends MCElement {
+var MEListItemIcon = class extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [list_item_icon_styles_default];
@@ -3224,7 +3278,7 @@ var MCListItemIcon = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-list-item-icon", MCListItemIcon);
+customElements.define("me-list-item-icon", MEListItemIcon);
 
 // src/components/table/table.styles.ts
 var sheet25 = new CSSStyleSheet();
@@ -3234,9 +3288,9 @@ sheet25.replaceSync(`
     width: 100%;
     border-collapse: collapse;
     border-spacing: 0;
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
     font-size: 0.875rem;
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
   }
   :host([size="small"]) { font-size: 0.8125rem; }
   :host([stickyHeader]) { border-collapse: separate; }
@@ -3244,7 +3298,7 @@ sheet25.replaceSync(`
 var table_styles_default = sheet25;
 
 // src/components/table/table.ts
-var MCTable = class extends MCElement {
+var METable = class extends MEElement {
   static observedAttributes = ["size", "stickyHeader"];
   constructor() {
     super();
@@ -3254,12 +3308,12 @@ var MCTable = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-table", MCTable);
+customElements.define("me-table", METable);
 
 // src/components/table/table-head.ts
 var sheet26 = new CSSStyleSheet();
 sheet26.replaceSync(`:host { display: table-header-group; }`);
-var MCTableHead = class extends MCElement {
+var METableHead = class extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [sheet26];
@@ -3268,12 +3322,12 @@ var MCTableHead = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-table-head", MCTableHead);
+customElements.define("me-table-head", METableHead);
 
 // src/components/table/table-body.ts
 var sheet27 = new CSSStyleSheet();
 sheet27.replaceSync(`:host { display: table-row-group; }`);
-var MCTableBody = class extends MCElement {
+var METableBody = class extends MEElement {
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [sheet27];
@@ -3282,7 +3336,7 @@ var MCTableBody = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-table-body", MCTableBody);
+customElements.define("me-table-body", METableBody);
 
 // src/components/table/table-row.styles.ts
 var sheet28 = new CSSStyleSheet();
@@ -3293,7 +3347,7 @@ sheet28.replaceSync(`
     outline: 0;
   }
   :host([hover]:hover) {
-    background-color: var(--mc-palette-action-hover, rgba(0,0,0,0.04));
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
   }
   :host([selected]) {
     background-color: rgba(25, 118, 210, 0.08);
@@ -3305,7 +3359,7 @@ sheet28.replaceSync(`
 var table_row_styles_default = sheet28;
 
 // src/components/table/table-row.ts
-var MCTableRow = class extends MCElement {
+var METableRow = class extends MEElement {
   static observedAttributes = ["selected", "hover"];
   constructor() {
     super();
@@ -3315,7 +3369,7 @@ var MCTableRow = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-table-row", MCTableRow);
+customElements.define("me-table-row", METableRow);
 
 // src/components/table/table-cell.styles.ts
 var sheet29 = new CSSStyleSheet();
@@ -3323,10 +3377,10 @@ sheet29.replaceSync(`
   :host {
     display: table-cell;
     vertical-align: inherit;
-    border-bottom: 1px solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-bottom: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
     text-align: left;
     padding: 16px;
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
     font-size: inherit;
     font-family: inherit;
     font-weight: inherit;
@@ -3336,18 +3390,18 @@ sheet29.replaceSync(`
 
   /* head variant */
   :host([variant="head"]) {
-    color: var(--mc-palette-text-primary, rgba(0,0,0,0.87));
-    font-weight: var(--mc-typography-fontWeightMedium, 500);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    font-weight: var(--me-typography-fontWeightMedium, 500);
     line-height: 1.5rem;
-    background-color: var(--mc-palette-background-paper, #fff);
-    border-bottom: 1px solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    background-color: var(--me-palette-background-paper, #fff);
+    border-bottom: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
 
   /* footer variant */
   :host([variant="footer"]) {
-    color: var(--mc-palette-text-secondary, rgba(0,0,0,0.6));
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
     font-size: 0.75rem;
-    border-top: 1px solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-top: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
     border-bottom: none;
   }
 
@@ -3360,13 +3414,13 @@ sheet29.replaceSync(`
   :host([padding="checkbox"]) { width: 48px; padding: 0 0 0 4px; }
   :host([padding="none"])     { padding: 0; }
 
-  /* size: small (via mc-table[size=small] inherits --mc-table-size) */
-  :host-context(mc-table[size="small"]) { padding: 6px 16px; }
+  /* size: small (via me-table[size=small] inherits --me-table-size) */
+  :host-context(me-table[size="small"]) { padding: 6px 16px; }
 `);
 var table_cell_styles_default = sheet29;
 
 // src/components/table/table-cell.ts
-var MCTableCell = class extends MCElement {
+var METableCell = class extends MEElement {
   static observedAttributes = ["variant", "align", "padding"];
   constructor() {
     super();
@@ -3376,7 +3430,7 @@ var MCTableCell = class extends MCElement {
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };
-customElements.define("mc-table-cell", MCTableCell);
+customElements.define("me-table-cell", METableCell);
 
 // src/components/tooltip/tooltip.styles.ts
 var sheet30 = new CSSStyleSheet();
@@ -3386,20 +3440,20 @@ sheet30.replaceSync(`
     position: relative;
   }
 
-  .mc-tooltip__trigger {
+  .me-tooltip__trigger {
     display: contents;
   }
 
-  .mc-tooltip__bubble {
+  .me-tooltip__bubble {
     position: fixed;
-    z-index: var(--mc-zIndex-tooltip, 1500);
+    z-index: var(--me-zIndex-tooltip, 1500);
     padding: 4px 8px;
     border-radius: 4px;
     background-color: rgba(97, 97, 97, 0.92);
     color: #fff;
-    font-family: var(--mc-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
     font-size: 0.6875rem;
-    font-weight: var(--mc-typography-fontWeightMedium, 500);
+    font-weight: var(--me-typography-fontWeightMedium, 500);
     line-height: 1.4em;
     letter-spacing: 0;
     max-width: 300px;
@@ -3409,40 +3463,40 @@ sheet30.replaceSync(`
     opacity: 0;
     transition: opacity 150ms cubic-bezier(0.4, 0, 1, 1);
   }
-  .mc-tooltip__bubble[data-show] {
+  .me-tooltip__bubble[data-show] {
     opacity: 1;
     transition: opacity 200ms cubic-bezier(0, 0, 0.2, 1) 100ms;
   }
 
   /* Arrow */
-  .mc-tooltip__arrow {
+  .me-tooltip__arrow {
     position: absolute;
     width: 0;
     height: 0;
     display: none;
   }
-  :host([arrow]) .mc-tooltip__arrow { display: block; }
+  :host([arrow]) .me-tooltip__arrow { display: block; }
 
   /* Arrow shapes per placement */
-  .mc-tooltip__bubble[data-placement="top"] .mc-tooltip__arrow {
+  .me-tooltip__bubble[data-placement="top"] .me-tooltip__arrow {
     bottom: -4px; left: 50%; transform: translateX(-50%);
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-top: 5px solid rgba(97, 97, 97, 0.92);
   }
-  .mc-tooltip__bubble[data-placement="bottom"] .mc-tooltip__arrow {
+  .me-tooltip__bubble[data-placement="bottom"] .me-tooltip__arrow {
     top: -4px; left: 50%; transform: translateX(-50%);
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-bottom: 5px solid rgba(97, 97, 97, 0.92);
   }
-  .mc-tooltip__bubble[data-placement="left"] .mc-tooltip__arrow {
+  .me-tooltip__bubble[data-placement="left"] .me-tooltip__arrow {
     right: -4px; top: 50%; transform: translateY(-50%);
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
     border-left: 5px solid rgba(97, 97, 97, 0.92);
   }
-  .mc-tooltip__bubble[data-placement="right"] .mc-tooltip__arrow {
+  .me-tooltip__bubble[data-placement="right"] .me-tooltip__arrow {
     left: -4px; top: 50%; transform: translateY(-50%);
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
@@ -3453,7 +3507,7 @@ var tooltip_styles_default = sheet30;
 
 // src/components/tooltip/tooltip.ts
 var GAP = 8;
-var MCTooltip = class extends MCElement {
+var METooltip = class extends MEElement {
   static observedAttributes = ["title", "placement", "arrow"];
   _bubble = null;
   _showTimeout = null;
@@ -3464,13 +3518,13 @@ var MCTooltip = class extends MCElement {
   }
   render() {
     this.shadow.innerHTML = `
-      <span class="mc-tooltip__trigger"><slot></slot></span>
-      <div class="mc-tooltip__bubble" role="tooltip">
+      <span class="me-tooltip__trigger"><slot></slot></span>
+      <div class="me-tooltip__bubble" role="tooltip">
         ${this.getAttribute("title") ?? ""}
-        <span class="mc-tooltip__arrow"></span>
+        <span class="me-tooltip__arrow"></span>
       </div>
     `;
-    this._bubble = this.shadow.querySelector(".mc-tooltip__bubble");
+    this._bubble = this.shadow.querySelector(".me-tooltip__bubble");
   }
   addEventListeners() {
     this.addEventListener("mouseenter", this._show);
@@ -3512,7 +3566,7 @@ var MCTooltip = class extends MCElement {
   _position() {
     const bubble = this._bubble;
     if (!bubble) return;
-    const trigger = this.shadow.querySelector(".mc-tooltip__trigger");
+    const trigger = this.shadow.querySelector(".me-tooltip__trigger");
     if (!trigger) return;
     const rawPlacement = this.getAttribute("placement") ?? "bottom";
     const side = rawPlacement.split("-")[0];
@@ -3564,15 +3618,15 @@ var MCTooltip = class extends MCElement {
     return tr.top + tr.height / 2 - br.height / 2;
   }
 };
-customElements.define("mc-tooltip", MCTooltip);
+customElements.define("me-tooltip", METooltip);
 
 // src/utils/elevation.ts
 function elevationVar(level) {
-  return `var(--mc-shadows-${level})`;
+  return `var(--me-shadows-${level})`;
 }
 
 // src/utils/transitions.ts
-function transition(properties, durationVar = "var(--mc-transitions-duration-standard, 300ms)", easingVar = "var(--mc-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1))") {
+function transition(properties, durationVar = "var(--me-transitions-duration-standard, 300ms)", easingVar = "var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1))") {
   return properties.map((p) => `${p} ${durationVar} ${easingVar}`).join(", ");
 }
 
@@ -3587,39 +3641,39 @@ function dispatch(el, type, detail = null) {
   el.dispatchEvent(new CustomEvent(type, { detail, bubbles: true, composed: true }));
 }
 export {
-  MCAvatar,
-  MCBadge,
-  MCBox,
-  MCButton,
-  MCCheckbox,
-  MCChip,
-  MCContainer,
-  MCCssBaseline,
-  MCDivider,
-  MCElement,
-  MCGrid,
-  MCIcon,
-  MCIconButton,
-  MCList,
-  MCListItem,
-  MCListItemButton,
-  MCListItemIcon,
-  MCListItemText,
-  MCPaper,
-  MCRadio,
-  MCRadioGroup,
-  MCSelect,
-  MCStack,
-  MCSwitch,
-  MCTable,
-  MCTableBody,
-  MCTableCell,
-  MCTableHead,
-  MCTableRow,
-  MCTextField,
-  MCThemeProvider,
-  MCTooltip,
-  MCTypography,
+  MEAvatar,
+  MEBadge,
+  MEBox,
+  MEButton,
+  MECheckbox,
+  MEChip,
+  MEContainer,
+  MECssBaseline,
+  MEDivider,
+  MEElement,
+  MEGrid,
+  MEIcon,
+  MEIconButton,
+  MEList,
+  MEListItem,
+  MEListItemButton,
+  MEListItemIcon,
+  MEListItemText,
+  MEPaper,
+  MERadio,
+  MERadioGroup,
+  MESelect,
+  MEStack,
+  MESwitch,
+  METable,
+  METableBody,
+  METableCell,
+  METableHead,
+  METableRow,
+  METextField,
+  METhemeProvider,
+  METooltip,
+  METypography,
   RippleController,
   defaultTheme,
   dispatch,

@@ -6,7 +6,7 @@ sheet.replaceSync(`
     outline: 0;
   }
   :host([hover]:hover) {
-    background-color: var(--mc-palette-action-hover, rgba(0,0,0,0.04));
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
   }
   :host([selected]) {
     background-color: rgba(25, 118, 210, 0.08);

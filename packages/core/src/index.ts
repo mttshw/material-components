@@ -1,11 +1,11 @@
 // Theme system
-export { MCThemeProvider } from './theme/theme-provider.js';
+export { METhemeProvider } from './theme/theme-provider.js';
 export { defaultTheme } from './theme/default-theme.js';
 export { themeToVars } from './theme/css-variables.js';
-export type { MCTheme, MCThemeInput, PaletteColor, TypographyStyle } from './theme/types.js';
+export type { METheme, METhemeInput, PaletteColor, TypographyStyle } from './theme/types.js';
 
 // Base class
-export { MCElement } from './base/mc-element.js';
+export { MEElement } from './base/me-element.js';
 
 // Components (each self-registers its custom element on import)
 export * from './components/index.js';

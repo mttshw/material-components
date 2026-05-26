@@ -12,7 +12,7 @@ export interface TypographyStyle {
     letterSpacing?: string | number;
     textTransform?: string;
 }
-export interface MCTheme {
+export interface METheme {
     palette: {
         mode: 'light' | 'dark';
         primary: PaletteColor;
@@ -115,5 +115,5 @@ export interface MCTheme {
 export type DeepPartial<T> = {
     [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
-export type MCThemeInput = DeepPartial<MCTheme>;
+export type METhemeInput = DeepPartial<METheme>;
 //# sourceMappingURL=types.d.ts.map

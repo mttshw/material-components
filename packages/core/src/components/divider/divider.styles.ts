@@ -5,13 +5,13 @@ sheet.replaceSync(`
     border: none;
     margin: 0;
     flex-shrink: 0;
-    border-top: thin solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-top: thin solid var(--me-palette-divider, rgba(0,0,0,0.12));
   }
 
   /* Vertical */
   :host([orientation="vertical"]) {
     border-top: none;
-    border-left: thin solid var(--mc-palette-divider, rgba(0,0,0,0.12));
+    border-left: thin solid var(--me-palette-divider, rgba(0,0,0,0.12));
     height: auto;
     align-self: stretch;
   }

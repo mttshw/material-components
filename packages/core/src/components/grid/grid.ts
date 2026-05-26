@@ -1,4 +1,4 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 
 // Breakpoints match MUI defaults; can't use CSS vars in @media queries
 const BP: [string, number][] = [
@@ -14,7 +14,7 @@ function colWidth(val: string): string {
   return `flex:0 0 ${pct};max-width:${pct}`;
 }
 
-export class MCGrid extends MCElement {
+export class MEGrid extends MEElement {
   static observedAttributes = [
     'container', 'item', 'spacing', 'direction', 'justify', 'align',
     'xs', 'sm', 'md', 'lg', 'xl', 'columns',
@@ -37,7 +37,7 @@ export class MCGrid extends MCElement {
       const align = this.getAttribute('align') ?? 'stretch';
       const gap = isNaN(Number(spacing))
         ? spacing
-        : `calc(var(--mc-spacing,8px)*${spacing})`;
+        : `calc(var(--me-spacing,8px)*${spacing})`;
       css += `:host{display:flex;flex-wrap:wrap;flex-direction:${direction};justify-content:${justify};align-items:${align};gap:${gap};width:100%;}`;
     }
 

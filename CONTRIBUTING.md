@@ -3,8 +3,8 @@
 ## Development Setup
 
 ```bash
-git clone https://github.com/materialcomponents/materialcomponents.git
-cd materialcomponents
+git clone https://github.com/materialelements/materialelements.git
+cd materialelements
 npm install
 npm run dev
 ```
@@ -22,9 +22,9 @@ This creates `packages/core/src/components/my-component/` with the required file
 ## Coding Standards
 
 - TypeScript strict mode, no `any`
-- All components extend `MCElement`
+- All components extend `MEElement`
 - Styles via Constructable Stylesheets + CSS custom properties only
-- `mc-` prefix on all custom element names
+- `me-` prefix on all custom element names
 - Zero runtime dependencies in `packages/core`
 
 ## Testing

@@ -17,7 +17,7 @@ const pascal = kebab
   .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
   .join('');
 const className = `MC${pascal}`;
-const elementName = `mc-${kebab}`;
+const elementName = `me-${kebab}`;
 
 const dir = path.resolve(
   __dirname,
@@ -35,10 +35,10 @@ fs.mkdirSync(dir, { recursive: true });
 // component.ts
 fs.writeFileSync(
   path.join(dir, `${kebab}.ts`),
-  `import { MCElement } from '../../base/mc-element.js';
+  `import { MEElement } from '../../base/me-element.js';
 import sheet from './${kebab}.styles.js';
 
-export class ${className} extends MCElement {
+export class ${className} extends MEElement {
   static observedAttributes: string[] = [];
 
   constructor() {

@@ -1,7 +1,7 @@
-import { MCIcon } from './icon.js';
+import { MEIcon } from './icon.js';
 
-if (!customElements.get('mc-icon')) {
-  customElements.define('mc-icon', MCIcon);
+if (!customElements.get('me-icon')) {
+  customElements.define('me-icon', MEIcon);
 }
 
-export { MCIcon };
+export { MEIcon };

@@ -1,7 +1,7 @@
-import { MCDivider } from './divider.js';
+import { MEDivider } from './divider.js';
 
-if (!customElements.get('mc-divider')) {
-  customElements.define('mc-divider', MCDivider);
+if (!customElements.get('me-divider')) {
+  customElements.define('me-divider', MEDivider);
 }
 
-export { MCDivider };
+export { MEDivider };

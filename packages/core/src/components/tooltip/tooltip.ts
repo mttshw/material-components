@@ -1,4 +1,4 @@
-import { MCElement } from '../../base/mc-element.js';
+import { MEElement } from '../../base/me-element.js';
 import sheet from './tooltip.styles.js';
 
 type Placement = 'top' | 'bottom' | 'left' | 'right'
@@ -7,7 +7,7 @@ type Placement = 'top' | 'bottom' | 'left' | 'right'
 
 const GAP = 8; // px between trigger and bubble
 
-export class MCTooltip extends MCElement {
+export class METooltip extends MEElement {
   static observedAttributes = ['title', 'placement', 'arrow'];
 
   private _bubble: HTMLElement | null = null;
@@ -21,13 +21,13 @@ export class MCTooltip extends MCElement {
 
   protected render(): void {
     this.shadow.innerHTML = `
-      <span class="mc-tooltip__trigger"><slot></slot></span>
-      <div class="mc-tooltip__bubble" role="tooltip">
+      <span class="me-tooltip__trigger"><slot></slot></span>
+      <div class="me-tooltip__bubble" role="tooltip">
         ${this.getAttribute('title') ?? ''}
-        <span class="mc-tooltip__arrow"></span>
+        <span class="me-tooltip__arrow"></span>
       </div>
     `;
-    this._bubble = this.shadow.querySelector('.mc-tooltip__bubble');
+    this._bubble = this.shadow.querySelector('.me-tooltip__bubble');
   }
 
   protected addEventListeners(): void {
@@ -69,7 +69,7 @@ export class MCTooltip extends MCElement {
   private _position(): void {
     const bubble = this._bubble;
     if (!bubble) return;
-    const trigger = this.shadow.querySelector<HTMLElement>('.mc-tooltip__trigger');
+    const trigger = this.shadow.querySelector<HTMLElement>('.me-tooltip__trigger');
     if (!trigger) return;
 
     const rawPlacement = (this.getAttribute('placement') ?? 'bottom') as Placement;
@@ -136,4 +136,4 @@ export class MCTooltip extends MCElement {
   }
 }
 
-customElements.define('mc-tooltip', MCTooltip);
+customElements.define('me-tooltip', METooltip);

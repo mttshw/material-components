@@ -1,7 +1,7 @@
-import { MCGrid } from './grid.js';
+import { MEGrid } from './grid.js';
 
-if (!customElements.get('mc-grid')) {
-  customElements.define('mc-grid', MCGrid);
+if (!customElements.get('me-grid')) {
+  customElements.define('me-grid', MEGrid);
 }
 
-export { MCGrid };
+export { MEGrid };

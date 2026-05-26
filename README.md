@@ -1,11 +1,11 @@
-# materialcomponents
+# materialelements
 
 Zero-dependency Web Components library that replicates the Material UI component set.
 Accepts standard MUI theme objects. Visually identical output to MUI.
 
 ## Packages
 
-- [`@materialcomponents/core`](packages/core) — the component library
+- [`@materialelements/core`](packages/core) — the component library
 - [`demo`](packages/demo) — documentation and demo site
 
 ## Getting Started

@@ -1,1 +1,1 @@
-export { MCBadge } from './badge.js';
+export { MEBadge } from './badge.js';

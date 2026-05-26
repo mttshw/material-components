@@ -1,28 +1,28 @@
 {% extends "_layout.njk" %}
-{% set pageTitle = "Getting Started — materialcomponents.io" %}
+{% set pageTitle = "Getting Started — materialelements.io" %}
 
 {% block content %}
 <h1>Getting Started</h1>
 
 <h2>CDN (no build step)</h2>
 <code-sample>
-&lt;script src="https://unpkg.com/@materialcomponents/core/dist/materialcomponents.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/@materialelements/core/dist/materialelements.min.js"&gt;&lt;/script&gt;
 
-&lt;mc-theme-provider&gt;
-  &lt;mc-css-baseline&gt;&lt;/mc-css-baseline&gt;
-  &lt;mc-button variant="contained"&gt;Hello World&lt;/mc-button&gt;
-&lt;/mc-theme-provider&gt;
+&lt;me-theme-provider&gt;
+  &lt;me-css-baseline&gt;&lt;/me-css-baseline&gt;
+  &lt;me-button variant="contained"&gt;Hello World&lt;/me-button&gt;
+&lt;/me-theme-provider&gt;
 </code-sample>
 
 <h2>npm</h2>
 <code-sample>
-npm install @materialcomponents/core
+npm install @materialelements/core
 </code-sample>
 
 <code-sample>
-import '@materialcomponents/core';
+import '@materialelements/core';
 // or cherry-pick:
-import '@materialcomponents/core/button';
+import '@materialelements/core/button';
 </code-sample>
 
 <h2>Using a MUI Theme</h2>
@@ -34,12 +34,12 @@ const theme = createTheme({
   palette: { primary: { main: '#e91e63' } }
 });
 
-document.querySelector('mc-theme-provider').theme = theme;
+document.querySelector('me-theme-provider').theme = theme;
 </code-sample>
 
 <h2>Without MUI</h2>
 <code-sample>
-document.querySelector('mc-theme-provider').theme = {
+document.querySelector('me-theme-provider').theme = {
   palette: {
     mode: 'light',
     primary: { main: '#1976d2', light: '#42a5f5', dark: '#1565c0', contrastText: '#fff' },

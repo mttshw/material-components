@@ -1,7 +1,7 @@
-import { MCContainer } from './container.js';
+import { MEContainer } from './container.js';
 
-if (!customElements.get('mc-container')) {
-  customElements.define('mc-container', MCContainer);
+if (!customElements.get('me-container')) {
+  customElements.define('me-container', MEContainer);
 }
 
-export { MCContainer };
+export { MEContainer };
