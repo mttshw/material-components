@@ -1,0 +1,98 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Divider — materialelements.io" %}
+{% block content %}
+<h1>Divider</h1>
+<p class="me-subtitle">Dividers are thin lines that group content into sections. They can be horizontal or vertical, with optional inset and middle variants.</p>
+
+<h2>Horizontal</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0">
+  <me-paper elevation="1" style="padding:0;width:100%;max-width:400px">
+    <div style="padding:16px"><me-typography>Item 1</me-typography></div>
+    <me-divider></me-divider>
+    <div style="padding:16px"><me-typography>Item 2</me-typography></div>
+    <me-divider></me-divider>
+    <div style="padding:16px"><me-typography>Item 3</me-typography></div>
+  </me-paper>
+</section>
+<code-sample>
+&lt;me-divider&gt;&lt;/me-divider&gt;
+</code-sample>
+
+<h2>Inset</h2>
+<p>The <code>inset</code> variant adds a left margin (72px) to align with list content.</p>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0">
+  <me-paper elevation="1" style="padding:0;width:100%;max-width:400px">
+    <div style="padding:16px;display:flex;align-items:center;gap:16px">
+      <me-avatar style="background-color:var(--me-palette-primary-main,#1976d2);width:40px;height:40px">A</me-avatar>
+      <me-typography>Ali</me-typography>
+    </div>
+    <me-divider variant="inset"></me-divider>
+    <div style="padding:16px;display:flex;align-items:center;gap:16px">
+      <me-avatar style="background-color:var(--me-palette-secondary-main,#9c27b0);width:40px;height:40px">B</me-avatar>
+      <me-typography>Blake</me-typography>
+    </div>
+    <me-divider variant="inset"></me-divider>
+    <div style="padding:16px;display:flex;align-items:center;gap:16px">
+      <me-avatar style="background-color:var(--me-palette-success-main,#2e7d32);width:40px;height:40px">C</me-avatar>
+      <me-typography>Casey</me-typography>
+    </div>
+  </me-paper>
+</section>
+<code-sample>
+&lt;me-divider variant="inset"&gt;&lt;/me-divider&gt;
+</code-sample>
+
+<h2>Middle</h2>
+<p>The <code>middle</code> variant insets from both sides.</p>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0">
+  <me-paper elevation="1" style="padding:0;width:100%;max-width:400px">
+    <div style="padding:16px"><me-typography>Content above</me-typography></div>
+    <me-divider variant="middle"></me-divider>
+    <div style="padding:16px"><me-typography>Content below</me-typography></div>
+  </me-paper>
+</section>
+<code-sample>
+&lt;me-divider variant="middle"&gt;&lt;/me-divider&gt;
+</code-sample>
+
+<h2>Vertical</h2>
+<p>Use <code>orientation="vertical"</code> inside a flex container. Set <code>align-self: stretch</code> or give the container a height.</p>
+<section class="demo-section">
+  <div style="display:flex;align-items:center;gap:16px;height:40px">
+    <me-typography>Left</me-typography>
+    <me-divider orientation="vertical"></me-divider>
+    <me-typography>Center</me-typography>
+    <me-divider orientation="vertical"></me-divider>
+    <me-typography>Right</me-typography>
+  </div>
+</section>
+<code-sample>
+&lt;div style="display:flex;align-items:center;height:40px"&gt;
+  &lt;span&gt;Left&lt;/span&gt;
+  &lt;me-divider orientation="vertical"&gt;&lt;/me-divider&gt;
+  &lt;span&gt;Right&lt;/span&gt;
+&lt;/div&gt;
+</code-sample>
+
+<h2>Light</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0">
+  <me-paper elevation="1" style="padding:0;width:100%;max-width:400px">
+    <div style="padding:16px"><me-typography>Above</me-typography></div>
+    <me-divider light></me-divider>
+    <div style="padding:16px"><me-typography>Below (light divider)</me-typography></div>
+  </me-paper>
+</section>
+<code-sample>
+&lt;me-divider light&gt;&lt;/me-divider&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>fullWidth | inset | middle</td><td>fullWidth</td><td>Controls indentation.</td></tr>
+    <tr><td><code>orientation</code></td><td>horizontal | vertical</td><td>horizontal</td><td>Direction of the divider.</td></tr>
+    <tr><td><code>light</code></td><td>boolean</td><td>false</td><td>Lightens the divider color.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

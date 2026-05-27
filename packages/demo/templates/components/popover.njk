@@ -1,0 +1,121 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Popover / Popper — materialelements.io" %}
+{% block content %}
+<h1>Popover</h1>
+<p class="me-subtitle">A Popover is an anchored overlay that positions itself relative to an element. A Popper is the lower-level positioning utility.</p>
+
+<h2>Basic Popover</h2>
+<section class="demo-section" style="min-height:200px;align-items:center;justify-content:center">
+  <me-button variant="contained" id="anchor-basic">Open Popover</me-button>
+  <me-popover anchor="#anchor-basic" id="pop-basic">
+    <div style="padding:16px;max-width:280px">
+      <me-typography variant="subtitle2" style="margin-bottom:8px">Popover Content</me-typography>
+      <me-typography variant="body2">
+        This popover positions itself below the anchor button. Click outside or press Escape to close.
+      </me-typography>
+    </div>
+  </me-popover>
+</section>
+<code-sample>
+&lt;me-button id="anchor"&gt;Open&lt;/me-button&gt;
+&lt;me-popover anchor="#anchor" id="my-popover"&gt;
+  &lt;div style="padding:16px"&gt;Content&lt;/div&gt;
+&lt;/me-popover&gt;
+
+&lt;script&gt;
+  document.getElementById('anchor').onclick = () =&gt;
+    document.getElementById('my-popover').toggleAttribute('open');
+&lt;/script&gt;
+</code-sample>
+
+<h2>Anchor Origins</h2>
+<section class="demo-section" style="gap:16px;flex-wrap:wrap;align-items:center;justify-content:center;min-height:200px">
+  <me-button variant="outlined" id="anchor-tl">Top Left</me-button>
+  <me-popover anchor="#anchor-tl" id="pop-tl"
+    anchor-origin-vertical="top" anchor-origin-horizontal="left"
+    transform-origin-vertical="bottom" transform-origin-horizontal="left">
+    <div style="padding:12px 16px"><me-typography variant="body2">Anchored: top/left → opens upward</me-typography></div>
+  </me-popover>
+
+  <me-button variant="outlined" id="anchor-br">Bottom Right</me-button>
+  <me-popover anchor="#anchor-br" id="pop-br"
+    anchor-origin-vertical="bottom" anchor-origin-horizontal="right"
+    transform-origin-vertical="top" transform-origin-horizontal="right">
+    <div style="padding:12px 16px"><me-typography variant="body2">Anchored: bottom/right</me-typography></div>
+  </me-popover>
+
+  <me-button variant="outlined" id="anchor-center">Center</me-button>
+  <me-popover anchor="#anchor-center" id="pop-center"
+    anchor-origin-vertical="center" anchor-origin-horizontal="center"
+    transform-origin-vertical="center" transform-origin-horizontal="center">
+    <div style="padding:12px 16px"><me-typography variant="body2">Anchored: center/center</me-typography></div>
+  </me-popover>
+</section>
+<code-sample>
+&lt;me-popover anchor="#btn"
+  anchor-origin-vertical="bottom"
+  anchor-origin-horizontal="left"
+  transform-origin-vertical="top"
+  transform-origin-horizontal="left"&gt;
+  ...
+&lt;/me-popover&gt;
+</code-sample>
+
+<h2>Popper (low-level)</h2>
+<p>Popper provides positioning without a backdrop or Paper wrapper. Useful for tooltips, dropdowns, custom overlays.</p>
+<section class="demo-section" style="min-height:200px;align-items:center;justify-content:center">
+  <me-button variant="outlined" id="anchor-popper">Anchor</me-button>
+  <me-popper anchor="#anchor-popper" placement="right" id="my-popper">
+    <me-paper elevation="4" style="padding:8px 16px">
+      <me-typography variant="body2">Popper on the right</me-typography>
+    </me-paper>
+  </me-popper>
+</section>
+<code-sample>
+&lt;me-popper anchor="#anchor" placement="bottom"&gt;
+  &lt;!-- your content, no backdrop --&gt;
+&lt;/me-popper&gt;
+</code-sample>
+
+<h2>API — Popover</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>open</code></td><td>boolean</td><td>false</td><td>Shows the popover.</td></tr>
+    <tr><td><code>anchor</code></td><td>CSS selector</td><td>—</td><td>Selector of the anchor element to position relative to.</td></tr>
+    <tr><td><code>anchor-origin-vertical</code></td><td>top | center | bottom</td><td>bottom</td><td>Vertical point on the anchor to attach to.</td></tr>
+    <tr><td><code>anchor-origin-horizontal</code></td><td>left | center | right</td><td>left</td><td>Horizontal point on the anchor to attach to.</td></tr>
+    <tr><td><code>transform-origin-vertical</code></td><td>top | center | bottom</td><td>top</td><td>Vertical point on the popover that attaches to the anchor.</td></tr>
+    <tr><td><code>transform-origin-horizontal</code></td><td>left | center | right</td><td>left</td><td>Horizontal point on the popover that attaches to the anchor.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — Popper</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>open</code></td><td>boolean</td><td>false</td><td>Shows the popper.</td></tr>
+    <tr><td><code>anchor</code></td><td>CSS selector</td><td>—</td><td>Anchor element selector.</td></tr>
+    <tr><td><code>placement</code></td><td>top | bottom | left | right | top-start | top-end | bottom-start | bottom-end | left-start | left-end | right-start | right-end</td><td>bottom</td><td>Placement relative to anchor.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  ['basic','tl','br','center'].forEach(id => {
+    const btn = document.getElementById('anchor-' + id);
+    const pop = document.getElementById('pop-' + id);
+    btn.addEventListener('click', () => pop.toggleAttribute('open'));
+    pop.addEventListener('me-close', () => pop.removeAttribute('open'));
+  });
+
+  const popperBtn = document.getElementById('anchor-popper');
+  const popper = document.getElementById('my-popper');
+  popperBtn.addEventListener('click', () => popper.toggleAttribute('open'));
+  document.addEventListener('click', e => {
+    if (!popperBtn.contains(e.target) && !popper.contains(e.target)) {
+      popper.removeAttribute('open');
+    }
+  });
+</script>
+{% endblock %}

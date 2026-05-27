@@ -20,15 +20,29 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
+  MEAccordion: () => MEAccordion,
+  MEAccordionDetails: () => MEAccordionDetails,
+  MEAccordionSummary: () => MEAccordionSummary,
   MEAlert: () => MEAlert,
+  MEAppBar: () => MEAppBar,
+  MEAutocomplete: () => MEAutocomplete,
   MEAvatar: () => MEAvatar,
   MEBackdrop: () => MEBackdrop,
   MEBadge: () => MEBadge,
+  MEBottomNavAction: () => MEBottomNavAction,
+  MEBottomNavigation: () => MEBottomNavigation,
   MEBox: () => MEBox,
+  MEBreadcrumbs: () => MEBreadcrumbs,
   MEButton: () => MEButton,
+  MECard: () => MECard,
+  MECardActions: () => MECardActions,
+  MECardContent: () => MECardContent,
+  MECardHeader: () => MECardHeader,
+  MECardMedia: () => MECardMedia,
   MECheckbox: () => MECheckbox,
   MEChip: () => MEChip,
   MECircularProgress: () => MECircularProgress,
+  MECollapse: () => MECollapse,
   MEContainer: () => MEContainer,
   MECssBaseline: () => MECssBaseline,
   MEDialog: () => MEDialog,
@@ -36,8 +50,11 @@ __export(src_exports, {
   MEDialogContent: () => MEDialogContent,
   MEDialogTitle: () => MEDialogTitle,
   MEDivider: () => MEDivider,
+  MEDrawer: () => MEDrawer,
   MEElement: () => MEElement,
+  MEFade: () => MEFade,
   MEGrid: () => MEGrid,
+  MEGrow: () => MEGrow,
   MEIcon: () => MEIcon,
   MEIconButton: () => MEIconButton,
   MELinearProgress: () => MELinearProgress,
@@ -46,23 +63,43 @@ __export(src_exports, {
   MEListItemButton: () => MEListItemButton,
   MEListItemIcon: () => MEListItemIcon,
   MEListItemText: () => MEListItemText,
+  MEMenu: () => MEMenu,
+  MEMenuItem: () => MEMenuItem,
+  MEModal: () => MEModal,
+  MEPagination: () => MEPagination,
   MEPaper: () => MEPaper,
+  MEPopover: () => MEPopover,
+  MEPopper: () => MEPopper,
+  MEPortal: () => MEPortal,
   MERadio: () => MERadio,
   MERadioGroup: () => MERadioGroup,
+  MERating: () => MERating,
   MESelect: () => MESelect,
   MESkeleton: () => MESkeleton,
+  MESlide: () => MESlide,
+  MESlider: () => MESlider,
   MESnackbar: () => MESnackbar,
+  MESpeedDial: () => MESpeedDial,
+  MESpeedDialAction: () => MESpeedDialAction,
   MEStack: () => MEStack,
+  MEStep: () => MEStep,
+  MEStepContent: () => MEStepContent,
+  MEStepLabel: () => MEStepLabel,
+  MEStepper: () => MEStepper,
   MESwitch: () => MESwitch,
+  METab: () => METab,
   METable: () => METable,
   METableBody: () => METableBody,
   METableCell: () => METableCell,
   METableHead: () => METableHead,
   METableRow: () => METableRow,
+  METabs: () => METabs,
   METextField: () => METextField,
   METhemeProvider: () => METhemeProvider,
+  METoolbar: () => METoolbar,
   METooltip: () => METooltip,
   METypography: () => METypography,
+  MEZoom: () => MEZoom,
   RippleController: () => RippleController,
   defaultTheme: () => defaultTheme,
   dispatch: () => dispatch,
@@ -4583,6 +4620,3538 @@ var MESnackbar = class extends MEElement {
   }
 };
 customElements.define("me-snackbar", MESnackbar);
+
+// src/components/app-bar/app-bar.styles.ts
+var sheet35 = new CSSStyleSheet();
+sheet35.replaceSync(`
+  :host {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--me-zIndex-appBar, 1100);
+    background-color: var(--me-palette-primary-main, #1976d2);
+    color: var(--me-palette-primary-contrastText, #fff);
+    box-shadow: var(--me-shadows-4, 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12));
+    transition: box-shadow 300ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  :host([position="absolute"])  { position: absolute; }
+  :host([position="sticky"])    { position: sticky; top: 0; }
+  :host([position="static"])    { position: static; box-shadow: none; }
+  :host([position="relative"])  { position: relative; box-shadow: none; }
+
+  :host([color="default"]) {
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+  }
+  :host([color="secondary"]) {
+    background-color: var(--me-palette-secondary-main, #9c27b0);
+    color: var(--me-palette-secondary-contrastText, #fff);
+  }
+  :host([color="inherit"]) { background-color: inherit; color: inherit; }
+  :host([color="transparent"]) { background-color: transparent; color: inherit; box-shadow: none; }
+
+  :host([elevation="0"]) { box-shadow: none; }
+  :host([elevation="1"]) { box-shadow: var(--me-shadows-1); }
+  :host([elevation="2"]) { box-shadow: var(--me-shadows-2); }
+`);
+var app_bar_styles_default = sheet35;
+
+// src/components/app-bar/app-bar.ts
+var MEAppBar = class extends MEElement {
+  static observedAttributes = ["position", "color", "elevation"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [app_bar_styles_default];
+  }
+  render() {
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+customElements.define("me-app-bar", MEAppBar);
+
+// src/components/toolbar/toolbar.styles.ts
+var sheet36 = new CSSStyleSheet();
+sheet36.replaceSync(`
+  :host {
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-height: 56px;
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  @media (min-width: 600px) {
+    :host { min-height: 64px; padding-left: 24px; padding-right: 24px; }
+  }
+
+  :host([variant="dense"]) { min-height: 48px; }
+  :host([disable-gutters]) { padding-left: 0; padding-right: 0; }
+`);
+var toolbar_styles_default = sheet36;
+
+// src/components/toolbar/toolbar.ts
+var METoolbar = class extends MEElement {
+  static observedAttributes = ["variant", "disable-gutters"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [toolbar_styles_default];
+  }
+  render() {
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+customElements.define("me-toolbar", METoolbar);
+
+// src/components/tabs/tabs.styles.ts
+var sheet37 = new CSSStyleSheet();
+sheet37.replaceSync(`
+  :host {
+    display: flex;
+    overflow: hidden;
+    min-height: 48px;
+    --_indicator-color: var(--me-palette-primary-main, #1976d2);
+  }
+
+  :host([indicator-color="secondary"]) {
+    --_indicator-color: var(--me-palette-secondary-main, #9c27b0);
+  }
+
+  :host([indicator-color="inherit"]) {
+    --_indicator-color: currentColor;
+  }
+
+  .me-tabs__scroller {
+    position: relative;
+    display: flex;
+    flex: 1;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+  }
+  .me-tabs__scroller::-webkit-scrollbar { display: none; }
+
+  .me-tabs__flex {
+    display: flex;
+    flex-direction: row;
+  }
+
+  :host([variant="fullWidth"]) .me-tabs__flex {
+    width: 100%;
+  }
+  :host([variant="fullWidth"]) ::slotted(me-tab) {
+    flex: 1;
+  }
+
+  :host([centered]) .me-tabs__flex {
+    margin: 0 auto;
+  }
+
+  .me-tabs__indicator {
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: var(--_indicator-color);
+    transition: left 300ms cubic-bezier(0.4,0,0.2,1),
+                width 300ms cubic-bezier(0.4,0,0.2,1);
+    will-change: left, width;
+  }
+`);
+var tabs_styles_default = sheet37;
+
+// src/components/tabs/tabs.ts
+var METabs = class extends MEElement {
+  static observedAttributes = ["value", "variant", "centered", "indicator-color"];
+  _resizeObserver = null;
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [tabs_styles_default];
+  }
+  get value() {
+    return this.getAttribute("value") ?? "";
+  }
+  set value(v) {
+    this.setAttribute("value", v);
+    this._syncSelected();
+    this._updateIndicator();
+    this.dispatchEvent(new CustomEvent("me-change", {
+      detail: { value: v },
+      bubbles: true,
+      composed: true
+    }));
+  }
+  render() {
+    this.setAttribute("role", "tablist");
+    this.shadow.innerHTML = `
+      <div class="me-tabs__scroller">
+        <div class="me-tabs__flex">
+          <slot></slot>
+        </div>
+        <span class="me-tabs__indicator"></span>
+      </div>
+    `;
+    const slot = this.shadow.querySelector("slot");
+    slot.addEventListener("slotchange", () => {
+      this._syncSelected();
+      this._updateIndicator();
+    });
+    this._resizeObserver?.disconnect();
+    this._resizeObserver = new ResizeObserver(() => this._updateIndicator());
+    this._resizeObserver.observe(this);
+  }
+  addEventListeners() {
+    this.addEventListener("me-tab-select", this._onTabSelect);
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  cleanup() {
+    this.removeEventListener("me-tab-select", this._onTabSelect);
+    this.removeEventListener("keydown", this._onKeyDown);
+    this._resizeObserver?.disconnect();
+    this._resizeObserver = null;
+  }
+  _getTabs() {
+    const slot = this.shadow.querySelector("slot");
+    return (slot?.assignedElements() ?? []).filter(
+      (el) => el.tagName === "ME-TAB"
+    );
+  }
+  _syncSelected() {
+    const value = this.getAttribute("value");
+    const tabs = this._getTabs();
+    tabs.forEach((tab, i) => {
+      const tabValue = tab.getAttribute("value") ?? String(i);
+      const isSelected = tabValue === value;
+      tab.toggleAttribute("selected", isSelected);
+      tab.setAttribute("tabindex", isSelected ? "0" : "-1");
+      tab.style.setProperty(
+        "--_indicator-color",
+        `var(--me-palette-${this.getAttribute("indicator-color") ?? "primary"}-main, #1976d2)`
+      );
+    });
+  }
+  _updateIndicator() {
+    const value = this.getAttribute("value");
+    const tabs = this._getTabs();
+    const indicator = this.shadow.querySelector(".me-tabs__indicator");
+    const scroller = this.shadow.querySelector(".me-tabs__scroller");
+    if (!indicator || !scroller) return;
+    const selectedTab = tabs.find((tab, i) => {
+      return (tab.getAttribute("value") ?? String(i)) === value;
+    });
+    if (!selectedTab) {
+      indicator.style.left = "0";
+      indicator.style.width = "0";
+      return;
+    }
+    const scrollerRect = scroller.getBoundingClientRect();
+    const tabRect = selectedTab.getBoundingClientRect();
+    indicator.style.left = `${tabRect.left - scrollerRect.left + scroller.scrollLeft}px`;
+    indicator.style.width = `${tabRect.width}px`;
+  }
+  _onTabSelect = (e) => {
+    const newValue = e.detail.value;
+    if (newValue === this.getAttribute("value")) return;
+    this.setAttribute("value", newValue);
+    this._syncSelected();
+    this._updateIndicator();
+    this.dispatchEvent(new CustomEvent("me-change", {
+      detail: { value: newValue },
+      bubbles: true,
+      composed: true
+    }));
+  };
+  _onKeyDown = (e) => {
+    const tabs = this._getTabs().filter((t) => !t.hasAttribute("disabled"));
+    if (!tabs.length) return;
+    const value = this.getAttribute("value");
+    const currentIdx = tabs.findIndex((t, i) => (t.getAttribute("value") ?? String(i)) === value);
+    let nextIdx = currentIdx;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+      nextIdx = (currentIdx + 1) % tabs.length;
+    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+      nextIdx = (currentIdx - 1 + tabs.length) % tabs.length;
+    } else if (e.key === "Home") {
+      nextIdx = 0;
+    } else if (e.key === "End") {
+      nextIdx = tabs.length - 1;
+    } else {
+      return;
+    }
+    e.preventDefault();
+    const nextTab = tabs[nextIdx];
+    const nextValue = nextTab.getAttribute("value") ?? String(nextIdx);
+    this.value = nextValue;
+    nextTab.focus();
+  };
+};
+customElements.define("me-tabs", METabs);
+
+// src/components/tabs/tab.styles.ts
+var sheet38 = new CSSStyleSheet();
+sheet38.replaceSync(`
+  :host {
+    display: inline-flex;
+    flex-shrink: 0;
+    outline: 0;
+  }
+
+  .me-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    padding: 12px 16px;
+    min-width: 90px;
+    max-width: 360px;
+    min-height: 48px;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 0.875rem;
+    font-weight: var(--me-typography-fontWeightMedium, 500);
+    line-height: 1.25;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    color: inherit;
+    opacity: 0.7;
+    transition: color 200ms, opacity 200ms;
+    white-space: nowrap;
+  }
+
+  :host([selected]) .me-tab {
+    opacity: 1;
+  }
+
+  :host([disabled]) .me-tab {
+    opacity: 0.38;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .me-tab:focus-visible {
+    background-color: var(--me-palette-action-focus, rgba(0,0,0,0.12));
+    outline: none;
+  }
+
+  .me-tab__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+  }
+  .me-tab__icon [hidden] { display: none !important; }
+`);
+var tab_styles_default = sheet38;
+
+// src/components/tabs/tab.ts
+var METab = class extends MEElement {
+  static observedAttributes = ["value", "label", "disabled", "selected", "icon"];
+  _ripple = new RippleController();
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [tab_styles_default, rippleSheet];
+  }
+  render() {
+    const label = this.getAttribute("label") ?? "";
+    const icon = this.getAttribute("icon") ?? "";
+    const disabled = this.hasAttribute("disabled");
+    const selected = this.hasAttribute("selected");
+    this.setAttribute("role", "tab");
+    this.setAttribute("aria-selected", String(selected));
+    this.setAttribute("tabindex", disabled ? "-1" : selected ? "0" : "-1");
+    this.shadow.innerHTML = `
+      <button class="me-tab" ${disabled ? "disabled" : ""} tabindex="-1">
+        ${icon ? `<span class="me-tab__icon">${icon}</span>` : ""}
+        ${label ? label : "<slot></slot>"}
+      </button>
+    `;
+    const btn = this.shadow.querySelector(".me-tab");
+    if (btn) this._ripple.attach(btn);
+  }
+  cleanup() {
+    this._ripple.detach();
+  }
+  addEventListeners() {
+    this.addEventListener("click", this._onClick);
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  _onClick = (e) => {
+    if (this.hasAttribute("disabled")) return;
+    e.stopPropagation();
+    this.dispatchEvent(new CustomEvent("me-tab-select", {
+      detail: { value: this.getAttribute("value") ?? this.getAttribute("label") ?? "" },
+      bubbles: true,
+      composed: true
+    }));
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      this._onClick(e);
+    }
+  };
+};
+customElements.define("me-tab", METab);
+
+// src/components/menu/menu.styles.ts
+var sheet39 = new CSSStyleSheet();
+sheet39.replaceSync(`
+  :host {
+    display: contents;
+  }
+
+  /* Backdrop */
+  .me-menu__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--me-zIndex-modal, 1300);
+    background: transparent;
+  }
+
+  /* Paper */
+  .me-menu__paper {
+    position: fixed;
+    z-index: calc(var(--me-zIndex-modal, 1300) + 1);
+    min-width: 120px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    box-shadow: var(--me-shadows-8,
+      0px 5px 5px -3px rgba(0,0,0,0.2),
+      0px 8px 10px 1px rgba(0,0,0,0.14),
+      0px 3px 14px 2px rgba(0,0,0,0.12));
+    outline: 0;
+    padding: 8px 0;
+    transform-origin: top left;
+    transition: opacity 200ms cubic-bezier(0.4,0,0.2,1),
+                transform 200ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  :host(:not([open])) .me-menu__backdrop,
+  :host(:not([open])) .me-menu__paper {
+    display: none;
+  }
+`);
+var menu_styles_default = sheet39;
+
+// src/components/menu/menu.ts
+var MEMenu = class extends MEElement {
+  static observedAttributes = ["open"];
+  _anchorEl = null;
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [menu_styles_default];
+  }
+  get open() {
+    return this.hasAttribute("open");
+  }
+  set open(v) {
+    v ? this.setAttribute("open", "") : this.removeAttribute("open");
+  }
+  /** Set the element to anchor the menu position to. */
+  set anchorEl(el) {
+    this._anchorEl = el;
+    if (this.hasAttribute("open")) this._positionMenu();
+  }
+  render() {
+    if (this.shadow.querySelector(".me-menu__paper")) return;
+    this.shadow.innerHTML = `
+      <div class="me-menu__backdrop" part="backdrop"></div>
+      <div class="me-menu__paper" role="menu" tabindex="-1" part="paper">
+        <slot></slot>
+      </div>
+    `;
+    this.shadow.querySelector(".me-menu__backdrop")?.addEventListener("click", this._closeMenu);
+  }
+  addEventListeners() {
+    this.addEventListener("me-menu-item-click", this._onItemClick);
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  cleanup() {
+    this.removeEventListener("me-menu-item-click", this._onItemClick);
+    this.removeEventListener("keydown", this._onKeyDown);
+  }
+  onAttributeChanged(name, _old, newVal) {
+    if (name === "open" && newVal !== null) {
+      requestAnimationFrame(() => {
+        this._positionMenu();
+        this._focusFirst();
+      });
+    }
+  }
+  _positionMenu() {
+    const paper = this.shadow.querySelector(".me-menu__paper");
+    if (!paper) return;
+    const anchor = this._anchorEl ?? (this.getAttribute("anchor-el") ? document.querySelector(this.getAttribute("anchor-el")) : null);
+    if (anchor) {
+      const rect = anchor.getBoundingClientRect();
+      let top = rect.bottom + 4;
+      let left = rect.left;
+      const menuH = paper.offsetHeight || 300;
+      const menuW = paper.offsetWidth || 200;
+      if (top + menuH > window.innerHeight - 8) top = rect.top - menuH - 4;
+      if (left + menuW > window.innerWidth - 8) left = window.innerWidth - menuW - 8;
+      paper.style.top = `${Math.max(8, top)}px`;
+      paper.style.left = `${Math.max(8, left)}px`;
+    } else {
+      paper.style.top = "50%";
+      paper.style.left = "50%";
+      paper.style.transform = "translate(-50%, -50%)";
+    }
+  }
+  _focusFirst() {
+    const slot = this.shadow.querySelector("slot");
+    const items = (slot?.assignedElements() ?? []).filter(
+      (el) => el.tagName === "ME-MENU-ITEM" && !el.hasAttribute("disabled")
+    );
+    if (items[0]) items[0].focus();
+  }
+  _closeMenu = () => {
+    this.removeAttribute("open");
+    this.dispatchEvent(new CustomEvent("me-close", {
+      detail: { reason: "backdropClick" },
+      bubbles: true,
+      composed: true
+    }));
+  };
+  _onItemClick = () => {
+    requestAnimationFrame(() => this._closeMenu());
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Escape") {
+      e.stopPropagation();
+      this.removeAttribute("open");
+      this.dispatchEvent(new CustomEvent("me-close", {
+        detail: { reason: "escapeKeyDown" },
+        bubbles: true,
+        composed: true
+      }));
+    } else if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      e.preventDefault();
+      this._navigateItems(e.key === "ArrowDown" ? 1 : -1);
+    }
+  };
+  _navigateItems(dir) {
+    const slot = this.shadow.querySelector("slot");
+    const items = (slot?.assignedElements() ?? []).filter(
+      (el) => el.tagName === "ME-MENU-ITEM" && !el.hasAttribute("disabled")
+    );
+    if (!items.length) return;
+    const active = document.activeElement;
+    const idx = items.indexOf(active);
+    const next = items[(idx + dir + items.length) % items.length];
+    next?.focus();
+  }
+};
+customElements.define("me-menu", MEMenu);
+
+// src/components/menu/menu-item.styles.ts
+var sheet40 = new CSSStyleSheet();
+sheet40.replaceSync(`
+  :host {
+    display: block;
+  }
+
+  .me-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px 16px;
+    min-height: 48px;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 1rem;
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    text-align: left;
+    transition: background-color 150ms;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .me-menu-item:hover {
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
+  }
+
+  :host([selected]) .me-menu-item {
+    background-color: var(--me-palette-action-selected, rgba(0,0,0,0.08));
+    color: var(--me-palette-primary-main, #1976d2);
+  }
+
+  :host([disabled]) .me-menu-item {
+    opacity: 0.38;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .me-menu-item:focus-visible {
+    background-color: var(--me-palette-action-focus, rgba(0,0,0,0.12));
+    outline: none;
+  }
+
+  /* Icon slot */
+  .me-menu-item__icon {
+    display: inline-flex;
+    min-width: 36px;
+    flex-shrink: 0;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+`);
+var menu_item_styles_default = sheet40;
+
+// src/components/menu/menu-item.ts
+var MEMenuItem = class extends MEElement {
+  static observedAttributes = ["selected", "disabled"];
+  _ripple = new RippleController();
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [menu_item_styles_default, rippleSheet];
+  }
+  render() {
+    const disabled = this.hasAttribute("disabled");
+    this.setAttribute("role", "menuitem");
+    this.setAttribute("tabindex", disabled ? "-1" : "0");
+    const icon = this.getAttribute("icon") ?? "";
+    this.shadow.innerHTML = `
+      <button class="me-menu-item" ${disabled ? "disabled" : ""} tabindex="-1">
+        ${icon ? `<span class="me-menu-item__icon">${icon}</span>` : ""}
+        <slot></slot>
+      </button>
+    `;
+    const btn = this.shadow.querySelector(".me-menu-item");
+    if (btn) this._ripple.attach(btn);
+  }
+  cleanup() {
+    this._ripple.detach();
+  }
+  addEventListeners() {
+    this.addEventListener("click", this._onClick);
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  _onClick = () => {
+    if (this.hasAttribute("disabled")) return;
+    this.dispatchEvent(new CustomEvent("me-menu-item-click", {
+      detail: { value: this.getAttribute("value") },
+      bubbles: true,
+      composed: true
+    }));
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      this._onClick();
+    }
+  };
+};
+customElements.define("me-menu-item", MEMenuItem);
+
+// src/components/drawer/drawer.styles.ts
+var sheet41 = new CSSStyleSheet();
+sheet41.replaceSync(`
+  :host { display: contents; }
+
+  /* Backdrop */
+  .me-drawer__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: var(--me-zIndex-drawer, 1200);
+    background-color: rgba(0,0,0,0.5);
+    opacity: 0;
+    transition: opacity 225ms cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+  }
+  :host([open]:not([variant="permanent"]):not([variant="persistent"])) .me-drawer__backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Paper */
+  .me-drawer__paper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: calc(var(--me-zIndex-drawer, 1200) + 1);
+    width: 256px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    box-shadow: var(--me-shadows-16,
+      0px 8px 10px -5px rgba(0,0,0,0.2),
+      0px 16px 24px 2px rgba(0,0,0,0.14),
+      0px 6px 30px 5px rgba(0,0,0,0.12));
+    transition: transform 225ms cubic-bezier(0,0,0.2,1);
+    will-change: transform;
+    outline: 0;
+    box-sizing: border-box;
+  }
+
+  /* Left (default) */
+  :host(:not([anchor])) .me-drawer__paper,
+  :host([anchor="left"]) .me-drawer__paper {
+    left: 0;
+    right: auto;
+    transform: translateX(-100%);
+  }
+  :host([open]:not([anchor])) .me-drawer__paper,
+  :host([open][anchor="left"]) .me-drawer__paper {
+    transform: translateX(0);
+  }
+
+  /* Right */
+  :host([anchor="right"]) .me-drawer__paper {
+    right: 0;
+    left: auto;
+    transform: translateX(100%);
+  }
+  :host([open][anchor="right"]) .me-drawer__paper {
+    transform: translateX(0);
+  }
+
+  /* Top */
+  :host([anchor="top"]) .me-drawer__paper {
+    top: 0;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    transform: translateY(-100%);
+  }
+  :host([open][anchor="top"]) .me-drawer__paper {
+    transform: translateY(0);
+  }
+
+  /* Bottom */
+  :host([anchor="bottom"]) .me-drawer__paper {
+    bottom: 0;
+    top: auto;
+    left: 0;
+    width: 100%;
+    height: auto;
+    max-height: 100vh;
+    transform: translateY(100%);
+  }
+  :host([open][anchor="bottom"]) .me-drawer__paper {
+    transform: translateY(0);
+  }
+
+  /* Permanent & persistent: no backdrop, no transform, no shadow */
+  :host([variant="permanent"]) .me-drawer__paper,
+  :host([variant="persistent"]) .me-drawer__paper {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    height: 100%;
+    transform: none;
+    box-shadow: none;
+    border-right: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+  }
+  :host([variant="persistent"]) .me-drawer__paper {
+    /* persistent can still be opened/closed, just no backdrop */
+    position: relative;
+  }
+`);
+var drawer_styles_default = sheet41;
+
+// src/components/drawer/drawer.ts
+var MEDrawer = class extends MEElement {
+  static observedAttributes = ["open", "anchor", "variant"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [drawer_styles_default];
+  }
+  get open() {
+    return this.hasAttribute("open");
+  }
+  set open(v) {
+    v ? this.setAttribute("open", "") : this.removeAttribute("open");
+  }
+  render() {
+    const variant = this.getAttribute("variant") ?? "temporary";
+    const showBackdrop = variant === "temporary";
+    const existingPaper = this.shadow.querySelector(".me-drawer__paper");
+    const existingBackdrop = !!this.shadow.querySelector(".me-drawer__backdrop");
+    if (existingPaper && existingBackdrop === showBackdrop) return;
+    this.shadow.innerHTML = `
+      ${showBackdrop ? `<div class="me-drawer__backdrop" part="backdrop"></div>` : ""}
+      <div class="me-drawer__paper" part="paper" tabindex="-1">
+        <slot></slot>
+      </div>
+    `;
+    this.shadow.querySelector(".me-drawer__backdrop")?.addEventListener("click", this._closeDrawer);
+  }
+  addEventListeners() {
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  cleanup() {
+    this.removeEventListener("keydown", this._onKeyDown);
+  }
+  onAttributeChanged(name, _old, newVal) {
+    if (name === "open" && newVal !== null) {
+      requestAnimationFrame(() => {
+        this.shadow.querySelector(".me-drawer__paper")?.focus();
+      });
+    }
+  }
+  _closeDrawer = () => {
+    this.removeAttribute("open");
+    this.dispatchEvent(new CustomEvent("me-close", {
+      detail: { reason: "backdropClick" },
+      bubbles: true,
+      composed: true
+    }));
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Escape") {
+      e.stopPropagation();
+      this.removeAttribute("open");
+      this.dispatchEvent(new CustomEvent("me-close", {
+        detail: { reason: "escapeKeyDown" },
+        bubbles: true,
+        composed: true
+      }));
+    }
+  };
+};
+customElements.define("me-drawer", MEDrawer);
+
+// src/components/breadcrumbs/breadcrumbs.styles.ts
+var sheet42 = new CSSStyleSheet();
+sheet42.replaceSync(`
+  :host {
+    display: block;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 0.875rem;
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+  }
+
+  .me-breadcrumbs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .me-breadcrumbs__item {
+    display: flex;
+    align-items: center;
+  }
+
+  .me-breadcrumbs__separator {
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+    user-select: none;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+
+  /* Non-last items: style all content as primary-colored links.
+     Items are copied into shadow DOM via outerHTML so ::slotted() won't work \u2014 target directly. */
+  .me-breadcrumbs__item:not(:last-child) * {
+    color: var(--me-palette-primary-main, #1976d2);
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .me-breadcrumbs__item:not(:last-child) a,
+  .me-breadcrumbs__item:not(:last-child) [href] {
+    color: var(--me-palette-primary-main, #1976d2);
+    text-decoration: none;
+  }
+  .me-breadcrumbs__item:not(:last-child) a:hover,
+  .me-breadcrumbs__item:not(:last-child) [href]:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  /* Last item: current page \u2014 plain text, no link interaction */
+  .me-breadcrumbs__item:last-child {
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+  }
+  .me-breadcrumbs__item:last-child * {
+    color: inherit;
+    text-decoration: none;
+    pointer-events: none;
+  }
+
+  /* Collapsed items expand button */
+  .me-breadcrumbs__expand {
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+    background: none;
+    padding: 0 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    line-height: 1;
+  }
+  .me-breadcrumbs__expand:hover {
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
+  }
+`);
+var breadcrumbs_styles_default = sheet42;
+
+// src/components/breadcrumbs/breadcrumbs.ts
+var MEBreadcrumbs = class extends MEElement {
+  static observedAttributes = ["separator", "max-items"];
+  _expanded = false;
+  _observer = null;
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [breadcrumbs_styles_default];
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    requestAnimationFrame(() => this.render());
+    this._observer = new MutationObserver(() => this.render());
+    this._observer.observe(this, { childList: true, subtree: true, characterData: true });
+  }
+  disconnectedCallback() {
+    this._observer?.disconnect();
+    this._observer = null;
+    super.disconnectedCallback();
+  }
+  render() {
+    const separator = this.getAttribute("separator") ?? "/";
+    const maxItems = parseInt(this.getAttribute("max-items") ?? "8");
+    const items = Array.from(this.children);
+    const total = items.length;
+    let visibleItems = items;
+    if (!this._expanded && total > maxItems) {
+      visibleItems = [items[0], null, items[total - 1]];
+    }
+    const listHtml = visibleItems.map((item, idx) => {
+      const isLast = idx === visibleItems.length - 1;
+      const sep = !isLast ? `<li class="me-breadcrumbs__separator" aria-hidden="true">${separator}</li>` : "";
+      if (item === null) {
+        return `
+          <li class="me-breadcrumbs__item">
+            <button class="me-breadcrumbs__expand" aria-label="Show full path">\u2026</button>
+          </li>
+          ${sep}
+        `;
+      }
+      return `<li class="me-breadcrumbs__item">${item.outerHTML}</li>${sep}`;
+    }).join("");
+    this.shadow.innerHTML = `
+      <nav aria-label="${this.getAttribute("aria-label") ?? "breadcrumb"}">
+        <ol class="me-breadcrumbs">${listHtml}</ol>
+      </nav>
+    `;
+    this.shadow.querySelector(".me-breadcrumbs__expand")?.addEventListener("click", () => {
+      this._expanded = true;
+      this.render();
+    });
+  }
+};
+customElements.define("me-breadcrumbs", MEBreadcrumbs);
+
+// src/components/pagination/pagination.styles.ts
+var sheet43 = new CSSStyleSheet();
+sheet43.replaceSync(`
+  :host {
+    display: flex;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+  }
+
+  .me-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    gap: 4px;
+  }
+
+  /* Individual page item */
+  .me-pagination__item {
+    display: inline-flex;
+  }
+
+  .me-pagination__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    background: transparent;
+    padding: 0;
+    border-radius: 50%;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    transition: color 200ms, background-color 200ms;
+    min-width: 32px;
+    height: 32px;
+    margin: 0 1px;
+  }
+
+  :host([size="small"]) .me-pagination__btn { min-width: 26px; height: 26px; font-size: 0.8125rem; }
+  :host([size="large"]) .me-pagination__btn { min-width: 40px; height: 40px; font-size: 0.9375rem; }
+
+  .me-pagination__btn:hover {
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
+  }
+
+  /* Outlined variant */
+  :host([variant="outlined"]) .me-pagination__btn {
+    border: 1px solid color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 27%, transparent);
+  }
+
+  /* Rounded shape */
+  :host([shape="rounded"]) .me-pagination__btn {
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+  }
+
+  /* Selected */
+  .me-pagination__btn[aria-current="true"] {
+    background-color: var(--_color, var(--me-palette-primary-main, #1976d2));
+    color: var(--_contrast, var(--me-palette-primary-contrastText, #fff));
+  }
+  :host([variant="outlined"]) .me-pagination__btn[aria-current="true"] {
+    border-color: var(--_color, var(--me-palette-primary-main, #1976d2));
+  }
+  :host([variant="text"]) .me-pagination__btn[aria-current="true"] {
+    background-color: var(--_color, var(--me-palette-primary-main, #1976d2));
+    color: var(--_contrast, var(--me-palette-primary-contrastText, #fff));
+  }
+
+  /* Colors */
+  :host([color="primary"]) {
+    --_color: var(--me-palette-primary-main, #1976d2);
+    --_contrast: var(--me-palette-primary-contrastText, #fff);
+  }
+  :host([color="secondary"]) {
+    --_color: var(--me-palette-secondary-main, #9c27b0);
+    --_contrast: var(--me-palette-secondary-contrastText, #fff);
+  }
+
+  /* Disabled/nav buttons */
+  .me-pagination__btn:disabled,
+  .me-pagination__btn[disabled] {
+    opacity: 0.38;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Ellipsis */
+  .me-pagination__ellipsis {
+    display: inline-flex;
+    align-items: flex-end;
+    padding: 0 6px;
+    height: 32px;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    letter-spacing: 0.01071em;
+    user-select: none;
+  }
+
+  /* Nav arrow buttons */
+  .me-pagination__nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  :host([shape="rounded"]) .me-pagination__nav {
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+  }
+  .me-pagination__nav svg { width: 20px; height: 20px; fill: currentColor; }
+`);
+var pagination_styles_default = sheet43;
+
+// src/components/pagination/pagination.ts
+var PREV_SVG = `<svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>`;
+var NEXT_SVG = `<svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>`;
+var MEPagination = class extends MEElement {
+  static observedAttributes = [
+    "count",
+    "page",
+    "sibling-count",
+    "boundary-count",
+    "variant",
+    "shape",
+    "size",
+    "color",
+    "disabled",
+    "hide-prev",
+    "hide-next"
+  ];
+  get page() {
+    return parseInt(this.getAttribute("page") ?? "1");
+  }
+  set page(v) {
+    this.setAttribute("page", String(v));
+  }
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [pagination_styles_default];
+  }
+  render() {
+    const count = parseInt(this.getAttribute("count") ?? "1");
+    const page = this.page;
+    const siblingCount = parseInt(this.getAttribute("sibling-count") ?? "1");
+    const boundaryCount = parseInt(this.getAttribute("boundary-count") ?? "1");
+    const disabled = this.hasAttribute("disabled");
+    const hidePrev = this.hasAttribute("hide-prev");
+    const hideNext = this.hasAttribute("hide-next");
+    this.setAttribute("role", "navigation");
+    this.setAttribute("aria-label", this.getAttribute("aria-label") ?? "pagination");
+    const items = this._buildItems(count, page, siblingCount, boundaryCount);
+    const listItems = items.map((item) => {
+      if (item === "prev") {
+        return `<li class="me-pagination__item">
+          <button class="me-pagination__btn me-pagination__nav"
+            aria-label="Go to previous page"
+            data-page="${page - 1}"
+            ${page <= 1 || disabled ? "disabled" : ""}
+            ${hidePrev ? "hidden" : ""}>
+            ${PREV_SVG}
+          </button>
+        </li>`;
+      }
+      if (item === "next") {
+        return `<li class="me-pagination__item">
+          <button class="me-pagination__btn me-pagination__nav"
+            aria-label="Go to next page"
+            data-page="${page + 1}"
+            ${page >= count || disabled ? "disabled" : ""}
+            ${hideNext ? "hidden" : ""}>
+            ${NEXT_SVG}
+          </button>
+        </li>`;
+      }
+      if (item === "...") {
+        return `<li class="me-pagination__item">
+          <span class="me-pagination__ellipsis" aria-hidden="true">\u2026</span>
+        </li>`;
+      }
+      const n = item;
+      return `<li class="me-pagination__item">
+        <button class="me-pagination__btn"
+          aria-label="Go to page ${n}"
+          aria-current="${n === page ? "true" : "false"}"
+          data-page="${n}"
+          ${disabled ? "disabled" : ""}>
+          ${n}
+        </button>
+      </li>`;
+    }).join("");
+    this.shadow.innerHTML = `<ul class="me-pagination">${listItems}</ul>`;
+    this.shadow.querySelectorAll(".me-pagination__btn:not([disabled])").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const p = parseInt(btn.dataset.page ?? "1");
+        if (!p || p < 1 || p > count) return;
+        this.setAttribute("page", String(p));
+        this.dispatchEvent(new CustomEvent("me-change", {
+          detail: { page: p },
+          bubbles: true,
+          composed: true
+        }));
+      });
+    });
+  }
+  _buildItems(count, page, siblingCount, boundaryCount) {
+    const range = (start, end) => Array.from({ length: end - start + 1 }, (_, i) => start + i);
+    const startPages = range(1, Math.min(boundaryCount, count));
+    const endPages = range(Math.max(count - boundaryCount + 1, boundaryCount + 1), count);
+    const siblingStart = Math.max(
+      Math.min(page - siblingCount, count - boundaryCount - siblingCount * 2 - 1),
+      boundaryCount + 2
+    );
+    const siblingEnd = Math.min(
+      Math.max(page + siblingCount, boundaryCount + siblingCount * 2 + 2),
+      endPages.length > 0 ? endPages[0] - 2 : count - 1
+    );
+    const items = [
+      ...startPages,
+      ...siblingStart > boundaryCount + 2 ? ["..."] : boundaryCount + 1 < count - boundaryCount ? [boundaryCount + 1] : [],
+      ...range(siblingStart, siblingEnd),
+      ...siblingEnd < count - boundaryCount - 1 ? ["..."] : count - boundaryCount > boundaryCount ? [count - boundaryCount] : [],
+      ...endPages
+    ];
+    const unique = [...new Set(items)];
+    return ["prev", ...unique, "next"];
+  }
+};
+customElements.define("me-pagination", MEPagination);
+
+// src/components/bottom-navigation/bottom-navigation.styles.ts
+var sheet44 = new CSSStyleSheet();
+sheet44.replaceSync(`
+  :host {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    box-shadow: var(--me-shadows-8,
+      0px 5px 5px -3px rgba(0,0,0,0.2),
+      0px 8px 10px 1px rgba(0,0,0,0.14),
+      0px 3px 14px 2px rgba(0,0,0,0.12));
+    /* Shadow goes upward */
+    box-shadow: 0px -2px 4px -1px rgba(0,0,0,0.2),
+                0px -4px 5px 0px rgba(0,0,0,0.14),
+                0px -1px 10px 0px rgba(0,0,0,0.12);
+    min-height: 56px;
+  }
+
+  :host([show-labels]) ::slotted(me-bottom-nav-action) {
+    --_show-label: 1;
+  }
+
+  .me-bottom-navigation {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+`);
+var bottom_navigation_styles_default = sheet44;
+
+// src/components/bottom-navigation/bottom-navigation.ts
+var MEBottomNavigation = class extends MEElement {
+  static observedAttributes = ["value", "show-labels"];
+  get value() {
+    return this.getAttribute("value") ?? "";
+  }
+  set value(v) {
+    this.setAttribute("value", v);
+    this._syncSelected();
+    this.dispatchEvent(new CustomEvent("me-change", {
+      detail: { value: v },
+      bubbles: true,
+      composed: true
+    }));
+  }
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [bottom_navigation_styles_default];
+  }
+  render() {
+    this.setAttribute("role", "navigation");
+    this.shadow.innerHTML = `
+      <div class="me-bottom-navigation">
+        <slot></slot>
+      </div>
+    `;
+    requestAnimationFrame(() => this._syncSelected());
+  }
+  addEventListeners() {
+    this.addEventListener("me-nav-action-select", this._onActionSelect);
+  }
+  cleanup() {
+    this.removeEventListener("me-nav-action-select", this._onActionSelect);
+  }
+  _syncSelected() {
+    const value = this.getAttribute("value");
+    const slot = this.shadow.querySelector("slot");
+    const actions = (slot?.assignedElements() ?? []).filter(
+      (el) => el.tagName === "ME-BOTTOM-NAV-ACTION"
+    );
+    const showLabels = this.hasAttribute("show-labels");
+    actions.forEach((action, i) => {
+      const actionValue = action.getAttribute("value") ?? String(i);
+      action.toggleAttribute("selected", actionValue === value);
+      if (showLabels) action.setAttribute("show-label", "");
+      else action.removeAttribute("show-label");
+    });
+  }
+  _onActionSelect = (e) => {
+    const newValue = e.detail.value;
+    if (newValue === this.getAttribute("value")) return;
+    this.setAttribute("value", newValue);
+    this._syncSelected();
+    this.dispatchEvent(new CustomEvent("me-change", {
+      detail: { value: newValue },
+      bubbles: true,
+      composed: true
+    }));
+  };
+};
+customElements.define("me-bottom-navigation", MEBottomNavigation);
+
+// src/components/bottom-navigation/bottom-nav-action.styles.ts
+var sheet45 = new CSSStyleSheet();
+sheet45.replaceSync(`
+  :host {
+    display: inline-flex;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .me-bottom-nav-action {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px 12px 8px;
+    min-width: 80px;
+    max-width: 168px;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    transition: color 200ms, padding 200ms;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+  }
+
+  :host([selected]) .me-bottom-nav-action {
+    padding-top: 6px;
+    color: var(--_selected-color, var(--me-palette-primary-main, #1976d2));
+  }
+
+  :host([disabled]) .me-bottom-nav-action {
+    opacity: 0.38;
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .me-bottom-nav-action__icon {
+    display: inline-flex;
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    transition: font-size 200ms;
+  }
+
+  :host([selected]) .me-bottom-nav-action__icon {
+    font-size: 26px;
+  }
+
+  .me-bottom-nav-action__label {
+    font-size: 0.75rem;
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    line-height: 1.66;
+    letter-spacing: 0.03333em;
+    transition: font-size 200ms, opacity 200ms;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+  }
+
+  :host([show-label]:not([selected])) .me-bottom-nav-action__label {
+    opacity: 0.7;
+  }
+
+  :host(:not([show-label]):not([selected])) .me-bottom-nav-action__label {
+    opacity: 0;
+    font-size: 0;
+  }
+`);
+var bottom_nav_action_styles_default = sheet45;
+
+// src/components/bottom-navigation/bottom-nav-action.ts
+var MEBottomNavAction = class extends MEElement {
+  static observedAttributes = ["label", "value", "selected", "disabled", "show-label"];
+  _ripple = new RippleController();
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [bottom_nav_action_styles_default, rippleSheet];
+  }
+  render() {
+    const label = this.getAttribute("label") ?? "";
+    const disabled = this.hasAttribute("disabled");
+    this.setAttribute("role", "button");
+    this.setAttribute("tabindex", disabled ? "-1" : "0");
+    this.setAttribute("aria-label", label);
+    this.shadow.innerHTML = `
+      <button class="me-bottom-nav-action" ${disabled ? "disabled" : ""} tabindex="-1" aria-label="${label}">
+        <span class="me-bottom-nav-action__icon"><slot name="icon"></slot></span>
+        <span class="me-bottom-nav-action__label">${label}</span>
+      </button>
+    `;
+    const btn = this.shadow.querySelector(".me-bottom-nav-action");
+    if (btn) this._ripple.attach(btn);
+  }
+  cleanup() {
+    this._ripple.detach();
+  }
+  addEventListeners() {
+    this.addEventListener("click", this._onClick);
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  _onClick = () => {
+    if (this.hasAttribute("disabled")) return;
+    this.dispatchEvent(new CustomEvent("me-nav-action-select", {
+      detail: { value: this.getAttribute("value") ?? this.getAttribute("label") ?? "" },
+      bubbles: true,
+      composed: true
+    }));
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      this._onClick();
+    }
+  };
+};
+customElements.define("me-bottom-nav-action", MEBottomNavAction);
+
+// src/components/card/card.styles.ts
+var sheet46 = new CSSStyleSheet();
+sheet46.replaceSync(`
+  :host {
+    display: block;
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    overflow: hidden;
+    box-shadow: var(--me-shadows-1,
+      0px 2px 1px -1px rgba(0,0,0,0.2),
+      0px 1px 1px 0px rgba(0,0,0,0.14),
+      0px 1px 3px 0px rgba(0,0,0,0.12));
+    transition: box-shadow var(--me-transitions-duration-standard, 300ms) var(--me-transitions-easing-easeInOut, cubic-bezier(0.4,0,0.2,1));
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+  }
+
+  :host([variant="outlined"]) {
+    box-shadow: none;
+    border: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+  }
+
+  :host([raised]) {
+    box-shadow: var(--me-shadows-8,
+      0px 5px 5px -3px rgba(0,0,0,0.2),
+      0px 8px 10px 1px rgba(0,0,0,0.14),
+      0px 3px 14px 2px rgba(0,0,0,0.12));
+  }
+`);
+var card_styles_default = sheet46;
+
+// src/components/card/card.ts
+var MECard = class extends MEElement {
+  static observedAttributes = ["variant", "raised"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [card_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector("slot")) return;
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+customElements.define("me-card", MECard);
+
+// src/components/card/card-content.styles.ts
+var sheet47 = new CSSStyleSheet();
+sheet47.replaceSync(`
+  :host {
+    display: block;
+    padding: 16px;
+  }
+  :host(:last-child) {
+    padding-bottom: 24px;
+  }
+`);
+var card_content_styles_default = sheet47;
+
+// src/components/card/card-content.ts
+var MECardContent = class extends MEElement {
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [card_content_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector("slot")) return;
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+customElements.define("me-card-content", MECardContent);
+
+// src/components/card/card-actions.styles.ts
+var sheet48 = new CSSStyleSheet();
+sheet48.replaceSync(`
+  :host {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    gap: 8px;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+  }
+  :host([disable-spacing]) {
+    padding: 0;
+    gap: 0;
+  }
+`);
+var card_actions_styles_default = sheet48;
+
+// src/components/card/card-actions.ts
+var MECardActions = class extends MEElement {
+  static observedAttributes = ["disable-spacing"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [card_actions_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector("slot")) return;
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+customElements.define("me-card-actions", MECardActions);
+
+// src/components/card/card-header.styles.ts
+var sheet49 = new CSSStyleSheet();
+sheet49.replaceSync(`
+  :host {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    box-sizing: border-box;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+  }
+
+  .me-card-header__avatar {
+    display: flex;
+    flex: 0 0 auto;
+    margin-right: 16px;
+  }
+
+  .me-card-header__content {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .me-card-header__title {
+    display: block;
+    font-size: 1rem;
+    font-weight: var(--me-typography-fontWeightMedium, 500);
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .me-card-header__subheader {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: var(--me-typography-fontWeightRegular, 400);
+    line-height: 1.43;
+    letter-spacing: 0.01071em;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .me-card-header__subheader:empty { display: none; }
+
+  .me-card-header__action {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    margin-top: -8px;
+    margin-right: -8px;
+    margin-bottom: -8px;
+    margin-left: 8px;
+  }
+
+  [hidden] { display: none !important; }
+`);
+var card_header_styles_default = sheet49;
+
+// src/components/card/card-header.ts
+var MECardHeader = class extends MEElement {
+  static observedAttributes = ["title", "subheader"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [card_header_styles_default];
+  }
+  render() {
+    this.shadow.innerHTML = `
+      <div class="me-card-header__avatar" hidden><slot name="avatar"></slot></div>
+      <div class="me-card-header__content">
+        <slot name="title"><span class="me-card-header__title"></span></slot>
+        <slot name="subheader"><span class="me-card-header__subheader"></span></slot>
+      </div>
+      <div class="me-card-header__action" hidden><slot name="action"></slot></div>
+    `;
+    this.shadow.querySelector(".me-card-header__title").textContent = this.getAttribute("title") ?? "";
+    this.shadow.querySelector(".me-card-header__subheader").textContent = this.getAttribute("subheader") ?? "";
+    this._setupSlots();
+  }
+  _setupSlots() {
+    for (const name of ["avatar", "action"]) {
+      const slot = this.shadow.querySelector(`slot[name="${name}"]`);
+      const wrap = slot.parentElement;
+      const update = () => {
+        wrap.hidden = slot.assignedElements().length === 0;
+      };
+      slot.addEventListener("slotchange", update);
+      requestAnimationFrame(update);
+    }
+  }
+};
+customElements.define("me-card-header", MECardHeader);
+
+// src/components/card/card-media.styles.ts
+var sheet50 = new CSSStyleSheet();
+sheet50.replaceSync(`
+  :host { display: block; }
+
+  .me-card-media {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    object-fit: cover;
+  }
+
+  div.me-card-media {
+    height: 140px;
+  }
+
+  img.me-card-media {
+    height: auto;
+  }
+`);
+var card_media_styles_default = sheet50;
+
+// src/components/card/card-media.ts
+var MECardMedia = class extends MEElement {
+  static observedAttributes = ["image", "alt", "height", "component"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [card_media_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-card-media")) return;
+    const component = this.getAttribute("component") ?? "div";
+    if (component === "img") {
+      const img = document.createElement("img");
+      img.className = "me-card-media";
+      img.alt = this.getAttribute("alt") ?? "";
+      img.src = this.getAttribute("image") ?? "";
+      this.shadow.appendChild(img);
+    } else {
+      const div = document.createElement("div");
+      div.className = "me-card-media";
+      this.shadow.appendChild(div);
+    }
+    this._updateStyle();
+  }
+  onAttributeChanged(name) {
+    if (name === "image" || name === "height") {
+      this._updateStyle();
+    }
+  }
+  _updateStyle() {
+    const el = this.shadow.querySelector(".me-card-media");
+    if (!el) return;
+    const image = this.getAttribute("image");
+    const height = this.getAttribute("height");
+    if (image && el.tagName === "DIV") {
+      el.style.backgroundImage = `url("${image}")`;
+    }
+    if (height) {
+      el.style.height = `${height}${/^\d+$/.test(height) ? "px" : ""}`;
+    }
+  }
+};
+customElements.define("me-card-media", MECardMedia);
+
+// src/components/accordion/accordion.styles.ts
+var sheet51 = new CSSStyleSheet();
+sheet51.replaceSync(`
+  :host {
+    display: block;
+    position: relative;
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    box-shadow: var(--me-shadows-1,
+      0px 2px 1px -1px rgba(0,0,0,0.2),
+      0px 1px 1px 0px rgba(0,0,0,0.14),
+      0px 1px 3px 0px rgba(0,0,0,0.12));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    transition: margin 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* Separator line between stacked accordions */
+  :host::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1px;
+    right: 0;
+    height: 1px;
+    background-color: var(--me-palette-divider, rgba(0,0,0,0.12));
+    opacity: 1;
+    transition: opacity 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  :host(:first-child)::before,
+  :host([expanded])::before {
+    opacity: 0;
+  }
+
+  :host([expanded]) {
+    margin: 16px 0;
+  }
+
+  :host([disabled]) {
+    background-color: color-mix(in srgb, var(--me-palette-text-primary, rgba(0,0,0,0.87)) 7%, transparent);
+  }
+`);
+var accordion_styles_default = sheet51;
+
+// src/components/accordion/accordion.ts
+var MEAccordion = class extends MEElement {
+  static observedAttributes = ["expanded", "disabled"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [accordion_styles_default];
+  }
+  get expanded() {
+    return this.hasAttribute("expanded");
+  }
+  set expanded(v) {
+    this.toggleAttribute("expanded", v);
+  }
+  render() {
+    if (this.shadow.querySelector("slot")) return;
+    this.shadow.innerHTML = `<slot></slot>`;
+    requestAnimationFrame(() => this._syncChildren());
+  }
+  addEventListeners() {
+    this.addEventListener("me-accordion-change", this._onSummaryChange);
+  }
+  cleanup() {
+    this.removeEventListener("me-accordion-change", this._onSummaryChange);
+  }
+  onAttributeChanged(name, _old, _newVal) {
+    if (name === "expanded") {
+      this._syncChildren();
+    }
+  }
+  _syncChildren() {
+    const expanded = this.hasAttribute("expanded");
+    const disabled = this.hasAttribute("disabled");
+    const summary = this.querySelector("me-accordion-summary");
+    const details = this.querySelector("me-accordion-details");
+    summary?.toggleAttribute("expanded", expanded);
+    summary?.toggleAttribute("disabled", disabled);
+    details?.toggleAttribute("expanded", expanded);
+  }
+  _onSummaryChange = () => {
+    if (this.hasAttribute("disabled")) return;
+    const expanded = !this.hasAttribute("expanded");
+    this.toggleAttribute("expanded", expanded);
+    this.dispatchEvent(new CustomEvent("me-change", {
+      detail: { expanded },
+      bubbles: true,
+      composed: true
+    }));
+  };
+};
+customElements.define("me-accordion", MEAccordion);
+
+// src/components/accordion/accordion-summary.styles.ts
+var sheet52 = new CSSStyleSheet();
+sheet52.replaceSync(`
+  :host {
+    display: block;
+  }
+
+  .me-accordion-summary {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    padding: 0 16px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    outline: 0;
+    text-align: left;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 1rem;
+    font-weight: var(--me-typography-fontWeightMedium, 500);
+    line-height: 1.5;
+    letter-spacing: 0.00938em;
+    color: inherit;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color 150ms cubic-bezier(0.4,0,0.2,1),
+                min-height 150ms cubic-bezier(0.4,0,0.2,1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  :host([expanded]) .me-accordion-summary {
+    min-height: 64px;
+  }
+
+  .me-accordion-summary:hover {
+    background-color: var(--me-palette-action-hover, rgba(0,0,0,0.04));
+  }
+
+  .me-accordion-summary:focus-visible {
+    background-color: var(--me-palette-action-focus, rgba(0,0,0,0.12));
+  }
+
+  :host([disabled]) .me-accordion-summary {
+    opacity: 0.38;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .me-accordion-summary__content {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    margin: 12px 0;
+    transition: margin 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  :host([expanded]) .me-accordion-summary__content {
+    margin: 20px 0;
+  }
+
+  .me-accordion-summary__icon {
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    color: var(--me-palette-action-active, rgba(0,0,0,0.54));
+    transition: transform 150ms cubic-bezier(0.4,0,0.2,1);
+    flex-shrink: 0;
+  }
+
+  :host([expanded]) .me-accordion-summary__icon {
+    transform: rotate(180deg);
+  }
+`);
+var accordion_summary_styles_default = sheet52;
+
+// src/components/accordion/accordion-summary.ts
+var EXPAND_ICON = `<svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M16.59 8.59 12 13.17 7.41 8.59 6 10l6 6 6-6z"/></svg>`;
+var MEAccordionSummary = class extends MEElement {
+  static observedAttributes = ["expanded", "disabled"];
+  _ripple = new RippleController();
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [accordion_summary_styles_default, rippleSheet];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-accordion-summary")) return;
+    this.shadow.innerHTML = `
+      <button class="me-accordion-summary" aria-expanded="false">
+        <div class="me-accordion-summary__content"><slot></slot></div>
+        <div class="me-accordion-summary__icon">
+          <slot name="expand-icon">${EXPAND_ICON}</slot>
+        </div>
+      </button>
+    `;
+  }
+  addEventListeners() {
+    this.addEventListener("click", this._onClick);
+    const btn = this.shadow.querySelector(".me-accordion-summary");
+    if (btn) this._ripple.attach(btn);
+  }
+  cleanup() {
+    this.removeEventListener("click", this._onClick);
+    this._ripple.detach();
+  }
+  onAttributeChanged(name, _old, newVal) {
+    if (name === "expanded") {
+      const btn = this.shadow.querySelector(".me-accordion-summary");
+      if (btn) btn.setAttribute("aria-expanded", String(newVal !== null));
+    }
+  }
+  _onClick = () => {
+    if (this.hasAttribute("disabled")) return;
+    this.dispatchEvent(new CustomEvent("me-accordion-change", {
+      bubbles: true,
+      composed: true
+    }));
+  };
+};
+customElements.define("me-accordion-summary", MEAccordionSummary);
+
+// src/components/accordion/accordion-details.styles.ts
+var sheet53 = new CSSStyleSheet();
+sheet53.replaceSync(`
+  /*
+   * Height animation via CSS grid trick: grid-template-rows transitions from
+   * 0fr (collapsed) to 1fr (expanded). The inner div needs min-height:0 and
+   * overflow:hidden to actually collapse to zero.
+   */
+  :host {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 250ms cubic-bezier(0.4,0,0.2,1);
+  }
+
+  :host([expanded]) {
+    grid-template-rows: 1fr;
+  }
+
+  .me-accordion-details {
+    overflow: hidden;
+    min-height: 0;
+    padding: 8px 16px 16px;
+    box-sizing: border-box;
+  }
+`);
+var accordion_details_styles_default = sheet53;
+
+// src/components/accordion/accordion-details.ts
+var MEAccordionDetails = class extends MEElement {
+  static observedAttributes = ["expanded"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [accordion_details_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-accordion-details")) return;
+    this.shadow.innerHTML = `<div class="me-accordion-details"><slot></slot></div>`;
+  }
+};
+customElements.define("me-accordion-details", MEAccordionDetails);
+
+// src/components/slider/slider.styles.ts
+var sheet54 = new CSSStyleSheet();
+sheet54.replaceSync(`
+  :host {
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    padding: 13px 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    touch-action: none;
+    --_color: var(--me-palette-primary-main, #1976d2);
+    --_thumb: 20px;
+    --_track: 4px;
+  }
+  :host([color="secondary"]) { --_color: var(--me-palette-secondary-main, #9c27b0); }
+  :host([color="error"])     { --_color: var(--me-palette-error-main, #d32f2f); }
+  :host([color="warning"])   { --_color: var(--me-palette-warning-main, #ed6c02); }
+  :host([color="info"])      { --_color: var(--me-palette-info-main, #0288d1); }
+  :host([color="success"])   { --_color: var(--me-palette-success-main, #2e7d32); }
+  :host([size="small"]) { --_thumb: 12px; --_track: 2px; padding: 5px 0; }
+  :host([disabled]) { cursor: default; pointer-events: none; opacity: 0.38; }
+
+  .me-slider {
+    position: relative;
+    width: 100%;
+    height: var(--_thumb);
+    display: flex;
+    align-items: center;
+    outline: none;
+  }
+  .me-slider:focus-visible .me-slider__thumb {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--_color) 16%, transparent);
+  }
+  .me-slider__rail {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: var(--_track);
+    border-radius: 2px;
+    background: var(--me-palette-grey-300, #e0e0e0);
+  }
+  .me-slider__track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: var(--_track);
+    border-radius: 2px;
+    background: var(--_color);
+    pointer-events: none;
+  }
+  .me-slider__thumb {
+    position: absolute;
+    top: 50%;
+    width: var(--_thumb);
+    height: var(--_thumb);
+    border-radius: 50%;
+    background: var(--_color);
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px rgba(0,0,0,.14), 0 1px 3px rgba(0,0,0,.12);
+    transition: box-shadow 150ms cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+  }
+  .me-slider:hover .me-slider__thumb,
+  .me-slider--active .me-slider__thumb {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--_color) 16%, transparent);
+  }
+  .me-slider__marks { position: absolute; width: 100%; height: 0; pointer-events: none; }
+  .me-slider__mark {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    border-radius: 50%;
+    background: var(--_color);
+    transform: translate(-50%, -50%);
+  }
+  .me-slider__mark--active { background: #fff; }
+  .me-slider__value-label {
+    position: absolute;
+    bottom: calc(100% + 4px);
+    transform: translateX(-50%) translateY(-8px) scale(0);
+    background: var(--me-palette-grey-600, #757575);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+    pointer-events: none;
+    transition: transform 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+  :host([value-label-display="on"]) .me-slider__value-label { transform: translateX(-50%) translateY(-8px) scale(1); }
+  .me-slider--active .me-slider__value-label,
+  .me-slider:hover .me-slider__value-label { transform: translateX(-50%) translateY(-8px) scale(1); }
+  :host([value-label-display="off"]) .me-slider__value-label { display: none; }
+`);
+var slider_styles_default = sheet54;
+
+// src/components/slider/slider.ts
+var MESlider = class extends MEElement {
+  static observedAttributes = ["value", "min", "max", "step", "disabled", "color", "size", "marks", "value-label-display"];
+  get _min() {
+    return parseFloat(this.getAttribute("min") ?? "0");
+  }
+  get _max() {
+    return parseFloat(this.getAttribute("max") ?? "100");
+  }
+  get _step() {
+    return parseFloat(this.getAttribute("step") ?? "1");
+  }
+  get _val() {
+    return parseFloat(this.getAttribute("value") ?? "0");
+  }
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [slider_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-slider")) {
+      this._syncVisuals();
+      return;
+    }
+    const disabled = this.hasAttribute("disabled");
+    const labelDisplay = this.getAttribute("value-label-display") ?? "auto";
+    this.shadow.innerHTML = `
+      <div class="me-slider" role="slider" tabindex="${disabled ? -1 : 0}"
+           aria-valuemin="${this._min}" aria-valuemax="${this._max}" aria-valuenow="${this._val}"
+           aria-disabled="${disabled}">
+        <span class="me-slider__rail"></span>
+        <span class="me-slider__track"></span>
+        <span class="me-slider__thumb">
+          ${labelDisplay !== "off" ? `<span class="me-slider__value-label">${this._val}</span>` : ""}
+        </span>
+        <span class="me-slider__marks"></span>
+      </div>
+    `;
+    this._syncVisuals();
+  }
+  addEventListeners() {
+    const root = this.shadow.querySelector(".me-slider");
+    if (!root) return;
+    root.addEventListener("keydown", this._onKeyDown);
+    root.addEventListener("pointerdown", this._onPointerDown);
+  }
+  _onKeyDown = (e) => {
+    if (this.hasAttribute("disabled")) return;
+    let newVal = this._val;
+    switch (e.key) {
+      case "ArrowRight":
+      case "ArrowUp":
+        newVal += this._step;
+        break;
+      case "ArrowLeft":
+      case "ArrowDown":
+        newVal -= this._step;
+        break;
+      case "Home":
+        newVal = this._min;
+        break;
+      case "End":
+        newVal = this._max;
+        break;
+      default:
+        return;
+    }
+    e.preventDefault();
+    this._commit(newVal);
+  };
+  _onPointerDown = (e) => {
+    if (this.hasAttribute("disabled")) return;
+    e.preventDefault();
+    const root = this.shadow.querySelector(".me-slider");
+    root?.classList.add("me-slider--active");
+    this._updateFromPointer(e);
+    const onMove = (ev) => this._updateFromPointer(ev);
+    const onUp = () => {
+      root?.classList.remove("me-slider--active");
+      document.removeEventListener("pointermove", onMove);
+      document.removeEventListener("pointerup", onUp);
+    };
+    document.addEventListener("pointermove", onMove);
+    document.addEventListener("pointerup", onUp);
+  };
+  _updateFromPointer(e) {
+    const root = this.shadow.querySelector(".me-slider");
+    if (!root) return;
+    const rect = root.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    this._commit(this._min + pct * (this._max - this._min));
+  }
+  _commit(raw) {
+    const step = this._step;
+    const snapped = Math.round(raw / step) * step;
+    const clamped = Math.max(this._min, Math.min(this._max, parseFloat(snapped.toFixed(10))));
+    if (clamped === this._val) return;
+    this.setAttribute("value", String(clamped));
+    this.dispatchEvent(new CustomEvent("me-change", { detail: { value: clamped }, bubbles: true, composed: true }));
+  }
+  _syncVisuals() {
+    const root = this.shadow.querySelector(".me-slider");
+    const track = this.shadow.querySelector(".me-slider__track");
+    const thumb = this.shadow.querySelector(".me-slider__thumb");
+    const label = this.shadow.querySelector(".me-slider__value-label");
+    const marksEl = this.shadow.querySelector(".me-slider__marks");
+    if (!root || !track || !thumb) return;
+    const pct = (this._val - this._min) / (this._max - this._min) * 100;
+    track.style.width = `${pct}%`;
+    thumb.style.left = `${pct}%`;
+    root.setAttribute("aria-valuenow", String(this._val));
+    if (label) label.textContent = String(this._val);
+    if (marksEl) {
+      const marksAttr = this.getAttribute("marks");
+      if (marksAttr !== null) {
+        let marks = [];
+        if (marksAttr === "" || marksAttr === "true") {
+          const count = Math.round((this._max - this._min) / this._step);
+          marks = Array.from({ length: count + 1 }, (_, i) => ({ value: this._min + i * this._step }));
+        } else {
+          try {
+            marks = JSON.parse(marksAttr);
+          } catch {
+          }
+        }
+        marksEl.innerHTML = marks.map((m) => {
+          const mp = (m.value - this._min) / (this._max - this._min) * 100;
+          const active = m.value <= this._val;
+          return `<span class="me-slider__mark ${active ? "me-slider__mark--active" : ""}" style="left:${mp}%;top:50%"></span>`;
+        }).join("");
+      }
+    }
+  }
+  onAttributeChanged() {
+    if (this.shadow.querySelector(".me-slider")) this._syncVisuals();
+  }
+  cleanup() {
+  }
+};
+customElements.define("me-slider", MESlider);
+
+// src/components/rating/rating.styles.ts
+var sheet55 = new CSSStyleSheet();
+sheet55.replaceSync(`
+  :host {
+    display: inline-flex;
+    align-items: center;
+    --_color: var(--me-palette-warning-light, #ffb400);
+    --_empty: var(--me-palette-action-disabled, rgba(0,0,0,0.26));
+    --_size: 1.5rem;
+    cursor: pointer;
+    user-select: none;
+  }
+  :host([size="small"]) { --_size: 1.125rem; }
+  :host([size="large"]) { --_size: 2rem; }
+  :host([color="primary"])   { --_color: var(--me-palette-primary-main, #1976d2); }
+  :host([color="secondary"]) { --_color: var(--me-palette-secondary-main, #9c27b0); }
+  :host([disabled]), :host([read-only]) { cursor: default; pointer-events: none; }
+  :host([disabled]) { opacity: 0.5; }
+
+  .me-rating { display: inline-flex; align-items: center; gap: 2px; }
+
+  .me-rating__item {
+    position: relative;
+    display: inline-flex;
+    cursor: inherit;
+  }
+
+  .me-rating__icon {
+    display: inline-flex;
+    font-size: var(--_size);
+    width: 1em;
+    height: 1em;
+    transition: transform 150ms cubic-bezier(0.4,0,0.2,1);
+    fill: var(--_empty);
+  }
+  .me-rating__icon--filled { fill: var(--_color); }
+  .me-rating__icon--half {
+    position: absolute;
+    left: 0;
+    overflow: hidden;
+    width: 50%;
+    fill: var(--_color);
+  }
+  .me-rating__item:hover .me-rating__icon { transform: scale(1.2); }
+
+  .me-rating__item--hover .me-rating__icon,
+  .me-rating__item--active .me-rating__icon { fill: var(--_color); }
+  .me-rating__item--hover-empty .me-rating__icon { fill: var(--_empty); }
+`);
+var rating_styles_default = sheet55;
+
+// src/components/rating/rating.ts
+var STAR_EMPTY = `<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z"/></svg>`;
+var STAR_FULL = `<svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`;
+var MERating = class extends MEElement {
+  static observedAttributes = ["value", "max", "precision", "size", "color", "disabled", "read-only"];
+  _hoverValue = null;
+  get _value() {
+    return parseFloat(this.getAttribute("value") ?? "0");
+  }
+  get _max() {
+    return parseInt(this.getAttribute("max") ?? "5");
+  }
+  get _precision() {
+    return parseFloat(this.getAttribute("precision") ?? "1");
+  }
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [rating_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-rating")) {
+      this._syncStars();
+      return;
+    }
+    this.shadow.innerHTML = `<span class="me-rating" role="radiogroup"></span>`;
+    this._syncStars();
+  }
+  addEventListeners() {
+    const root = this.shadow.querySelector(".me-rating");
+    if (!root) return;
+    root.addEventListener("click", this._onClick);
+    root.addEventListener("mousemove", this._onMouseMove);
+    root.addEventListener("mouseleave", this._onMouseLeave);
+  }
+  _onClick = (e) => {
+    if (this.hasAttribute("disabled") || this.hasAttribute("read-only")) return;
+    const val = this._getValueFromEvent(e);
+    if (val === null) return;
+    const newVal = val === this._value ? 0 : val;
+    this.setAttribute("value", String(newVal));
+    this.dispatchEvent(new CustomEvent("me-change", { detail: { value: newVal }, bubbles: true, composed: true }));
+  };
+  _onMouseMove = (e) => {
+    if (this.hasAttribute("disabled") || this.hasAttribute("read-only")) return;
+    const val = this._getValueFromEvent(e);
+    if (val !== this._hoverValue) {
+      this._hoverValue = val;
+      this._syncStars();
+    }
+  };
+  _onMouseLeave = () => {
+    this._hoverValue = null;
+    this._syncStars();
+  };
+  _getValueFromEvent(e) {
+    const item = e.target?.closest(".me-rating__item");
+    if (!item) return null;
+    const itemVal = parseFloat(item.dataset.value ?? "0");
+    if (this._precision === 0.5) {
+      const rect = item.getBoundingClientRect();
+      const half = e.clientX - rect.left < rect.width / 2;
+      return half ? itemVal - 0.5 : itemVal;
+    }
+    return itemVal;
+  }
+  _syncStars() {
+    const root = this.shadow.querySelector(".me-rating");
+    if (!root) return;
+    const max = this._max;
+    const precision = this._precision;
+    const displayValue = this._hoverValue ?? this._value;
+    const disabled = this.hasAttribute("disabled");
+    const readOnly = this.hasAttribute("read-only");
+    let html = "";
+    for (let i = 1; i <= max; i++) {
+      const filled = displayValue >= i;
+      const half = !filled && precision === 0.5 && displayValue >= i - 0.5;
+      const hovering = this._hoverValue !== null && this._hoverValue >= i;
+      const hoverEmpty = this._hoverValue !== null && this._hoverValue < i;
+      let itemClass = "me-rating__item";
+      if (hovering) itemClass += " me-rating__item--hover";
+      if (hoverEmpty) itemClass += " me-rating__item--hover-empty";
+      let iconHtml;
+      if (filled) {
+        iconHtml = `<span class="me-rating__icon me-rating__icon--filled">${STAR_FULL}</span>`;
+      } else if (half) {
+        iconHtml = `<span class="me-rating__icon">${STAR_EMPTY}</span><span class="me-rating__icon me-rating__icon--half">${STAR_FULL}</span>`;
+      } else {
+        iconHtml = `<span class="me-rating__icon">${STAR_EMPTY}</span>`;
+      }
+      html += `
+        <span class="${itemClass}" data-value="${i}"
+              role="radio" aria-checked="${filled}"
+              tabindex="${!disabled && !readOnly ? 0 : -1}">
+          ${iconHtml}
+        </span>`;
+    }
+    root.innerHTML = html;
+  }
+  onAttributeChanged() {
+    this._syncStars();
+  }
+  cleanup() {
+  }
+};
+customElements.define("me-rating", MERating);
+
+// src/components/transitions/transitions.ts
+function makeSheet(enterCss, exitCss, baseCss = "") {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host { display: block; ${baseCss} }
+    .me-transition {
+      transition-duration: var(--_dur, 300ms);
+      transition-timing-function: cubic-bezier(0.4,0,0.2,1);
+    }
+    .me-transition--enter { ${enterCss} }
+    .me-transition--exit  { ${exitCss} }
+  `);
+  return s;
+}
+var TransitionBase = class extends MEElement {
+  static observedAttributes = ["in", "timeout"];
+  connectedCallback() {
+    this.shadow.adoptedStyleSheets = [this._sheet];
+    super.connectedCallback();
+  }
+  render() {
+    if (this.shadow.querySelector(".me-transition")) {
+      this._sync();
+      return;
+    }
+    this.shadow.innerHTML = `<div class="me-transition me-transition--exit"><slot></slot></div>`;
+    requestAnimationFrame(() => this._sync());
+  }
+  _sync() {
+    const div = this.shadow.querySelector(".me-transition");
+    if (!div) return;
+    div.style.setProperty("--_dur", (this.getAttribute("timeout") ?? "300") + "ms");
+    const isIn = this.hasAttribute("in");
+    div.classList.toggle("me-transition--enter", isIn);
+    div.classList.toggle("me-transition--exit", !isIn);
+  }
+  onAttributeChanged() {
+    this._sync();
+  }
+};
+var _fadeSheet = makeSheet("opacity:1;", "opacity:0;");
+var MEFade = class extends TransitionBase {
+  _sheet = _fadeSheet;
+};
+var _growSheet = makeSheet("opacity:1;transform:scale(1);", "opacity:0;transform:scale(0.75);");
+var MEGrow = class extends TransitionBase {
+  _sheet = _growSheet;
+};
+var _zoomSheet = makeSheet("opacity:1;transform:scale(1);", "opacity:0;transform:scale(0);");
+var MEZoom = class extends TransitionBase {
+  _sheet = _zoomSheet;
+};
+var _collapseSheet = (() => {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host { display: block; }
+    .me-collapse {
+      overflow: hidden;
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows var(--_dur, 300ms) cubic-bezier(0.4,0,0.2,1);
+    }
+    .me-collapse--in { grid-template-rows: 1fr; }
+    .me-collapse__inner { min-height: 0; }
+  `);
+  return s;
+})();
+var MECollapse = class extends MEElement {
+  static observedAttributes = ["in", "timeout"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [_collapseSheet];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-collapse")) {
+      this._sync();
+      return;
+    }
+    this.shadow.innerHTML = `<div class="me-collapse"><div class="me-collapse__inner"><slot></slot></div></div>`;
+    requestAnimationFrame(() => this._sync());
+  }
+  _sync() {
+    const div = this.shadow.querySelector(".me-collapse");
+    if (!div) return;
+    div.style.setProperty("--_dur", (this.getAttribute("timeout") ?? "300") + "ms");
+    div.classList.toggle("me-collapse--in", this.hasAttribute("in"));
+  }
+  onAttributeChanged() {
+    this._sync();
+  }
+};
+var _slideSheet = (() => {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host { display: block; overflow: hidden; }
+    .me-slide {
+      transition: transform var(--_dur, 300ms) cubic-bezier(0.4,0,0.2,1);
+      transform: var(--_exit, translateY(-100%));
+    }
+    .me-slide--in { transform: none; }
+  `);
+  return s;
+})();
+var MESlide = class extends MEElement {
+  static observedAttributes = ["in", "direction", "timeout"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [_slideSheet];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-slide")) {
+      this._sync();
+      return;
+    }
+    this.shadow.innerHTML = `<div class="me-slide"><slot></slot></div>`;
+    requestAnimationFrame(() => this._sync());
+  }
+  _sync() {
+    const div = this.shadow.querySelector(".me-slide");
+    if (!div) return;
+    div.style.setProperty("--_dur", (this.getAttribute("timeout") ?? "300") + "ms");
+    const exits = {
+      down: "translateY(-100%)",
+      up: "translateY(100%)",
+      right: "translateX(-100%)",
+      left: "translateX(100%)"
+    };
+    div.style.setProperty("--_exit", exits[this.getAttribute("direction") ?? "down"] ?? exits["down"]);
+    div.classList.toggle("me-slide--in", this.hasAttribute("in"));
+  }
+  onAttributeChanged() {
+    this._sync();
+  }
+};
+customElements.define("me-fade", MEFade);
+customElements.define("me-grow", MEGrow);
+customElements.define("me-zoom", MEZoom);
+customElements.define("me-collapse", MECollapse);
+customElements.define("me-slide", MESlide);
+
+// src/components/modal/modal.styles.ts
+var sheet56 = new CSSStyleSheet();
+sheet56.replaceSync(`
+  :host {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: var(--me-zIndex-modal, 1300);
+    align-items: center;
+    justify-content: center;
+  }
+  :host([open]) { display: flex; }
+
+  .me-modal__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    -webkit-tap-highlight-color: transparent;
+    animation: me-modal-backdrop-in var(--me-transitions-duration-standard, 300ms) cubic-bezier(0.4,0,0.2,1);
+  }
+  @keyframes me-modal-backdrop-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .me-modal__container {
+    position: relative;
+    z-index: 1;
+    outline: none;
+    animation: me-modal-in var(--me-transitions-duration-standard, 300ms) cubic-bezier(0.4,0,0.2,1);
+  }
+  @keyframes me-modal-in {
+    from { opacity: 0; transform: scale(0.9); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+`);
+var modal_styles_default = sheet56;
+
+// src/components/modal/modal.ts
+var MEModal = class extends MEElement {
+  static observedAttributes = ["open", "disable-backdrop-click"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [modal_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-modal__backdrop")) return;
+    this.shadow.innerHTML = `
+      <div class="me-modal__backdrop"></div>
+      <div class="me-modal__container" tabindex="-1">
+        <slot></slot>
+      </div>
+    `;
+    this.shadow.querySelector(".me-modal__backdrop")?.addEventListener("click", this._onBackdropClick);
+  }
+  addEventListeners() {
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  _onBackdropClick = () => {
+    if (this.hasAttribute("disable-backdrop-click")) return;
+    this.removeAttribute("open");
+    this.dispatchEvent(new CustomEvent("me-close", { bubbles: true, composed: true }));
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Escape") {
+      this.removeAttribute("open");
+      this.dispatchEvent(new CustomEvent("me-close", { bubbles: true, composed: true }));
+    }
+  };
+  onAttributeChanged(name, _old, newVal) {
+    if (name === "open" && newVal !== null) {
+      requestAnimationFrame(() => {
+        this.shadow.querySelector(".me-modal__container")?.focus();
+      });
+    }
+  }
+};
+customElements.define("me-modal", MEModal);
+
+// src/components/popover/popover.styles.ts
+var sheet57 = new CSSStyleSheet();
+sheet57.replaceSync(`
+  :host {
+    display: none;
+    position: fixed;
+    z-index: var(--me-zIndex-popover, 1200);
+  }
+  :host([open]) { display: block; }
+
+  .me-popover__paper {
+    background: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    box-shadow: var(--me-shadows-8,
+      0px 5px 5px -3px rgba(0,0,0,.2),
+      0px 8px 10px 1px rgba(0,0,0,.14),
+      0px 3px 14px 2px rgba(0,0,0,.12));
+    overflow: auto;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 32px);
+    animation: me-popover-in 150ms cubic-bezier(0.4,0,0.2,1);
+  }
+  @keyframes me-popover-in {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  .me-popover__backdrop {
+    position: fixed;
+    inset: 0;
+  }
+`);
+var popover_styles_default = sheet57;
+
+// src/components/popover/popover.ts
+var MEPopover = class extends MEElement {
+  static observedAttributes = [
+    "open",
+    "anchor",
+    "anchor-origin-vertical",
+    "anchor-origin-horizontal",
+    "transform-origin-vertical",
+    "transform-origin-horizontal"
+  ];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [popover_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-popover__paper")) return;
+    this.shadow.innerHTML = `
+      <div class="me-popover__backdrop"></div>
+      <div class="me-popover__paper">
+        <slot></slot>
+      </div>
+    `;
+    this.shadow.querySelector(".me-popover__backdrop")?.addEventListener("click", this._onBackdropClick);
+  }
+  addEventListeners() {
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  _onBackdropClick = () => {
+    this.removeAttribute("open");
+    this.dispatchEvent(new CustomEvent("me-close", { bubbles: true, composed: true }));
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Escape") {
+      this.removeAttribute("open");
+      this.dispatchEvent(new CustomEvent("me-close", { bubbles: true, composed: true }));
+    }
+  };
+  onAttributeChanged(name, _old, newVal) {
+    if (name === "open" && newVal !== null) {
+      requestAnimationFrame(() => this._position());
+    }
+  }
+  _position() {
+    const anchorSel = this.getAttribute("anchor");
+    const anchor = anchorSel ? document.querySelector(anchorSel) : null;
+    if (!anchor) return;
+    const paper = this.shadow.querySelector(".me-popover__paper");
+    if (!paper) return;
+    const aRect = anchor.getBoundingClientRect();
+    const anchorV = this.getAttribute("anchor-origin-vertical") ?? "bottom";
+    const anchorH = this.getAttribute("anchor-origin-horizontal") ?? "left";
+    let top = anchorV === "top" ? aRect.top : anchorV === "center" ? aRect.top + aRect.height / 2 : aRect.bottom;
+    let left = anchorH === "right" ? aRect.right : anchorH === "center" ? aRect.left + aRect.width / 2 : aRect.left;
+    const transformV = this.getAttribute("transform-origin-vertical") ?? "top";
+    const transformH = this.getAttribute("transform-origin-horizontal") ?? "left";
+    const pRect = paper.getBoundingClientRect();
+    if (transformV === "bottom") top -= pRect.height;
+    else if (transformV === "center") top -= pRect.height / 2;
+    if (transformH === "right") left -= pRect.width;
+    else if (transformH === "center") left -= pRect.width / 2;
+    const pad = 8;
+    top = Math.max(pad, Math.min(top, window.innerHeight - pRect.height - pad));
+    left = Math.max(pad, Math.min(left, window.innerWidth - pRect.width - pad));
+    this.style.top = `${top}px`;
+    this.style.left = `${left}px`;
+  }
+};
+customElements.define("me-popover", MEPopover);
+
+// src/components/popper/popper.styles.ts
+var sheet58 = new CSSStyleSheet();
+sheet58.replaceSync(`
+  :host {
+    display: none;
+    position: fixed;
+    z-index: var(--me-zIndex-tooltip, 1500);
+  }
+  :host([open]) { display: block; }
+`);
+var popper_styles_default = sheet58;
+
+// src/components/popper/popper.ts
+var MEPopper = class extends MEElement {
+  static observedAttributes = ["open", "anchor", "placement"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [popper_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector("slot")) return;
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+  onAttributeChanged(name, _old, newVal) {
+    if (name === "open" && newVal !== null) {
+      requestAnimationFrame(() => this._position());
+    }
+  }
+  /** Re-compute position from anchor element */
+  update() {
+    this._position();
+  }
+  _position() {
+    const anchorSel = this.getAttribute("anchor");
+    const anchor = anchorSel ? document.querySelector(anchorSel) : null;
+    if (!anchor) return;
+    const placement = this.getAttribute("placement") ?? "bottom";
+    const aRect = anchor.getBoundingClientRect();
+    const myRect = this.getBoundingClientRect();
+    const offset = 8;
+    let top = 0;
+    let left = 0;
+    const [side, align = "center"] = placement.split("-");
+    switch (side) {
+      case "bottom":
+        top = aRect.bottom + offset;
+        left = align === "start" ? aRect.left : align === "end" ? aRect.right - myRect.width : aRect.left + aRect.width / 2 - myRect.width / 2;
+        break;
+      case "top":
+        top = aRect.top - myRect.height - offset;
+        left = align === "start" ? aRect.left : align === "end" ? aRect.right - myRect.width : aRect.left + aRect.width / 2 - myRect.width / 2;
+        break;
+      case "left":
+        left = aRect.left - myRect.width - offset;
+        top = align === "start" ? aRect.top : align === "end" ? aRect.bottom - myRect.height : aRect.top + aRect.height / 2 - myRect.height / 2;
+        break;
+      case "right":
+        left = aRect.right + offset;
+        top = align === "start" ? aRect.top : align === "end" ? aRect.bottom - myRect.height : aRect.top + aRect.height / 2 - myRect.height / 2;
+        break;
+    }
+    const pad = 4;
+    top = Math.max(pad, Math.min(top, window.innerHeight - myRect.height - pad));
+    left = Math.max(pad, Math.min(left, window.innerWidth - myRect.width - pad));
+    this.style.top = `${top}px`;
+    this.style.left = `${left}px`;
+  }
+};
+customElements.define("me-popper", MEPopper);
+
+// src/components/portal/portal.ts
+var MEPortal = class extends HTMLElement {
+  _placeholder = null;
+  _movedNodes = [];
+  get container() {
+    const sel = this.getAttribute("container");
+    return (sel ? document.querySelector(sel) : null) ?? document.body;
+  }
+  connectedCallback() {
+    this._placeholder = document.createComment("me-portal");
+    this.parentNode?.insertBefore(this._placeholder, this);
+    this._movedNodes = Array.from(this.childNodes);
+    this._movedNodes.forEach((n) => this.container.appendChild(n));
+    this.style.display = "none";
+  }
+  disconnectedCallback() {
+    if (this._placeholder?.parentNode) {
+      this._movedNodes.forEach((n) => this._placeholder.parentNode.insertBefore(n, this._placeholder));
+      this._placeholder.remove();
+    }
+    this._movedNodes = [];
+    this._placeholder = null;
+  }
+};
+customElements.define("me-portal", MEPortal);
+
+// src/components/speed-dial/speed-dial.styles.ts
+var sheet59 = new CSSStyleSheet();
+sheet59.replaceSync(`
+  :host {
+    display: inline-flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    position: relative;
+  }
+  :host([direction="up"])    { flex-direction: column-reverse; }
+  :host([direction="down"])  { flex-direction: column; }
+  :host([direction="left"])  { flex-direction: row-reverse; }
+  :host([direction="right"]) { flex-direction: row; }
+
+  .me-speed-dial__fab {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: var(--me-palette-primary-main, #1976d2);
+    color: var(--me-palette-primary-contrastText, #fff);
+    box-shadow: var(--me-shadows-6,
+      0px 3px 5px -1px rgba(0,0,0,.2),
+      0px 6px 10px rgba(0,0,0,.14),
+      0px 1px 18px rgba(0,0,0,.12));
+    transition: box-shadow 250ms cubic-bezier(0.4,0,0.2,1),
+                transform 250ms cubic-bezier(0.4,0,0.2,1),
+                background-color 250ms cubic-bezier(0.4,0,0.2,1);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .me-speed-dial__fab:hover {
+    box-shadow: var(--me-shadows-8,
+      0px 5px 5px -3px rgba(0,0,0,.2),
+      0px 8px 10px 1px rgba(0,0,0,.14),
+      0px 3px 14px 2px rgba(0,0,0,.12));
+  }
+  .me-speed-dial__fab svg { pointer-events: none; }
+
+  :host([open]) .me-speed-dial__fab-icon--open    { display: none; }
+  :host(:not([open])) .me-speed-dial__fab-icon--close { display: none; }
+
+  .me-speed-dial__actions {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 8px;
+    padding-bottom: 8px;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: opacity 200ms cubic-bezier(0.4,0,0.2,1),
+                transform 200ms cubic-bezier(0.4,0,0.2,1),
+                visibility 0ms linear 200ms;
+    transform-origin: bottom center;
+  }
+  :host([direction="down"])  .me-speed-dial__actions { flex-direction: column; padding-bottom: 0; padding-top: 8px; transform-origin: top center; }
+  :host([direction="left"])  .me-speed-dial__actions { flex-direction: row-reverse; padding-bottom: 0; padding-right: 8px; transform-origin: right center; }
+  :host([direction="right"]) .me-speed-dial__actions { flex-direction: row; padding-bottom: 0; padding-left: 8px; transform-origin: left center; }
+
+  :host([open]) .me-speed-dial__actions {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0ms;
+  }
+`);
+var speed_dial_styles_default = sheet59;
+var actionSheet = (() => {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+    .me-speed-dial-action__btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      outline: none;
+      background: var(--me-palette-background-paper, #fff);
+      color: var(--me-palette-text-secondary, rgba(0,0,0,0.54));
+      box-shadow: var(--me-shadows-4,
+        0px 2px 4px -1px rgba(0,0,0,.2),
+        0px 4px 5px rgba(0,0,0,.14),
+        0px 1px 10px rgba(0,0,0,.12));
+      transition: box-shadow 250ms cubic-bezier(0.4,0,0.2,1),
+                  background-color 250ms cubic-bezier(0.4,0,0.2,1);
+      -webkit-tap-highlight-color: transparent;
+    }
+    .me-speed-dial-action__btn:hover {
+      background: var(--me-palette-grey-100, #f5f5f5);
+    }
+    .me-speed-dial-action__tooltip {
+      position: absolute;
+      right: calc(100% + 8px);
+      white-space: nowrap;
+      background: var(--me-palette-grey-700, #616161);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 150ms;
+    }
+    :host(:hover) .me-speed-dial-action__tooltip { opacity: 1; }
+  `);
+  return s;
+})();
+
+// src/components/speed-dial/speed-dial.ts
+var CLOSE_ICON2 = `<svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
+var DEFAULT_ICON = `<svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg>`;
+var MESpeedDial = class extends MEElement {
+  static observedAttributes = ["open", "direction"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [speed_dial_styles_default];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-speed-dial__fab")) return;
+    this.shadow.innerHTML = `
+      <div class="me-speed-dial__actions">
+        <slot></slot>
+      </div>
+      <button class="me-speed-dial__fab" type="button" aria-label="${this.getAttribute("aria-label") ?? "Speed dial"}">
+        <span class="me-speed-dial__fab-icon--open"><slot name="icon">${DEFAULT_ICON}</slot></span>
+        <span class="me-speed-dial__fab-icon--close">${CLOSE_ICON2}</span>
+      </button>
+    `;
+    this.shadow.querySelector(".me-speed-dial__fab")?.addEventListener("click", this._toggleOpen);
+  }
+  addEventListeners() {
+    document.addEventListener("click", this._onDocClick);
+    this.addEventListener("keydown", this._onKeyDown);
+  }
+  cleanup() {
+    document.removeEventListener("click", this._onDocClick);
+  }
+  _toggleOpen = () => {
+    this.toggleAttribute("open");
+    this.dispatchEvent(new CustomEvent("me-open-change", {
+      detail: { open: this.hasAttribute("open") },
+      bubbles: true,
+      composed: true
+    }));
+  };
+  _onDocClick = (e) => {
+    if (this.hasAttribute("open") && !this.contains(e.target)) {
+      this.removeAttribute("open");
+    }
+  };
+  _onKeyDown = (e) => {
+    if (e.key === "Escape") this.removeAttribute("open");
+  };
+};
+var MESpeedDialAction = class extends MEElement {
+  static observedAttributes = ["tooltip-title", "disabled"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [actionSheet];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-speed-dial-action__btn")) return;
+    const disabled = this.hasAttribute("disabled");
+    const tooltip = this.getAttribute("tooltip-title") ?? "";
+    this.shadow.innerHTML = `
+      ${tooltip ? `<span class="me-speed-dial-action__tooltip">${tooltip}</span>` : ""}
+      <button class="me-speed-dial-action__btn" type="button" ${disabled ? "disabled" : ""}
+              aria-label="${tooltip}">
+        <slot></slot>
+      </button>
+    `;
+  }
+  addEventListeners() {
+    this.shadow.querySelector("button")?.addEventListener("click", () => {
+      this.dispatchEvent(new CustomEvent("me-click", { bubbles: true, composed: true }));
+      this.closest("me-speed-dial")?.removeAttribute("open");
+    });
+  }
+};
+customElements.define("me-speed-dial", MESpeedDial);
+customElements.define("me-speed-dial-action", MESpeedDialAction);
+
+// src/components/stepper/stepper.styles.ts
+var stepperSheet = (() => {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      width: 100%;
+    }
+    :host([orientation="vertical"]) {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .me-stepper { display: contents; }
+  `);
+  return s;
+})();
+var stepSheet = (() => {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    :host([orientation="vertical"]) {
+      flex: 0 0 auto;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .me-step__connector {
+      position: absolute;
+      top: 12px;
+      left: calc(-50% + 20px);
+      right: calc(50% + 20px);
+      height: 1px;
+      background: var(--me-palette-divider, rgba(0,0,0,0.12));
+    }
+    :host([step-index="0"]) .me-step__connector { display: none; }
+    :host([completed]) .me-step__connector,
+    :host([active]) .me-step__connector { background: var(--me-palette-primary-main, #1976d2); }
+
+    :host([orientation="vertical"]) .me-step__connector { display: none; }
+
+    .me-step__label-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    :host([orientation="vertical"]) .me-step__label-container {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .me-step__icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--me-palette-text-disabled, rgba(0,0,0,0.38));
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 500;
+      flex-shrink: 0;
+      transition: background 250ms cubic-bezier(0.4,0,0.2,1);
+    }
+    :host([active]) .me-step__icon {
+      background: var(--me-palette-primary-main, #1976d2);
+    }
+    :host([completed]) .me-step__icon {
+      background: var(--me-palette-primary-main, #1976d2);
+    }
+    :host([error]) .me-step__icon {
+      background: var(--me-palette-error-main, #d32f2f);
+    }
+
+    .me-step__icon-check { display: none; }
+    :host([completed]) .me-step__icon-num { display: none; }
+    :host([completed]) .me-step__icon-check { display: block; }
+
+    .me-step__slot-wrapper {
+      display: contents;
+    }
+
+    /* Vertical step content connector */
+    .me-step__vertical-connector {
+      display: none;
+      width: 1px;
+      min-height: 24px;
+      background: var(--me-palette-divider, rgba(0,0,0,0.12));
+      margin: 4px 0 4px 11px;
+    }
+    :host([orientation="vertical"]) .me-step__vertical-connector { display: block; }
+  `);
+  return s;
+})();
+var stepLabelSheet = (() => {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host {
+      display: block;
+      font-size: 0.875rem;
+      color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+      white-space: nowrap;
+    }
+    :host([active]) {
+      color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+      font-weight: 500;
+    }
+    :host([completed]) {
+      color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    }
+    :host([error]) {
+      color: var(--me-palette-error-main, #d32f2f);
+    }
+  `);
+  return s;
+})();
+var stepContentSheet = (() => {
+  const s = new CSSStyleSheet();
+  s.replaceSync(`
+    :host {
+      display: grid;
+      grid-template-rows: 0fr;
+      overflow: hidden;
+      transition: grid-template-rows 250ms cubic-bezier(0.4,0,0.2,1);
+      margin-left: 20px;
+      padding-left: 12px;
+      border-left: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+    }
+    :host([active]) { grid-template-rows: 1fr; }
+    .me-step-content__inner { min-height: 0; padding: 8px 0 16px; }
+  `);
+  return s;
+})();
+
+// src/components/stepper/stepper.ts
+var CHECK_ICON = `<svg class="me-step__icon-check" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17L5.53 12.7a.996.996 0 1 0-1.41 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71a.996.996 0 1 0-1.41-1.41z"/></svg>`;
+var ERROR_ICON = `<svg class="me-step__icon-check" viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>`;
+var MEStepper = class extends MEElement {
+  static observedAttributes = ["active-step", "orientation"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [stepperSheet];
+  }
+  render() {
+    if (this.shadow.querySelector("slot")) {
+      this._syncSteps();
+      return;
+    }
+    this.shadow.innerHTML = `<slot></slot>`;
+    const slot = this.shadow.querySelector("slot");
+    slot.addEventListener("slotchange", () => this._syncSteps());
+    requestAnimationFrame(() => this._syncSteps());
+  }
+  _syncSteps() {
+    const slot = this.shadow.querySelector("slot");
+    const steps = (slot?.assignedElements() ?? []).filter((el) => el.tagName.toLowerCase() === "me-step");
+    const activeStep = parseInt(this.getAttribute("active-step") ?? "0");
+    const orientation = this.getAttribute("orientation") ?? "horizontal";
+    steps.forEach((step, i) => {
+      step.setAttribute("step-index", String(i));
+      step.setAttribute("orientation", orientation);
+      step.toggleAttribute("active", i === activeStep);
+      step.toggleAttribute("completed", i < activeStep);
+      const label = step.querySelector("me-step-label");
+      if (label) {
+        label.toggleAttribute("active", i === activeStep);
+        label.toggleAttribute("completed", i < activeStep);
+        label.toggleAttribute("error", step.hasAttribute("error"));
+      }
+      const content = step.querySelector("me-step-content");
+      if (content) {
+        content.toggleAttribute("active", i === activeStep);
+      }
+    });
+  }
+  onAttributeChanged() {
+    this._syncSteps();
+  }
+};
+var MEStep = class extends MEElement {
+  static observedAttributes = ["step-index", "active", "completed", "error", "orientation"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [stepSheet];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-step__icon")) {
+      this._syncState();
+      return;
+    }
+    const index = parseInt(this.getAttribute("step-index") ?? "0");
+    this.shadow.innerHTML = `
+      <span class="me-step__connector"></span>
+      <div class="me-step__label-container">
+        <span class="me-step__icon">
+          <span class="me-step__icon-num">${index + 1}</span>
+          ${CHECK_ICON}
+          ${ERROR_ICON.replace('class="me-step__icon-check"', 'class="me-step__icon-error" style="display:none"')}
+        </span>
+        <div class="me-step__slot-wrapper"><slot></slot></div>
+      </div>
+      <div class="me-step__vertical-connector"></div>
+    `;
+    this._syncState();
+  }
+  _syncState() {
+    const numEl = this.shadow.querySelector(".me-step__icon-num");
+    const index = parseInt(this.getAttribute("step-index") ?? "0");
+    if (numEl) numEl.textContent = String(index + 1);
+  }
+  onAttributeChanged() {
+    if (this.shadow.querySelector(".me-step__icon")) this._syncState();
+    else this.render();
+  }
+};
+var MEStepLabel = class extends MEElement {
+  static observedAttributes = ["active", "completed", "error"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [stepLabelSheet];
+  }
+  render() {
+    if (this.shadow.querySelector("slot")) return;
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+var MEStepContent = class extends MEElement {
+  static observedAttributes = ["active"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [stepContentSheet];
+  }
+  render() {
+    if (this.shadow.querySelector(".me-step-content__inner")) return;
+    this.shadow.innerHTML = `<div class="me-step-content__inner"><slot></slot></div>`;
+  }
+};
+customElements.define("me-stepper", MEStepper);
+customElements.define("me-step", MEStep);
+customElements.define("me-step-label", MEStepLabel);
+customElements.define("me-step-content", MEStepContent);
+
+// src/components/autocomplete/autocomplete.styles.ts
+var sheet60 = new CSSStyleSheet();
+sheet60.replaceSync(`
+  :host {
+    display: inline-flex;
+    flex-direction: column;
+    position: relative;
+    vertical-align: top;
+  }
+
+  .me-autocomplete__input-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .me-autocomplete__input {
+    width: 100%;
+    font: inherit;
+    font-size: 1rem;
+    line-height: 1.4375em;
+    letter-spacing: 0.00938em;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    background: transparent;
+    border: 1px solid var(--me-palette-divider, rgba(0,0,0,0.23));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    padding: 16.5px 40px 16.5px 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 200ms cubic-bezier(0.4,0,0.2,1);
+    background-color: var(--me-palette-background-paper, #fff);
+  }
+  .me-autocomplete__input:hover { border-color: var(--me-palette-text-primary, rgba(0,0,0,0.87)); }
+  .me-autocomplete__input:focus { border-color: var(--me-palette-primary-main, #1976d2); border-width: 2px; padding: 15.5px 39px 15.5px 13px; }
+
+  .me-autocomplete__label {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    pointer-events: none;
+    transition: all 150ms cubic-bezier(0.4,0,0.2,1);
+    background: var(--me-palette-background-paper, #fff);
+    padding: 0 4px;
+  }
+  .me-autocomplete__input:focus ~ .me-autocomplete__label,
+  .me-autocomplete--has-value .me-autocomplete__label {
+    top: 0;
+    font-size: 0.75rem;
+    color: var(--me-palette-primary-main, #1976d2);
+  }
+  .me-autocomplete__input:not(:focus) ~ .me-autocomplete__label {
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+  .me-autocomplete--has-value:not(:focus-within) .me-autocomplete__label {
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+
+  .me-autocomplete__arrow {
+    position: absolute;
+    right: 9px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--me-palette-action-active, rgba(0,0,0,0.54));
+    transition: transform 200ms;
+    display: flex;
+  }
+  :host([open]) .me-autocomplete__arrow { transform: translateY(-50%) rotate(180deg); }
+
+  .me-autocomplete__clear {
+    position: absolute;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    color: var(--me-palette-action-active, rgba(0,0,0,0.54));
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+  .me-autocomplete--has-value .me-autocomplete__clear { display: flex; }
+
+  .me-autocomplete__listbox {
+    display: none;
+    position: fixed;
+    z-index: var(--me-zIndex-modal, 1300);
+    background: var(--me-palette-background-paper, #fff);
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    box-shadow: var(--me-shadows-8,
+      0px 5px 5px -3px rgba(0,0,0,.2),
+      0px 8px 10px 1px rgba(0,0,0,.14),
+      0px 3px 14px 2px rgba(0,0,0,.12));
+    max-height: 256px;
+    overflow-y: auto;
+    padding: 8px 0;
+    min-width: 100px;
+  }
+  :host([open]) .me-autocomplete__listbox { display: block; }
+
+  .me-autocomplete__option {
+    padding: 6px 16px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    transition: background 150ms;
+    list-style: none;
+  }
+  .me-autocomplete__option:hover,
+  .me-autocomplete__option[aria-selected="true"],
+  .me-autocomplete__option.focused {
+    background: var(--me-palette-action-hover, rgba(0,0,0,0.04));
+  }
+  .me-autocomplete__option[aria-selected="true"] {
+    background: color-mix(in srgb, var(--me-palette-primary-main, #1976d2) 8%, transparent);
+  }
+  .me-autocomplete__no-options {
+    padding: 12px 16px;
+    font-size: 1rem;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+`);
+var autocomplete_styles_default = sheet60;
+
+// src/components/autocomplete/autocomplete.ts
+function optLabel(o) {
+  return typeof o === "string" ? o : o.label;
+}
+var MEAutocomplete = class extends MEElement {
+  static observedAttributes = ["options", "value", "label", "placeholder", "disabled", "free-solo", "multiple"];
+  _focusedIndex = -1;
+  _inputVal = "";
+  constructor() {
+    super({ mode: "open", delegatesFocus: true });
+    this.shadow.adoptedStyleSheets = [autocomplete_styles_default];
+  }
+  get _options() {
+    const attr = this.getAttribute("options");
+    if (!attr) return [];
+    try {
+      return JSON.parse(attr);
+    } catch {
+      return [];
+    }
+  }
+  get _filtered() {
+    const q = this._inputVal.toLowerCase();
+    if (!q) return this._options;
+    return this._options.filter((o) => optLabel(o).toLowerCase().includes(q));
+  }
+  get _value() {
+    return this.getAttribute("value") ?? "";
+  }
+  render() {
+    if (this.shadow.querySelector(".me-autocomplete__input")) {
+      this._syncListbox();
+      return;
+    }
+    const label = this.getAttribute("label") ?? "";
+    const placeholder = this.getAttribute("placeholder") ?? "";
+    const disabled = this.hasAttribute("disabled");
+    const wrap = document.createElement("div");
+    wrap.className = "me-autocomplete__input-wrap";
+    wrap.innerHTML = `
+      <input class="me-autocomplete__input" type="text" autocomplete="off"
+             placeholder="${placeholder}" ${disabled ? "disabled" : ""}
+             role="combobox" aria-autocomplete="list" aria-expanded="false">
+      ${label ? `<label class="me-autocomplete__label">${label}</label>` : ""}
+      <button class="me-autocomplete__clear" type="button" tabindex="-1" aria-label="Clear">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>
+      <span class="me-autocomplete__arrow">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M7 10l5 5 5-5z"/></svg>
+      </span>
+    `;
+    const listbox = document.createElement("ul");
+    listbox.className = "me-autocomplete__listbox";
+    listbox.setAttribute("role", "listbox");
+    this.shadow.appendChild(wrap);
+    this.shadow.appendChild(listbox);
+    if (this._value) {
+      const inp = this.shadow.querySelector(".me-autocomplete__input");
+      if (inp) {
+        inp.value = this._value;
+        this._inputVal = this._value;
+      }
+      wrap.classList.add("me-autocomplete--has-value");
+    }
+    this._syncListbox();
+  }
+  addEventListeners() {
+    const inp = this.shadow.querySelector(".me-autocomplete__input");
+    if (!inp) return;
+    inp.addEventListener("input", this._onInput);
+    inp.addEventListener("focus", this._onFocus);
+    inp.addEventListener("blur", this._onBlur);
+    inp.addEventListener("keydown", this._onKeyDown);
+    this.shadow.querySelector(".me-autocomplete__clear")?.addEventListener("click", this._onClear);
+    this.shadow.querySelector(".me-autocomplete__listbox")?.addEventListener("mousedown", this._onOptionMouseDown);
+  }
+  _onInput = () => {
+    const inp = this.shadow.querySelector(".me-autocomplete__input");
+    if (!inp) return;
+    this._inputVal = inp.value;
+    this._focusedIndex = -1;
+    const wrap = this.shadow.querySelector(".me-autocomplete__input-wrap");
+    wrap?.classList.toggle("me-autocomplete--has-value", this._inputVal.length > 0);
+    this.toggleAttribute("open", true);
+    this._syncListbox();
+  };
+  _onFocus = () => {
+    this.toggleAttribute("open", true);
+    this._syncListbox();
+  };
+  _onBlur = () => {
+    setTimeout(() => this.removeAttribute("open"), 150);
+  };
+  _onClear = () => {
+    const inp = this.shadow.querySelector(".me-autocomplete__input");
+    if (!inp) return;
+    inp.value = "";
+    this._inputVal = "";
+    this._focusedIndex = -1;
+    this.removeAttribute("value");
+    this.shadow.querySelector(".me-autocomplete__input-wrap")?.classList.remove("me-autocomplete--has-value");
+    this.removeAttribute("open");
+    this.dispatchEvent(new CustomEvent("me-change", { detail: { value: "" }, bubbles: true, composed: true }));
+  };
+  _onKeyDown = (e) => {
+    const opts = this._filtered;
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        this.toggleAttribute("open", true);
+        this._focusedIndex = Math.min(this._focusedIndex + 1, opts.length - 1);
+        this._syncListbox();
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        this._focusedIndex = Math.max(this._focusedIndex - 1, 0);
+        this._syncListbox();
+        break;
+      case "Enter":
+        if (this._focusedIndex >= 0 && opts[this._focusedIndex]) {
+          e.preventDefault();
+          this._selectOption(opts[this._focusedIndex]);
+        }
+        break;
+      case "Escape":
+        this.removeAttribute("open");
+        break;
+    }
+  };
+  _onOptionMouseDown = (e) => {
+    const li = e.target.closest(".me-autocomplete__option");
+    if (!li) return;
+    const idx = parseInt(li.dataset.index ?? "-1");
+    const opt = this._filtered[idx];
+    if (opt !== void 0) this._selectOption(opt);
+  };
+  _selectOption(opt) {
+    const label = optLabel(opt);
+    const value = typeof opt === "string" ? opt : opt.value;
+    const inp = this.shadow.querySelector(".me-autocomplete__input");
+    if (inp) {
+      inp.value = label;
+      this._inputVal = label;
+    }
+    this.setAttribute("value", value);
+    this.shadow.querySelector(".me-autocomplete__input-wrap")?.classList.add("me-autocomplete--has-value");
+    this.removeAttribute("open");
+    this.dispatchEvent(new CustomEvent("me-change", { detail: { value, label }, bubbles: true, composed: true }));
+  }
+  _syncListbox() {
+    const listbox = this.shadow.querySelector(".me-autocomplete__listbox");
+    if (!listbox) return;
+    const opts = this._filtered;
+    if (opts.length === 0) {
+      listbox.innerHTML = `<li class="me-autocomplete__no-options">No options</li>`;
+    } else {
+      listbox.innerHTML = opts.map((o, i) => {
+        const label = optLabel(o);
+        const val = typeof o === "string" ? o : o.value;
+        const focused = i === this._focusedIndex;
+        const selected = val === this._value;
+        return `<li class="me-autocomplete__option${focused ? " focused" : ""}"
+                    role="option" aria-selected="${selected}" data-index="${i}">${label}</li>`;
+      }).join("");
+    }
+    if (this.hasAttribute("open")) {
+      this._positionListbox();
+    }
+  }
+  _positionListbox() {
+    const inp = this.shadow.querySelector(".me-autocomplete__input");
+    const listbox = this.shadow.querySelector(".me-autocomplete__listbox");
+    if (!inp || !listbox) return;
+    const rect = inp.getBoundingClientRect();
+    listbox.style.top = `${rect.bottom + 4}px`;
+    listbox.style.left = `${rect.left}px`;
+    listbox.style.width = `${rect.width}px`;
+  }
+  onAttributeChanged(name, _old, _new) {
+    if (name === "open" && _new !== null) this._positionListbox();
+    if (name === "options") this._syncListbox();
+  }
+};
+customElements.define("me-autocomplete", MEAutocomplete);
 
 // src/utils/elevation.ts
 function elevationVar(level) {

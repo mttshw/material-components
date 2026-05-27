@@ -1,0 +1,67 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Box — materialelements.io" %}
+{% block content %}
+<h1>Box</h1>
+<p class="me-subtitle">Box is a general-purpose container with sx-like shorthand attributes that map directly to CSS properties.</p>
+
+<h2>Basic</h2>
+<section class="demo-section">
+  <me-box bgcolor="var(--me-palette-primary-main,#1976d2)" color="white" p="16px" border-radius="8px">
+    <me-typography>A box with background, color, padding and border-radius attributes.</me-typography>
+  </me-box>
+</section>
+<code-sample>
+&lt;me-box bgcolor="var(--me-palette-primary-main)" color="white" p="16px" border-radius="8px"&gt;
+  content
+&lt;/me-box&gt;
+</code-sample>
+
+<h2>Flex Layout</h2>
+<section class="demo-section">
+  <me-box display="flex" gap="8px" align-items="center" style="width:100%">
+    <me-box bgcolor="var(--me-palette-primary-light,#42a5f5)" p="8px 16px" border-radius="4px"><me-typography style="color:white">Item 1</me-typography></me-box>
+    <me-box bgcolor="var(--me-palette-secondary-light,#ba68c8)" p="8px 16px" border-radius="4px"><me-typography style="color:white">Item 2</me-typography></me-box>
+    <me-box bgcolor="var(--me-palette-success-light,#66bb6a)" p="8px 16px" border-radius="4px"><me-typography style="color:white">Item 3</me-typography></me-box>
+  </me-box>
+</section>
+<code-sample>
+&lt;me-box display="flex" gap="8px" align-items="center"&gt;
+  &lt;me-box bgcolor="..." p="8px 16px"&gt;Item 1&lt;/me-box&gt;
+  &lt;me-box bgcolor="..." p="8px 16px"&gt;Item 2&lt;/me-box&gt;
+&lt;/me-box&gt;
+</code-sample>
+
+<h2>Spacing Shorthands</h2>
+<p>Single-letter shorthands work for padding (<code>p</code>, <code>pt</code>, <code>pr</code>, <code>pb</code>, <code>pl</code>) and margin (<code>m</code>, <code>mt</code>, <code>mr</code>, <code>mb</code>, <code>ml</code>).</p>
+<section class="demo-section">
+  <me-box bgcolor="var(--me-palette-grey-200,#eeeeee)" pt="32px" pb="32px" pl="16px" pr="16px" border-radius="4px">
+    <me-typography>pt=32px, pb=32px, pl=16px, pr=16px</me-typography>
+  </me-box>
+</section>
+<code-sample>
+&lt;me-box pt="32px" pb="32px" pl="16px" pr="16px"&gt;...&lt;/me-box&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>CSS Property</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>display</code></td><td>display</td><td>display value.</td></tr>
+    <tr><td><code>flex-direction</code></td><td>flex-direction</td><td>—</td></tr>
+    <tr><td><code>justify-content</code></td><td>justify-content</td><td>—</td></tr>
+    <tr><td><code>align-items</code></td><td>align-items</td><td>—</td></tr>
+    <tr><td><code>gap</code></td><td>gap</td><td>—</td></tr>
+    <tr><td><code>bgcolor</code></td><td>background-color</td><td>Background color.</td></tr>
+    <tr><td><code>color</code></td><td>color</td><td>Text color.</td></tr>
+    <tr><td><code>p</code> / <code>padding</code></td><td>padding</td><td>Padding shorthand.</td></tr>
+    <tr><td><code>pt</code> / <code>pr</code> / <code>pb</code> / <code>pl</code></td><td>padding-top/right/bottom/left</td><td>Per-side padding.</td></tr>
+    <tr><td><code>m</code> / <code>margin</code></td><td>margin</td><td>Margin shorthand.</td></tr>
+    <tr><td><code>mt</code> / <code>mr</code> / <code>mb</code> / <code>ml</code></td><td>margin-top/right/bottom/left</td><td>Per-side margin.</td></tr>
+    <tr><td><code>width</code> / <code>height</code></td><td>width / height</td><td>Size.</td></tr>
+    <tr><td><code>border-radius</code></td><td>border-radius</td><td>—</td></tr>
+    <tr><td><code>overflow</code></td><td>overflow</td><td>—</td></tr>
+    <tr><td><code>position</code></td><td>position</td><td>—</td></tr>
+    <tr><td><code>z-index</code></td><td>z-index</td><td>—</td></tr>
+  </tbody>
+</table>
+{% endblock %}

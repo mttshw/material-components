@@ -1,0 +1,84 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Modal — materialelements.io" %}
+{% block content %}
+<h1>Modal</h1>
+<p class="me-subtitle">Modal is the base component for Dialog. It renders a backdrop and centers its content. Use Dialog for standard confirm/alert patterns.</p>
+
+<h2>Basic Modal</h2>
+<section class="demo-section">
+  <me-button variant="contained" id="btn-open-modal">Open Modal</me-button>
+  <me-modal id="basic-modal">
+    <me-paper elevation="24" style="padding:32px;min-width:300px;max-width:500px;width:90vw">
+      <me-typography variant="h6" style="margin-bottom:16px">Modal Title</me-typography>
+      <me-typography>
+        This is a basic modal. It closes when you click the backdrop or press Escape.
+      </me-typography>
+      <div style="margin-top:24px;display:flex;justify-content:flex-end;gap:8px">
+        <me-button id="btn-close-modal">Close</me-button>
+        <me-button variant="contained">Confirm</me-button>
+      </div>
+    </me-paper>
+  </me-modal>
+</section>
+<code-sample>
+&lt;me-button id="open-btn"&gt;Open Modal&lt;/me-button&gt;
+&lt;me-modal id="my-modal"&gt;
+  &lt;me-paper elevation="24" style="padding:32px"&gt;
+    &lt;me-typography variant="h6"&gt;Title&lt;/me-typography&gt;
+    &lt;me-typography&gt;Content...&lt;/me-typography&gt;
+  &lt;/me-paper&gt;
+&lt;/me-modal&gt;
+
+&lt;script&gt;
+  document.getElementById('open-btn').onclick = () =&gt;
+    document.getElementById('my-modal').setAttribute('open', '');
+&lt;/script&gt;
+</code-sample>
+
+<h2>Disable Backdrop Click</h2>
+<section class="demo-section">
+  <me-button variant="outlined" id="btn-open-modal2">Open (must close via button)</me-button>
+  <me-modal id="modal2" disable-backdrop-click>
+    <me-paper elevation="24" style="padding:32px;min-width:300px">
+      <me-typography variant="h6" style="margin-bottom:16px">Locked Modal</me-typography>
+      <me-typography>Clicking the backdrop won't close this modal.</me-typography>
+      <div style="margin-top:24px;display:flex;justify-content:flex-end">
+        <me-button variant="contained" id="btn-close-modal2">OK</me-button>
+      </div>
+    </me-paper>
+  </me-modal>
+</section>
+<code-sample>
+&lt;me-modal disable-backdrop-click&gt;
+  ...
+&lt;/me-modal&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>open</code></td><td>boolean</td><td>false</td><td>Shows the modal.</td></tr>
+    <tr><td><code>disable-backdrop-click</code></td><td>boolean</td><td>false</td><td>Prevents closing on backdrop click.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-close</code></td><td>Fired when the modal is closed via backdrop click or Escape key.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  const modal1 = document.getElementById('basic-modal');
+  document.getElementById('btn-open-modal').onclick = () => modal1.setAttribute('open', '');
+  document.getElementById('btn-close-modal').onclick = () => modal1.removeAttribute('open');
+
+  const modal2 = document.getElementById('modal2');
+  document.getElementById('btn-open-modal2').onclick = () => modal2.setAttribute('open', '');
+  document.getElementById('btn-close-modal2').onclick = () => modal2.removeAttribute('open');
+</script>
+{% endblock %}

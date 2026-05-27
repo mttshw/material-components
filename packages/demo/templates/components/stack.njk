@@ -1,0 +1,86 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Stack — materialelements.io" %}
+{% block content %}
+<h1>Stack</h1>
+<p class="me-subtitle">Stack manages the layout of its children in one dimension (row or column) with consistent spacing.</p>
+
+<h2>Row (default)</h2>
+<section class="demo-section">
+  <me-stack spacing="2" style="width:100%">
+    <me-paper elevation="1" style="padding:16px;text-align:center"><me-typography>Item 1</me-typography></me-paper>
+    <me-paper elevation="1" style="padding:16px;text-align:center"><me-typography>Item 2</me-typography></me-paper>
+    <me-paper elevation="1" style="padding:16px;text-align:center"><me-typography>Item 3</me-typography></me-paper>
+  </me-stack>
+</section>
+<code-sample>
+&lt;me-stack spacing="2"&gt;
+  &lt;me-paper elevation="1"&gt;Item 1&lt;/me-paper&gt;
+  &lt;me-paper elevation="1"&gt;Item 2&lt;/me-paper&gt;
+  &lt;me-paper elevation="1"&gt;Item 3&lt;/me-paper&gt;
+&lt;/me-stack&gt;
+</code-sample>
+
+<h2>Column</h2>
+<section class="demo-section">
+  <me-stack direction="column" spacing="2" style="width:100%">
+    <me-paper elevation="1" style="padding:16px;text-align:center"><me-typography>Item 1</me-typography></me-paper>
+    <me-paper elevation="1" style="padding:16px;text-align:center"><me-typography>Item 2</me-typography></me-paper>
+    <me-paper elevation="1" style="padding:16px;text-align:center"><me-typography>Item 3</me-typography></me-paper>
+  </me-stack>
+</section>
+<code-sample>
+&lt;me-stack direction="column" spacing="2"&gt;
+  ...
+&lt;/me-stack&gt;
+</code-sample>
+
+<h2>Spacing</h2>
+<p>Spacing is a multiplier of the base spacing unit (8px). <code>spacing="1"</code> = 8px, <code>spacing="2"</code> = 16px, etc. Any CSS value also works.</p>
+<section class="demo-section" style="flex-direction:column;gap:24px;align-items:stretch">
+  <div>
+    <me-typography variant="caption" style="display:block;margin-bottom:8px;color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">spacing="1" (8px)</me-typography>
+    <me-stack spacing="1">
+      <me-paper elevation="1" style="padding:8px 16px"><me-typography>A</me-typography></me-paper>
+      <me-paper elevation="1" style="padding:8px 16px"><me-typography>B</me-typography></me-paper>
+      <me-paper elevation="1" style="padding:8px 16px"><me-typography>C</me-typography></me-paper>
+    </me-stack>
+  </div>
+  <div>
+    <me-typography variant="caption" style="display:block;margin-bottom:8px;color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">spacing="3" (24px)</me-typography>
+    <me-stack spacing="3">
+      <me-paper elevation="1" style="padding:8px 16px"><me-typography>A</me-typography></me-paper>
+      <me-paper elevation="1" style="padding:8px 16px"><me-typography>B</me-typography></me-paper>
+      <me-paper elevation="1" style="padding:8px 16px"><me-typography>C</me-typography></me-paper>
+    </me-stack>
+  </div>
+</section>
+
+<h2>Alignment</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:16px">
+  <div>
+    <me-typography variant="caption" style="display:block;margin-bottom:8px;color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">align="center", justify="space-between"</me-typography>
+    <me-stack spacing="2" align="center" justify="space-between" style="width:100%">
+      <me-paper elevation="1" style="padding:8px 24px"><me-typography>Left</me-typography></me-paper>
+      <me-paper elevation="1" style="padding:16px 24px"><me-typography>Center (tall)</me-typography></me-paper>
+      <me-paper elevation="1" style="padding:8px 24px"><me-typography>Right</me-typography></me-paper>
+    </me-stack>
+  </div>
+</section>
+<code-sample>
+&lt;me-stack direction="row" spacing="2" align="center" justify="space-between"&gt;
+  ...
+&lt;/me-stack&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>direction</code></td><td>row | row-reverse | column | column-reverse</td><td>row</td><td>Flex direction.</td></tr>
+    <tr><td><code>spacing</code></td><td>number | CSS value</td><td>0</td><td>Gap between children. Numbers are multiplied by 8px.</td></tr>
+    <tr><td><code>align</code></td><td>flex-start | flex-end | center | stretch | baseline</td><td>center</td><td>Cross-axis alignment.</td></tr>
+    <tr><td><code>justify</code></td><td>flex-start | flex-end | center | space-between | space-around | space-evenly</td><td>flex-start</td><td>Main-axis justification.</td></tr>
+    <tr><td><code>flex-wrap</code></td><td>wrap | nowrap | wrap-reverse</td><td>nowrap</td><td>Wrapping behavior.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

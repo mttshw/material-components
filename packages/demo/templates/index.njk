@@ -2,94 +2,254 @@
 {% set pageTitle = "materialelements.io — Material UI Web Components" %}
 
 {% block content %}
-<me-typography variant="h4" gutter-bottom>materialelements.io</me-typography>
-<me-typography variant="subtitle1" color="textSecondary">
-  Zero-dependency Material UI Web Components. Visually identical to MUI.
-  Accepts standard MUI theme objects. No React required.
-</me-typography>
 
-<h2>Buttons</h2>
-<section class="demo-section">
-  <me-button variant="contained">Contained</me-button>
-  <me-button variant="outlined">Outlined</me-button>
-  <me-button>Text</me-button>
-  <me-button variant="contained" color="secondary">Secondary</me-button>
-  <me-button variant="contained" disabled>Disabled</me-button>
-</section>
+<style>
+  .hero {
+    padding: 48px 0 32px;
+    max-width: 640px;
+  }
+  .hero-title {
+    font-size: clamp(1.75rem, 4vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0 0 16px;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+  }
+  .hero-title span {
+    color: var(--me-palette-primary-main, #1976d2);
+  }
+  .hero-subtitle {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    margin: 0 0 32px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+  }
+  .feature-card {
+    background: var(--me-palette-background-paper, #fff);
+    border: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .feature-card-icon {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: var(--me-palette-primary-main, #1976d2);
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .feature-card-title {
+    font-weight: 600;
+    font-size: 0.9375rem;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+  }
+  .feature-card-body {
+    font-size: 0.875rem;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    line-height: 1.5;
+  }
+  .component-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+  .badge-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background: var(--me-palette-primary-main, #1976d2);
+    color: #fff;
+  }
+</style>
 
-<h2>Typography</h2>
-<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:4px">
-  <me-typography variant="h5">Heading 5</me-typography>
-  <me-typography variant="body1">Body 1 — the standard paragraph style.</me-typography>
-  <me-typography variant="body2" color="textSecondary">Body 2 — secondary text style.</me-typography>
-  <me-typography variant="caption">Caption text</me-typography>
-</section>
+<!-- Hero -->
+<div class="hero">
+  <h1 class="hero-title">
+    Material UI<br>
+    <span>as Web Components.</span>
+  </h1>
+  <p class="hero-subtitle">
+    Zero-dependency, framework-agnostic components that are visually identical to MUI.
+    Drop them into any HTML page, React, Vue, Svelte — anywhere.
+  </p>
+  <div class="hero-actions">
+    <me-button variant="contained" size="large" onclick="location.href='/getting-started.html'">Get Started</me-button>
+    <me-button variant="outlined" size="large" onclick="location.href='/theme.html'">Theme Editor</me-button>
+  </div>
+</div>
 
-<h2>Paper &amp; Elevation</h2>
-<section class="demo-section">
-  <me-paper elevation="0" style="padding:16px;width:80px;text-align:center">0</me-paper>
-  <me-paper elevation="1" style="padding:16px;width:80px;text-align:center">1</me-paper>
-  <me-paper elevation="4" style="padding:16px;width:80px;text-align:center">4</me-paper>
-  <me-paper elevation="8" style="padding:16px;width:80px;text-align:center">8</me-paper>
-  <me-paper elevation="16" style="padding:16px;width:80px;text-align:center">16</me-paper>
-  <me-paper variant="outlined" style="padding:16px;width:80px;text-align:center">outlined</me-paper>
-</section>
+<me-divider style="margin:8px 0 40px"></me-divider>
 
-<h2>Stack &amp; Divider</h2>
-<section class="demo-section" style="flex-direction:column;align-items:stretch">
-  <me-stack direction="row" spacing="2">
-    <me-button variant="outlined" size="small">One</me-button>
-    <me-button variant="outlined" size="small">Two</me-button>
-    <me-button variant="outlined" size="small">Three</me-button>
-  </me-stack>
-  <me-divider style="margin:16px 0"></me-divider>
-  <me-stack direction="row" spacing="2">
-    <me-button variant="contained" size="small">A</me-button>
-    <me-button variant="contained" color="secondary" size="small">B</me-button>
-    <me-button variant="contained" color="success" size="small">C</me-button>
-  </me-stack>
-</section>
+<!-- Features -->
+<h2>Why materialelements.io?</h2>
+<div class="feature-grid">
+  <div class="feature-card">
+    <div class="feature-card-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5z"/></svg>
+    </div>
+    <div class="feature-card-title">Zero Dependencies</div>
+    <div class="feature-card-body">Pure Web Components built on the Custom Elements v1 spec. No framework, no bundler required.</div>
+  </div>
+  <div class="feature-card">
+    <div class="feature-card-icon" style="background:var(--me-palette-secondary-main,#9c27b0)">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M17.5 12a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0zM12 1v3m0 16v3M4.22 4.22l2.12 2.12m11.32 11.32 2.12 2.12M1 12h3m16 0h3M4.22 19.78l2.12-2.12M17.66 6.34l2.12-2.12"/></svg>
+    </div>
+    <div class="feature-card-title">MUI-Compatible Themes</div>
+    <div class="feature-card-body">Pass any MUI theme object directly. Same CSS variables, same palette structure, same token names.</div>
+  </div>
+  <div class="feature-card">
+    <div class="feature-card-icon" style="background:var(--me-palette-success-main,#2e7d32)">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M9 16.17L5.53 12.7a.996.996 0 1 0-1.41 1.41l4.18 4.18c.39.39 1.02.39 1.41 0L20.29 7.71a.996.996 0 1 0-1.41-1.41z"/></svg>
+    </div>
+    <div class="feature-card-title">Drop-in Replacement</div>
+    <div class="feature-card-body">Swap <code>Button</code> for <code>&lt;me-button&gt;</code>. Familiar API, same visual output, no React required.</div>
+  </div>
+  <div class="feature-card">
+    <div class="feature-card-icon" style="background:var(--me-palette-warning-main,#ed6c02)">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M13 2.05V4.05C17.39 4.59 20.5 8.58 19.96 12.97C19.5 16.61 16.64 19.5 13 19.93V21.93C18.5 21.38 22.5 16.5 22 11C21.47 5.08 17 .5 13 2.05M11 2.05C9.05 2.25 7.19 3 5.67 4.26L7.1 5.74C8.22 4.84 9.57 4.26 11 4.06M4.26 5.67C3 7.19 2.25 9.04 2.05 11H4.05C4.24 9.58 4.8 8.23 5.69 7.1M2.06 13C2.26 14.96 3.03 16.81 4.27 18.33L5.69 16.9C4.81 15.77 4.24 14.42 4.06 13M7.06 18.37L5.67 19.74C7.18 21 9.04 21.79 11 22V20C9.58 19.82 8.23 19.25 7.06 18.37M12 8L7 13H10V16H14V13H17Z"/></svg>
+    </div>
+    <div class="feature-card-title">TypeScript Native</div>
+    <div class="feature-card-body">Written in strict TypeScript with full type exports. Autocomplete for every attribute and property.</div>
+  </div>
+</div>
 
-<h2>Grid</h2>
-<section class="demo-section" style="display:block;padding:0">
-  <me-grid container spacing="2" style="padding:16px">
-    <me-grid item xs="12" sm="6" md="4">
-      <me-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=6 md=4</me-paper>
-    </me-grid>
-    <me-grid item xs="12" sm="6" md="4">
-      <me-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=6 md=4</me-paper>
-    </me-grid>
-    <me-grid item xs="12" sm="12" md="4">
-      <me-paper elevation="2" style="padding:16px;text-align:center">xs=12 sm=12 md=4</me-paper>
-    </me-grid>
-  </me-grid>
-</section>
+<me-divider style="margin:40px 0 32px"></me-divider>
 
-<h2>Form Controls</h2>
-<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:16px">
-  <me-stack direction="row" spacing="2" style="align-items:center">
-    <me-checkbox checked></me-checkbox>
-    <me-typography variant="body1">Checkbox</me-typography>
-    <me-switch checked></me-switch>
-    <me-typography variant="body1">Switch</me-typography>
-    <me-radio checked></me-radio>
-    <me-typography variant="body1">Radio</me-typography>
-  </me-stack>
-  <me-text-field variant="outlined" label="Text Field"></me-text-field>
-  <me-select variant="outlined" label="Select" style="min-width:160px">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-  </me-select>
-</section>
+<!-- Component Count -->
+<h2>40+ Components</h2>
+<p style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6));margin-bottom:16px">Everything you need across six categories.</p>
+<div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:32px">
+  <span class="badge-pill">Buttons</span>
+  <span class="badge-pill">Typography</span>
+  <span class="badge-pill">Paper</span>
+  <span class="badge-pill">Layout</span>
+  <span class="badge-pill" style="background:var(--me-palette-secondary-main,#9c27b0)">TextField</span>
+  <span class="badge-pill" style="background:var(--me-palette-secondary-main,#9c27b0)">Select</span>
+  <span class="badge-pill" style="background:var(--me-palette-secondary-main,#9c27b0)">Checkbox</span>
+  <span class="badge-pill" style="background:var(--me-palette-secondary-main,#9c27b0)">Radio</span>
+  <span class="badge-pill" style="background:var(--me-palette-secondary-main,#9c27b0)">Switch</span>
+  <span class="badge-pill" style="background:var(--me-palette-success-main,#2e7d32)">Avatar</span>
+  <span class="badge-pill" style="background:var(--me-palette-success-main,#2e7d32)">Badge</span>
+  <span class="badge-pill" style="background:var(--me-palette-success-main,#2e7d32)">Chip</span>
+  <span class="badge-pill" style="background:var(--me-palette-success-main,#2e7d32)">Table</span>
+  <span class="badge-pill" style="background:var(--me-palette-success-main,#2e7d32)">Tooltip</span>
+  <span class="badge-pill" style="background:var(--me-palette-warning-main,#ed6c02)">Alert</span>
+  <span class="badge-pill" style="background:var(--me-palette-warning-main,#ed6c02)">Dialog</span>
+  <span class="badge-pill" style="background:var(--me-palette-warning-main,#ed6c02)">Snackbar</span>
+  <span class="badge-pill" style="background:var(--me-palette-warning-main,#ed6c02)">Progress</span>
+  <span class="badge-pill" style="background:var(--me-palette-error-main,#d32f2f)">App Bar</span>
+  <span class="badge-pill" style="background:var(--me-palette-error-main,#d32f2f)">Tabs</span>
+  <span class="badge-pill" style="background:var(--me-palette-error-main,#d32f2f)">Drawer</span>
+  <span class="badge-pill" style="background:var(--me-palette-error-main,#d32f2f)">Menu</span>
+  <span class="badge-pill" style="background:var(--me-palette-error-main,#d32f2f)">Pagination</span>
+</div>
 
+<!-- Quick Start -->
 <h2>Quick Start</h2>
 <code-sample>
+&lt;!-- 1. Load the bundle (CDN) --&gt;
 &lt;script src="https://unpkg.com/@materialelements/core/dist/materialelements.min.js"&gt;&lt;/script&gt;
 
+&lt;!-- 2. Wrap your app --&gt;
 &lt;me-theme-provider&gt;
   &lt;me-css-baseline&gt;&lt;/me-css-baseline&gt;
+
   &lt;me-button variant="contained"&gt;Hello World&lt;/me-button&gt;
+  &lt;me-text-field variant="outlined" label="Your name"&gt;&lt;/me-text-field&gt;
+  &lt;me-alert severity="success"&gt;It works!&lt;/me-alert&gt;
 &lt;/me-theme-provider&gt;
 </code-sample>
+
+<!-- Live Demo -->
+<h2>See It Live</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:20px">
+  <div class="component-showcase">
+    <me-button variant="contained">Contained</me-button>
+    <me-button variant="outlined">Outlined</me-button>
+    <me-button>Text</me-button>
+    <me-button variant="contained" color="secondary">Secondary</me-button>
+    <me-button variant="contained" color="success">Success</me-button>
+    <me-button variant="contained" disabled>Disabled</me-button>
+  </div>
+
+  <me-divider></me-divider>
+
+  <div class="component-showcase">
+    <me-chip label="Default"></me-chip>
+    <me-chip label="Clickable" clickable></me-chip>
+    <me-chip label="Primary" color="primary"></me-chip>
+    <me-chip label="Success" color="success"></me-chip>
+    <me-chip label="Warning" color="warning"></me-chip>
+    <me-chip label="Error" color="error"></me-chip>
+    <me-avatar style="background:var(--me-palette-primary-main,#1976d2)">A</me-avatar>
+    <me-badge badgeContent="9" color="error">
+      <me-icon-button aria-label="notifications">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 22c1.1 0 2-.9 2-2h-4a2 2 0 0 0 2 2m6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1z"/></svg>
+      </me-icon-button>
+    </me-badge>
+  </div>
+
+  <me-divider></me-divider>
+
+  <div>
+    <me-alert severity="info" style="margin-bottom:8px">All components respect the active theme.</me-alert>
+    <me-alert severity="success">Change colors in the <a href="/theme.html" style="color:inherit">Theme Editor</a> to see them update everywhere.</me-alert>
+  </div>
+
+  <me-divider></me-divider>
+
+  <div class="component-showcase" style="align-items:flex-start">
+    <me-card style="max-width:280px">
+      <me-card-content>
+        <me-typography variant="h6" style="margin-bottom:4px">Card Component</me-typography>
+        <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+          Full-featured card with header, media, content, and actions.
+        </me-typography>
+      </me-card-content>
+      <me-card-actions>
+        <me-button>Learn More</me-button>
+      </me-card-actions>
+    </me-card>
+
+    <div style="flex:1;min-width:200px">
+      <me-accordion>
+        <me-accordion-summary>Accordion</me-accordion-summary>
+        <me-accordion-details>
+          <me-typography>Smooth height animation with CSS grid transitions.</me-typography>
+        </me-accordion-details>
+      </me-accordion>
+      <me-accordion>
+        <me-accordion-summary>More Features</me-accordion-summary>
+        <me-accordion-details>
+          <me-typography>Controlled, disabled, and "expanded by default" variants available.</me-typography>
+        </me-accordion-details>
+      </me-accordion>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

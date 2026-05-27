@@ -1,0 +1,125 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Transitions — materialelements.io" %}
+{% block content %}
+<h1>Transitions</h1>
+<p class="me-subtitle">Transition components animate their children as they enter or exit. All respect a <code>in</code> attribute and an optional <code>timeout</code> (ms).</p>
+
+<h2>Fade</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:16px">
+  <me-button variant="outlined" id="btn-fade">Toggle Fade</me-button>
+  <me-fade in id="fade-demo" timeout="500">
+    <me-paper elevation="4" style="padding:24px;width:200px">
+      <me-typography>Fade content</me-typography>
+    </me-paper>
+  </me-fade>
+</section>
+<code-sample>
+&lt;me-fade in timeout="500"&gt;
+  &lt;me-paper elevation="4"&gt;Fades in/out&lt;/me-paper&gt;
+&lt;/me-fade&gt;
+</code-sample>
+
+<h2>Collapse</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:16px">
+  <me-button variant="outlined" id="btn-collapse">Toggle Collapse</me-button>
+  <me-collapse in id="collapse-demo">
+    <me-paper elevation="4" style="padding:24px;width:300px">
+      <me-typography>Collapsed content</me-typography>
+      <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+        Uses CSS grid trick for smooth height animation.
+      </me-typography>
+    </me-paper>
+  </me-collapse>
+</section>
+<code-sample>
+&lt;me-collapse in&gt;
+  &lt;div&gt;Expands and collapses with height animation&lt;/div&gt;
+&lt;/me-collapse&gt;
+</code-sample>
+
+<h2>Grow</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:16px">
+  <me-button variant="outlined" id="btn-grow">Toggle Grow</me-button>
+  <me-grow in id="grow-demo">
+    <me-paper elevation="4" style="padding:24px;width:200px">
+      <me-typography>Grow content</me-typography>
+    </me-paper>
+  </me-grow>
+</section>
+<code-sample>
+&lt;me-grow in&gt;
+  &lt;me-paper elevation="4"&gt;Scales + fades in&lt;/me-paper&gt;
+&lt;/me-grow&gt;
+</code-sample>
+
+<h2>Zoom</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:16px">
+  <me-button variant="outlined" id="btn-zoom">Toggle Zoom</me-button>
+  <me-zoom in id="zoom-demo">
+    <me-paper elevation="4" style="padding:24px;width:200px">
+      <me-typography>Zoom content</me-typography>
+    </me-paper>
+  </me-zoom>
+</section>
+<code-sample>
+&lt;me-zoom in&gt;
+  &lt;me-paper elevation="4"&gt;Scales from zero&lt;/me-paper&gt;
+&lt;/me-zoom&gt;
+</code-sample>
+
+<h2>Slide</h2>
+<section class="demo-section" style="flex-direction:column;align-items:flex-start;gap:16px">
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <me-button variant="outlined" id="btn-slide-down">Slide Down</me-button>
+    <me-button variant="outlined" id="btn-slide-up">Slide Up</me-button>
+    <me-button variant="outlined" id="btn-slide-left">Slide Left</me-button>
+    <me-button variant="outlined" id="btn-slide-right">Slide Right</me-button>
+  </div>
+  <me-slide in direction="down" id="slide-demo" style="max-height:80px">
+    <me-paper elevation="4" style="padding:24px;width:200px">
+      <me-typography>Slide content</me-typography>
+    </me-paper>
+  </me-slide>
+</section>
+<code-sample>
+&lt;me-slide in direction="down"&gt;
+  &lt;div&gt;Slides in from above&lt;/div&gt;
+&lt;/me-slide&gt;
+&lt;me-slide in direction="up"&gt;...&lt;/me-slide&gt;
+&lt;me-slide in direction="left"&gt;...&lt;/me-slide&gt;
+&lt;me-slide in direction="right"&gt;...&lt;/me-slide&gt;
+</code-sample>
+
+<h2>API (all transitions)</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>in</code></td><td>boolean</td><td>false</td><td>Controls enter/exit. Present = entering, absent = exiting.</td></tr>
+    <tr><td><code>timeout</code></td><td>number (ms)</td><td>300</td><td>Transition duration in milliseconds.</td></tr>
+    <tr><td><code>direction</code> (Slide only)</td><td>down | up | left | right</td><td>down</td><td>Slide direction (entry direction).</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  function toggle(btnId, elId) {
+    document.getElementById(btnId).addEventListener('click', () => {
+      const el = document.getElementById(elId);
+      el.toggleAttribute('in');
+    });
+  }
+  toggle('btn-fade', 'fade-demo');
+  toggle('btn-collapse', 'collapse-demo');
+  toggle('btn-grow', 'grow-demo');
+  toggle('btn-zoom', 'zoom-demo');
+
+  const slideDemo = document.getElementById('slide-demo');
+  ['down','up','left','right'].forEach(dir => {
+    document.getElementById('btn-slide-' + dir).addEventListener('click', () => {
+      slideDemo.setAttribute('direction', dir);
+      slideDemo.removeAttribute('in');
+      setTimeout(() => slideDemo.toggleAttribute('in'), 50);
+    });
+  });
+</script>
+{% endblock %}

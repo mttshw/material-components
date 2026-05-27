@@ -1,0 +1,135 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Card — materialelements.io" %}
+{% block content %}
+<h1>Card</h1>
+<p class="me-subtitle">Cards contain content and actions about a single subject.</p>
+
+<h2>Basic</h2>
+<section class="demo-section">
+  <me-card style="max-width:345px;width:100%">
+    <me-card-content>
+      <me-typography variant="h5" style="margin-bottom:8px">Lizard</me-typography>
+      <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+        Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all
+        continents except Antarctica.
+      </me-typography>
+    </me-card-content>
+    <me-card-actions>
+      <me-button>Learn More</me-button>
+      <me-button>Share</me-button>
+    </me-card-actions>
+  </me-card>
+</section>
+<code-sample>
+&lt;me-card&gt;
+  &lt;me-card-content&gt;
+    &lt;me-typography variant="h5"&gt;Lizard&lt;/me-typography&gt;
+    &lt;me-typography variant="body2"&gt;...&lt;/me-typography&gt;
+  &lt;/me-card-content&gt;
+  &lt;me-card-actions&gt;
+    &lt;me-button&gt;Learn More&lt;/me-button&gt;
+    &lt;me-button&gt;Share&lt;/me-button&gt;
+  &lt;/me-card-actions&gt;
+&lt;/me-card&gt;
+</code-sample>
+
+<h2>With Media</h2>
+<section class="demo-section">
+  <me-card style="max-width:345px;width:100%">
+    <me-card-media image="https://images.unsplash.com/photo-1518791841217-8f162f1912da?w=400&q=80" height="140"></me-card-media>
+    <me-card-content>
+      <me-typography variant="h5" style="margin-bottom:8px">Shiba Inu</me-typography>
+      <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+      </me-typography>
+    </me-card-content>
+    <me-card-actions>
+      <me-button>Share</me-button>
+      <me-button>Learn More</me-button>
+    </me-card-actions>
+  </me-card>
+</section>
+
+<h2>With Header</h2>
+<section class="demo-section">
+  <me-card style="max-width:345px;width:100%">
+    <me-card-header title="Shrimp and Chorizo Paella" subheader="September 14, 2016">
+      <me-avatar slot="avatar" style="background-color:#f44336;width:40px;height:40px;font-size:1.25rem">R</me-avatar>
+      <me-icon-button slot="action" aria-label="settings">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"/></svg>
+      </me-icon-button>
+    </me-card-header>
+    <me-card-media image="https://images.unsplash.com/photo-1551183053-bf91798d047e?w=400&q=80" height="194"></me-card-media>
+    <me-card-content>
+      <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+        This impressive paella is a perfect party dish and a fun meal to cook together with your guests.
+      </me-typography>
+    </me-card-content>
+    <me-card-actions>
+      <me-icon-button aria-label="add to favorites">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z"/></svg>
+      </me-icon-button>
+      <me-icon-button aria-label="share">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92"/></svg>
+      </me-icon-button>
+    </me-card-actions>
+  </me-card>
+</section>
+
+<h2>Outlined</h2>
+<section class="demo-section">
+  <me-card variant="outlined" style="max-width:345px;width:100%">
+    <me-card-content>
+      <me-typography variant="subtitle1" style="margin-bottom:4px">Word of the Day</me-typography>
+      <me-typography variant="h5" style="margin-bottom:8px">be·nev·o·lent</me-typography>
+      <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+        adjective — well meaning and kindly.
+      </me-typography>
+    </me-card-content>
+    <me-card-actions>
+      <me-button>Learn More</me-button>
+    </me-card-actions>
+  </me-card>
+</section>
+
+<h2>API — Card</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>elevation | outlined</td><td>elevation</td><td>Card visual style. <code>outlined</code> replaces shadow with a border.</td></tr>
+    <tr><td><code>raised</code></td><td>boolean</td><td>false</td><td>Increased elevation shadow.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — CardHeader</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute / Slot</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>title</code></td><td>string</td><td>Primary heading text.</td></tr>
+    <tr><td><code>subheader</code></td><td>string</td><td>Secondary heading text.</td></tr>
+    <tr><td><code>slot="avatar"</code></td><td>element</td><td>Avatar element shown on the left.</td></tr>
+    <tr><td><code>slot="action"</code></td><td>element</td><td>Action element shown on the right.</td></tr>
+    <tr><td><code>slot="title"</code></td><td>element</td><td>Overrides the <code>title</code> attribute with custom content.</td></tr>
+    <tr><td><code>slot="subheader"</code></td><td>element</td><td>Overrides the <code>subheader</code> attribute with custom content.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — CardMedia</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>image</code></td><td>string</td><td>—</td><td>URL for the background image.</td></tr>
+    <tr><td><code>height</code></td><td>number | string</td><td>140</td><td>Height in px (number) or any CSS value.</td></tr>
+    <tr><td><code>alt</code></td><td>string</td><td>—</td><td>Alt text (used when <code>component="img"</code>).</td></tr>
+    <tr><td><code>component</code></td><td>div | img</td><td>div</td><td>Root element type. Use <code>img</code> for accessible images.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — CardActions</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>disable-spacing</code></td><td>boolean</td><td>false</td><td>Removes padding and gap between action buttons.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

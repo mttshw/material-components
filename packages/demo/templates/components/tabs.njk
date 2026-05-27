@@ -1,0 +1,105 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Tabs — materialelements.io" %}
+{% block content %}
+<h1>Tabs</h1>
+<p class="me-subtitle">Tabs organize content across different screens, data sets, and other interactions.</p>
+
+<h2>Basic</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;border:1px solid var(--demo-border)">
+  <me-tabs value="one">
+    <me-tab value="one" label="Item One"></me-tab>
+    <me-tab value="two" label="Item Two"></me-tab>
+    <me-tab value="three" label="Item Three"></me-tab>
+  </me-tabs>
+</section>
+<code-sample>
+&lt;me-tabs value="one"&gt;
+  &lt;me-tab value="one" label="Item One"&gt;&lt;/me-tab&gt;
+  &lt;me-tab value="two" label="Item Two"&gt;&lt;/me-tab&gt;
+  &lt;me-tab value="three" label="Item Three"&gt;&lt;/me-tab&gt;
+&lt;/me-tabs&gt;
+</code-sample>
+
+<h2>Centered</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;border:1px solid var(--demo-border)">
+  <me-tabs value="one" centered>
+    <me-tab value="one" label="Item One"></me-tab>
+    <me-tab value="two" label="Item Two"></me-tab>
+    <me-tab value="three" label="Item Three"></me-tab>
+  </me-tabs>
+</section>
+
+<h2>Full Width</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;border:1px solid var(--demo-border)">
+  <me-tabs value="one" variant="fullWidth">
+    <me-tab value="one" label="Item One"></me-tab>
+    <me-tab value="two" label="Item Two"></me-tab>
+    <me-tab value="three" label="Item Three"></me-tab>
+  </me-tabs>
+</section>
+
+<h2>On Colored Background (App Bar style)</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden">
+  <me-tabs value="one" indicator-color="inherit" style="background:var(--me-palette-primary-main,#1976d2);color:#fff">
+    <me-tab value="one" label="Item One"></me-tab>
+    <me-tab value="two" label="Item Two"></me-tab>
+    <me-tab value="three" label="Item Three"></me-tab>
+  </me-tabs>
+</section>
+
+<h2>Secondary Indicator Color</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;border:1px solid var(--demo-border)">
+  <me-tabs value="one" indicator-color="secondary">
+    <me-tab value="one" label="Item One"></me-tab>
+    <me-tab value="two" label="Item Two"></me-tab>
+    <me-tab value="three" label="Item Three"></me-tab>
+  </me-tabs>
+</section>
+
+<h2>Disabled Tab</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0;padding:0;overflow:hidden;border:1px solid var(--demo-border)">
+  <me-tabs value="one">
+    <me-tab value="one" label="Active"></me-tab>
+    <me-tab value="two" label="Disabled" disabled></me-tab>
+    <me-tab value="three" label="Active"></me-tab>
+  </me-tabs>
+</section>
+
+<h2>API — Tabs</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>value</code></td><td>string</td><td>—</td><td>The value of the currently selected tab.</td></tr>
+    <tr><td><code>variant</code></td><td>standard | scrollable | fullWidth</td><td>standard</td><td>Layout variant.</td></tr>
+    <tr><td><code>centered</code></td><td>boolean</td><td>false</td><td>Center the tab list.</td></tr>
+    <tr><td><code>indicator-color</code></td><td>primary | secondary | inherit</td><td>primary</td><td>Ink bar color. Use <code>inherit</code> for colored backgrounds.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — Tab</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>value</code></td><td>string</td><td>index</td><td>Value passed to parent Tabs on selection.</td></tr>
+    <tr><td><code>label</code></td><td>string</td><td>—</td><td>Tab label text (or use slot content).</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables the tab.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-change</code></td><td><code>{ value }</code></td><td>Fired on the Tabs element when the selected tab changes.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.querySelectorAll('me-tabs').forEach(tabs => {
+    tabs.addEventListener('me-change', e => {
+      console.log('Tab changed:', e.detail.value);
+    });
+  });
+</script>
+{% endblock %}

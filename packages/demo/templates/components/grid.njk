@@ -1,0 +1,116 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Grid — materialelements.io" %}
+{% block content %}
+<h1>Grid</h1>
+<p class="me-subtitle">Grid implements a responsive 12-column layout using CSS flexbox. It supports container/item roles with breakpoint-based column spanning.</p>
+
+<style>
+  .grid-item-inner {
+    background-color: var(--me-palette-primary-main, #1976d2);
+    color: #fff;
+    padding: 8px;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+</style>
+
+<h2>Basic Grid</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch">
+  <me-grid container spacing="2" style="width:100%">
+    <me-grid item xs="12" sm="6" md="3">
+      <div class="grid-item-inner">xs=12 sm=6 md=3</div>
+    </me-grid>
+    <me-grid item xs="12" sm="6" md="3">
+      <div class="grid-item-inner">xs=12 sm=6 md=3</div>
+    </me-grid>
+    <me-grid item xs="12" sm="6" md="3">
+      <div class="grid-item-inner">xs=12 sm=6 md=3</div>
+    </me-grid>
+    <me-grid item xs="12" sm="6" md="3">
+      <div class="grid-item-inner">xs=12 sm=6 md=3</div>
+    </me-grid>
+  </me-grid>
+</section>
+<code-sample>
+&lt;me-grid container spacing="2"&gt;
+  &lt;me-grid item xs="12" sm="6" md="3"&gt;content&lt;/me-grid&gt;
+  &lt;me-grid item xs="12" sm="6" md="3"&gt;content&lt;/me-grid&gt;
+  &lt;me-grid item xs="12" sm="6" md="3"&gt;content&lt;/me-grid&gt;
+  &lt;me-grid item xs="12" sm="6" md="3"&gt;content&lt;/me-grid&gt;
+&lt;/me-grid&gt;
+</code-sample>
+
+<h2>Variable Column Spans</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch">
+  <me-grid container spacing="2" style="width:100%">
+    <me-grid item xs="8"><div class="grid-item-inner">xs=8</div></me-grid>
+    <me-grid item xs="4"><div class="grid-item-inner">xs=4</div></me-grid>
+    <me-grid item xs="4"><div class="grid-item-inner">xs=4</div></me-grid>
+    <me-grid item xs="8"><div class="grid-item-inner">xs=8</div></me-grid>
+    <me-grid item xs="12"><div class="grid-item-inner">xs=12</div></me-grid>
+  </me-grid>
+</section>
+
+<h2>Auto Layout</h2>
+<p>Use <code>xs="true"</code> to allow items to grow and share available space equally.</p>
+<section class="demo-section" style="flex-direction:column;align-items:stretch">
+  <me-grid container spacing="2" style="width:100%">
+    <me-grid item xs="true"><div class="grid-item-inner">auto</div></me-grid>
+    <me-grid item xs="6"><div class="grid-item-inner">xs=6</div></me-grid>
+    <me-grid item xs="true"><div class="grid-item-inner">auto</div></me-grid>
+  </me-grid>
+</section>
+<code-sample>
+&lt;me-grid container spacing="2"&gt;
+  &lt;me-grid item xs="true"&gt;auto&lt;/me-grid&gt;
+  &lt;me-grid item xs="6"&gt;xs=6&lt;/me-grid&gt;
+  &lt;me-grid item xs="true"&gt;auto&lt;/me-grid&gt;
+&lt;/me-grid&gt;
+</code-sample>
+
+<h2>Spacing</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:24px">
+  <div>
+    <me-typography variant="caption" style="display:block;margin-bottom:8px;color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">spacing="0"</me-typography>
+    <me-grid container spacing="0" style="width:100%">
+      <me-grid item xs="4"><div class="grid-item-inner">A</div></me-grid>
+      <me-grid item xs="4"><div class="grid-item-inner">B</div></me-grid>
+      <me-grid item xs="4"><div class="grid-item-inner">C</div></me-grid>
+    </me-grid>
+  </div>
+  <div>
+    <me-typography variant="caption" style="display:block;margin-bottom:8px;color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">spacing="4"</me-typography>
+    <me-grid container spacing="4" style="width:100%">
+      <me-grid item xs="4"><div class="grid-item-inner">A</div></me-grid>
+      <me-grid item xs="4"><div class="grid-item-inner">B</div></me-grid>
+      <me-grid item xs="4"><div class="grid-item-inner">C</div></me-grid>
+    </me-grid>
+  </div>
+</section>
+
+<h2>API — Container</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>container</code></td><td>boolean</td><td>false</td><td>Makes this element a flex container.</td></tr>
+    <tr><td><code>spacing</code></td><td>number | CSS value</td><td>0</td><td>Gap between items. Numbers are multiplied by 8px.</td></tr>
+    <tr><td><code>direction</code></td><td>row | column | row-reverse | column-reverse</td><td>row</td><td>Flex direction.</td></tr>
+    <tr><td><code>justify</code></td><td>flex-start | flex-end | center | space-between | space-around</td><td>flex-start</td><td>Main-axis justification.</td></tr>
+    <tr><td><code>align</code></td><td>flex-start | flex-end | center | stretch | baseline</td><td>stretch</td><td>Cross-axis alignment.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — Item</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>item</code></td><td>boolean</td><td>Makes this a grid item (implicit when no <code>container</code>).</td></tr>
+    <tr><td><code>xs</code></td><td>1–12 | auto | true</td><td>Column span at xs breakpoint (≥0px).</td></tr>
+    <tr><td><code>sm</code></td><td>1–12 | auto | true</td><td>Column span at sm breakpoint (≥600px).</td></tr>
+    <tr><td><code>md</code></td><td>1–12 | auto | true</td><td>Column span at md breakpoint (≥900px).</td></tr>
+    <tr><td><code>lg</code></td><td>1–12 | auto | true</td><td>Column span at lg breakpoint (≥1200px).</td></tr>
+    <tr><td><code>xl</code></td><td>1–12 | auto | true</td><td>Column span at xl breakpoint (≥1536px).</td></tr>
+  </tbody>
+</table>
+{% endblock %}

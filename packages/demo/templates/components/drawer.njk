@@ -1,0 +1,99 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Drawer — materialelements.io" %}
+{% block content %}
+<h1>Drawer</h1>
+<p class="me-subtitle">Navigation drawers provide access to destinations in your app. Side sheets are surfaces containing supplementary content that are anchored to the left or right edge of the screen.</p>
+
+<h2>Temporary (Left)</h2>
+<section class="demo-section">
+  <me-button variant="outlined" id="open-left-drawer">Open Left Drawer</me-button>
+  <me-drawer id="left-drawer">
+    <div style="padding:16px;min-width:250px">
+      <div style="padding:8px 0 16px;font-size:1.25rem;font-weight:500;border-bottom:1px solid var(--demo-border)">Menu</div>
+      <nav style="padding-top:8px">
+        <a href="#" style="display:block;padding:10px 8px;color:inherit;text-decoration:none;border-radius:4px">Home</a>
+        <a href="#" style="display:block;padding:10px 8px;color:inherit;text-decoration:none;border-radius:4px">Profile</a>
+        <a href="#" style="display:block;padding:10px 8px;color:inherit;text-decoration:none;border-radius:4px">Settings</a>
+      </nav>
+    </div>
+  </me-drawer>
+</section>
+
+<h2>Temporary (Right)</h2>
+<section class="demo-section">
+  <me-button variant="outlined" id="open-right-drawer">Open Right Drawer</me-button>
+  <me-drawer id="right-drawer" anchor="right">
+    <div style="padding:16px;min-width:250px">
+      <div style="padding:8px 0 16px;font-size:1.25rem;font-weight:500;border-bottom:1px solid var(--demo-border)">Filters</div>
+      <nav style="padding-top:8px">
+        <a href="#" style="display:block;padding:10px 8px;color:inherit;text-decoration:none">Category A</a>
+        <a href="#" style="display:block;padding:10px 8px;color:inherit;text-decoration:none">Category B</a>
+        <a href="#" style="display:block;padding:10px 8px;color:inherit;text-decoration:none">Category C</a>
+      </nav>
+    </div>
+  </me-drawer>
+</section>
+
+<h2>Temporary (Bottom)</h2>
+<section class="demo-section">
+  <me-button variant="outlined" id="open-bottom-drawer">Open Bottom Drawer</me-button>
+  <me-drawer id="bottom-drawer" anchor="bottom">
+    <div style="padding:16px">
+      <div style="padding:8px 0 16px;font-size:1rem;font-weight:500;border-bottom:1px solid var(--demo-border)">Options</div>
+      <div style="display:flex;gap:16px;padding-top:16px;flex-wrap:wrap">
+        <me-button>Share</me-button>
+        <me-button>Get Link</me-button>
+        <me-button>Edit</me-button>
+        <me-button>Delete</me-button>
+      </div>
+    </div>
+  </me-drawer>
+</section>
+<code-sample>
+&lt;me-button id="open-drawer"&gt;Open Drawer&lt;/me-button&gt;
+&lt;me-drawer id="my-drawer" anchor="left"&gt;
+  &lt;div style="padding:16px;min-width:250px"&gt;
+    &lt;!-- drawer content --&gt;
+  &lt;/div&gt;
+&lt;/me-drawer&gt;
+
+&lt;script&gt;
+  const drawer = document.getElementById('my-drawer');
+  document.getElementById('open-drawer').addEventListener('click', () =&gt; {
+    drawer.open = true;
+  });
+  drawer.addEventListener('me-close', () =&gt; {
+    drawer.open = false;
+  });
+&lt;/script&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>open</code></td><td>boolean</td><td>false</td><td>Whether the drawer is open.</td></tr>
+    <tr><td><code>anchor</code></td><td>left | right | top | bottom</td><td>left</td><td>Side the drawer opens from.</td></tr>
+    <tr><td><code>variant</code></td><td>temporary | persistent | permanent</td><td>temporary</td><td>Drawer behavior variant.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-close</code></td><td><code>{ reason }</code></td><td>Fired when backdrop is clicked or Escape is pressed.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  ['left','right','bottom'].forEach(anchor => {
+    const btn = document.getElementById(`open-${anchor}-drawer`);
+    const drawer = document.getElementById(`${anchor}-drawer`);
+    if (!btn || !drawer) return;
+    btn.addEventListener('click', () => { drawer.open = true; });
+    drawer.addEventListener('me-close', () => { drawer.open = false; });
+  });
+</script>
+{% endblock %}

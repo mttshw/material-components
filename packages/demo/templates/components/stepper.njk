@@ -1,0 +1,154 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Stepper — materialelements.io" %}
+{% block content %}
+<h1>Stepper</h1>
+<p class="me-subtitle">Steppers convey progress through numbered steps. They provide a wizard-like workflow by dividing content into logical steps.</p>
+
+<h2>Horizontal Stepper</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:24px">
+  <me-stepper active-step="1" id="stepper-h">
+    <me-step>
+      <me-step-label>Select campaign settings</me-step-label>
+    </me-step>
+    <me-step>
+      <me-step-label>Create an ad group</me-step-label>
+    </me-step>
+    <me-step>
+      <me-step-label>Create an ad</me-step-label>
+    </me-step>
+  </me-stepper>
+
+  <div style="display:flex;gap:8px;justify-content:center">
+    <me-button variant="outlined" id="h-back" disabled>Back</me-button>
+    <me-button variant="contained" id="h-next">Next</me-button>
+  </div>
+</section>
+<code-sample>
+&lt;me-stepper active-step="1"&gt;
+  &lt;me-step&gt;&lt;me-step-label&gt;Step One&lt;/me-step-label&gt;&lt;/me-step&gt;
+  &lt;me-step&gt;&lt;me-step-label&gt;Step Two&lt;/me-step-label&gt;&lt;/me-step&gt;
+  &lt;me-step&gt;&lt;me-step-label&gt;Step Three&lt;/me-step-label&gt;&lt;/me-step&gt;
+&lt;/me-stepper&gt;
+</code-sample>
+
+<h2>Vertical Stepper</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch">
+  <me-stepper orientation="vertical" active-step="1" id="stepper-v">
+    <me-step>
+      <me-step-label>Select campaign settings</me-step-label>
+      <me-step-content>
+        <me-typography variant="body2">
+          For each ad campaign that you create, you can control how much you're willing to spend on clicks and conversions.
+        </me-typography>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <me-button variant="contained" size="small" class="v-next">Continue</me-button>
+          <me-button variant="outlined" size="small" class="v-back" disabled>Back</me-button>
+        </div>
+      </me-step-content>
+    </me-step>
+    <me-step>
+      <me-step-label>Create an ad group</me-step-label>
+      <me-step-content>
+        <me-typography variant="body2">
+          An ad group contains one or more ads which target a shared set of keywords.
+        </me-typography>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <me-button variant="contained" size="small" class="v-next">Continue</me-button>
+          <me-button variant="outlined" size="small" class="v-back">Back</me-button>
+        </div>
+      </me-step-content>
+    </me-step>
+    <me-step>
+      <me-step-label>Create an ad</me-step-label>
+      <me-step-content>
+        <me-typography variant="body2">
+          Try out different ad text to see what brings in the most customers.
+        </me-typography>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <me-button variant="contained" size="small" class="v-next">Finish</me-button>
+          <me-button variant="outlined" size="small" class="v-back">Back</me-button>
+        </div>
+      </me-step-content>
+    </me-step>
+  </me-stepper>
+</section>
+<code-sample>
+&lt;me-stepper orientation="vertical" active-step="0"&gt;
+  &lt;me-step&gt;
+    &lt;me-step-label&gt;Step One&lt;/me-step-label&gt;
+    &lt;me-step-content&gt;
+      Content for step one...
+      &lt;me-button variant="contained"&gt;Continue&lt;/me-button&gt;
+    &lt;/me-step-content&gt;
+  &lt;/me-step&gt;
+&lt;/me-stepper&gt;
+</code-sample>
+
+<h2>Error Step</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch">
+  <me-stepper active-step="1">
+    <me-step>
+      <me-step-label>Step One</me-step-label>
+    </me-step>
+    <me-step error>
+      <me-step-label error>Error: Required fields missing</me-step-label>
+    </me-step>
+    <me-step>
+      <me-step-label>Step Three</me-step-label>
+    </me-step>
+  </me-stepper>
+</section>
+
+<h2>API — Stepper</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>active-step</code></td><td>number</td><td>0</td><td>Zero-based index of the active step.</td></tr>
+    <tr><td><code>orientation</code></td><td>horizontal | vertical</td><td>horizontal</td><td>Layout direction.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — Step</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>active</code></td><td>boolean</td><td>Set automatically by the stepper. Can be set manually for uncontrolled usage.</td></tr>
+    <tr><td><code>completed</code></td><td>boolean</td><td>Set automatically for steps before active-step.</td></tr>
+    <tr><td><code>error</code></td><td>boolean</td><td>Marks the step with an error indicator.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  // Horizontal stepper
+  const hStepper = document.getElementById('stepper-h');
+  const hBack = document.getElementById('h-back');
+  const hNext = document.getElementById('h-next');
+  let hStep = 1;
+  function updateH() {
+    hStepper.setAttribute('active-step', hStep);
+    hBack.disabled = hStep === 0;
+    hNext.textContent = hStep === 2 ? 'Finish' : 'Next';
+    hNext.disabled = hStep > 2;
+  }
+  hBack.addEventListener('click', () => { hStep = Math.max(0, hStep - 1); updateH(); });
+  hNext.addEventListener('click', () => { hStep = Math.min(3, hStep + 1); updateH(); });
+
+  // Vertical stepper
+  const vStepper = document.getElementById('stepper-v');
+  let vStep = 1;
+  function updateV() {
+    vStepper.setAttribute('active-step', vStep);
+    document.querySelectorAll('#stepper-v .v-back').forEach((btn, i) => {
+      const stepIdx = Array.from(vStepper.querySelectorAll('me-step')).indexOf(btn.closest('me-step'));
+      btn.disabled = stepIdx === 0;
+    });
+  }
+  vStepper.querySelectorAll('.v-next').forEach((btn, i) => {
+    btn.addEventListener('click', () => { vStep = Math.min(3, vStep + 1); updateV(); });
+  });
+  vStepper.querySelectorAll('.v-back').forEach((btn, i) => {
+    btn.addEventListener('click', () => { vStep = Math.max(0, vStep - 1); updateV(); });
+  });
+</script>
+{% endblock %}

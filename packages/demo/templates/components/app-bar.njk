@@ -1,0 +1,76 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "App Bar — materialelements.io" %}
+{% block content %}
+<h1>App Bar</h1>
+<p class="me-subtitle">The App Bar displays information and actions relating to the current screen.</p>
+
+<h2>Basic</h2>
+<section class="demo-section" style="flex-direction:column;gap:16px;align-items:stretch">
+  <me-app-bar position="static" style="border-radius:4px">
+    <me-toolbar>
+      <span style="font-size:1.25rem;font-weight:500">materialelements.io</span>
+      <span style="flex:1"></span>
+      <me-icon-button aria-label="search">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14"/></svg>
+      </me-icon-button>
+      <me-icon-button aria-label="more">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2m0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2m0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2"/></svg>
+      </me-icon-button>
+    </me-toolbar>
+  </me-app-bar>
+</section>
+<code-sample>
+&lt;me-app-bar position="static"&gt;
+  &lt;me-toolbar&gt;
+    &lt;span&gt;Title&lt;/span&gt;
+    &lt;span style="flex:1"&gt;&lt;/span&gt;
+    &lt;me-icon-button aria-label="search"&gt;...&lt;/me-icon-button&gt;
+  &lt;/me-toolbar&gt;
+&lt;/me-app-bar&gt;
+</code-sample>
+
+<h2>Colors</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:stretch">
+  <me-app-bar position="static" style="border-radius:4px">
+    <me-toolbar><span style="font-weight:500">Primary (default)</span></me-toolbar>
+  </me-app-bar>
+  <me-app-bar position="static" color="secondary" style="border-radius:4px">
+    <me-toolbar><span style="font-weight:500">Secondary</span></me-toolbar>
+  </me-app-bar>
+  <me-app-bar position="static" color="default" style="border-radius:4px">
+    <me-toolbar><span style="font-weight:500">Default</span></me-toolbar>
+  </me-app-bar>
+  <me-app-bar position="static" color="transparent" style="border-radius:4px;border:1px dashed rgba(0,0,0,0.2)">
+    <me-toolbar><span style="font-weight:500">Transparent</span></me-toolbar>
+  </me-app-bar>
+</section>
+
+<h2>Toolbar Variants</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:stretch">
+  <me-app-bar position="static" style="border-radius:4px">
+    <me-toolbar><span style="font-weight:500">Regular (64px)</span></me-toolbar>
+  </me-app-bar>
+  <me-app-bar position="static" style="border-radius:4px">
+    <me-toolbar variant="dense"><span style="font-weight:500">Dense (48px)</span></me-toolbar>
+  </me-app-bar>
+</section>
+
+<h2>API — App Bar</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>position</code></td><td>fixed | absolute | sticky | static | relative</td><td>fixed</td><td>Positioning strategy.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary | default | inherit | transparent</td><td>primary</td><td>Background color.</td></tr>
+    <tr><td><code>elevation</code></td><td>0 | 1 | 2</td><td>—</td><td>Override shadow depth.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — Toolbar</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>regular | dense</td><td>regular</td><td>dense reduces min-height to 48px.</td></tr>
+    <tr><td><code>disable-gutters</code></td><td>boolean</td><td>false</td><td>Remove horizontal padding.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

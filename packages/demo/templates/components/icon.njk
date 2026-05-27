@@ -1,0 +1,90 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Icon — materialelements.io" %}
+{% block content %}
+<h1>Icon</h1>
+<p class="me-subtitle">The Icon component renders SVG icons with consistent sizing and color. Pass any SVG as its child.</p>
+
+<h2>Basic</h2>
+<section class="demo-section">
+  <me-icon>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="m12 21.35-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54z"/></svg>
+  </me-icon>
+  <me-icon>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+  </me-icon>
+</section>
+<code-sample>
+&lt;me-icon&gt;
+  &lt;svg viewBox="0 0 24 24" fill="currentColor"&gt;...&lt;/svg&gt;
+&lt;/me-icon&gt;
+</code-sample>
+
+<h2>Colors</h2>
+<section class="demo-section">
+  <me-icon>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon color="primary">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon color="secondary">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon color="error">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon color="warning">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon color="success">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon color="action">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+  <me-icon color="disabled">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </me-icon>
+</section>
+<code-sample>
+&lt;me-icon color="primary"&gt;...&lt;/me-icon&gt;
+&lt;me-icon color="secondary"&gt;...&lt;/me-icon&gt;
+&lt;me-icon color="error"&gt;...&lt;/me-icon&gt;
+&lt;me-icon color="action"&gt;...&lt;/me-icon&gt;
+&lt;me-icon color="disabled"&gt;...&lt;/me-icon&gt;
+</code-sample>
+
+<h2>Font Sizes</h2>
+<section class="demo-section" style="align-items:center">
+  <me-icon font-size="small">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+  </me-icon>
+  <me-icon font-size="medium">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+  </me-icon>
+  <me-icon font-size="large">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+  </me-icon>
+  <me-icon font-size="inherit" style="font-size:3rem">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27 18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+  </me-icon>
+</section>
+<code-sample>
+&lt;me-icon font-size="small"&gt;...&lt;/me-icon&gt;
+&lt;me-icon font-size="medium"&gt;...&lt;/me-icon&gt;
+&lt;me-icon font-size="large"&gt;...&lt;/me-icon&gt;
+&lt;me-icon font-size="inherit"&gt;...&lt;/me-icon&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>color</code></td><td>inherit | primary | secondary | action | error | warning | info | success | disabled</td><td>inherit</td><td>Icon color.</td></tr>
+    <tr><td><code>font-size</code></td><td>inherit | small | medium | large</td><td>medium</td><td>Controls the icon size via <code>font-size</code>.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

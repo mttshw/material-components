@@ -1,0 +1,427 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Theme Editor — materialelements.io" %}
+{% block content %}
+<h1>Theme Editor</h1>
+<p class="me-subtitle">Customize the color palette, shape, and typography. Changes apply instantly across the whole demo site.</p>
+
+<style>
+  .theme-editor {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+  @media (max-width: 900px) {
+    .theme-editor { grid-template-columns: 1fr; }
+  }
+  .theme-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .theme-section h3 {
+    margin: 0 0 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+  .color-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .color-row label {
+    width: 110px;
+    font-size: 0.875rem;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    flex-shrink: 0;
+  }
+  .color-row input[type="color"] {
+    width: 48px;
+    height: 32px;
+    border: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px;
+    background: none;
+  }
+  .color-hex {
+    font-size: 0.75rem;
+    font-family: monospace;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+    width: 60px;
+  }
+  .color-preview {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .slider-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .slider-row label {
+    width: 110px;
+    font-size: 0.875rem;
+    flex-shrink: 0;
+  }
+  .slider-row input[type="range"] {
+    flex: 1;
+    accent-color: var(--me-palette-primary-main, #1976d2);
+  }
+  .slider-value {
+    font-size: 0.75rem;
+    font-family: monospace;
+    width: 40px;
+    text-align: right;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+  .theme-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .theme-json {
+    width: 100%;
+    min-height: 120px;
+    font-family: monospace;
+    font-size: 0.75rem;
+    padding: 12px;
+    border: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+    border-radius: 4px;
+    background: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    resize: vertical;
+    box-sizing: border-box;
+  }
+  .preview-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .preview-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+  }
+</style>
+
+<div class="theme-editor">
+  <!-- Left: Controls -->
+  <div>
+    <div class="theme-section">
+      <h3>Palette</h3>
+
+      <div class="color-row">
+        <label>Primary</label>
+        <input type="color" id="color-primary" value="#1976d2">
+        <span class="color-hex" id="hex-primary">#1976d2</span>
+        <span class="color-preview" id="preview-primary" style="background:#1976d2"></span>
+      </div>
+      <div class="color-row">
+        <label>Secondary</label>
+        <input type="color" id="color-secondary" value="#9c27b0">
+        <span class="color-hex" id="hex-secondary">#9c27b0</span>
+        <span class="color-preview" id="preview-secondary" style="background:#9c27b0"></span>
+      </div>
+      <div class="color-row">
+        <label>Error</label>
+        <input type="color" id="color-error" value="#d32f2f">
+        <span class="color-hex" id="hex-error">#d32f2f</span>
+        <span class="color-preview" id="preview-error" style="background:#d32f2f"></span>
+      </div>
+      <div class="color-row">
+        <label>Warning</label>
+        <input type="color" id="color-warning" value="#ed6c02">
+        <span class="color-hex" id="hex-warning">#ed6c02</span>
+        <span class="color-preview" id="preview-warning" style="background:#ed6c02"></span>
+      </div>
+      <div class="color-row">
+        <label>Info</label>
+        <input type="color" id="color-info" value="#0288d1">
+        <span class="color-hex" id="hex-info">#0288d1</span>
+        <span class="color-preview" id="preview-info" style="background:#0288d1"></span>
+      </div>
+      <div class="color-row">
+        <label>Success</label>
+        <input type="color" id="color-success" value="#2e7d32">
+        <span class="color-hex" id="hex-success">#2e7d32</span>
+        <span class="color-preview" id="preview-success" style="background:#2e7d32"></span>
+      </div>
+    </div>
+
+    <me-divider style="margin:24px 0"></me-divider>
+
+    <div class="theme-section">
+      <h3>Shape &amp; Spacing</h3>
+      <div class="slider-row">
+        <label>Border Radius</label>
+        <input type="range" id="border-radius" min="0" max="20" step="1" value="4">
+        <span class="slider-value" id="val-border-radius">4px</span>
+      </div>
+      <div class="slider-row">
+        <label>Spacing Unit</label>
+        <input type="range" id="spacing" min="4" max="16" step="1" value="8">
+        <span class="slider-value" id="val-spacing">8px</span>
+      </div>
+    </div>
+
+    <me-divider style="margin:24px 0"></me-divider>
+
+    <div class="theme-section">
+      <h3>Export / Import</h3>
+      <textarea class="theme-json" id="theme-json" spellcheck="false" placeholder="Theme JSON will appear here..."></textarea>
+      <div class="theme-actions">
+        <me-button variant="contained" id="btn-export">Export JSON</me-button>
+        <me-button variant="outlined" id="btn-import">Apply JSON</me-button>
+        <me-button variant="outlined" color="error" id="btn-reset">Reset</me-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right: Live Preview -->
+  <div class="preview-section">
+    <h3 style="font-size:0.875rem;font-weight:500;text-transform:uppercase;letter-spacing:0.08em;color:var(--me-palette-text-secondary,rgba(0,0,0,0.6));margin:0">Live Preview</h3>
+
+    <div>
+      <me-typography variant="overline" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Buttons</me-typography>
+      <div class="preview-row" style="margin-top:8px">
+        <me-button variant="contained">Primary</me-button>
+        <me-button variant="contained" color="secondary">Secondary</me-button>
+        <me-button variant="outlined">Outlined</me-button>
+        <me-button>Text</me-button>
+      </div>
+    </div>
+
+    <div>
+      <me-typography variant="overline" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Status Buttons</me-typography>
+      <div class="preview-row" style="margin-top:8px">
+        <me-button variant="contained" color="error">Error</me-button>
+        <me-button variant="contained" color="warning">Warning</me-button>
+        <me-button variant="contained" color="info">Info</me-button>
+        <me-button variant="contained" color="success">Success</me-button>
+      </div>
+    </div>
+
+    <div>
+      <me-typography variant="overline" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Chips</me-typography>
+      <div class="preview-row" style="margin-top:8px">
+        <me-chip label="Default"></me-chip>
+        <me-chip label="Primary" color="primary"></me-chip>
+        <me-chip label="Secondary" color="secondary"></me-chip>
+        <me-chip label="Success" color="success"></me-chip>
+      </div>
+    </div>
+
+    <div>
+      <me-typography variant="overline" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Alerts</me-typography>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+        <me-alert severity="info">This is an info alert.</me-alert>
+        <me-alert severity="success">This is a success alert.</me-alert>
+        <me-alert severity="warning">This is a warning alert.</me-alert>
+        <me-alert severity="error">This is an error alert.</me-alert>
+      </div>
+    </div>
+
+    <div>
+      <me-typography variant="overline" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Card</me-typography>
+      <me-card style="max-width:300px;margin-top:8px">
+        <me-card-content>
+          <me-typography variant="h6" style="margin-bottom:4px">Card Title</me-typography>
+          <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+            Card content reflects the current theme palette and shape settings.
+          </me-typography>
+        </me-card-content>
+        <me-card-actions>
+          <me-button>Action</me-button>
+          <me-button color="secondary">Secondary</me-button>
+        </me-card-actions>
+      </me-card>
+    </div>
+
+    <div>
+      <me-typography variant="overline" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Form Controls</me-typography>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:8px">
+        <me-text-field variant="outlined" label="Text Field"></me-text-field>
+        <div style="display:flex;gap:16px;align-items:center">
+          <me-checkbox checked></me-checkbox>
+          <me-switch checked></me-switch>
+          <me-radio checked></me-radio>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <me-typography variant="overline" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Avatar &amp; Badge</me-typography>
+      <div class="preview-row" style="margin-top:8px">
+        <me-avatar style="background-color:var(--me-palette-primary-main,#1976d2)">P</me-avatar>
+        <me-avatar style="background-color:var(--me-palette-secondary-main,#9c27b0)">S</me-avatar>
+        <me-badge badgeContent="4" color="primary">
+          <me-icon-button aria-label="mail">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5z"/></svg>
+          </me-icon-button>
+        </me-badge>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+{% block scripts %}
+<script>
+(function() {
+  const provider = document.getElementById('app-theme');
+
+  // Current theme state (what we're building up)
+  let currentTheme = {
+    palette: {
+      primary: { main: '#1976d2' },
+      secondary: { main: '#9c27b0' },
+      error: { main: '#d32f2f' },
+      warning: { main: '#ed6c02' },
+      info: { main: '#0288d1' },
+      success: { main: '#2e7d32' },
+    }
+  };
+
+  // Auto-generate light/dark from a main color using simple luminance math
+  function lighten(hex, amount) {
+    const n = parseInt(hex.slice(1), 16);
+    const r = Math.min(255, ((n >> 16) & 0xff) + Math.round(255 * amount));
+    const g = Math.min(255, ((n >> 8)  & 0xff) + Math.round(255 * amount));
+    const b = Math.min(255, ( n        & 0xff) + Math.round(255 * amount));
+    return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+  }
+
+  function darken(hex, amount) {
+    const n = parseInt(hex.slice(1), 16);
+    const r = Math.max(0, ((n >> 16) & 0xff) - Math.round(255 * amount));
+    const g = Math.max(0, ((n >> 8)  & 0xff) - Math.round(255 * amount));
+    const b = Math.max(0, ( n        & 0xff) - Math.round(255 * amount));
+    return '#' + [r,g,b].map(v => v.toString(16).padStart(2,'0')).join('');
+  }
+
+  // Calculate contrast text color
+  function contrastText(hex) {
+    const n = parseInt(hex.slice(1), 16);
+    const r = (n >> 16) & 0xff;
+    const g = (n >> 8)  & 0xff;
+    const b =  n        & 0xff;
+    const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+    return luminance > 0.5 ? 'rgba(0,0,0,0.87)' : '#fff';
+  }
+
+  function applyTheme() {
+    if (provider) provider.theme = currentTheme;
+  }
+
+  // Color controls
+  const colorKeys = ['primary', 'secondary', 'error', 'warning', 'info', 'success'];
+  colorKeys.forEach(key => {
+    const input = document.getElementById('color-' + key);
+    const hexEl = document.getElementById('hex-' + key);
+    const previewEl = document.getElementById('preview-' + key);
+
+    input.addEventListener('input', () => {
+      const color = input.value;
+      hexEl.textContent = color;
+      previewEl.style.background = color;
+      currentTheme.palette[key] = {
+        main: color,
+        light: lighten(color, 0.3),
+        dark: darken(color, 0.2),
+        contrastText: contrastText(color),
+      };
+      applyTheme();
+    });
+  });
+
+  // Border radius
+  const brInput = document.getElementById('border-radius');
+  const brVal = document.getElementById('val-border-radius');
+  brInput.addEventListener('input', () => {
+    const v = brInput.value;
+    brVal.textContent = v + 'px';
+    currentTheme.shape = { borderRadius: parseInt(v) };
+    applyTheme();
+  });
+
+  // Spacing
+  const spInput = document.getElementById('spacing');
+  const spVal = document.getElementById('val-spacing');
+  spInput.addEventListener('input', () => {
+    const v = spInput.value;
+    spVal.textContent = v + 'px';
+    // Apply spacing via CSS var directly (theme provider exposes --me-spacing)
+    document.documentElement.style.setProperty('--me-spacing', v + 'px');
+  });
+
+  // Export
+  document.getElementById('btn-export').addEventListener('click', () => {
+    const textarea = document.getElementById('theme-json');
+    textarea.value = JSON.stringify(currentTheme, null, 2);
+  });
+
+  // Import / Apply JSON
+  document.getElementById('btn-import').addEventListener('click', () => {
+    const textarea = document.getElementById('theme-json');
+    try {
+      const parsed = JSON.parse(textarea.value);
+      // Merge parsed into currentTheme
+      currentTheme = parsed;
+      // Sync color inputs
+      colorKeys.forEach(key => {
+        const main = parsed?.palette?.[key]?.main;
+        if (main) {
+          const input = document.getElementById('color-' + key);
+          const hexEl = document.getElementById('hex-' + key);
+          const previewEl = document.getElementById('preview-' + key);
+          input.value = main;
+          hexEl.textContent = main;
+          previewEl.style.background = main;
+        }
+      });
+      if (parsed?.shape?.borderRadius != null) {
+        brInput.value = parsed.shape.borderRadius;
+        brVal.textContent = parsed.shape.borderRadius + 'px';
+      }
+      applyTheme();
+    } catch(e) {
+      alert('Invalid JSON: ' + e.message);
+    }
+  });
+
+  // Reset
+  document.getElementById('btn-reset').addEventListener('click', () => {
+    const defaults = {
+      primary: '#1976d2',
+      secondary: '#9c27b0',
+      error: '#d32f2f',
+      warning: '#ed6c02',
+      info: '#0288d1',
+      success: '#2e7d32',
+    };
+    currentTheme = { palette: {} };
+    colorKeys.forEach(key => {
+      const color = defaults[key];
+      document.getElementById('color-' + key).value = color;
+      document.getElementById('hex-' + key).textContent = color;
+      document.getElementById('preview-' + key).style.background = color;
+      currentTheme.palette[key] = { main: color };
+    });
+    brInput.value = 4;
+    brVal.textContent = '4px';
+    currentTheme.shape = { borderRadius: 4 };
+    spInput.value = 8;
+    spVal.textContent = '8px';
+    document.documentElement.style.setProperty('--me-spacing', '8px');
+    applyTheme();
+    document.getElementById('theme-json').value = '';
+  });
+})();
+</script>
+{% endblock %}

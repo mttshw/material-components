@@ -1,0 +1,77 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Pagination — materialelements.io" %}
+{% block content %}
+<h1>Pagination</h1>
+<p class="me-subtitle">The Pagination component enables the user to select a specific page from a range of pages.</p>
+
+<h2>Basic</h2>
+<section class="demo-section">
+  <me-pagination count="10" page="1"></me-pagination>
+</section>
+<code-sample>
+&lt;me-pagination count="10" page="1"&gt;&lt;/me-pagination&gt;
+</code-sample>
+
+<h2>Outlined</h2>
+<section class="demo-section">
+  <me-pagination count="10" page="3" variant="outlined"></me-pagination>
+</section>
+
+<h2>Rounded Shape</h2>
+<section class="demo-section">
+  <me-pagination count="10" page="5" shape="rounded"></me-pagination>
+</section>
+
+<h2>Sizes</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:flex-start">
+  <me-pagination count="10" page="1" size="small"></me-pagination>
+  <me-pagination count="10" page="1"></me-pagination>
+  <me-pagination count="10" page="1" size="large"></me-pagination>
+</section>
+
+<h2>Color</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:flex-start">
+  <me-pagination count="10" page="5" color="primary"></me-pagination>
+  <me-pagination count="10" page="5" color="secondary"></me-pagination>
+</section>
+
+<h2>Disabled</h2>
+<section class="demo-section">
+  <me-pagination count="10" page="3" disabled></me-pagination>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute / Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>count</code></td><td>number</td><td>1</td><td>Total number of pages.</td></tr>
+    <tr><td><code>page</code></td><td>number</td><td>1</td><td>Currently selected page.</td></tr>
+    <tr><td><code>variant</code></td><td>text | outlined</td><td>text</td><td>Visual style variant.</td></tr>
+    <tr><td><code>shape</code></td><td>circular | rounded</td><td>circular</td><td>Shape of page buttons.</td></tr>
+    <tr><td><code>size</code></td><td>small | medium | large</td><td>medium</td><td>Size of page buttons.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary</td><td>primary</td><td>Color of the selected page.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables all interactions.</td></tr>
+    <tr><td><code>sibling-count</code></td><td>number</td><td>1</td><td>Number of pages on each side of current page.</td></tr>
+    <tr><td><code>boundary-count</code></td><td>number</td><td>1</td><td>Number of pages at each end.</td></tr>
+    <tr><td><code>hide-prev</code></td><td>boolean</td><td>false</td><td>Hides the previous button.</td></tr>
+    <tr><td><code>hide-next</code></td><td>boolean</td><td>false</td><td>Hides the next button.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-change</code></td><td><code>{ page }</code></td><td>Fired when the selected page changes.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.querySelectorAll('me-pagination').forEach(p => {
+    p.addEventListener('me-change', e => {
+      console.log('Page changed:', e.detail.page);
+    });
+  });
+</script>
+{% endblock %}

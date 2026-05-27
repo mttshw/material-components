@@ -1,0 +1,149 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Accordion — materialelements.io" %}
+{% block content %}
+<h1>Accordion</h1>
+<p class="me-subtitle">Accordions contain creation flows and allow lightweight editing of an element.</p>
+
+<h2>Basic</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0">
+  <me-accordion>
+    <me-accordion-summary>Accordion 1</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+        sit amet blandit leo lobortis eget.
+      </me-typography>
+    </me-accordion-details>
+  </me-accordion>
+  <me-accordion>
+    <me-accordion-summary>Accordion 2</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+        sit amet blandit leo lobortis eget.
+      </me-typography>
+    </me-accordion-details>
+  </me-accordion>
+  <me-accordion>
+    <me-accordion-summary>Accordion 3</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+        sit amet blandit leo lobortis eget.
+      </me-typography>
+    </me-accordion-details>
+  </me-accordion>
+</section>
+<code-sample>
+&lt;me-accordion&gt;
+  &lt;me-accordion-summary&gt;Accordion 1&lt;/me-accordion-summary&gt;
+  &lt;me-accordion-details&gt;
+    &lt;me-typography&gt;Content goes here.&lt;/me-typography&gt;
+  &lt;/me-accordion-details&gt;
+&lt;/me-accordion&gt;
+</code-sample>
+
+<h2>Expanded by Default</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0">
+  <me-accordion>
+    <me-accordion-summary>Panel 1</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>Content for panel 1.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+  <me-accordion id="default-open">
+    <me-accordion-summary>Panel 2 (starts open)</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>This accordion starts expanded.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+  <me-accordion>
+    <me-accordion-summary>Panel 3</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>Content for panel 3.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+</section>
+
+<h2>Disabled</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0">
+  <me-accordion>
+    <me-accordion-summary>Normal Accordion</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>Content.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+  <me-accordion disabled>
+    <me-accordion-summary>Disabled Accordion</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>You can't open this one.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+</section>
+
+<h2>Controlled (only one open at a time)</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:0" id="exclusive-group">
+  <me-accordion data-panel="panel1">
+    <me-accordion-summary>General settings</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+  <me-accordion data-panel="panel2">
+    <me-accordion-summary>Users</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+  <me-accordion data-panel="panel3">
+    <me-accordion-summary>Advanced settings</me-accordion-summary>
+    <me-accordion-details>
+      <me-typography>Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer vulputate.</me-typography>
+    </me-accordion-details>
+  </me-accordion>
+</section>
+
+<h2>API — Accordion</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute / Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>expanded</code></td><td>boolean</td><td>false</td><td>Whether the accordion is open.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables expand/collapse interaction.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — AccordionSummary</h2>
+<table class="api-table">
+  <thead><tr><th>Slot</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>default</td><td>Summary label content.</td></tr>
+    <tr><td><code>expand-icon</code></td><td>Custom expand icon (replaces the default chevron).</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-change</code></td><td><code>{ expanded: boolean }</code></td><td>Fired on the Accordion when the expanded state changes.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  // Expanded by default demo
+  document.getElementById('default-open').expanded = true;
+
+  // Exclusive (only one open) group
+  const group = document.getElementById('exclusive-group');
+  group.querySelectorAll('me-accordion').forEach(acc => {
+    acc.addEventListener('me-change', e => {
+      if (e.detail.expanded) {
+        group.querySelectorAll('me-accordion').forEach(other => {
+          if (other !== acc) other.expanded = false;
+        });
+      }
+    });
+  });
+</script>
+{% endblock %}

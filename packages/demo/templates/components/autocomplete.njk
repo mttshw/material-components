@@ -1,0 +1,102 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Autocomplete — materialelements.io" %}
+{% block content %}
+<h1>Autocomplete</h1>
+<p class="me-subtitle">The autocomplete is a text input enhanced by a panel of suggested options.</p>
+
+<h2>Basic</h2>
+<section class="demo-section" style="min-height:200px;align-items:flex-start">
+  <me-autocomplete label="Movie" id="ac-basic" style="width:300px"></me-autocomplete>
+</section>
+<code-sample>
+&lt;me-autocomplete label="Movie" options='["The Godfather","Pulp Fiction","Schindler's List"]'&gt;&lt;/me-autocomplete&gt;
+</code-sample>
+
+<h2>With Options</h2>
+<section class="demo-section" style="min-height:200px;align-items:flex-start">
+  <me-autocomplete label="Country" id="ac-country" style="width:300px"
+    options='["Afghanistan","Albania","Algeria","Argentina","Australia","Austria","Belgium","Brazil","Canada","Chile","China","Colombia","Croatia","Czech Republic","Denmark","Egypt","Finland","France","Germany","Greece","Hungary","India","Indonesia","Iran","Iraq","Ireland","Israel","Italy","Japan","Jordan","Kenya","Malaysia","Mexico","Morocco","Netherlands","New Zealand","Nigeria","Norway","Pakistan","Peru","Philippines","Poland","Portugal","Romania","Russia","Saudi Arabia","South Africa","South Korea","Spain","Sweden","Switzerland","Thailand","Turkey","Ukraine","United Kingdom","United States","Venezuela","Vietnam"]'>
+  </me-autocomplete>
+</section>
+<code-sample>
+&lt;me-autocomplete label="Country" options='["France","Germany","Spain"]'&gt;&lt;/me-autocomplete&gt;
+</code-sample>
+
+<h2>Controlled Value</h2>
+<section class="demo-section" style="min-height:200px;align-items:flex-start;gap:16px">
+  <me-autocomplete label="Framework" id="ac-controlled" value="React" style="width:300px"
+    options='["React","Vue","Angular","Svelte","Solid","Ember","Backbone"]'>
+  </me-autocomplete>
+  <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
+    Selected: <strong id="ac-controlled-val">React</strong>
+  </me-typography>
+</section>
+<code-sample>
+&lt;me-autocomplete label="Framework" value="React"
+  options='["React","Vue","Angular","Svelte"]'&gt;
+&lt;/me-autocomplete&gt;
+</code-sample>
+
+<h2>Object Options</h2>
+<section class="demo-section" style="min-height:200px;align-items:flex-start">
+  <me-autocomplete label="Top 100 Films" id="ac-objects" style="width:300px"></me-autocomplete>
+</section>
+<code-sample>
+&lt;me-autocomplete label="Film" options='[
+  {"label":"The Godfather","value":"godfather"},
+  {"label":"Pulp Fiction","value":"pulp-fiction"}
+]'&gt;&lt;/me-autocomplete&gt;
+</code-sample>
+
+<h2>Disabled</h2>
+<section class="demo-section">
+  <me-autocomplete label="Disabled" disabled value="React" style="width:300px"
+    options='["React","Vue","Angular"]'>
+  </me-autocomplete>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>options</code></td><td>JSON string | string[] | {label,value}[]</td><td>—</td><td>Options to display in the dropdown.</td></tr>
+    <tr><td><code>value</code></td><td>string</td><td>—</td><td>Currently selected value.</td></tr>
+    <tr><td><code>label</code></td><td>string</td><td>—</td><td>Floating label text.</td></tr>
+    <tr><td><code>placeholder</code></td><td>string</td><td>—</td><td>Input placeholder.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables the input.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-change</code></td><td><code>{ value: string, label: string }</code></td><td>Fired when the user selects an option.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.getElementById('ac-basic').options = JSON.stringify([
+    "The Shawshank Redemption","The Godfather","The Dark Knight","12 Angry Men",
+    "Schindler's List","Pulp Fiction","The Lord of the Rings","The Good, the Bad and the Ugly",
+    "Fight Club","Forrest Gump","Inception","The Matrix","Interstellar","Parasite"
+  ]);
+
+  document.getElementById('ac-objects').options = JSON.stringify([
+    {label:"The Godfather",value:"godfather"},
+    {label:"The Shawshank Redemption",value:"shawshank"},
+    {label:"Pulp Fiction",value:"pulp-fiction"},
+    {label:"Schindler's List",value:"schindlers"},
+    {label:"The Dark Knight",value:"dark-knight"},
+    {label:"Forrest Gump",value:"forrest"},
+    {label:"Inception",value:"inception"},
+  ]);
+
+  const controlled = document.getElementById('ac-controlled');
+  const controlledVal = document.getElementById('ac-controlled-val');
+  controlled.addEventListener('me-change', e => {
+    controlledVal.textContent = e.detail.value;
+  });
+</script>
+{% endblock %}

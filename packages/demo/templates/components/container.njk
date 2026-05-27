@@ -1,0 +1,60 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Container — materialelements.io" %}
+{% block content %}
+<h1>Container</h1>
+<p class="me-subtitle">Container centers your content horizontally and sets a max-width. It is the most basic layout element.</p>
+
+<h2>Fluid (default)</h2>
+<p>A fluid container has no max-width by default — it stretches to fill its parent.</p>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;padding:0">
+  <me-container style="background:var(--me-palette-primary-light,rgba(25,118,210,0.12));padding:16px 0">
+    <div style="background:var(--me-palette-primary-main,#1976d2);color:white;padding:8px 16px;text-align:center;border-radius:4px">
+      <me-typography>fluid container</me-typography>
+    </div>
+  </me-container>
+</section>
+<code-sample>
+&lt;me-container&gt;
+  content
+&lt;/me-container&gt;
+</code-sample>
+
+<h2>Max-Width</h2>
+<p>Set <code>max-width</code> to a breakpoint keyword or any CSS value.</p>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;gap:8px;padding:0">
+  <me-container max-width="xs" style="background:var(--me-palette-primary-light,rgba(25,118,210,0.12));padding:8px 0">
+    <div style="background:var(--me-palette-primary-main,#1976d2);color:white;padding:6px 16px;text-align:center;border-radius:4px"><me-typography variant="body2">xs — 444px</me-typography></div>
+  </me-container>
+  <me-container max-width="sm" style="background:var(--me-palette-secondary-light,rgba(156,39,176,0.1));padding:8px 0">
+    <div style="background:var(--me-palette-secondary-main,#9c27b0);color:white;padding:6px 16px;text-align:center;border-radius:4px"><me-typography variant="body2">sm — 600px</me-typography></div>
+  </me-container>
+  <me-container max-width="md" style="background:var(--me-palette-success-light,rgba(46,125,50,0.1));padding:8px 0">
+    <div style="background:var(--me-palette-success-main,#2e7d32);color:white;padding:6px 16px;text-align:center;border-radius:4px"><me-typography variant="body2">md — 900px</me-typography></div>
+  </me-container>
+</section>
+<code-sample>
+&lt;me-container max-width="sm"&gt;content&lt;/me-container&gt;
+&lt;me-container max-width="md"&gt;content&lt;/me-container&gt;
+&lt;me-container max-width="lg"&gt;content&lt;/me-container&gt;
+</code-sample>
+
+<h2>Fixed</h2>
+<p>The <code>fixed</code> attribute locks the container to the current breakpoint's max-width rather than being fluid.</p>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;padding:0">
+  <me-container fixed style="background:var(--me-palette-warning-light,rgba(237,108,2,0.1));padding:8px 0">
+    <div style="background:var(--me-palette-warning-main,#ed6c02);color:white;padding:6px 16px;text-align:center;border-radius:4px"><me-typography variant="body2">fixed container</me-typography></div>
+  </me-container>
+</section>
+<code-sample>
+&lt;me-container fixed&gt;content&lt;/me-container&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>max-width</code></td><td>xs | sm | md | lg | xl | false | CSS value</td><td>—</td><td>Max-width constraint. Keyword maps to breakpoint px values.</td></tr>
+    <tr><td><code>fixed</code></td><td>boolean</td><td>false</td><td>Locks width to the current breakpoint.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

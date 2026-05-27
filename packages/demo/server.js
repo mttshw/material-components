@@ -73,6 +73,29 @@ env.addGlobal('nav', [
   { label: 'Circular Progress', href: '/components/circular-progress.html' },
   { label: 'Linear Progress', href: '/components/linear-progress.html' },
   { label: 'Skeleton', href: '/components/skeleton.html' },
+
+  { section: true, label: 'M6 — Surfaces' },
+  { label: 'Card', href: '/components/card.html' },
+  { label: 'Accordion', href: '/components/accordion.html' },
+
+  { section: true, label: 'M8 — Advanced' },
+  { label: 'Slider', href: '/components/slider.html' },
+  { label: 'Rating', href: '/components/rating.html' },
+  { label: 'Autocomplete', href: '/components/autocomplete.html' },
+  { label: 'Stepper', href: '/components/stepper.html' },
+  { label: 'Speed Dial', href: '/components/speed-dial.html' },
+  { label: 'Modal', href: '/components/modal.html' },
+  { label: 'Popover / Popper', href: '/components/popover.html' },
+  { label: 'Transitions', href: '/components/transitions.html' },
+
+  { section: true, label: 'M5 — Navigation' },
+  { label: 'App Bar', href: '/components/app-bar.html' },
+  { label: 'Tabs', href: '/components/tabs.html' },
+  { label: 'Drawer', href: '/components/drawer.html' },
+  { label: 'Menu', href: '/components/menu.html' },
+  { label: 'Breadcrumbs', href: '/components/breadcrumbs.html' },
+  { label: 'Pagination', href: '/components/pagination.html' },
+  { label: 'Bottom Navigation', href: '/components/bottom-navigation.html' },
 ]);
 
 function serveStatic(res, filePath) {

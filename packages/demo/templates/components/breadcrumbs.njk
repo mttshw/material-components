@@ -1,0 +1,56 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Breadcrumbs — materialelements.io" %}
+{% block content %}
+<h1>Breadcrumbs</h1>
+<p class="me-subtitle">Breadcrumbs allow users to make selections from a range of values and show the user's current location in a hierarchy.</p>
+
+<h2>Basic</h2>
+<section class="demo-section">
+  <me-breadcrumbs>
+    <a href="#">Home</a>
+    <a href="#">Catalog</a>
+    <span>Accessories</span>
+  </me-breadcrumbs>
+</section>
+<code-sample>
+&lt;me-breadcrumbs&gt;
+  &lt;a href="#"&gt;Home&lt;/a&gt;
+  &lt;a href="#"&gt;Catalog&lt;/a&gt;
+  &lt;span&gt;Accessories&lt;/span&gt;
+&lt;/me-breadcrumbs&gt;
+</code-sample>
+
+<h2>Custom Separator</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:flex-start">
+  <me-breadcrumbs separator=">">
+    <a href="#">Home</a>
+    <a href="#">Clothing</a>
+    <span>Tops</span>
+  </me-breadcrumbs>
+  <me-breadcrumbs separator="›">
+    <a href="#">Home</a>
+    <a href="#">Electronics</a>
+    <span>Cameras</span>
+  </me-breadcrumbs>
+</section>
+
+<h2>Collapsed (max-items)</h2>
+<section class="demo-section">
+  <me-breadcrumbs max-items="3">
+    <a href="#">Home</a>
+    <a href="#">Catalog</a>
+    <a href="#">Accessories</a>
+    <a href="#">New Collection</a>
+    <span>Belts</span>
+  </me-breadcrumbs>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>separator</code></td><td>string</td><td>/</td><td>Separator character between items.</td></tr>
+    <tr><td><code>max-items</code></td><td>number</td><td>8</td><td>Maximum items before collapsing with an expand button.</td></tr>
+  </tbody>
+</table>
+{% endblock %}

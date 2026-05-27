@@ -1,0 +1,102 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Slider — materialelements.io" %}
+{% block content %}
+<h1>Slider</h1>
+<p class="me-subtitle">Sliders allow users to make selections from a range of values.</p>
+
+<h2>Basic</h2>
+<section class="demo-section" style="flex-direction:column;padding:24px 48px">
+  <me-slider value="30" id="slider-basic"></me-slider>
+  <me-typography variant="body2" style="margin-top:4px;color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Value: <span id="slider-basic-val">30</span></me-typography>
+</section>
+<code-sample>
+&lt;me-slider value="30"&gt;&lt;/me-slider&gt;
+</code-sample>
+
+<h2>Colors</h2>
+<section class="demo-section" style="flex-direction:column;padding:24px 48px;gap:16px">
+  <me-slider value="40" color="primary"></me-slider>
+  <me-slider value="50" color="secondary"></me-slider>
+  <me-slider value="60" color="error"></me-slider>
+  <me-slider value="70" color="warning"></me-slider>
+  <me-slider value="80" color="success"></me-slider>
+</section>
+<code-sample>
+&lt;me-slider value="40" color="primary"&gt;&lt;/me-slider&gt;
+&lt;me-slider value="50" color="secondary"&gt;&lt;/me-slider&gt;
+&lt;me-slider value="60" color="error"&gt;&lt;/me-slider&gt;
+</code-sample>
+
+<h2>Small Size</h2>
+<section class="demo-section" style="flex-direction:column;padding:20px 48px">
+  <me-slider size="small" value="30"></me-slider>
+</section>
+<code-sample>
+&lt;me-slider size="small" value="30"&gt;&lt;/me-slider&gt;
+</code-sample>
+
+<h2>With Marks</h2>
+<section class="demo-section" style="flex-direction:column;padding:24px 48px">
+  <me-slider value="30" min="0" max="100" step="10" marks></me-slider>
+</section>
+<code-sample>
+&lt;me-slider value="30" min="0" max="100" step="10" marks&gt;&lt;/me-slider&gt;
+</code-sample>
+
+<h2>Value Label</h2>
+<section class="demo-section" style="flex-direction:column;padding:48px 48px 24px">
+  <me-slider value="50" value-label-display="on"></me-slider>
+</section>
+<code-sample>
+&lt;me-slider value="50" value-label-display="on"&gt;&lt;/me-slider&gt;
+&lt;me-slider value="50" value-label-display="auto"&gt;&lt;/me-slider&gt;
+&lt;me-slider value="50" value-label-display="off"&gt;&lt;/me-slider&gt;
+</code-sample>
+
+<h2>Min / Max / Step</h2>
+<section class="demo-section" style="flex-direction:column;padding:24px 48px">
+  <me-slider value="0.3" min="0" max="1" step="0.1" value-label-display="auto"></me-slider>
+</section>
+<code-sample>
+&lt;me-slider value="0.3" min="0" max="1" step="0.1" value-label-display="auto"&gt;&lt;/me-slider&gt;
+</code-sample>
+
+<h2>Disabled</h2>
+<section class="demo-section" style="flex-direction:column;padding:24px 48px">
+  <me-slider value="30" disabled></me-slider>
+</section>
+<code-sample>
+&lt;me-slider value="30" disabled&gt;&lt;/me-slider&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute / Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>value</code></td><td>number</td><td>0</td><td>Current value.</td></tr>
+    <tr><td><code>min</code></td><td>number</td><td>0</td><td>Minimum value.</td></tr>
+    <tr><td><code>max</code></td><td>number</td><td>100</td><td>Maximum value.</td></tr>
+    <tr><td><code>step</code></td><td>number</td><td>1</td><td>Granularity of steps.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary | error | warning | info | success</td><td>primary</td><td>Track and thumb color.</td></tr>
+    <tr><td><code>size</code></td><td>small | medium</td><td>medium</td><td>Slider size.</td></tr>
+    <tr><td><code>marks</code></td><td>boolean | JSON</td><td>—</td><td>Show tick marks. Pass JSON array for custom marks.</td></tr>
+    <tr><td><code>value-label-display</code></td><td>auto | on | off</td><td>auto</td><td>When to show the value label.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables interaction.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-change</code></td><td><code>{ value: number }</code></td><td>Fired when the value changes.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  const s = document.getElementById('slider-basic');
+  const v = document.getElementById('slider-basic-val');
+  s.addEventListener('me-change', e => { v.textContent = e.detail.value; });
+</script>
+{% endblock %}

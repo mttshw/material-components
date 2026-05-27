@@ -1,0 +1,109 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Bottom Navigation — materialelements.io" %}
+{% block content %}
+<h1>Bottom Navigation</h1>
+<p class="me-subtitle">Bottom navigation bars allow movement between primary destinations in an app.</p>
+
+<h2>Basic</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;padding:0;overflow:hidden">
+  <me-bottom-navigation value="recents" style="border-top:1px solid var(--demo-border)">
+    <me-bottom-nav-action value="recents" label="Recents">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M13 3a9 9 0 1 0 0 18A9 9 0 0 0 13 3m0 16a7 7 0 1 1 0-14 7 7 0 0 1 0 14m.5-9H12v5l4.25 2.52.75-1.23-3.5-2.07z"/></svg>
+    </me-bottom-nav-action>
+    <me-bottom-nav-action value="favorites" label="Favorites">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/></svg>
+    </me-bottom-nav-action>
+    <me-bottom-nav-action value="nearby" label="Nearby">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5"/></svg>
+    </me-bottom-nav-action>
+  </me-bottom-navigation>
+</section>
+<code-sample>
+&lt;me-bottom-navigation value="recents"&gt;
+  &lt;me-bottom-nav-action value="recents" label="Recents"&gt;
+    &lt;svg slot="icon" ...&gt;...&lt;/svg&gt;
+  &lt;/me-bottom-nav-action&gt;
+  &lt;me-bottom-nav-action value="favorites" label="Favorites"&gt;
+    &lt;svg slot="icon" ...&gt;...&lt;/svg&gt;
+  &lt;/me-bottom-nav-action&gt;
+  &lt;me-bottom-nav-action value="nearby" label="Nearby"&gt;
+    &lt;svg slot="icon" ...&gt;...&lt;/svg&gt;
+  &lt;/me-bottom-nav-action&gt;
+&lt;/me-bottom-navigation&gt;
+</code-sample>
+
+<h2>Show Labels</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;padding:0;overflow:hidden">
+  <me-bottom-navigation value="favorites" show-labels style="border-top:1px solid var(--demo-border)">
+    <me-bottom-nav-action value="recents" label="Recents">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M13 3a9 9 0 1 0 0 18A9 9 0 0 0 13 3m0 16a7 7 0 1 1 0-14 7 7 0 0 1 0 14m.5-9H12v5l4.25 2.52.75-1.23-3.5-2.07z"/></svg>
+    </me-bottom-nav-action>
+    <me-bottom-nav-action value="favorites" label="Favorites">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/></svg>
+    </me-bottom-nav-action>
+    <me-bottom-nav-action value="nearby" label="Nearby">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5"/></svg>
+    </me-bottom-nav-action>
+  </me-bottom-navigation>
+</section>
+
+<h2>With Disabled Action</h2>
+<section class="demo-section" style="flex-direction:column;align-items:stretch;padding:0;overflow:hidden">
+  <me-bottom-navigation value="recents" show-labels style="border-top:1px solid var(--demo-border)">
+    <me-bottom-nav-action value="recents" label="Recents">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M13 3a9 9 0 1 0 0 18A9 9 0 0 0 13 3m0 16a7 7 0 1 1 0-14 7 7 0 0 1 0 14m.5-9H12v5l4.25 2.52.75-1.23-3.5-2.07z"/></svg>
+    </me-bottom-nav-action>
+    <me-bottom-nav-action value="favorites" label="Favorites" disabled>
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.27 2 8.5 2 5.41 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.08C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.41 22 8.5c0 3.77-3.4 6.86-8.55 11.53z"/></svg>
+    </me-bottom-nav-action>
+    <me-bottom-nav-action value="nearby" label="Nearby">
+      <svg slot="icon" viewBox="0 0 24 24" fill="currentColor" width="24" height="24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7m0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5"/></svg>
+    </me-bottom-nav-action>
+  </me-bottom-navigation>
+</section>
+
+<h2>API — Bottom Navigation</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute / Property</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>value</code></td><td>string</td><td>—</td><td>Value of the currently selected action.</td></tr>
+    <tr><td><code>show-labels</code></td><td>boolean</td><td>false</td><td>Show labels on all actions, not just the selected one.</td></tr>
+  </tbody>
+</table>
+
+<h2>API — Bottom Nav Action</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>value</code></td><td>string</td><td>—</td><td>Value passed to the parent on selection.</td></tr>
+    <tr><td><code>label</code></td><td>string</td><td>—</td><td>Text label displayed below the icon.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables the action.</td></tr>
+    <tr><td><code>selected</code></td><td>boolean</td><td>false</td><td>Whether this action is currently selected (managed by parent).</td></tr>
+  </tbody>
+</table>
+
+<h2>Slots — Bottom Nav Action</h2>
+<table class="api-table">
+  <thead><tr><th>Slot</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>icon</code></td><td>Icon element displayed above the label.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-change</code></td><td><code>{ value }</code></td><td>Fired on the Bottom Navigation when the selected action changes.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  document.querySelectorAll('me-bottom-navigation').forEach(nav => {
+    nav.addEventListener('me-change', e => {
+      console.log('Nav changed:', e.detail.value);
+    });
+  });
+</script>
+{% endblock %}

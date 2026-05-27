@@ -1,0 +1,88 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Rating — materialelements.io" %}
+{% block content %}
+<h1>Rating</h1>
+<p class="me-subtitle">Ratings provide insight regarding others' opinions and experiences, and can allow the user to submit a rating of their own.</p>
+
+<h2>Basic</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:flex-start">
+  <me-rating value="2" id="rating-basic"></me-rating>
+  <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">Value: <span id="rating-val">2</span></me-typography>
+</section>
+<code-sample>
+&lt;me-rating value="3"&gt;&lt;/me-rating&gt;
+</code-sample>
+
+<h2>Read-only</h2>
+<section class="demo-section">
+  <me-rating value="3.5" read-only></me-rating>
+</section>
+<code-sample>
+&lt;me-rating value="3.5" read-only&gt;&lt;/me-rating&gt;
+</code-sample>
+
+<h2>Half Precision</h2>
+<section class="demo-section">
+  <me-rating value="2.5" precision="0.5"></me-rating>
+</section>
+<code-sample>
+&lt;me-rating value="2.5" precision="0.5"&gt;&lt;/me-rating&gt;
+</code-sample>
+
+<h2>Sizes</h2>
+<section class="demo-section" style="align-items:center">
+  <me-rating value="3" size="small" read-only></me-rating>
+  <me-rating value="3" read-only></me-rating>
+  <me-rating value="3" size="large" read-only></me-rating>
+</section>
+<code-sample>
+&lt;me-rating value="3" size="small" read-only&gt;&lt;/me-rating&gt;
+&lt;me-rating value="3" read-only&gt;&lt;/me-rating&gt;
+&lt;me-rating value="3" size="large" read-only&gt;&lt;/me-rating&gt;
+</code-sample>
+
+<h2>Max Stars</h2>
+<section class="demo-section">
+  <me-rating value="7" max="10" read-only></me-rating>
+</section>
+<code-sample>
+&lt;me-rating value="7" max="10" read-only&gt;&lt;/me-rating&gt;
+</code-sample>
+
+<h2>Disabled</h2>
+<section class="demo-section">
+  <me-rating value="3" disabled></me-rating>
+</section>
+<code-sample>
+&lt;me-rating value="3" disabled&gt;&lt;/me-rating&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>value</code></td><td>number</td><td>0</td><td>Selected rating value.</td></tr>
+    <tr><td><code>max</code></td><td>number</td><td>5</td><td>Total number of stars.</td></tr>
+    <tr><td><code>precision</code></td><td>1 | 0.5</td><td>1</td><td>Minimum increment for rating selection.</td></tr>
+    <tr><td><code>size</code></td><td>small | medium | large</td><td>medium</td><td>Star size.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary | (default yellow)</td><td>—</td><td>Star fill color.</td></tr>
+    <tr><td><code>read-only</code></td><td>boolean</td><td>false</td><td>Disables interaction without greying out.</td></tr>
+    <tr><td><code>disabled</code></td><td>boolean</td><td>false</td><td>Disables interaction with reduced opacity.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-change</code></td><td><code>{ value: number }</code></td><td>Fired when the rating changes. Clicking the same value resets to 0.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+{% block scripts %}
+<script>
+  const r = document.getElementById('rating-basic');
+  const v = document.getElementById('rating-val');
+  r.addEventListener('me-change', e => { v.textContent = e.detail.value; });
+</script>
+{% endblock %}

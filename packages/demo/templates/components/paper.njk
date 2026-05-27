@@ -1,0 +1,53 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Paper — materialelements.io" %}
+{% block content %}
+<h1>Paper</h1>
+<p class="me-subtitle">Paper is the base surface component. It renders a box with Material Design's background, border-radius, and shadow system.</p>
+
+<h2>Elevation</h2>
+<p>Elevation is expressed as a shadow level from 0–24.</p>
+<section class="demo-section" style="gap:24px;flex-wrap:wrap;align-items:center">
+  <me-paper elevation="0" style="width:80px;height:80px;display:flex;align-items:center;justify-content:center"><me-typography variant="caption">0</me-typography></me-paper>
+  <me-paper elevation="1" style="width:80px;height:80px;display:flex;align-items:center;justify-content:center"><me-typography variant="caption">1</me-typography></me-paper>
+  <me-paper elevation="2" style="width:80px;height:80px;display:flex;align-items:center;justify-content:center"><me-typography variant="caption">2</me-typography></me-paper>
+  <me-paper elevation="4" style="width:80px;height:80px;display:flex;align-items:center;justify-content:center"><me-typography variant="caption">4</me-typography></me-paper>
+  <me-paper elevation="8" style="width:80px;height:80px;display:flex;align-items:center;justify-content:center"><me-typography variant="caption">8</me-typography></me-paper>
+  <me-paper elevation="16" style="width:80px;height:80px;display:flex;align-items:center;justify-content:center"><me-typography variant="caption">16</me-typography></me-paper>
+  <me-paper elevation="24" style="width:80px;height:80px;display:flex;align-items:center;justify-content:center"><me-typography variant="caption">24</me-typography></me-paper>
+</section>
+<code-sample>
+&lt;me-paper elevation="0"&gt;...&lt;/me-paper&gt;
+&lt;me-paper elevation="4"&gt;...&lt;/me-paper&gt;
+&lt;me-paper elevation="8"&gt;...&lt;/me-paper&gt;
+</code-sample>
+
+<h2>Outlined</h2>
+<section class="demo-section">
+  <me-paper variant="outlined" style="width:120px;height:120px;display:flex;align-items:center;justify-content:center">
+    <me-typography variant="body2">Outlined</me-typography>
+  </me-paper>
+</section>
+<code-sample>
+&lt;me-paper variant="outlined"&gt;...&lt;/me-paper&gt;
+</code-sample>
+
+<h2>Square</h2>
+<section class="demo-section">
+  <me-paper elevation="2" square style="width:120px;height:120px;display:flex;align-items:center;justify-content:center">
+    <me-typography variant="body2">Square</me-typography>
+  </me-paper>
+</section>
+<code-sample>
+&lt;me-paper elevation="2" square&gt;...&lt;/me-paper&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>elevation</code></td><td>0–24</td><td>1</td><td>Shadow depth.</td></tr>
+    <tr><td><code>variant</code></td><td>elevation | outlined</td><td>elevation</td><td><code>outlined</code> uses a border instead of shadow.</td></tr>
+    <tr><td><code>square</code></td><td>boolean</td><td>false</td><td>Removes border-radius.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
