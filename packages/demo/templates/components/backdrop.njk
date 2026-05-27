@@ -1,0 +1,77 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Backdrop — materialelements.io" %}
+
+{% block content %}
+<h1>Backdrop</h1>
+<p>The Backdrop component overlays the entire screen with a translucent dark overlay, typically used to indicate a blocking state or focus attention on a specific element.</p>
+
+<h2>Basic Backdrop</h2>
+<section class="demo-section">
+  <me-button id="show-backdrop">Show Backdrop</me-button>
+</section>
+
+<me-backdrop id="backdrop-basic"></me-backdrop>
+
+<code-sample>
+&lt;me-backdrop id="backdrop"&gt;&lt;/me-backdrop&gt;
+
+&lt;script&gt;
+  document.querySelector('#show-btn').addEventListener('click', () => {
+    document.querySelector('#backdrop').setAttribute('open', '');
+  });
+  document.querySelector('#backdrop').addEventListener('me-close', () => {
+    document.querySelector('#backdrop').removeAttribute('open');
+  });
+&lt;/script&gt;
+</code-sample>
+
+<h2>Invisible Backdrop</h2>
+<p style="font-size:0.875rem;color:var(--demo-text-secondary);margin:0 0 12px">The <code>invisible</code> attribute removes the dark overlay while still blocking pointer events.</p>
+<section class="demo-section">
+  <me-button id="show-invisible">Show Invisible Backdrop</me-button>
+</section>
+
+<me-backdrop id="backdrop-invisible" invisible></me-backdrop>
+
+<code-sample>
+&lt;me-backdrop invisible&gt;&lt;/me-backdrop&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>open</code></td><td>boolean</td><td>false</td><td>Whether the backdrop is visible and active.</td></tr>
+    <tr><td><code>invisible</code></td><td>boolean</td><td>false</td><td>Transparent backdrop (no dark overlay).</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-close</code></td><td>Fired when the backdrop is clicked.</td></tr>
+  </tbody>
+</table>
+
+{% block scripts %}
+<script>
+  const backdrop = document.getElementById('backdrop-basic');
+  document.getElementById('show-backdrop').addEventListener('click', () => {
+    backdrop.setAttribute('open', '');
+  });
+  backdrop.addEventListener('me-close', () => {
+    backdrop.removeAttribute('open');
+  });
+
+  const invisible = document.getElementById('backdrop-invisible');
+  document.getElementById('show-invisible').addEventListener('click', () => {
+    invisible.setAttribute('open', '');
+    setTimeout(() => invisible.removeAttribute('open'), 2000);
+  });
+  invisible.addEventListener('me-close', () => {
+    invisible.removeAttribute('open');
+  });
+</script>
+{% endblock %}
+{% endblock %}

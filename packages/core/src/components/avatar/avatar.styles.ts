@@ -17,7 +17,7 @@ sheet.replaceSync(`
     user-select: none;
     position: relative;
   }
-  :host([variant="rounded"]) { border-radius: var(--me-shape-borderRadius, 4px); }
+  :host([variant="rounded"]) { border-radius: calc(var(--me-shape-borderRadius, 4) * 1px); }
   :host([variant="square"])  { border-radius: 0; }
 
   .me-avatar__img {

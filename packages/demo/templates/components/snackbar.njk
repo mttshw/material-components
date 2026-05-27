@@ -1,0 +1,130 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Snackbar — materialelements.io" %}
+
+{% block content %}
+<h1>Snackbar</h1>
+<p>Snackbars provide brief notifications at the bottom of the screen. They appear temporarily and should not interrupt the user experience.</p>
+
+<h2>Basic Snackbar</h2>
+<p style="font-size:0.875rem;color:var(--demo-text-secondary);margin:0 0 12px">Click a button to show a snackbar. It dismisses automatically after 3 seconds.</p>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <me-button id="show-basic">Show Snackbar</me-button>
+  <me-button id="show-long">Show Long Message</me-button>
+</section>
+
+<me-snackbar id="snackbar-basic" auto-hide-duration="3000">
+  File deleted successfully
+</me-snackbar>
+<me-snackbar id="snackbar-long" auto-hide-duration="3000">
+  Your changes have been saved to the cloud
+</me-snackbar>
+
+<code-sample>
+&lt;me-snackbar id="snackbar" auto-hide-duration="3000"&gt;
+  File deleted successfully
+&lt;/me-snackbar&gt;
+
+&lt;script&gt;
+  document.querySelector('#show-btn').addEventListener('click', () => {
+    document.querySelector('#snackbar').setAttribute('open', '');
+  });
+  document.querySelector('#snackbar').addEventListener('me-close', (e) => {
+    document.querySelector('#snackbar').removeAttribute('open');
+  });
+&lt;/script&gt;
+</code-sample>
+
+<h2>With Action</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <me-button id="show-action">Show with Action</me-button>
+</section>
+
+<me-snackbar id="snackbar-action" auto-hide-duration="5000">
+  Message archived
+  <me-button slot="action" color="primary" size="small" style="--me-button-color:#90caf9">UNDO</me-button>
+</me-snackbar>
+
+<code-sample>
+&lt;me-snackbar id="snackbar-action" auto-hide-duration="5000"&gt;
+  Message archived
+  &lt;me-button slot="action"&gt;UNDO&lt;/me-button&gt;
+&lt;/me-snackbar&gt;
+</code-sample>
+
+<h2>Anchor Origin</h2>
+<p style="font-size:0.875rem;color:var(--demo-text-secondary);margin:0 0 12px">Control where the snackbar appears on screen.</p>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <me-button id="show-top-center">Top Center</me-button>
+  <me-button id="show-top-left">Top Left</me-button>
+  <me-button id="show-top-right">Top Right</me-button>
+  <me-button id="show-bottom-left">Bottom Left</me-button>
+  <me-button id="show-bottom-right">Bottom Right</me-button>
+</section>
+
+<me-snackbar id="snackbar-top-center"   anchor-origin="top-center"   auto-hide-duration="2000">Top Center</me-snackbar>
+<me-snackbar id="snackbar-top-left"     anchor-origin="top-left"     auto-hide-duration="2000">Top Left</me-snackbar>
+<me-snackbar id="snackbar-top-right"    anchor-origin="top-right"    auto-hide-duration="2000">Top Right</me-snackbar>
+<me-snackbar id="snackbar-bottom-left"  anchor-origin="bottom-left"  auto-hide-duration="2000">Bottom Left</me-snackbar>
+<me-snackbar id="snackbar-bottom-right" anchor-origin="bottom-right" auto-hide-duration="2000">Bottom Right</me-snackbar>
+
+<code-sample>
+&lt;me-snackbar anchor-origin="top-right" auto-hide-duration="3000"&gt;
+  Saved to top-right
+&lt;/me-snackbar&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>open</code></td><td>boolean</td><td>false</td><td>Whether the snackbar is visible.</td></tr>
+    <tr><td><code>auto-hide-duration</code></td><td>number (ms)</td><td>—</td><td>Milliseconds before auto-dismissing. Omit for persistent.</td></tr>
+    <tr><td><code>anchor-origin</code></td><td>bottom-center | bottom-left | bottom-right | top-center | top-left | top-right</td><td>bottom-center</td><td>Screen position.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-close</code></td><td><code>{ reason: 'timeout' }</code></td><td>Fired when the snackbar auto-dismisses.</td></tr>
+  </tbody>
+</table>
+
+<h2>Slots</h2>
+<table class="api-table">
+  <thead><tr><th>Slot</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><em>default</em></td><td>Snackbar message text.</td></tr>
+    <tr><td><code>action</code></td><td>Optional action button (right-aligned).</td></tr>
+  </tbody>
+</table>
+
+{% block scripts %}
+<script>
+  function showSnackbar(id) {
+    const el = document.getElementById(id);
+    el.removeAttribute('open');
+    requestAnimationFrame(() => el.setAttribute('open', ''));
+  }
+  function wireClose(id) {
+    document.getElementById(id).addEventListener('me-close', () => {
+      document.getElementById(id).removeAttribute('open');
+    });
+  }
+
+  ['snackbar-basic','snackbar-long','snackbar-action',
+   'snackbar-top-center','snackbar-top-left','snackbar-top-right',
+   'snackbar-bottom-left','snackbar-bottom-right'].forEach(wireClose);
+
+  document.getElementById('show-basic').addEventListener('click', () => showSnackbar('snackbar-basic'));
+  document.getElementById('show-long').addEventListener('click', () => showSnackbar('snackbar-long'));
+  document.getElementById('show-action').addEventListener('click', () => showSnackbar('snackbar-action'));
+  document.getElementById('show-top-center').addEventListener('click', () => showSnackbar('snackbar-top-center'));
+  document.getElementById('show-top-left').addEventListener('click', () => showSnackbar('snackbar-top-left'));
+  document.getElementById('show-top-right').addEventListener('click', () => showSnackbar('snackbar-top-right'));
+  document.getElementById('show-bottom-left').addEventListener('click', () => showSnackbar('snackbar-bottom-left'));
+  document.getElementById('show-bottom-right').addEventListener('click', () => showSnackbar('snackbar-bottom-right'));
+</script>
+{% endblock %}
+{% endblock %}

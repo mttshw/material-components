@@ -2720,7 +2720,7 @@ sheet17.replaceSync(`
     user-select: none;
     position: relative;
   }
-  :host([variant="rounded"]) { border-radius: var(--me-shape-borderRadius, 4px); }
+  :host([variant="rounded"]) { border-radius: calc(var(--me-shape-borderRadius, 4) * 1px); }
   :host([variant="square"])  { border-radius: 0; }
 
   .me-avatar__img {
@@ -3634,6 +3634,880 @@ var METooltip = class extends MEElement {
 };
 customElements.define("me-tooltip", METooltip);
 
+// src/components/alert/alert.styles.ts
+var sheet31 = new CSSStyleSheet();
+sheet31.replaceSync(`
+  :host {
+    display: flex;
+    align-items: flex-start;
+    box-sizing: border-box;
+    padding: 6px 16px;
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.43;
+    width: 100%;
+    --_color: #014361;
+    --_bg: #e5f6fd;
+    --_border: #29b6f6;
+    --_icon-color: #0288d1;
+  }
+
+  /* \u2500\u2500 severity colours \u2500\u2500 */
+  :host([severity="error"]) {
+    --_color: #541313;
+    --_bg: #fdeded;
+    --_border: #ef5350;
+    --_icon-color: #d32f2f;
+  }
+  :host([severity="warning"]) {
+    --_color: #663c00;
+    --_bg: #fff4e5;
+    --_border: #ff9800;
+    --_icon-color: #ed6c02;
+  }
+  :host([severity="success"]) {
+    --_color: #1e4620;
+    --_bg: #edf7ed;
+    --_border: #4caf50;
+    --_icon-color: #2e7d32;
+  }
+  :host([severity="info"]), :host(:not([severity])) {
+    --_color: #014361;
+    --_bg: #e5f6fd;
+    --_border: #29b6f6;
+    --_icon-color: #0288d1;
+  }
+
+  /* \u2500\u2500 variants \u2500\u2500 */
+  :host(:not([variant="filled"]):not([variant="outlined"])) {
+    background-color: var(--_bg);
+    color: var(--_color);
+  }
+  :host([variant="filled"]) {
+    background-color: var(--_icon-color);
+    color: #fff;
+    --_color: #fff;
+  }
+  :host([variant="outlined"]) {
+    background-color: transparent;
+    color: var(--_color);
+    border: 1px solid var(--_border);
+  }
+
+  .me-alert__icon {
+    display: flex;
+    margin-right: 12px;
+    padding: 7px 0;
+    opacity: 0.9;
+    color: var(--_icon-color);
+    flex-shrink: 0;
+  }
+  :host([variant="filled"]) .me-alert__icon { color: #fff; }
+
+  .me-alert__icon svg {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  .me-alert__content {
+    padding: 8px 0;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .me-alert__title {
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+  .me-alert__title:empty { display: none; }
+
+  .me-alert__message { display: block; }
+
+  .me-alert__action {
+    display: flex;
+    align-items: flex-start;
+    padding: 4px 0 0 16px;
+    margin-left: auto;
+    margin-right: -8px;
+  }
+  .me-alert__action:empty { display: none; }
+
+  .me-alert__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    opacity: 0.6;
+    padding: 4px;
+    border-radius: 50%;
+    transition: background-color 150ms, opacity 150ms;
+    flex-shrink: 0;
+  }
+  .me-alert__close:hover { opacity: 1; background: rgba(0,0,0,0.08); }
+  .me-alert__close svg { width: 18px; height: 18px; fill: currentColor; display: block; }
+  :host(:not([closable])) .me-alert__close { display: none; }
+`);
+var alert_styles_default = sheet31;
+
+// src/components/alert/alert.ts
+var ICONS = {
+  error: `<svg viewBox="0 0 24 24"><path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`,
+  warning: `<svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>`,
+  success: `<svg viewBox="0 0 24 24"><path d="M20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4C12.76,4 13.5,4.11 14.2,4.31L15.77,2.74C14.61,2.26 13.34,2 12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12M7.91,10.08L6.5,11.5L11,16L21,6L19.59,4.58L11,13.17L7.91,10.08Z"/></svg>`,
+  info: `<svg viewBox="0 0 24 24"><path d="M11 7h2v2h-2zm0 4h2v6h-2zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg>`
+};
+var CLOSE_ICON = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
+var MEAlert = class extends MEElement {
+  static observedAttributes = ["severity", "variant", "title", "closable"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [alert_styles_default];
+  }
+  render() {
+    const severity = this.getAttribute("severity") ?? "info";
+    const title = this.getAttribute("title") ?? "";
+    this.shadow.innerHTML = `
+      <div class="me-alert__icon">${ICONS[severity] ?? ICONS.info}</div>
+      <div class="me-alert__content">
+        <span class="me-alert__title">${title}</span>
+        <span class="me-alert__message"><slot></slot></span>
+      </div>
+      <div class="me-alert__action">
+        <slot name="action"></slot>
+        <button class="me-alert__close" aria-label="Close">${CLOSE_ICON}</button>
+      </div>
+    `;
+    this.shadow.querySelector(".me-alert__close")?.addEventListener("click", () => {
+      this.dispatchEvent(new CustomEvent("me-close", { bubbles: true, composed: true }));
+    });
+  }
+};
+customElements.define("me-alert", MEAlert);
+
+// src/components/progress/progress.styles.ts
+var circularSheet = new CSSStyleSheet();
+circularSheet.replaceSync(`
+  :host {
+    display: inline-flex;
+    color: var(--me-palette-primary-main, #1976d2);
+  }
+  :host([color="secondary"]) { color: var(--me-palette-secondary-main, #9c27b0); }
+  :host([color="error"])     { color: var(--me-palette-error-main, #d32f2f); }
+  :host([color="success"])   { color: var(--me-palette-success-main, #2e7d32); }
+  :host([color="warning"])   { color: var(--me-palette-warning-main, #ed6c02); }
+  :host([color="info"])      { color: var(--me-palette-info-main, #0288d1); }
+  :host([color="inherit"])   { color: inherit; }
+
+  .me-circular-progress {
+    display: inline-block;
+  }
+
+  /* indeterminate */
+  :host(:not([variant="determinate"])) .me-circular-progress {
+    animation: me-circular-rotate 1.4s linear infinite;
+  }
+  :host(:not([variant="determinate"])) .me-circular-progress__circle {
+    stroke-dasharray: 80px, 200px;
+    stroke-dashoffset: 0;
+    animation: me-circular-dash 1.4s ease-in-out infinite;
+  }
+
+  .me-circular-progress__circle {
+    stroke: currentColor;
+    stroke-linecap: round;
+  }
+
+  @keyframes me-circular-rotate {
+    0%   { transform-origin: 50% 50%; }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes me-circular-dash {
+    0%   { stroke-dasharray: 1px, 200px; stroke-dashoffset: 0; }
+    50%  { stroke-dasharray: 100px, 200px; stroke-dashoffset: -15px; }
+    100% { stroke-dasharray: 100px, 200px; stroke-dashoffset: -125px; }
+  }
+`);
+var linearSheet = new CSSStyleSheet();
+linearSheet.replaceSync(`
+  :host {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 4px;
+    background-color: rgba(25, 118, 210, 0.2);
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    color: var(--me-palette-primary-main, #1976d2);
+  }
+  :host([color="secondary"]) { color: var(--me-palette-secondary-main, #9c27b0); background-color: rgba(156,39,176,0.2); }
+  :host([color="error"])     { color: var(--me-palette-error-main, #d32f2f); background-color: rgba(211,47,47,0.2); }
+  :host([color="success"])   { color: var(--me-palette-success-main, #2e7d32); background-color: rgba(46,125,50,0.2); }
+  :host([color="warning"])   { color: var(--me-palette-warning-main, #ed6c02); background-color: rgba(237,108,2,0.2); }
+  :host([color="info"])      { color: var(--me-palette-info-main, #0288d1); background-color: rgba(2,136,209,0.2); }
+
+  .me-linear-progress__bar1,
+  .me-linear-progress__bar2 {
+    width: 100%;
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background-color: currentColor;
+    transform-origin: left;
+    transition: transform 0.2s linear;
+  }
+
+  /* indeterminate \u2014 width: auto lets left/right keyframes control the visual bar width */
+  :host([variant="indeterminate"]) .me-linear-progress__bar1,
+  :host(:not([variant])) .me-linear-progress__bar1 {
+    width: auto;
+    animation: me-linear-indeterminate1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  }
+  :host([variant="indeterminate"]) .me-linear-progress__bar2,
+  :host(:not([variant])) .me-linear-progress__bar2 {
+    width: auto;
+    animation: me-linear-indeterminate2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
+  }
+
+  /* query (reverse) */
+  :host([variant="query"]) {
+    transform: rotate(180deg);
+  }
+  :host([variant="query"]) .me-linear-progress__bar1 {
+    width: auto;
+    animation: me-linear-indeterminate1 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  }
+  :host([variant="query"]) .me-linear-progress__bar2 {
+    width: auto;
+    animation: me-linear-indeterminate2 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
+  }
+
+  /* buffer */
+  :host([variant="buffer"]) .me-linear-progress__bar1 {
+    animation: none;
+  }
+  :host([variant="buffer"]) .me-linear-progress__bar2 {
+    background-color: currentColor;
+    opacity: 0.4;
+    animation: none;
+  }
+  :host([variant="buffer"]) .me-linear-progress__dashed {
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+    background-image: radial-gradient(currentColor 0%, currentColor 16%, transparent 42%);
+    background-size: 10px 10px;
+    background-position: 0 -23px;
+    opacity: 0.4;
+    animation: me-linear-buffer-dashes 3s infinite linear;
+  }
+
+  @keyframes me-linear-indeterminate1 {
+    0%   { left: -35%;  right: 100%; }
+    60%  { left: 100%;  right: -90%; }
+    100% { left: 100%;  right: -90%; }
+  }
+  @keyframes me-linear-indeterminate2 {
+    0%   { left: -200%; right: 100%; }
+    60%  { left: 107%;  right: -8%;  }
+    100% { left: 107%;  right: -8%;  }
+  }
+  @keyframes me-linear-buffer-dashes {
+    0%   { background-position: 0 -23px; }
+    100% { background-position: 10px -23px; }
+  }
+`);
+
+// src/components/progress/circular-progress.ts
+var SIZE_DEFAULT = 40;
+var THICKNESS = 3.6;
+var MECircularProgress = class extends MEElement {
+  static observedAttributes = ["variant", "value", "size", "color"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [circularSheet];
+  }
+  render() {
+    const size = Number(this.getAttribute("size") ?? SIZE_DEFAULT);
+    const variant = this.getAttribute("variant") ?? "indeterminate";
+    const value = Math.min(100, Math.max(0, Number(this.getAttribute("value") ?? 0)));
+    const radius = (size - THICKNESS) / 2;
+    const circumference = 2 * Math.PI * radius;
+    const center = size / 2;
+    let circleStyle = "";
+    if (variant === "determinate") {
+      const offset = circumference - value / 100 * circumference;
+      circleStyle = `stroke-dasharray: ${circumference}px; stroke-dashoffset: ${offset}px;`;
+    }
+    this.setAttribute("role", "progressbar");
+    if (variant === "determinate") {
+      this.setAttribute("aria-valuenow", String(value));
+      this.setAttribute("aria-valuemin", "0");
+      this.setAttribute("aria-valuemax", "100");
+    }
+    this.shadow.innerHTML = `
+      <svg class="me-circular-progress"
+           width="${size}" height="${size}"
+           viewBox="${center - size / 2} ${center - size / 2} ${size} ${size}">
+        <circle
+          class="me-circular-progress__circle"
+          cx="${center}" cy="${center}" r="${radius}"
+          fill="none"
+          stroke-width="${THICKNESS}"
+          style="${circleStyle}"
+        />
+      </svg>
+    `;
+  }
+};
+customElements.define("me-circular-progress", MECircularProgress);
+
+// src/components/progress/linear-progress.ts
+var MELinearProgress = class extends MEElement {
+  static observedAttributes = ["variant", "value", "value-buffer", "color"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [linearSheet];
+  }
+  render() {
+    const variant = this.getAttribute("variant") ?? "indeterminate";
+    const value = Math.min(100, Math.max(0, Number(this.getAttribute("value") ?? 0)));
+    const buffer = Math.min(100, Math.max(0, Number(this.getAttribute("value-buffer") ?? 0)));
+    this.setAttribute("role", "progressbar");
+    if (variant === "determinate" || variant === "buffer") {
+      this.setAttribute("aria-valuenow", String(value));
+      this.setAttribute("aria-valuemin", "0");
+      this.setAttribute("aria-valuemax", "100");
+    }
+    let bar1Style = "";
+    let bar2Style = "";
+    const dashedEl = variant === "buffer" ? `<span class="me-linear-progress__dashed"></span>` : "";
+    if (variant === "determinate") {
+      bar1Style = `transform: scaleX(${value / 100});`;
+      bar2Style = "display: none;";
+    } else if (variant === "buffer") {
+      bar1Style = `transform: scaleX(${value / 100});`;
+      bar2Style = `transform: scaleX(${buffer / 100});`;
+    }
+    this.shadow.innerHTML = `
+      ${dashedEl}
+      <span class="me-linear-progress__bar1" style="${bar1Style}"></span>
+      <span class="me-linear-progress__bar2" style="${bar2Style}"></span>
+    `;
+  }
+};
+customElements.define("me-linear-progress", MELinearProgress);
+
+// src/components/skeleton/skeleton.styles.ts
+var sheet32 = new CSSStyleSheet();
+sheet32.replaceSync(`
+  :host {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.11);
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    height: 1.2em;
+  }
+
+  /* variants */
+  :host([variant="circular"])    { border-radius: 50%; width: 40px; height: 40px; }
+  :host([variant="rectangular"]) { border-radius: 0; }
+  :host([variant="rounded"])     { border-radius: calc(var(--me-shape-borderRadius, 4) * 1px); }
+  :host([variant="text"])        {
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    height: auto;
+    transform: scale(1, 0.6);
+    transform-origin: 0 60%;
+  }
+  :host([variant="text"])::before {
+    content: "\\00a0";
+  }
+
+  /* pulse animation (default) */
+  :host(:not([animation="wave"]):not([animation="false"])) {
+    animation: me-skeleton-pulse 2s ease-in-out 0.5s infinite;
+  }
+  /* wave animation */
+  :host([animation="wave"]) {
+    overflow: hidden;
+    position: relative;
+  }
+  :host([animation="wave"])::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.4),
+      transparent
+    );
+    animation: me-skeleton-wave 2s linear 0.5s infinite;
+    transform: translateX(-100%);
+  }
+
+  @keyframes me-skeleton-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+  @keyframes me-skeleton-wave {
+    0%   { transform: translateX(-100%); }
+    50%  { transform: translateX(100%); }
+    100% { transform: translateX(100%); }
+  }
+`);
+var skeleton_styles_default = sheet32;
+
+// src/components/skeleton/skeleton.ts
+var MESkeleton = class extends MEElement {
+  static observedAttributes = ["variant", "width", "height", "animation"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [skeleton_styles_default];
+  }
+  render() {
+    const width = this.getAttribute("width");
+    const height = this.getAttribute("height");
+    const styles = [];
+    if (width) styles.push(`width: ${width};`);
+    if (height) styles.push(`height: ${height};`);
+    if (styles.length) {
+      this.style.cssText = styles.join(" ");
+    }
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+customElements.define("me-skeleton", MESkeleton);
+
+// src/components/backdrop/backdrop.styles.ts
+var sheet33 = new CSSStyleSheet();
+sheet33.replaceSync(`
+  :host {
+    position: fixed;
+    inset: 0;
+    z-index: var(--me-zIndex-modal, 1300);
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);
+    -webkit-tap-highlight-color: transparent;
+  }
+  :host([open]) {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  :host([invisible]) {
+    background-color: transparent;
+  }
+`);
+var backdrop_styles_default = sheet33;
+
+// src/components/backdrop/backdrop.ts
+var MEBackdrop = class extends MEElement {
+  static observedAttributes = ["open", "invisible"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [backdrop_styles_default];
+  }
+  render() {
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+  addEventListeners() {
+    this.addEventListener("click", () => {
+      this.dispatchEvent(new CustomEvent("me-close", { bubbles: true, composed: true }));
+    });
+  }
+};
+customElements.define("me-backdrop", MEBackdrop);
+
+// src/components/dialog/dialog.styles.ts
+var backdropSheet = new CSSStyleSheet();
+backdropSheet.replaceSync(`
+  .me-dialog__backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--me-zIndex-modal, 1300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  :host([open]) .me-dialog__backdrop {
+    opacity: 1;
+  }
+  :host(:not([open])) .me-dialog__backdrop {
+    pointer-events: none;
+  }
+`);
+var dialogSheet = new CSSStyleSheet();
+dialogSheet.replaceSync(`
+  :host {
+    display: contents;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+  }
+
+  .me-dialog__backdrop {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: var(--me-zIndex-modal, 1300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+  :host([open]) .me-dialog__backdrop {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .me-dialog__paper {
+    background-color: var(--me-palette-background-paper, #fff);
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    box-shadow: var(--me-shadows-24, 0px 11px 15px -7px rgba(0,0,0,0.2), 0px 24px 38px 3px rgba(0,0,0,0.14), 0px 9px 46px 8px rgba(0,0,0,0.12));
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100% - 64px);
+    max-width: 600px;
+    width: calc(100% - 64px);
+    margin: 32px;
+    position: relative;
+    overflow-y: auto;
+    transform: scale(0.8);
+    transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1), opacity 225ms;
+    opacity: 0;
+  }
+  :host([open]) .me-dialog__paper {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  /* maxWidth variants */
+  :host([max-width="xs"]) .me-dialog__paper  { max-width: 444px; }
+  :host([max-width="sm"]) .me-dialog__paper  { max-width: 600px; }
+  :host([max-width="md"]) .me-dialog__paper  { max-width: 960px; }
+  :host([max-width="lg"]) .me-dialog__paper  { max-width: 1280px; }
+  :host([max-width="xl"]) .me-dialog__paper  { max-width: 1920px; }
+  :host([full-width]) .me-dialog__paper      { width: 100%; }
+  :host([full-screen]) .me-dialog__paper {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+`);
+var titleSheet = new CSSStyleSheet();
+titleSheet.replaceSync(`
+  :host {
+    display: block;
+    padding: 16px 24px;
+    flex-shrink: 0;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--me-palette-text-primary, rgba(0,0,0,0.87));
+  }
+`);
+var contentSheet = new CSSStyleSheet();
+contentSheet.replaceSync(`
+  :host {
+    display: block;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 8px 24px 20px;
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 1rem;
+    color: var(--me-palette-text-secondary, rgba(0,0,0,0.6));
+  }
+  :host([dividers]) {
+    padding: 16px 24px;
+    border-top: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+    border-bottom: 1px solid var(--me-palette-divider, rgba(0,0,0,0.12));
+  }
+`);
+var actionsSheet = new CSSStyleSheet();
+actionsSheet.replaceSync(`
+  :host {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8px;
+    flex-shrink: 0;
+    gap: 8px;
+  }
+  :host([disable-spacing]) {
+    gap: 0;
+    padding: 0;
+  }
+`);
+
+// src/components/dialog/dialog.ts
+var FOCUSABLE = [
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  '[tabindex]:not([tabindex="-1"])'
+].join(", ");
+var MEDialog = class extends MEElement {
+  static observedAttributes = ["open", "full-width", "full-screen", "max-width"];
+  _previousFocus = null;
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [dialogSheet];
+  }
+  render() {
+    this.shadow.innerHTML = `
+      <div class="me-dialog__backdrop" part="backdrop">
+        <div class="me-dialog__paper" role="dialog" aria-modal="true" part="paper">
+          <slot></slot>
+        </div>
+      </div>
+    `;
+    this.shadow.querySelector(".me-dialog__backdrop")?.addEventListener("click", (e) => {
+      if (e.target === e.currentTarget) {
+        this.dispatchEvent(new CustomEvent("me-close", {
+          detail: { reason: "backdropClick" },
+          bubbles: true,
+          composed: true
+        }));
+      }
+    });
+  }
+  addEventListeners() {
+    this.addEventListener("keydown", (e) => {
+      if (!this.hasAttribute("open")) return;
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        this.dispatchEvent(new CustomEvent("me-close", {
+          detail: { reason: "escapeKeyDown" },
+          bubbles: true,
+          composed: true
+        }));
+      }
+      if (e.key === "Tab") this._trapFocus(e);
+    });
+  }
+  onAttributeChanged(name) {
+    if (name === "open") {
+      if (this.hasAttribute("open")) {
+        this._previousFocus = document.activeElement;
+        requestAnimationFrame(() => this._focusFirst());
+        document.body.style.overflow = "hidden";
+      } else {
+        document.body.style.overflow = "";
+        if (this._previousFocus instanceof HTMLElement) {
+          this._previousFocus.focus();
+        }
+      }
+    }
+  }
+  _getFocusable() {
+    const paper = this.shadow.querySelector(".me-dialog__paper");
+    if (!paper) return [];
+    const fromPaper = Array.from(paper.querySelectorAll(FOCUSABLE));
+    const slot = paper.querySelector("slot");
+    const slotted = slot?.assignedElements({ flatten: true }) ?? [];
+    const fromSlotted = slotted.flatMap(
+      (el) => [el, ...el.querySelectorAll(FOCUSABLE)]
+    ).filter((el) => el instanceof HTMLElement && el.matches(FOCUSABLE));
+    return [...fromPaper, ...fromSlotted];
+  }
+  _focusFirst() {
+    const els = this._getFocusable();
+    (els[0] ?? this.shadow.querySelector(".me-dialog__paper"))?.focus();
+  }
+  _trapFocus(e) {
+    const els = this._getFocusable();
+    if (!els.length) return;
+    const first = els[0];
+    const last = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  }
+};
+customElements.define("me-dialog", MEDialog);
+
+// src/components/dialog/dialog-sub.ts
+var MEDialogTitle = class extends MEElement {
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [titleSheet];
+  }
+  render() {
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+var MEDialogContent = class extends MEElement {
+  static observedAttributes = ["dividers"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [contentSheet];
+  }
+  render() {
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+var MEDialogActions = class extends MEElement {
+  static observedAttributes = ["disable-spacing"];
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [actionsSheet];
+  }
+  render() {
+    this.shadow.innerHTML = `<slot></slot>`;
+  }
+};
+customElements.define("me-dialog-title", MEDialogTitle);
+customElements.define("me-dialog-content", MEDialogContent);
+customElements.define("me-dialog-actions", MEDialogActions);
+
+// src/components/snackbar/snackbar.styles.ts
+var sheet34 = new CSSStyleSheet();
+sheet34.replaceSync(`
+  :host {
+    position: fixed;
+    z-index: var(--me-zIndex-snackbar, 1400);
+    display: flex;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(200%);
+    transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 225ms cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0;
+    pointer-events: none;
+    min-width: 288px;
+    max-width: 568px;
+  }
+
+  /* anchor-origin positions */
+  :host([anchor-origin="bottom-left"])   { left: 24px;  right: auto; transform: translateX(0) translateY(200%); }
+  :host([anchor-origin="bottom-right"])  { right: 24px; left: auto;  transform: translateX(0) translateY(200%); }
+  :host([anchor-origin="top-center"])    { top: 24px; bottom: auto; left: 50%; transform: translateX(-50%) translateY(-200%); }
+  :host([anchor-origin="top-left"])      { top: 24px; bottom: auto; left: 24px; right: auto; transform: translateX(0) translateY(-200%); }
+  :host([anchor-origin="top-right"])     { top: 24px; bottom: auto; right: 24px; left: auto; transform: translateX(0) translateY(-200%); }
+
+  :host([open]) {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+  :host([anchor-origin="bottom-left"][open]),
+  :host([anchor-origin="bottom-right"][open]),
+  :host([anchor-origin="top-left"][open]),
+  :host([anchor-origin="top-right"][open]) {
+    transform: translateX(0) translateY(0) !important;
+  }
+
+  .me-snackbar__content {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 6px 16px;
+    min-width: 288px;
+    background-color: #323232;
+    color: rgba(255,255,255,0.87);
+    border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
+    box-shadow: 0px 3px 5px -1px rgba(0,0,0,0.2),
+                0px 6px 10px 0px rgba(0,0,0,0.14),
+                0px 1px 18px 0px rgba(0,0,0,0.12);
+    font-family: var(--me-typography-fontFamily, "Roboto","Helvetica","Arial",sans-serif);
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.43;
+    gap: 8px;
+  }
+
+  .me-snackbar__message {
+    flex: 1;
+    padding: 8px 0;
+  }
+
+  .me-snackbar__action {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: -8px;
+  }
+  .me-snackbar__action:empty { display: none; }
+`);
+var snackbar_styles_default = sheet34;
+
+// src/components/snackbar/snackbar.ts
+var MESnackbar = class extends MEElement {
+  static observedAttributes = ["open", "auto-hide-duration", "anchor-origin", "message"];
+  _timer = null;
+  constructor() {
+    super();
+    this.shadow.adoptedStyleSheets = [snackbar_styles_default];
+  }
+  render() {
+    this.shadow.innerHTML = `
+      <div class="me-snackbar__content" part="content">
+        <span class="me-snackbar__message" part="message">
+          <slot></slot>
+        </span>
+        <span class="me-snackbar__action" part="action">
+          <slot name="action"></slot>
+        </span>
+      </div>
+    `;
+  }
+  onAttributeChanged(name) {
+    if (name === "open") {
+      if (this.hasAttribute("open")) {
+        this._startAutoHide();
+      } else {
+        this._clearTimer();
+      }
+    }
+  }
+  _startAutoHide() {
+    this._clearTimer();
+    const duration = parseInt(this.getAttribute("auto-hide-duration") ?? "0", 10);
+    if (duration > 0) {
+      this._timer = setTimeout(() => {
+        this.removeAttribute("open");
+        this.dispatchEvent(new CustomEvent("me-close", {
+          detail: { reason: "timeout" },
+          bubbles: true,
+          composed: true
+        }));
+      }, duration);
+    }
+  }
+  _clearTimer() {
+    if (this._timer !== null) {
+      clearTimeout(this._timer);
+      this._timer = null;
+    }
+  }
+  disconnectedCallback() {
+    this._clearTimer();
+  }
+};
+customElements.define("me-snackbar", MESnackbar);
+
 // src/utils/elevation.ts
 function elevationVar(level) {
   return `var(--me-shadows-${level})`;
@@ -3655,19 +4529,27 @@ function dispatch(el, type, detail = null) {
   el.dispatchEvent(new CustomEvent(type, { detail, bubbles: true, composed: true }));
 }
 export {
+  MEAlert,
   MEAvatar,
+  MEBackdrop,
   MEBadge,
   MEBox,
   MEButton,
   MECheckbox,
   MEChip,
+  MECircularProgress,
   MEContainer,
   MECssBaseline,
+  MEDialog,
+  MEDialogActions,
+  MEDialogContent,
+  MEDialogTitle,
   MEDivider,
   MEElement,
   MEGrid,
   MEIcon,
   MEIconButton,
+  MELinearProgress,
   MEList,
   MEListItem,
   MEListItemButton,
@@ -3677,6 +4559,8 @@ export {
   MERadio,
   MERadioGroup,
   MESelect,
+  MESkeleton,
+  MESnackbar,
   MEStack,
   MESwitch,
   METable,

@@ -1,0 +1,65 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Skeleton — materialelements.io" %}
+
+{% block content %}
+<h1>Skeleton</h1>
+<p>Display a placeholder preview of content before the actual data loads, reducing load-time frustration.</p>
+
+<h2>Variants</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:flex-start">
+  <me-skeleton variant="text" width="200px"></me-skeleton>
+  <me-skeleton variant="rectangular" width="200px" height="60px"></me-skeleton>
+  <me-skeleton variant="rounded" width="200px" height="60px"></me-skeleton>
+  <me-skeleton variant="circular" width="40px" height="40px"></me-skeleton>
+</section>
+<code-sample>
+&lt;me-skeleton variant="text" width="200px"&gt;&lt;/me-skeleton&gt;
+&lt;me-skeleton variant="rectangular" width="200px" height="60px"&gt;&lt;/me-skeleton&gt;
+&lt;me-skeleton variant="circular" width="40px" height="40px"&gt;&lt;/me-skeleton&gt;
+</code-sample>
+
+<h2>Wave Animation</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:flex-start">
+  <me-skeleton variant="text" animation="wave" width="200px"></me-skeleton>
+  <me-skeleton variant="rectangular" animation="wave" width="200px" height="60px"></me-skeleton>
+</section>
+<code-sample>
+&lt;me-skeleton variant="text" animation="wave" width="200px"&gt;&lt;/me-skeleton&gt;
+</code-sample>
+
+<h2>No Animation</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px;align-items:flex-start">
+  <me-skeleton variant="text" animation="false" width="200px"></me-skeleton>
+</section>
+<code-sample>
+&lt;me-skeleton variant="text" animation="false" width="200px"&gt;&lt;/me-skeleton&gt;
+</code-sample>
+
+<h2>Card Placeholder Example</h2>
+<section class="demo-section">
+  <div style="width:300px;display:flex;flex-direction:column;gap:8px">
+    <me-skeleton variant="rectangular" width="300px" height="160px"></me-skeleton>
+    <me-skeleton variant="text" width="80%"></me-skeleton>
+    <me-skeleton variant="text" width="60%"></me-skeleton>
+    <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+      <me-skeleton variant="circular" width="36px" height="36px"></me-skeleton>
+      <div style="flex:1;display:flex;flex-direction:column;gap:4px">
+        <me-skeleton variant="text" width="100%"></me-skeleton>
+        <me-skeleton variant="text" width="70%"></me-skeleton>
+      </div>
+    </div>
+  </div>
+</section>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>text | rectangular | rounded | circular</td><td>text</td><td>Shape of the skeleton.</td></tr>
+    <tr><td><code>animation</code></td><td>pulse | wave | false</td><td>pulse</td><td>Animation style. Use "false" to disable.</td></tr>
+    <tr><td><code>width</code></td><td>string (CSS value)</td><td>—</td><td>Width applied as inline style.</td></tr>
+    <tr><td><code>height</code></td><td>string (CSS value)</td><td>—</td><td>Height applied as inline style.</td></tr>
+  </tbody>
+</table>
+
+{% endblock %}

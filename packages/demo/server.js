@@ -64,6 +64,15 @@ env.addGlobal('nav', [
   { label: 'List', href: '/components/list.html' },
   { label: 'Table', href: '/components/table.html' },
   { label: 'Tooltip', href: '/components/tooltip.html' },
+
+  { section: true, label: 'M4 — Feedback' },
+  { label: 'Alert', href: '/components/alert.html' },
+  { label: 'Snackbar', href: '/components/snackbar.html' },
+  { label: 'Dialog', href: '/components/dialog.html' },
+  { label: 'Backdrop', href: '/components/backdrop.html' },
+  { label: 'Circular Progress', href: '/components/circular-progress.html' },
+  { label: 'Linear Progress', href: '/components/linear-progress.html' },
+  { label: 'Skeleton', href: '/components/skeleton.html' },
 ]);
 
 function serveStatic(res, filePath) {

@@ -1,0 +1,98 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Alert — materialelements.io" %}
+
+{% block content %}
+<h1>Alert</h1>
+<p>Alerts display short, important messages to the user without interrupting their workflow.</p>
+
+<h2>Severity</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px">
+  <me-alert severity="error">This is an error alert — check it out!</me-alert>
+  <me-alert severity="warning">This is a warning alert — check it out!</me-alert>
+  <me-alert severity="info">This is an info alert — check it out!</me-alert>
+  <me-alert severity="success">This is a success alert — check it out!</me-alert>
+</section>
+<code-sample>
+&lt;me-alert severity="error"&gt;This is an error alert.&lt;/me-alert&gt;
+&lt;me-alert severity="warning"&gt;This is a warning alert.&lt;/me-alert&gt;
+&lt;me-alert severity="info"&gt;This is an info alert.&lt;/me-alert&gt;
+&lt;me-alert severity="success"&gt;This is a success alert.&lt;/me-alert&gt;
+</code-sample>
+
+<h2>Filled Variant</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px">
+  <me-alert severity="error" variant="filled">This is a filled error alert.</me-alert>
+  <me-alert severity="warning" variant="filled">This is a filled warning alert.</me-alert>
+  <me-alert severity="info" variant="filled">This is a filled info alert.</me-alert>
+  <me-alert severity="success" variant="filled">This is a filled success alert.</me-alert>
+</section>
+
+<h2>Outlined Variant</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px">
+  <me-alert severity="error" variant="outlined">This is an outlined error alert.</me-alert>
+  <me-alert severity="warning" variant="outlined">This is an outlined warning alert.</me-alert>
+  <me-alert severity="info" variant="outlined">This is an outlined info alert.</me-alert>
+  <me-alert severity="success" variant="outlined">This is an outlined success alert.</me-alert>
+</section>
+
+<h2>With Title</h2>
+<section class="demo-section" style="flex-direction:column;gap:12px">
+  <me-alert severity="error" title="Error">Something went wrong — please try again.</me-alert>
+  <me-alert severity="success" title="Success">Your changes have been saved.</me-alert>
+</section>
+<code-sample>
+&lt;me-alert severity="error" title="Error"&gt;Something went wrong.&lt;/me-alert&gt;
+</code-sample>
+
+<h2>Closable</h2>
+<p style="font-size:0.875rem;color:var(--demo-text-secondary);margin:0 0 12px">Click the ✕ button to dismiss. The alert fires a <code>me-close</code> event — your code removes it.</p>
+<section class="demo-section" id="closable-alerts" style="flex-direction:column;gap:12px">
+  <me-alert severity="info" closable>This alert can be dismissed.</me-alert>
+  <me-alert severity="warning" closable title="Warning">This one has a title too.</me-alert>
+</section>
+<code-sample>
+&lt;me-alert severity="info" closable&gt;This alert can be dismissed.&lt;/me-alert&gt;
+
+&lt;script&gt;
+  document.querySelectorAll('me-alert[closable]').forEach(alert => {
+    alert.addEventListener('me-close', () => alert.remove());
+  });
+&lt;/script&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>severity</code></td><td>error | warning | info | success</td><td>info</td><td>Alert severity and icon.</td></tr>
+    <tr><td><code>variant</code></td><td>standard | filled | outlined</td><td>standard</td><td>Visual style.</td></tr>
+    <tr><td><code>title</code></td><td>string</td><td>—</td><td>Bold heading above the message.</td></tr>
+    <tr><td><code>closable</code></td><td>boolean</td><td>false</td><td>Shows a dismiss button.</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-close</code></td><td>Fired when the close button is clicked.</td></tr>
+  </tbody>
+</table>
+
+<h2>Slots</h2>
+<table class="api-table">
+  <thead><tr><th>Slot</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><em>default</em></td><td>Alert message content.</td></tr>
+    <tr><td><code>action</code></td><td>Optional action elements (e.g. buttons).</td></tr>
+  </tbody>
+</table>
+
+{% block scripts %}
+<script>
+  document.querySelectorAll('me-alert[closable]').forEach(alert => {
+    alert.addEventListener('me-close', () => alert.remove());
+  });
+</script>
+{% endblock %}
+{% endblock %}

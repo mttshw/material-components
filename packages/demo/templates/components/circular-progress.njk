@@ -1,0 +1,55 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Circular Progress — materialelements.io" %}
+
+{% block content %}
+<h1>Circular Progress</h1>
+<p>Circular progress indicators express an unspecified wait time or display the length of a process.</p>
+
+<h2>Indeterminate</h2>
+<section class="demo-section" style="gap:24px;align-items:center">
+  <me-circular-progress></me-circular-progress>
+  <me-circular-progress color="secondary"></me-circular-progress>
+  <me-circular-progress color="success"></me-circular-progress>
+  <me-circular-progress color="warning"></me-circular-progress>
+  <me-circular-progress color="error"></me-circular-progress>
+</section>
+<code-sample>
+&lt;me-circular-progress&gt;&lt;/me-circular-progress&gt;
+&lt;me-circular-progress color="secondary"&gt;&lt;/me-circular-progress&gt;
+</code-sample>
+
+<h2>Determinate</h2>
+<section class="demo-section" style="gap:24px;align-items:center">
+  <me-circular-progress variant="determinate" value="25"></me-circular-progress>
+  <me-circular-progress variant="determinate" value="50"></me-circular-progress>
+  <me-circular-progress variant="determinate" value="75"></me-circular-progress>
+  <me-circular-progress variant="determinate" value="100"></me-circular-progress>
+</section>
+<code-sample>
+&lt;me-circular-progress variant="determinate" value="75"&gt;&lt;/me-circular-progress&gt;
+</code-sample>
+
+<h2>Sizes</h2>
+<section class="demo-section" style="gap:24px;align-items:center">
+  <me-circular-progress size="20"></me-circular-progress>
+  <me-circular-progress size="40"></me-circular-progress>
+  <me-circular-progress size="60"></me-circular-progress>
+  <me-circular-progress size="80"></me-circular-progress>
+</section>
+<code-sample>
+&lt;me-circular-progress size="20"&gt;&lt;/me-circular-progress&gt;
+&lt;me-circular-progress size="60"&gt;&lt;/me-circular-progress&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>indeterminate | determinate</td><td>indeterminate</td><td>Animation mode.</td></tr>
+    <tr><td><code>value</code></td><td>number (0–100)</td><td>0</td><td>Progress percentage (determinate only).</td></tr>
+    <tr><td><code>size</code></td><td>number (px)</td><td>40</td><td>Diameter of the circle.</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary | success | warning | error | info | inherit</td><td>primary</td><td>Indicator color.</td></tr>
+  </tbody>
+</table>
+
+{% endblock %}

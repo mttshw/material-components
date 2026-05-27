@@ -1,0 +1,61 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Linear Progress — materialelements.io" %}
+
+{% block content %}
+<h1>Linear Progress</h1>
+<p>Linear progress indicators display progress along a horizontal track.</p>
+
+<h2>Indeterminate</h2>
+<section class="demo-section" style="flex-direction:column;gap:16px">
+  <me-linear-progress></me-linear-progress>
+  <me-linear-progress color="secondary"></me-linear-progress>
+  <me-linear-progress color="success"></me-linear-progress>
+  <me-linear-progress color="warning"></me-linear-progress>
+  <me-linear-progress color="error"></me-linear-progress>
+</section>
+<code-sample>
+&lt;me-linear-progress&gt;&lt;/me-linear-progress&gt;
+&lt;me-linear-progress color="secondary"&gt;&lt;/me-linear-progress&gt;
+</code-sample>
+
+<h2>Determinate</h2>
+<section class="demo-section" style="flex-direction:column;gap:16px">
+  <me-linear-progress variant="determinate" value="10"></me-linear-progress>
+  <me-linear-progress variant="determinate" value="40"></me-linear-progress>
+  <me-linear-progress variant="determinate" value="70"></me-linear-progress>
+  <me-linear-progress variant="determinate" value="100"></me-linear-progress>
+</section>
+<code-sample>
+&lt;me-linear-progress variant="determinate" value="70"&gt;&lt;/me-linear-progress&gt;
+</code-sample>
+
+<h2>Buffer</h2>
+<p style="font-size:0.875rem;color:var(--demo-text-secondary);margin:0 0 12px">Shows both loaded (solid) and buffered (semi-transparent) progress.</p>
+<section class="demo-section" style="flex-direction:column;gap:16px">
+  <me-linear-progress variant="buffer" value="30" value-buffer="60"></me-linear-progress>
+  <me-linear-progress variant="buffer" value="50" value-buffer="80" color="secondary"></me-linear-progress>
+</section>
+<code-sample>
+&lt;me-linear-progress variant="buffer" value="30" value-buffer="60"&gt;&lt;/me-linear-progress&gt;
+</code-sample>
+
+<h2>Query (Reversed)</h2>
+<section class="demo-section">
+  <me-linear-progress variant="query"></me-linear-progress>
+</section>
+<code-sample>
+&lt;me-linear-progress variant="query"&gt;&lt;/me-linear-progress&gt;
+</code-sample>
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>variant</code></td><td>indeterminate | determinate | buffer | query</td><td>indeterminate</td><td>Progress mode.</td></tr>
+    <tr><td><code>value</code></td><td>number (0–100)</td><td>0</td><td>Current progress value.</td></tr>
+    <tr><td><code>value-buffer</code></td><td>number (0–100)</td><td>0</td><td>Buffer value (buffer variant only).</td></tr>
+    <tr><td><code>color</code></td><td>primary | secondary | success | warning | error | info | inherit</td><td>primary</td><td>Indicator color.</td></tr>
+  </tbody>
+</table>
+
+{% endblock %}

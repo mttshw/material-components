@@ -1,0 +1,168 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Dialog — materialelements.io" %}
+
+{% block content %}
+<h1>Dialog</h1>
+<p>Dialogs inform users about a task and can contain critical information, require decisions, or involve multiple tasks. They appear on top of the page content.</p>
+
+<h2>Basic Dialog</h2>
+<section class="demo-section">
+  <me-button id="open-basic">Open Dialog</me-button>
+</section>
+
+<me-dialog id="dialog-basic">
+  <me-dialog-title>Dialog Title</me-dialog-title>
+  <me-dialog-content>
+    <p style="margin:0">This is the dialog content. It can contain text, forms, or any other elements.</p>
+  </me-dialog-content>
+  <me-dialog-actions>
+    <me-button id="cancel-basic" variant="text">Cancel</me-button>
+    <me-button id="confirm-basic" color="primary">Confirm</me-button>
+  </me-dialog-actions>
+</me-dialog>
+
+<code-sample>
+&lt;me-dialog id="dialog"&gt;
+  &lt;me-dialog-title&gt;Dialog Title&lt;/me-dialog-title&gt;
+  &lt;me-dialog-content&gt;
+    Dialog content goes here.
+  &lt;/me-dialog-content&gt;
+  &lt;me-dialog-actions&gt;
+    &lt;me-button variant="text"&gt;Cancel&lt;/me-button&gt;
+    &lt;me-button color="primary"&gt;Confirm&lt;/me-button&gt;
+  &lt;/me-dialog-actions&gt;
+&lt;/me-dialog&gt;
+
+&lt;script&gt;
+  document.querySelector('#open-btn').addEventListener('click', () => {
+    document.querySelector('#dialog').setAttribute('open', '');
+  });
+  document.querySelector('#dialog').addEventListener('me-close', () => {
+    document.querySelector('#dialog').removeAttribute('open');
+  });
+&lt;/script&gt;
+</code-sample>
+
+<h2>Max Width Variants</h2>
+<section class="demo-section" style="flex-wrap:wrap;gap:8px">
+  <me-button id="open-xs">xs (444px)</me-button>
+  <me-button id="open-sm">sm (600px)</me-button>
+  <me-button id="open-md">md (960px)</me-button>
+</section>
+
+<me-dialog id="dialog-xs" max-width="xs">
+  <me-dialog-title>Extra Small Dialog</me-dialog-title>
+  <me-dialog-content><p style="margin:0">This dialog has max-width="xs" (444px).</p></me-dialog-content>
+  <me-dialog-actions>
+    <me-button id="close-xs" color="primary">Close</me-button>
+  </me-dialog-actions>
+</me-dialog>
+
+<me-dialog id="dialog-sm" max-width="sm">
+  <me-dialog-title>Small Dialog</me-dialog-title>
+  <me-dialog-content><p style="margin:0">This dialog has max-width="sm" (600px).</p></me-dialog-content>
+  <me-dialog-actions>
+    <me-button id="close-sm" color="primary">Close</me-button>
+  </me-dialog-actions>
+</me-dialog>
+
+<me-dialog id="dialog-md" max-width="md">
+  <me-dialog-title>Medium Dialog</me-dialog-title>
+  <me-dialog-content><p style="margin:0">This dialog has max-width="md" (960px).</p></me-dialog-content>
+  <me-dialog-actions>
+    <me-button id="close-md" color="primary">Close</me-button>
+  </me-dialog-actions>
+</me-dialog>
+
+<h2>Full Width</h2>
+<section class="demo-section">
+  <me-button id="open-full-width">Full Width Dialog</me-button>
+</section>
+<me-dialog id="dialog-full-width" full-width max-width="sm">
+  <me-dialog-title>Full Width</me-dialog-title>
+  <me-dialog-content><p style="margin:0">This dialog stretches to fill its max-width container.</p></me-dialog-content>
+  <me-dialog-actions>
+    <me-button id="close-full-width" color="primary">Close</me-button>
+  </me-dialog-actions>
+</me-dialog>
+
+<h2>With Dividers</h2>
+<section class="demo-section">
+  <me-button id="open-dividers">Dialog with Dividers</me-button>
+</section>
+<me-dialog id="dialog-dividers">
+  <me-dialog-title>Scrollable Content</me-dialog-title>
+  <me-dialog-content dividers>
+    <p style="margin:0 0 12px">When content might scroll, use <code>dividers</code> on the content area to visually separate it from the title and actions.</p>
+    <p style="margin:0">This border helps users see that there is more content above or below when they scroll.</p>
+  </me-dialog-content>
+  <me-dialog-actions>
+    <me-button id="close-dividers" color="primary">OK</me-button>
+  </me-dialog-actions>
+</me-dialog>
+
+<h2>API — me-dialog</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>open</code></td><td>boolean</td><td>false</td><td>Whether the dialog is visible.</td></tr>
+    <tr><td><code>max-width</code></td><td>xs | sm | md | lg | xl</td><td>sm</td><td>Maximum dialog width.</td></tr>
+    <tr><td><code>full-width</code></td><td>boolean</td><td>false</td><td>Stretch to fill max-width.</td></tr>
+    <tr><td><code>full-screen</code></td><td>boolean</td><td>false</td><td>Full-screen overlay (mobile).</td></tr>
+  </tbody>
+</table>
+
+<h2>Events</h2>
+<table class="api-table">
+  <thead><tr><th>Event</th><th>Detail</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-close</code></td><td><code>{ reason: 'backdropClick' | 'escapeKeyDown' }</code></td><td>Fired when the backdrop is clicked or Escape is pressed.</td></tr>
+  </tbody>
+</table>
+
+<h2>Sub-components</h2>
+<table class="api-table">
+  <thead><tr><th>Element</th><th>Attributes</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>me-dialog-title</code></td><td>—</td><td>Dialog heading (1.25rem, 500 weight).</td></tr>
+    <tr><td><code>me-dialog-content</code></td><td><code>dividers</code></td><td>Scrollable body area. Add <code>dividers</code> for top/bottom borders.</td></tr>
+    <tr><td><code>me-dialog-actions</code></td><td><code>disable-spacing</code></td><td>Action button row. Add <code>disable-spacing</code> to remove padding/gap.</td></tr>
+  </tbody>
+</table>
+
+{% block scripts %}
+<script>
+  function openDialog(id) {
+    document.getElementById(id).setAttribute('open', '');
+  }
+  function closeDialog(id) {
+    document.getElementById(id).removeAttribute('open');
+  }
+  function wireDialog(dialogId, ...closeBtnIds) {
+    const dialog = document.getElementById(dialogId);
+    dialog.addEventListener('me-close', () => closeDialog(dialogId));
+    closeBtnIds.forEach(btnId => {
+      document.getElementById(btnId)?.addEventListener('click', () => closeDialog(dialogId));
+    });
+  }
+
+  document.getElementById('open-basic').addEventListener('click', () => openDialog('dialog-basic'));
+  wireDialog('dialog-basic', 'cancel-basic', 'confirm-basic');
+
+  document.getElementById('open-xs').addEventListener('click', () => openDialog('dialog-xs'));
+  wireDialog('dialog-xs', 'close-xs');
+
+  document.getElementById('open-sm').addEventListener('click', () => openDialog('dialog-sm'));
+  wireDialog('dialog-sm', 'close-sm');
+
+  document.getElementById('open-md').addEventListener('click', () => openDialog('dialog-md'));
+  wireDialog('dialog-md', 'close-md');
+
+  document.getElementById('open-full-width').addEventListener('click', () => openDialog('dialog-full-width'));
+  wireDialog('dialog-full-width', 'close-full-width');
+
+  document.getElementById('open-dividers').addEventListener('click', () => openDialog('dialog-dividers'));
+  wireDialog('dialog-dividers', 'close-dividers');
+</script>
+{% endblock %}
+{% endblock %}
