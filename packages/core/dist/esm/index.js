@@ -6438,6 +6438,9 @@ sheet53.replaceSync(`
   .me-accordion-details {
     overflow: hidden;
     min-height: 0;
+  }
+
+  .me-accordion-details__inner {
     padding: 8px 16px 16px;
     box-sizing: border-box;
   }
@@ -6453,7 +6456,7 @@ var MEAccordionDetails = class extends MEElement {
   }
   render() {
     if (this.shadow.querySelector(".me-accordion-details")) return;
-    this.shadow.innerHTML = `<div class="me-accordion-details"><slot></slot></div>`;
+    this.shadow.innerHTML = `<div class="me-accordion-details"><div class="me-accordion-details__inner"><slot></slot></div></div>`;
   }
 };
 customElements.define("me-accordion-details", MEAccordionDetails);

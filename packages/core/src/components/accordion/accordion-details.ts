@@ -12,7 +12,7 @@ export class MEAccordionDetails extends MEElement {
   protected render(): void {
     // CSS grid trick handles open/close — only build DOM once.
     if (this.shadow.querySelector('.me-accordion-details')) return;
-    this.shadow.innerHTML = `<div class="me-accordion-details"><slot></slot></div>`;
+    this.shadow.innerHTML = `<div class="me-accordion-details"><div class="me-accordion-details__inner"><slot></slot></div></div>`;
   }
 }
 

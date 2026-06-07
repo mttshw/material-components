@@ -18,6 +18,9 @@ sheet.replaceSync(`
   .me-accordion-details {
     overflow: hidden;
     min-height: 0;
+  }
+
+  .me-accordion-details__inner {
     padding: 8px 16px 16px;
     box-sizing: border-box;
   }
