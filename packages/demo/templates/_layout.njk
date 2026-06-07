@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}{{ pageTitle if pageTitle else "materialelements.io" }}{% endblock %}</title>
-  <link rel="stylesheet" href="/shared/styles.css">
-  <script src="/dist/materialelements.min.js"></script>
+  <link rel="stylesheet" href="{{ base }}/shared/styles.css">
+  <script src="{{ base }}/dist/materialelements.min.js"></script>
 </head>
 <body>
   <me-css-baseline></me-css-baseline>
   <me-theme-provider id="app-theme">
 
     <header class="me-topbar">
-      <a href="/" class="me-topbar__brand">materialelements.io</a>
+      <a href="{{ base }}/" class="me-topbar__brand">materialelements.io</a>
       <span class="me-topbar__alpha-badge">Alpha v0.0.1</span>
       <div class="me-topbar__spacer"></div>
       <button id="theme-toggle" class="me-topbar__icon-btn" title="Toggle dark mode">
@@ -27,7 +27,7 @@
             <li class="me-sidebar__section">{{ item.label }}</li>
           {% else %}
             <li>
-              <a href="{{ item.href }}"
+              <a href="{{ base }}{{ item.href }}"
                  class="me-sidebar__link{% if currentPath == item.href %} me-sidebar__link--active{% endif %}">
                 {{ item.label }}
               </a>
@@ -43,8 +43,8 @@
 
   </me-theme-provider>
 
-  <script src="/shared/code-sample.js"></script>
-  <script src="/shared/theme-switcher.js"></script>
+  <script src="{{ base }}/shared/code-sample.js"></script>
+  <script src="{{ base }}/shared/theme-switcher.js"></script>
   {% block scripts %}{% endblock %}
 </body>
 </html>

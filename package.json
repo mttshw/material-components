@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npm run build:core && node packages/demo/server.js",
     "build:core": "npm run build --workspace=packages/core",
+    "build:demo": "npm run build:core && tsx scripts/build-demo.ts",
     "test": "web-test-runner --coverage",
     "test:visual": "playwright test tests/visual/",
     "lint": "eslint packages/ --ext .ts",

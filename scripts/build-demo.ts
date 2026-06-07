@@ -1,41 +1,19 @@
-import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import nunjucks from 'nunjucks';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const PORT = process.env.PORT || 3000;
-const ROOT = path.resolve(__dirname, '../..');
+const ROOT = path.resolve(__dirname, '..');
+const TEMPLATES = path.join(ROOT, 'packages/demo/templates');
+const OUT = path.join(ROOT, 'docs');
 
-const MIME = {
-  '.css': 'text/css',
-  '.js': 'application/javascript',
-  '.mjs': 'application/javascript',
-  '.json': 'application/json',
-  '.svg': 'image/svg+xml',
-  '.png': 'image/png',
-  '.jpg': 'image/jpeg',
-  '.ico': 'image/x-icon',
-  '.map': 'application/json',
-  '.woff2': 'font/woff2',
-};
+// PAGES_BASE: '' for custom domain at root, '/repo-name' for GitHub Pages sub-path
+const BASE = (process.env.PAGES_BASE ?? '').replace(/\/$/, '');
 
-// Static directories and their filesystem roots
-const STATIC_ROOTS = {
-  '/shared/': path.join(__dirname, 'shared'),
-  '/public/': path.join(__dirname, 'public'),
-  '/dist/': path.join(ROOT, 'packages/core/dist'),
-};
+const env = nunjucks.configure(TEMPLATES, { autoescape: true });
 
-const env = nunjucks.configure(path.join(__dirname, 'templates'), {
-  autoescape: true,
-  noCache: true,
-});
-
-env.addGlobal('base', '');
-
-// Nav items available to all templates
+env.addGlobal('base', BASE);
 env.addGlobal('nav', [
   { label: 'Getting Started', href: '/getting-started.html' },
   { label: 'Theme', href: '/theme.html' },
@@ -100,62 +78,61 @@ env.addGlobal('nav', [
   { label: 'Bottom Navigation', href: '/components/bottom-navigation.html' },
 ]);
 
-function serveStatic(res, filePath) {
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end('404 Not Found');
-      return;
-    }
-    const ext = path.extname(filePath);
-    res.writeHead(200, { 'Content-Type': MIME[ext] ?? 'application/octet-stream' });
-    res.end(data);
+function copyDir(src: string, dest: string): void {
+  fs.mkdirSync(dest, { recursive: true });
+  for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
+    const s = path.join(src, entry.name);
+    const d = path.join(dest, entry.name);
+    if (entry.isDirectory()) copyDir(s, d);
+    else fs.copyFileSync(s, d);
+  }
+}
+
+function findTemplates(dir: string): string[] {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) return findTemplates(full);
+    if (entry.isFile() && entry.name.endsWith('.njk') && !entry.name.startsWith('_')) return [full];
+    return [];
   });
 }
 
-function renderTemplate(res, urlPath, extraVars = {}) {
-  // Map URL path to a template name:  /components/button.html → components/button.njk
-  const templateName = (urlPath === '/' ? '/index.html' : urlPath)
-    .replace(/^\//, '')
-    .replace(/\.html$/, '.njk');
+console.log(`Building demo → ${OUT}  (base="${BASE}")`);
+fs.rmSync(OUT, { recursive: true, force: true });
+fs.mkdirSync(OUT, { recursive: true });
+
+let ok = 0;
+let fail = 0;
+for (const templatePath of findTemplates(TEMPLATES)) {
+  const rel = path.relative(TEMPLATES, templatePath);
+  const urlPath = '/' + rel.replace(/\.njk$/, '.html').replace(/\\/g, '/');
+  const currentPath = urlPath === '/index.html' ? '/' : urlPath;
+
+  const outPath = path.join(OUT, rel.replace(/\.njk$/, '.html'));
+  fs.mkdirSync(path.dirname(outPath), { recursive: true });
 
   try {
-    const html = nunjucks.render(templateName, { currentPath: urlPath, ...extraVars });
-    res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
-    res.end(html);
-  } catch {
-    res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
-    try {
-      res.end(nunjucks.render('404.njk', { currentPath: urlPath }));
-    } catch {
-      res.end('404 Not Found');
-    }
+    const html = nunjucks.render(rel, { currentPath });
+    fs.writeFileSync(outPath, html, 'utf8');
+    ok++;
+  } catch (e) {
+    console.error(`  ✗ ${rel}:`, e);
+    fail++;
   }
 }
+console.log(`  ✓ ${ok} pages rendered${fail ? `  ✗ ${fail} failed` : ''}`);
 
-const server = http.createServer((req, res) => {
-  const urlPath = req.url?.split('?')[0] ?? '/';
+copyDir(path.join(ROOT, 'packages/demo/shared'), path.join(OUT, 'shared'));
+console.log('  ✓ shared/');
 
-  // Static asset routes
-  for (const [prefix, root] of Object.entries(STATIC_ROOTS)) {
-    if (urlPath.startsWith(prefix)) {
-      serveStatic(res, path.join(root, urlPath.slice(prefix.length)));
-      return;
-    }
-  }
+copyDir(path.join(ROOT, 'packages/core/dist'), path.join(OUT, 'dist'));
+console.log('  ✓ dist/');
 
-  // Everything else is a template route
-  renderTemplate(res, urlPath);
-});
+fs.writeFileSync(path.join(OUT, '.nojekyll'), '');
 
-server.on('error', (err) => {
-  if (err.code === 'EADDRINUSE') {
-    console.error(`Port ${PORT} is already in use.`);
-    process.exit(1);
-  }
-  throw err;
-});
+if (process.env.CNAME) {
+  fs.writeFileSync(path.join(OUT, 'CNAME'), process.env.CNAME.trim());
+  console.log(`  ✓ CNAME → ${process.env.CNAME.trim()}`);
+}
 
-server.listen(PORT, () => {
-  console.log(`Demo running at http://localhost:${PORT}`);
-});
+console.log('Done.');
