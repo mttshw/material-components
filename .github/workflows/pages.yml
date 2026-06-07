@@ -32,7 +32,7 @@ jobs:
         env:
           # Set PAGES_BASE to '' if using a custom domain (materialelements.io).
           # Set to '/material-components' if serving from the default GitHub Pages URL.
-          PAGES_BASE: ''
+          PAGES_BASE: /material-components
           # Uncomment to enable a custom domain:
           # CNAME: materialelements.io
 
