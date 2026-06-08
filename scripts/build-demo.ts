@@ -18,7 +18,7 @@ env.addGlobal('nav', [
   { label: 'Getting Started', href: '/getting-started.html' },
   { label: 'Theme', href: '/theme.html' },
 
-  { section: true, label: 'M1 — Primitives' },
+  { section: true, label: 'Primitives' },
   { label: 'Button', href: '/components/button.html' },
   { label: 'Icon Button', href: '/components/icon-button.html' },
   { label: 'Typography', href: '/components/typography.html' },
@@ -30,14 +30,14 @@ env.addGlobal('nav', [
   { label: 'Divider', href: '/components/divider.html' },
   { label: 'Icon', href: '/components/icon.html' },
 
-  { section: true, label: 'M2 — Forms' },
+  { section: true, label: 'Forms' },
   { label: 'TextField', href: '/components/text-field.html' },
   { label: 'Select', href: '/components/select.html' },
   { label: 'Checkbox', href: '/components/checkbox.html' },
   { label: 'Radio', href: '/components/radio.html' },
   { label: 'Switch', href: '/components/switch.html' },
 
-  { section: true, label: 'M3 — Data Display' },
+  { section: true, label: 'Data Display' },
   { label: 'Avatar', href: '/components/avatar.html' },
   { label: 'Badge', href: '/components/badge.html' },
   { label: 'Chip', href: '/components/chip.html' },
@@ -45,7 +45,7 @@ env.addGlobal('nav', [
   { label: 'Table', href: '/components/table.html' },
   { label: 'Tooltip', href: '/components/tooltip.html' },
 
-  { section: true, label: 'M4 — Feedback' },
+  { section: true, label: 'Feedback' },
   { label: 'Alert', href: '/components/alert.html' },
   { label: 'Snackbar', href: '/components/snackbar.html' },
   { label: 'Dialog', href: '/components/dialog.html' },
@@ -54,11 +54,20 @@ env.addGlobal('nav', [
   { label: 'Linear Progress', href: '/components/linear-progress.html' },
   { label: 'Skeleton', href: '/components/skeleton.html' },
 
-  { section: true, label: 'M6 — Surfaces' },
+  { section: true, label: 'Surfaces' },
   { label: 'Card', href: '/components/card.html' },
   { label: 'Accordion', href: '/components/accordion.html' },
 
-  { section: true, label: 'M8 — Advanced' },
+  { section: true, label: 'Navigation' },
+  { label: 'App Bar', href: '/components/app-bar.html' },
+  { label: 'Tabs', href: '/components/tabs.html' },
+  { label: 'Drawer', href: '/components/drawer.html' },
+  { label: 'Menu', href: '/components/menu.html' },
+  { label: 'Breadcrumbs', href: '/components/breadcrumbs.html' },
+  { label: 'Pagination', href: '/components/pagination.html' },
+  { label: 'Bottom Navigation', href: '/components/bottom-navigation.html' },
+  
+  { section: true, label: 'Advanced' },
   { label: 'Slider', href: '/components/slider.html' },
   { label: 'Rating', href: '/components/rating.html' },
   { label: 'Autocomplete', href: '/components/autocomplete.html' },
@@ -68,14 +77,6 @@ env.addGlobal('nav', [
   { label: 'Popover / Popper', href: '/components/popover.html' },
   { label: 'Transitions', href: '/components/transitions.html' },
 
-  { section: true, label: 'M5 — Navigation' },
-  { label: 'App Bar', href: '/components/app-bar.html' },
-  { label: 'Tabs', href: '/components/tabs.html' },
-  { label: 'Drawer', href: '/components/drawer.html' },
-  { label: 'Menu', href: '/components/menu.html' },
-  { label: 'Breadcrumbs', href: '/components/breadcrumbs.html' },
-  { label: 'Pagination', href: '/components/pagination.html' },
-  { label: 'Bottom Navigation', href: '/components/bottom-navigation.html' },
 ]);
 
 function copyDir(src: string, dest: string): void {
