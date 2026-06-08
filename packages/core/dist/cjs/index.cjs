@@ -6325,7 +6325,7 @@ sheet51.replaceSync(`
       0px 1px 1px 0px rgba(0,0,0,0.14),
       0px 1px 3px 0px rgba(0,0,0,0.12));
     border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
-    transition: margin 150ms cubic-bezier(0.4,0,0.2,1);
+    margin-bottom: var(--me-accordion-gap, 16px);
   }
 
   /* Separator line between stacked accordions */
@@ -6344,10 +6344,6 @@ sheet51.replaceSync(`
   :host(:first-child)::before,
   :host([expanded])::before {
     opacity: 0;
-  }
-
-  :host([expanded]) {
-    margin: 16px 0;
   }
 
   :host([disabled]) {
@@ -7983,6 +7979,18 @@ var MEAutocomplete = class extends MEElement {
     super({ mode: "open", delegatesFocus: true });
     this.shadow.adoptedStyleSheets = [autocomplete_styles_default];
   }
+  get options() {
+    return this.getAttribute("options") ?? "";
+  }
+  set options(v) {
+    this.setAttribute("options", typeof v === "string" ? v : JSON.stringify(v));
+  }
+  get value() {
+    return this.getAttribute("value") ?? "";
+  }
+  set value(v) {
+    this.setAttribute("value", v);
+  }
   get _options() {
     const attr = this.getAttribute("options");
     if (!attr) return [];
@@ -7999,6 +8007,10 @@ var MEAutocomplete = class extends MEElement {
   }
   get _value() {
     return this.getAttribute("value") ?? "";
+  }
+  _labelForValue(val) {
+    const opt = this._options.find((o) => (typeof o === "string" ? o : o.value) === val);
+    return opt ? optLabel(opt) : val;
   }
   render() {
     if (this.shadow.querySelector(".me-autocomplete__input")) {
@@ -8030,8 +8042,9 @@ var MEAutocomplete = class extends MEElement {
     if (this._value) {
       const inp = this.shadow.querySelector(".me-autocomplete__input");
       if (inp) {
-        inp.value = this._value;
-        this._inputVal = this._value;
+        const display = this._labelForValue(this._value);
+        inp.value = display;
+        this._inputVal = display;
       }
       wrap.classList.add("me-autocomplete--has-value");
     }
@@ -8152,6 +8165,14 @@ var MEAutocomplete = class extends MEElement {
   onAttributeChanged(name, _old, _new) {
     if (name === "open" && _new !== null) this._positionListbox();
     if (name === "options") this._syncListbox();
+    if (name === "value") {
+      const inp = this.shadow.querySelector(".me-autocomplete__input");
+      if (!inp) return;
+      const display = _new !== null ? this._labelForValue(_new) : "";
+      inp.value = display;
+      this._inputVal = display;
+      this.shadow.querySelector(".me-autocomplete__input-wrap")?.classList.toggle("me-autocomplete--has-value", !!_new);
+    }
   }
 };
 customElements.define("me-autocomplete", MEAutocomplete);

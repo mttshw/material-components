@@ -23,18 +23,33 @@
 </code-sample>
 
 <h2>Controlled Value</h2>
-<section class="demo-section" style="min-height:200px;align-items:flex-start;gap:16px">
+<p>Set <code>value</code> as an attribute or property to pre-select an option. Listen to <code>me-change</code> to track user selections. You can also drive the selection programmatically.</p>
+<section class="demo-section" style="min-height:200px;align-items:flex-start;flex-direction:column;gap:16px">
   <me-autocomplete label="Framework" id="ac-controlled" value="React" style="width:300px"
     options='["React","Vue","Angular","Svelte","Solid","Ember","Backbone"]'>
   </me-autocomplete>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <me-button variant="outlined" size="small" onclick="document.getElementById('ac-controlled').value='Vue'">Set Vue</me-button>
+    <me-button variant="outlined" size="small" onclick="document.getElementById('ac-controlled').value='Angular'">Set Angular</me-button>
+    <me-button variant="outlined" size="small" onclick="document.getElementById('ac-controlled').value=''">Clear</me-button>
+  </div>
   <me-typography variant="body2" style="color:var(--me-palette-text-secondary,rgba(0,0,0,0.6))">
-    Selected: <strong id="ac-controlled-val">React</strong>
+    me-change fired with: <strong id="ac-controlled-val">—</strong>
   </me-typography>
 </section>
 <code-sample>
-&lt;me-autocomplete label="Framework" value="React"
-  options='["React","Vue","Angular","Svelte"]'&gt;
-&lt;/me-autocomplete&gt;
+&lt;me-autocomplete id="ac" label="Framework" value="React"
+  options='["React","Vue","Angular","Svelte"]'&gt;&lt;/me-autocomplete&gt;
+
+&lt;script&gt;
+  // Listen for user selection
+  document.getElementById('ac').addEventListener('me-change', e =&gt; {
+    console.log(e.detail.value); // "Vue"
+  });
+
+  // Drive value programmatically
+  document.getElementById('ac').value = 'Vue';
+&lt;/script&gt;
 </code-sample>
 
 <h2>Object Options</h2>
@@ -96,7 +111,7 @@
   const controlled = document.getElementById('ac-controlled');
   const controlledVal = document.getElementById('ac-controlled-val');
   controlled.addEventListener('me-change', e => {
-    controlledVal.textContent = e.detail.value;
+    controlledVal.textContent = `value="${e.detail.value}", label="${e.detail.label}"`;
   });
 </script>
 {% endblock %}

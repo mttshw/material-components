@@ -16,6 +16,14 @@ export class MEAutocomplete extends MEElement {
     this.shadow.adoptedStyleSheets = [sheet];
   }
 
+  get options(): string { return this.getAttribute('options') ?? ''; }
+  set options(v: string | Option[]) {
+    this.setAttribute('options', typeof v === 'string' ? v : JSON.stringify(v));
+  }
+
+  get value(): string { return this.getAttribute('value') ?? ''; }
+  set value(v: string) { this.setAttribute('value', v); }
+
   private get _options(): Option[] {
     const attr = this.getAttribute('options');
     if (!attr) return [];
@@ -29,6 +37,11 @@ export class MEAutocomplete extends MEElement {
   }
 
   private get _value(): string { return this.getAttribute('value') ?? ''; }
+
+  private _labelForValue(val: string): string {
+    const opt = this._options.find(o => (typeof o === 'string' ? o : o.value) === val);
+    return opt ? optLabel(opt) : val;
+  }
 
   protected render(): void {
     if (this.shadow.querySelector('.me-autocomplete__input')) {
@@ -60,7 +73,11 @@ export class MEAutocomplete extends MEElement {
 
     if (this._value) {
       const inp = this.shadow.querySelector<HTMLInputElement>('.me-autocomplete__input');
-      if (inp) { inp.value = this._value; this._inputVal = this._value; }
+      if (inp) {
+        const display = this._labelForValue(this._value);
+        inp.value = display;
+        this._inputVal = display;
+      }
       wrap.classList.add('me-autocomplete--has-value');
     }
     this._syncListbox();
@@ -188,6 +205,15 @@ export class MEAutocomplete extends MEElement {
   protected onAttributeChanged(name: string, _old: string | null, _new: string | null): void {
     if (name === 'open' && _new !== null) this._positionListbox();
     if (name === 'options') this._syncListbox();
+    if (name === 'value') {
+      const inp = this.shadow.querySelector<HTMLInputElement>('.me-autocomplete__input');
+      if (!inp) return;
+      const display = _new !== null ? this._labelForValue(_new) : '';
+      inp.value = display;
+      this._inputVal = display;
+      this.shadow.querySelector('.me-autocomplete__input-wrap')
+        ?.classList.toggle('me-autocomplete--has-value', !!_new);
+    }
   }
 }
 

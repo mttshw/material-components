@@ -11,7 +11,7 @@ sheet.replaceSync(`
       0px 1px 1px 0px rgba(0,0,0,0.14),
       0px 1px 3px 0px rgba(0,0,0,0.12));
     border-radius: calc(var(--me-shape-borderRadius, 4) * 1px);
-    transition: margin 150ms cubic-bezier(0.4,0,0.2,1);
+    margin-bottom: var(--me-accordion-gap, 16px);
   }
 
   /* Separator line between stacked accordions */
@@ -30,10 +30,6 @@ sheet.replaceSync(`
   :host(:first-child)::before,
   :host([expanded])::before {
     opacity: 0;
-  }
-
-  :host([expanded]) {
-    margin: 16px 0;
   }
 
   :host([disabled]) {
