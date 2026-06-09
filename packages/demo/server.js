@@ -28,6 +28,12 @@ const STATIC_ROOTS = {
   '/dist/': path.join(ROOT, 'packages/core/dist'),
 };
 
+// Extra /dist/ files not in core/dist (e.g. icons IIFE)
+const DIST_EXTRAS = {
+  '/dist/materialelements-icons.min.js': path.join(ROOT, 'packages/icons/dist/materialelements-icons.min.js'),
+  '/dist/materialelements-icons.min.js.map': path.join(ROOT, 'packages/icons/dist/materialelements-icons.min.js.map'),
+};
+
 const env = nunjucks.configure(path.join(__dirname, 'templates'), {
   autoescape: true,
   noCache: true,
@@ -35,10 +41,19 @@ const env = nunjucks.configure(path.join(__dirname, 'templates'), {
 
 env.addGlobal('base', '');
 
+// Icon metadata for the icons page
+const iconsMetaPath = path.join(ROOT, 'packages/icons/dist/icons-meta.json');
+const iconsMeta = fs.existsSync(iconsMetaPath)
+  ? JSON.parse(fs.readFileSync(iconsMetaPath, 'utf-8'))
+  : [];
+env.addGlobal('iconsMeta', iconsMeta);
+env.addGlobal('iconsCount', iconsMeta.length);
+
 // Nav items available to all templates
 env.addGlobal('nav', [
   { label: 'Getting Started', href: '/getting-started.html' },
   { label: 'Theme', href: '/theme.html' },
+  { label: 'Icons', href: '/icons.html' },
 
   { section: true, label: 'Primitives' },
   { label: 'Button', href: '/components/button.html' },
@@ -136,6 +151,12 @@ function renderTemplate(res, urlPath, extraVars = {}) {
 
 const server = http.createServer((req, res) => {
   const urlPath = req.url?.split('?')[0] ?? '/';
+
+  // Exact-match extras (e.g. icons IIFE not in core/dist)
+  if (DIST_EXTRAS[urlPath]) {
+    serveStatic(res, DIST_EXTRAS[urlPath]);
+    return;
+  }
 
   // Static asset routes
   for (const [prefix, root] of Object.entries(STATIC_ROOTS)) {

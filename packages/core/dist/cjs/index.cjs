@@ -106,6 +106,9 @@ __export(src_exports, {
   elevationVar: () => elevationVar,
   getAttr: () => getAttr,
   getBoolAttr: () => getBoolAttr,
+  getIcon: () => getIcon,
+  listIcons: () => listIcons,
+  registerIcon: () => registerIcon,
   themeToVars: () => themeToVars,
   transition: () => transition
 });
@@ -1116,8 +1119,9 @@ sheet7.replaceSync(`
   :host([color="disabled"])  { color: var(--me-palette-action-disabled, rgba(0,0,0,0.26)); }
   :host([color="inherit"])   { color: inherit; }
 
-  /* SVG children fill with currentColor */
-  ::slotted(svg) {
+  /* SVG children fill with currentColor (both slotted and name-injected) */
+  ::slotted(svg),
+  svg {
     fill: currentColor;
     width: 1em;
     height: 1em;
@@ -1126,15 +1130,35 @@ sheet7.replaceSync(`
 `);
 var icon_styles_default = sheet7;
 
+// src/utils/icon-registry.ts
+var registry = /* @__PURE__ */ new Map();
+function registerIcon(name, svg) {
+  registry.set(name, svg);
+}
+function getIcon(name) {
+  return registry.get(name);
+}
+function listIcons() {
+  return Array.from(registry.keys());
+}
+
 // src/components/icon/icon.ts
 var MEIcon = class extends MEElement {
-  static observedAttributes = ["color", "font-size"];
+  static observedAttributes = ["color", "font-size", "name"];
   constructor() {
     super();
     this.shadow.adoptedStyleSheets = [icon_styles_default];
   }
   render() {
     this.setAttribute("aria-hidden", "true");
+    const name = this.getAttribute("name");
+    if (name) {
+      const svg = getIcon(name);
+      if (svg) {
+        this.shadow.innerHTML = svg;
+        return;
+      }
+    }
     this.shadow.innerHTML = `<slot></slot>`;
   }
 };

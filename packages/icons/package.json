@@ -1,0 +1,46 @@
+{
+  "name": "@materialelements/icons",
+  "version": "0.1.0",
+  "description": "Material Design icons for @materialelements — 2,191 Google Material Icons (Apache 2.0)",
+  "license": "MIT",
+  "homepage": "https://materialelements.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mttshw/material-components.git"
+  },
+  "type": "module",
+  "main": "dist/cjs/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/cjs/index.cjs",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
+  "files": ["dist/", "NOTICE"],
+  "sideEffects": true,
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "generate": "tsx ../../scripts/generate-icons.ts",
+    "build": "tsx ../../scripts/build-icons.ts",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "@materialelements/core": ">=0.1.0"
+  },
+  "devDependencies": {
+    "@material-icons/svg": "^1.0.33"
+  },
+  "keywords": [
+    "material-design",
+    "icons",
+    "svg",
+    "web-components",
+    "framework-agnostic"
+  ]
+}

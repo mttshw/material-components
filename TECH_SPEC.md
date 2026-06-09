@@ -884,6 +884,7 @@ packages/core/src/components/slider/
 
 With boilerplate extending `MEElement`, a skeleton stylesheet, and a test file.
 
+
 ---
 
 ## 14. Milestones

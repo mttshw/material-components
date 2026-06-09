@@ -28,8 +28,9 @@ sheet.replaceSync(`
   :host([color="disabled"])  { color: var(--me-palette-action-disabled, rgba(0,0,0,0.26)); }
   :host([color="inherit"])   { color: inherit; }
 
-  /* SVG children fill with currentColor */
-  ::slotted(svg) {
+  /* SVG children fill with currentColor (both slotted and name-injected) */
+  ::slotted(svg),
+  svg {
     fill: currentColor;
     width: 1em;
     height: 1em;

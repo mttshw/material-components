@@ -8,4 +8,5 @@ export { RippleController } from './utils/ripple.js';
 export { elevationVar } from './utils/elevation.js';
 export { transition } from './utils/transitions.js';
 export { dispatch, getAttr, getBoolAttr } from './utils/dom.js';
+export { registerIcon, getIcon, listIcons } from './utils/icon-registry.js';
 //# sourceMappingURL=index.d.ts.map

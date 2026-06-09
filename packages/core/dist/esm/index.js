@@ -7,6 +7,7 @@ import { RippleController } from "./utils/ripple.js";
 import { elevationVar } from "./utils/elevation.js";
 import { transition } from "./utils/transitions.js";
 import { dispatch, getAttr, getBoolAttr } from "./utils/dom.js";
+import { registerIcon, getIcon, listIcons } from "./utils/icon-registry.js";
 export {
   MEElement,
   METhemeProvider,
@@ -16,6 +17,9 @@ export {
   elevationVar,
   getAttr,
   getBoolAttr,
+  getIcon,
+  listIcons,
+  registerIcon,
   themeToVars,
   transition
 };

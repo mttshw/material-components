@@ -1,0 +1,171 @@
+{% extends "_layout.njk" %}
+{% set pageTitle = "Icons — materialelements.io" %}
+
+{% block content %}
+<h1>Icons</h1>
+<p class="me-subtitle">
+  {% if iconsCount %}
+    {{ iconsCount | string }} Material Design icons available via <code>@materialelements/icons</code>.
+    Apache 2.0 — designed by Google.
+  {% else %}
+    Material Design icons via <code>@materialelements/icons</code>. Run <code>npm run build:icons</code> to generate the library.
+  {% endif %}
+</p>
+
+<h2>Installation</h2>
+<code-sample>npm install @materialelements/icons</code-sample>
+
+<h2>Usage</h2>
+<p>Import the icons package once (e.g. in your app entry point) — it registers all icons with <code>&lt;me-icon&gt;</code> automatically.</p>
+<code-sample>import '@materialelements/icons';</code-sample>
+<p>Then use any icon by name:</p>
+<code-sample>
+&lt;me-icon name="home"&gt;&lt;/me-icon&gt;
+&lt;me-icon name="search" color="primary"&gt;&lt;/me-icon&gt;
+&lt;me-icon name="favorite" color="error" font-size="large"&gt;&lt;/me-icon&gt;
+</code-sample>
+
+<p>For CDN / script-tag usage, load the icons bundle after core:</p>
+<code-sample>
+&lt;script src="https://unpkg.com/@materialelements/core/dist/materialelements.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://unpkg.com/@materialelements/icons/dist/materialelements-icons.min.js"&gt;&lt;/script&gt;
+</code-sample>
+
+<h2>Variants</h2>
+<p>The default icon variant is <strong>outlined</strong>. Accepts the same <code>color</code> and <code>font-size</code> attributes as <code>&lt;me-icon&gt;</code>:</p>
+<section class="demo-section demo-section--gap" id="variant-demo"></section>
+
+{% if iconsCount %}
+
+<h2>Icon Library</h2>
+<div class="icons-toolbar">
+  <input type="search" id="icon-search" class="icons-search" placeholder="Search {{ iconsCount }} icons…" autocomplete="off">
+  <div class="icons-categories" id="icon-cats">
+    <button class="icon-cat-btn icon-cat-btn--active" data-cat="">All</button>
+  </div>
+</div>
+<p class="icons-count" id="icons-count"></p>
+<div class="icons-grid" id="icons-grid"></div>
+<div class="icons-empty" id="icons-empty" hidden>No icons match your search.</div>
+<div id="icon-toast" class="icon-toast" aria-live="polite"></div>
+
+{% else %}
+<div class="icons-placeholder">
+  <p>Icon data not yet generated.</p>
+  <p>Run these commands from the project root to generate the icon library:</p>
+  <code-sample>
+npm run generate:icons
+npm run build:icons
+npm run build:demo
+  </code-sample>
+</div>
+{% endif %}
+
+<h2>API</h2>
+<table class="api-table">
+  <thead><tr><th>Attribute</th><th>Type</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td><code>name</code></td><td>string</td><td>—</td><td>Icon name (e.g. <code>home</code>, <code>search</code>). Requires <code>@materialelements/icons</code> to be loaded.</td></tr>
+    <tr><td><code>color</code></td><td>inherit | primary | secondary | action | error | disabled</td><td>inherit</td><td>Icon color.</td></tr>
+    <tr><td><code>font-size</code></td><td>inherit | small | medium | large</td><td>medium</td><td>Icon size via <code>font-size</code>.</td></tr>
+  </tbody>
+</table>
+{% endblock %}
+
+{% block scripts %}
+{% if iconsCount %}
+<script>
+(function () {
+  var META = {{ iconsMeta | dump | safe }};
+
+  // Build category buttons
+  var catSet = {};
+  META.forEach(function(m) { (m.categories || []).forEach(function(c) { catSet[c] = true; }); });
+  var cats = Object.keys(catSet).sort();
+  var catBar = document.getElementById('icon-cats');
+  cats.forEach(function(cat) {
+    var btn = document.createElement('button');
+    btn.className = 'icon-cat-btn';
+    btn.dataset.cat = cat;
+    btn.textContent = cat.replace(/-/g, ' ');
+    catBar.appendChild(btn);
+  });
+
+  // Variant demo
+  ['', 'primary', 'secondary', 'error', 'action', 'disabled'].forEach(function(color) {
+    var wrap = document.createElement('div');
+    wrap.className = 'icon-sample';
+    var preview = document.createElement('div');
+    preview.className = 'icon-sample__preview';
+    var icon = document.createElement('me-icon');
+    icon.setAttribute('name', 'home');
+    icon.setAttribute('font-size', 'large');
+    if (color) icon.setAttribute('color', color);
+    preview.appendChild(icon);
+    var label = document.createElement('span');
+    label.textContent = color || 'inherit';
+    wrap.appendChild(preview);
+    wrap.appendChild(label);
+    document.getElementById('variant-demo').appendChild(wrap);
+  });
+
+  var activeCat = '';
+  var searchVal = '';
+
+  function filtered() {
+    return META.filter(function(m) {
+      if (activeCat && !(m.categories || []).includes(activeCat)) return false;
+      if (!searchVal) return true;
+      if (m.name.includes(searchVal)) return true;
+      return (m.tags || []).some(function(t) { return t.toLowerCase().includes(searchVal); });
+    });
+  }
+
+  function render() {
+    var list = filtered();
+    var grid = document.getElementById('icons-grid');
+    var empty = document.getElementById('icons-empty');
+    document.getElementById('icons-count').textContent = list.length + ' icons';
+    if (!list.length) { grid.innerHTML = ''; empty.hidden = false; return; }
+    empty.hidden = true;
+    grid.innerHTML = list.map(function(m) {
+      return '<button class="icon-card" data-name="' + m.name + '" title="' + m.name + '">' +
+        '<me-icon name="' + m.name + '" font-size="large"></me-icon>' +
+        '<span class="icon-card__name">' + m.name.replace(/_/g, ' ') + '</span>' +
+        '</button>';
+    }).join('');
+  }
+
+  document.getElementById('icon-search').addEventListener('input', function(e) {
+    searchVal = e.target.value.toLowerCase().replace(/\s+/g, '_');
+    render();
+  });
+
+  catBar.addEventListener('click', function(e) {
+    var btn = e.target.closest('.icon-cat-btn');
+    if (!btn) return;
+    catBar.querySelectorAll('.icon-cat-btn').forEach(function(b) { b.classList.remove('icon-cat-btn--active'); });
+    btn.classList.add('icon-cat-btn--active');
+    activeCat = btn.dataset.cat;
+    render();
+  });
+
+  var toast = document.getElementById('icon-toast');
+  var toastTimer;
+  document.getElementById('icons-grid').addEventListener('click', function(e) {
+    var card = e.target.closest('.icon-card');
+    if (!card) return;
+    var snippet = '<me-icon name="' + card.dataset.name + '"></me-icon>';
+    navigator.clipboard.writeText(snippet).then(function() {
+      clearTimeout(toastTimer);
+      toast.textContent = 'Copied: ' + snippet;
+      toast.classList.add('icon-toast--show');
+      toastTimer = setTimeout(function() { toast.classList.remove('icon-toast--show'); }, 2000);
+    });
+  });
+
+  render();
+})();
+</script>
+{% endif %}
+{% endblock %}
