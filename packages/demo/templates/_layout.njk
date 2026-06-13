@@ -12,7 +12,9 @@
   <me-theme-provider id="app-theme">
 
     <header class="me-topbar">
-      <a href="{{ base }}/" class="me-topbar__brand">materialelements.io</a>
+      <a href="{{ base }}/" class="me-topbar__brand" aria-label="materialelements home">
+        <img src="{{ base }}/public/logo.svg" alt="materialelements" class="me-topbar__logo" width="165" height="36">
+      </a>
       <span class="me-topbar__alpha-badge">v1.2.0</span>
       <div class="me-topbar__spacer"></div>
       <button id="theme-toggle" class="me-topbar__icon-btn" title="Toggle dark mode">
