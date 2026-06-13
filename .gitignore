@@ -3,3 +3,4 @@ node_modules/**
 packages/core/dist
 packages/core/dist/**
 docs
+packages/demo/.DS_Store

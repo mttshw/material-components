@@ -137,6 +137,9 @@ console.log(`  ✓ ${ok} pages rendered${fail ? `  ✗ ${fail} failed` : ''}`);
 copyDir(path.join(ROOT, 'packages/demo/shared'), path.join(OUT, 'shared'));
 console.log('  ✓ shared/');
 
+copyDir(path.join(ROOT, 'packages/demo/public'), path.join(OUT, 'public'));
+console.log('  ✓ public/');
+
 copyDir(path.join(ROOT, 'packages/core/dist'), path.join(OUT, 'dist'));
 console.log('  ✓ dist/');
 
